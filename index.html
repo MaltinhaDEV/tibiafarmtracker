@@ -145,167 +145,170 @@ const RASHID_IMG = "https://tibia.fandom.com/wiki/Special:FilePath/Rashid.gif";
 
 function RashidSprite({ size=64 }) {
   const [err, setErr] = useState(false);
-  if (err) {
-    return (
-      <div style={{width:size,height:size,display:"flex",alignItems:"center",justifyContent:"center",
-        background:"#1a2a1a",borderRadius:8,border:"1px solid #2a4a2a",fontSize:size*0.55,
-        animation:"rashidBob 1.6s ease-in-out infinite"}}>🧙</div>
-    );
-  }
-  return (
-    <img src={RASHID_IMG} alt="Rashid NPC" width={size} height={size}
-      onError={()=>setErr(true)}
-      style={{imageRendering:"pixelated",animation:"rashidBob 1.6s ease-in-out infinite",objectFit:"contain",display:"block"}}/>
-  );
+  if (err) return <div style={{width:size,height:size,display:"flex",alignItems:"center",justifyContent:"center",fontSize:size*0.55,animation:"rashidBob 1.6s ease-in-out infinite"}}>🧙</div>;
+  return <img src={RASHID_IMG} alt="Rashid NPC" width={size} height={size} onError={()=>setErr(true)} style={{imageRendering:"pixelated",animation:"rashidBob 1.6s ease-in-out infinite",objectFit:"contain",display:"block"}}/>;
 }
 
-/* ══ BOOSTED CREATURE (TibiaData API) ════════════════════════════════════════ */
-function BoostedWidget({ mob }) {
-  const [boosted, setBoosted] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(()=>{
-    const urls = [
-      "https://api.tibiadata.com/v4/creatures/boosted",
-      "https://corsproxy.io/?https://api.tibiadata.com/v4/creatures/boosted",
-    ];
-    (async()=>{
-      for(const url of urls){
-        try{
-          const r = await fetch(url,{signal:AbortSignal.timeout(5000)});
-          const d = await r.json();
-          if(d?.boosted_creature){ setBoosted(d.boosted_creature); break; }
-        }catch{}
-      }
-      setLoading(false);
-    })();
-  },[]);
-
-  if (loading) return (
-    <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:"12px 16px",display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
-      <div style={{width:36,height:36,background:C.bg2,borderRadius:8,animation:"starPulse 1s infinite"}}/>
-      <div style={{fontSize:12,color:C.textFaint}}>Carregando criatura boostada...</div>
-    </div>
-  );
-
-  if (!boosted) return null;
-
-  const imgUrl = boosted.image_url || `https://tibia.fandom.com/wiki/Special:FilePath/${boosted.name?.replace(/ /g,"_")}.gif`;
-
-  return (
-    <div style={{background:`linear-gradient(135deg,#1a0d2a,#0f0820)`,border:`1px solid #3a1a5a`,borderRadius:12,padding:mob?"10px 14px":"12px 18px",display:"flex",alignItems:"center",gap:12,marginBottom:8,flex:1}}>
-      <div style={{position:"relative",flexShrink:0}}>
-        <img src={imgUrl} alt={boosted.name} width={mob?36:44} height={mob?36:44}
-          style={{imageRendering:"pixelated",objectFit:"contain",display:"block"}}
-          onError={e=>{e.target.style.display="none";}}/>
-        <div style={{position:"absolute",top:-4,right:-4,background:"#7b3aed",borderRadius:99,width:14,height:14,display:"flex",alignItems:"center",justifyContent:"center",fontSize:8,fontWeight:700,color:"#fff"}}>★</div>
-      </div>
-      <div style={{flex:1,minWidth:0}}>
-        <div style={{fontSize:10,color:"#9b6dff",letterSpacing:.8,textTransform:"uppercase",marginBottom:1}}>⭐ Criatura Boostada</div>
-        <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?14:16,color:C.text,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{boosted.name}</div>
-      </div>
-    </div>
-  );
-}
-
-/* ══ WIDGET RASHID + BOOSTED ═════════════════════════════════════════════════ */
-function RashidWidget({ mob }) {
+/* ══ PAINEL DE INFO (Rashid + Boosted + Boss + Busca) ═══════════════════════ */
+function InfoPanel({ mob }) {
   const today = new Date();
   const dow   = today.getDay();
   const rashid= RASHID[dow];
-  const dias  = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+  const dias  = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  const diasFull = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+
+  const [creature,  setCreature]  = useState(null);
+  const [boss,      setBoss]      = useState(null);
+  const [charName,  setCharName]  = useState("");
+  const [charResult,setCharResult]= useState(null);
+  const [charLoad,  setCharLoad]  = useState(false);
+  const [charErr,   setCharErr]   = useState("");
+
+  // Fetch boosted creature + boss simultaneamente
+  useEffect(()=>{
+    const tryFetch = async (paths) => {
+      for(const path of paths){
+        const urls=[`https://api.tibiadata.com/v4/${path}`,`https://corsproxy.io/?https://api.tibiadata.com/v4/${path}`];
+        for(const url of urls){
+          try{ const r=await fetch(url,{signal:AbortSignal.timeout(6000)}); return await r.json(); }catch{}
+        }
+      }
+      return null;
+    };
+    tryFetch(["creatures/boosted"]).then(d=>{ if(d?.boosted_creature) setCreature(d.boosted_creature); });
+    tryFetch(["boostablebosses"]).then(d=>{ if(d?.boostable_bosses?.boosted) setBoss(d.boostable_bosses.boosted); });
+  },[]);
+
+  async function searchChar(){
+    if(!charName.trim()) return;
+    setCharLoad(true); setCharResult(null); setCharErr("");
+    const enc=encodeURIComponent(charName.trim());
+    const urls=[`https://api.tibiadata.com/v4/character/${enc}`,`https://corsproxy.io/?https://api.tibiadata.com/v4/character/${enc}`];
+    let data=null;
+    for(const url of urls){ try{ const r=await fetch(url,{signal:AbortSignal.timeout(6000)}); const d=await r.json(); if(d?.character?.character?.name){data=d.character.character;break;} }catch{} }
+    if(data) setCharResult(data); else setCharErr("Personagem não encontrado.");
+    setCharLoad(false);
+  }
+
+  const cardBase = { background:C.card, border:`1px solid ${C.border}`, borderRadius:14, padding:"14px 16px" };
+
+  // Mini card para criatura/boss
+  function BoostCard({ data, label, color, borderColor, icon }) {
+    if(!data) return (
+      <div style={{...cardBase,border:`1px solid ${borderColor}22`,display:"flex",alignItems:"center",gap:10,flex:1}}>
+        <div style={{width:40,height:40,background:C.bg2,borderRadius:8,flexShrink:0,animation:"starPulse 1.5s ease-in-out infinite"}}/>
+        <div style={{fontSize:11,color:C.textFaint}}>Carregando...</div>
+      </div>
+    );
+    const img = data.image_url || `https://tibia.fandom.com/wiki/Special:FilePath/${(data.name||"").replace(/ /g,"_")}.gif`;
+    return (
+      <div style={{...cardBase,border:`1px solid ${borderColor}44`,background:`linear-gradient(135deg,${borderColor}10,${C.card})`,display:"flex",alignItems:"center",gap:12,flex:1,minWidth:0}}>
+        <div style={{position:"relative",flexShrink:0}}>
+          <img src={img} alt={data.name} width={44} height={44} style={{imageRendering:"pixelated",objectFit:"contain",display:"block"}} onError={e=>e.target.style.display="none"}/>
+          <div style={{position:"absolute",top:-5,right:-5,background:borderColor,borderRadius:99,width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#fff",fontWeight:700}}>{icon}</div>
+        </div>
+        <div style={{minWidth:0}}>
+          <div style={{fontSize:9,color,letterSpacing:.8,textTransform:"uppercase",marginBottom:2}}>{label}</div>
+          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:C.text,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{data.name}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if(mob) return (
+    <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:16}}>
+      {/* Rashid mobile */}
+      <div style={{...cardBase,border:"1px solid #1e3a1e",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",display:"flex",alignItems:"center",gap:12}}>
+        <RashidSprite size={48}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:9,color:C.gold,letterSpacing:1,textTransform:"uppercase",marginBottom:2}}>Rashid Hoje · {diasFull[dow]}</div>
+          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:20,color:C.green}}>{rashid.city}</div>
+          <div style={{fontSize:10,color:C.textFaint}}>📍 {rashid.tip}</div>
+        </div>
+      </div>
+      {/* Boosted mobile */}
+      <div style={{display:"flex",gap:8}}>
+        <BoostCard data={creature} label="Criatura Boostada" color="#9b6dff" borderColor="#7b3aed" icon="★"/>
+        <BoostCard data={boss} label="Boss Boostado" color="#f06060" borderColor="#c03030" icon="☠"/>
+      </div>
+      {/* Char search mobile */}
+      <CharSearch charName={charName} setCharName={setCharName} charResult={charResult} charLoad={charLoad} charErr={charErr} onSearch={searchChar} mob={mob}/>
+    </div>
+  );
 
   return (
     <div style={{marginBottom:16}}>
-      {/* Row: Rashid + Boosted lado a lado no desktop */}
-      <div style={{display:"flex",gap:10,marginBottom:mob?8:10,flexDirection:mob?"column":"row"}}>
-        {/* Rashid */}
-        <div style={{background:`linear-gradient(135deg,#0d1a0d,#0a120a)`,border:`1px solid #1e3a1e`,borderRadius:16,padding:mob?"12px 14px":"14px 20px",display:"flex",alignItems:"center",gap:mob?12:16,animation:"borderGlow 3s ease-in-out infinite",position:"relative",overflow:"hidden",flex:2}}>
-          <div style={{position:"absolute",right:-10,top:-10,fontSize:60,opacity:.04,userSelect:"none"}}>🗺️</div>
-          <div style={{flexShrink:0}}>
-            <RashidSprite size={mob?44:56}/>
-          </div>
-          <div style={{flex:1,minWidth:0}}>
-            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4,flexWrap:"wrap"}}>
-              <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?13:14,color:C.gold,letterSpacing:.5}}>RASHID — HOJE</span>
-              <span style={{fontSize:10,background:"#1a3a1a",color:"#3dd68c",padding:"2px 8px",borderRadius:99,fontWeight:700,border:"1px solid #2a5a2a"}}>{dias[dow]}</span>
+      {/* Grid 4 colunas: Rashid | Criatura | Boss | Busca */}
+      <div style={{display:"grid",gridTemplateColumns:"1.4fr 1fr 1fr 1.4fr",gap:10}}>
+
+        {/* COL 1 — RASHID */}
+        <div style={{...cardBase,border:"1px solid #1e3a1e",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",animation:"borderGlow 3s ease-in-out infinite",position:"relative",overflow:"hidden"}}>
+          <div style={{position:"absolute",right:-8,bottom:-8,fontSize:52,opacity:.05,userSelect:"none"}}>🗺️</div>
+          <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
+            <RashidSprite size={52}/>
+            <div>
+              <div style={{fontSize:9,color:C.gold,letterSpacing:1,textTransform:"uppercase"}}>Rashid — Hoje</div>
+              <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:22,color:C.green,lineHeight:1.1}}>{rashid.city}</div>
+              <div style={{fontSize:10,color:C.textFaint,marginTop:1}}>📍 {rashid.tip}</div>
             </div>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?20:24,color:"#3dd68c",lineHeight:1.1,marginBottom:2}}>{rashid.city}</div>
-            <div style={{fontSize:mob?10:11,color:C.textFaint}}>📍 {rashid.tip}</div>
           </div>
-          {!mob && (
-            <div style={{display:"flex",gap:3,flexShrink:0}}>
-              {RASHID.map((r,i)=>(
-                <div key={i} title={`${dias[i]}: ${r.city}`}
-                  style={{width:26,padding:"4px 2px",borderRadius:6,background:i===dow?"#1a3a1a":"#0d0d18",border:`1px solid ${i===dow?"#2a5a2a":C.border}`,textAlign:"center"}}>
-                  <div style={{fontSize:8,color:i===dow?C.green:C.textFaint,fontWeight:i===dow?700:400}}>{dias[i].slice(0,3).toUpperCase()}</div>
-                  <div style={{fontSize:8,color:i===dow?C.goldLight:C.textFaint,marginTop:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.city.split(" ")[0]}</div>
-                </div>
-              ))}
-            </div>
-          )}
+          {/* Calendário semanal */}
+          <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3}}>
+            {RASHID.map((r,i)=>(
+              <div key={i} title={`${diasFull[i]}: ${r.city}`}
+                style={{padding:"3px 2px",borderRadius:5,background:i===dow?"#1a3a1a":"#0d0d18",border:`1px solid ${i===dow?"#2a5a2a":C.border}`,textAlign:"center"}}>
+                <div style={{fontSize:7,color:i===dow?C.green:C.textFaint,fontWeight:i===dow?700:400}}>{dias[i]}</div>
+                <div style={{fontSize:7,color:i===dow?C.goldLight:C.textFaint,marginTop:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.city.split(" ")[0]}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{display:"inline-flex",alignItems:"center",gap:4,marginTop:8,background:"#1a3a1a",border:"1px solid #2a5a2a",borderRadius:99,padding:"2px 10px"}}>
+            <span style={{fontSize:10,color:C.green,fontWeight:700}}>{diasFull[dow]}</span>
+          </div>
         </div>
 
-        {/* Boosted + Busca de char */}
-        <div style={{display:"flex",flexDirection:"column",gap:8,flex:1}}>
-          <BoostedWidget mob={mob}/>
-          <CharSearchWidget mob={mob}/>
-        </div>
+        {/* COL 2 — CRIATURA BOOSTADA */}
+        <BoostCard data={creature} label="⭐ Criatura Boostada" color="#9b6dff" borderColor="#7b3aed" icon="★"/>
+
+        {/* COL 3 — BOSS BOOSTADO */}
+        <BoostCard data={boss} label="☠️ Boss Boostado" color="#f06060" borderColor="#c03030" icon="☠"/>
+
+        {/* COL 4 — BUSCA DE PERSONAGEM */}
+        <CharSearch charName={charName} setCharName={setCharName} charResult={charResult} charLoad={charLoad} charErr={charErr} onSearch={searchChar} mob={mob}/>
       </div>
     </div>
   );
 }
 
-/* ══ BUSCA DE PERSONAGEM (TibiaData API) ═════════════════════════════════════ */
-function CharSearchWidget({ mob }) {
-  const [name,setName] = useState("");
-  const [result,setResult] = useState(null);
-  const [loading,setLoading] = useState(false);
-  const [err,setErr] = useState("");
-
-  async function search() {
-    if(!name.trim()) return;
-    setLoading(true); setResult(null); setErr("");
-    const encoded = encodeURIComponent(name.trim());
-    const urls = [
-      `https://api.tibiadata.com/v4/character/${encoded}`,
-      `https://corsproxy.io/?https://api.tibiadata.com/v4/character/${encoded}`,
-    ];
-    let data = null;
-    for (const url of urls) {
-      try {
-        const r = await fetch(url, {signal: AbortSignal.timeout(6000)});
-        const d = await r.json();
-        if(d?.character?.character?.name){ data = d.character.character; break; }
-      } catch {}
-    }
-    if(data) setResult(data);
-    else setErr("Personagem não encontrado ou API indisponível. Tente pelo site tibiafarmtracker.com.br");
-    setLoading(false);
-  }
-
+function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSearch, mob }) {
+  const cardBase = { background:C.card, border:`1px solid ${C.border}`, borderRadius:14, padding:"14px 16px" };
   return (
-    <div style={{background:`linear-gradient(135deg,#0d0d20,#0a0a18)`,border:`1px solid ${C.border}`,borderRadius:12,padding:mob?"10px 12px":"12px 14px",flex:1}}>
-      <div style={{fontSize:10,color:C.accent,letterSpacing:.8,textTransform:"uppercase",marginBottom:8}}>🔍 Buscar Personagem</div>
-      <div style={{display:"flex",gap:6}}>
-        <input value={name} onChange={e=>setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&search()}
-          placeholder="Nome do char..." style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:7,padding:"6px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Inter',sans-serif"}}/>
-        <button onClick={search} disabled={loading}
-          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:7,padding:"6px 10px",cursor:"pointer",color:"#fff",fontSize:11,fontWeight:700,whiteSpace:"nowrap"}}>
-          {loading?"...":"Buscar"}
+    <div style={{...cardBase,border:`1px solid ${C.accent}33`,background:`linear-gradient(135deg,${C.accent}08,${C.card})`}}>
+      <div style={{fontSize:9,color:C.accent,letterSpacing:1,textTransform:"uppercase",marginBottom:10}}>🔍 Buscar Personagem</div>
+      <div style={{display:"flex",gap:6,marginBottom:8}}>
+        <input value={charName} onChange={e=>setCharName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&onSearch()}
+          placeholder="Nome do char..."
+          style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Inter',sans-serif"}}/>
+        <button onClick={onSearch} disabled={charLoad}
+          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
+          {charLoad?"⏳":"Buscar"}
         </button>
       </div>
-      {err && <div style={{fontSize:10,color:C.red,marginTop:6}}>{err}</div>}
-      {result && (
-        <div style={{marginTop:8,background:C.bg2,borderRadius:8,padding:"8px 10px",fontSize:11}}>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:C.gold}}>{result.name}</div>
-          <div style={{color:C.textSub,marginTop:2}}>
-            Nível <span style={{color:C.text,fontWeight:600}}>{result.level}</span>
-            {" · "}{result.vocation}
-            {" · "}<span style={{color:result.online?C.green:C.textFaint}}>{result.online?"● Online":"○ Offline"}</span>
+      {charErr && <div style={{fontSize:10,color:C.red,marginBottom:6}}>{charErr}</div>}
+      {charResult ? (
+        <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px"}}>
+          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold,marginBottom:4}}>{charResult.name}</div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"3px 8px",fontSize:11}}>
+            <div><span style={{color:C.textFaint}}>Nível</span> <span style={{color:C.text,fontWeight:600}}>{charResult.level}</span></div>
+            <div><span style={{color:charResult.online?C.green:C.textFaint}}>{charResult.online?"● Online":"○ Offline"}</span></div>
+            <div style={{gridColumn:"1/-1",color:C.textSub}}>{charResult.vocation}</div>
+            {charResult.guild?.name && <div style={{gridColumn:"1/-1",color:C.purple}}>🏰 {charResult.guild.name}</div>}
+            <div style={{gridColumn:"1/-1",color:C.textFaint}}>🌍 {charResult.world}</div>
           </div>
-          {result.guild?.name && <div style={{color:C.purple,marginTop:1}}>🏰 {result.guild.name}</div>}
-          <div style={{color:C.textFaint,marginTop:1}}>🌍 {result.world}</div>
+        </div>
+      ) : !charLoad && !charErr && (
+        <div style={{textAlign:"center",padding:"12px 0",color:C.textFaint,fontSize:11}}>
+          Digite o nome de um personagem<br/>e pressione Enter ou Buscar
         </div>
       )}
     </div>
@@ -699,7 +702,7 @@ function App() {
         {/* ══ TRACKER ══ */}
         {tab==="tracker"&&<>
           {/* Widget Rashid */}
-          <RashidWidget mob={mob}/>
+          <InfoPanel mob={mob}/>
 
           {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
