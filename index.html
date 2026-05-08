@@ -6,51 +6,67 @@
 <title>⚔️ Tibia Farm Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=MedievalSharp&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: #08080f; font-family: 'Inter', sans-serif; }
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:#08080f; font-family:'Inter',sans-serif; }
 
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #252540; border-radius: 99px; }
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:#252540; border-radius:99px; }
 
-  input[type=month]::-webkit-calendar-picker-indicator,
-  input[type=date]::-webkit-calendar-picker-indicator { filter: invert(0.4); cursor: pointer; }
-  input[type=number]::-webkit-inner-spin-button { opacity: 0.3; }
+input[type=month]::-webkit-calendar-picker-indicator,
+input[type=date]::-webkit-calendar-picker-indicator  { filter:invert(0.4); cursor:pointer; }
+input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 
-  .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(4,4,12,0.85);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 500; padding: 16px;
-    backdrop-filter: blur(8px);
-    animation: fadeIn .15s ease;
-  }
-  @keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
-  @keyframes slideUp { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:translateY(0) } }
-  .slide-up { animation: slideUp .2s ease; }
+/* ── Animações ── */
+@keyframes fadeIn   { from{opacity:0}           to{opacity:1} }
+@keyframes slideUp  { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+@keyframes rashidBob{ 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-4px)} }
+@keyframes rashidBlink{ 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(0.1)} }
+@keyframes torchFlicker { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:.7;transform:scaleY(.9)} 75%{opacity:.9;transform:scaleY(1.05)} }
+@keyframes shimmer  { 0%{background-position:200% center} 100%{background-position:-200% center} }
+@keyframes starPulse{ 0%,100%{opacity:.2} 50%{opacity:.8} }
+@keyframes borderGlow{ 0%,100%{box-shadow:0 0 10px #c8a83c22} 50%{box-shadow:0 0 28px #c8a83c55} }
 
-  .bar-cell  { display:flex; align-items:center; gap:6px; }
-  .bar-track { flex:1; height:4px; background:#1a1a2e; border-radius:2px; overflow:hidden; }
-  .bar-fill  { height:100%; border-radius:2px; transition: width .4s ease; }
+.modal-overlay { position:fixed;inset:0;background:rgba(4,4,12,.85);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px;backdrop-filter:blur(8px);animation:fadeIn .15s ease; }
+.slide-up      { animation:slideUp .2s ease; }
+.bar-cell      { display:flex;align-items:center;gap:6px; }
+.bar-track     { flex:1;height:4px;background:#1a1a2e;border-radius:2px;overflow:hidden; }
+.bar-fill      { height:100%;border-radius:2px;transition:width .4s ease; }
+.row-hover:hover   { background:rgba(200,168,60,.04)!important; }
+.card-hover        { transition:border-color .2s,box-shadow .2s; }
+.card-hover:hover  { border-color:#c8a83c55!important;box-shadow:0 0 24px #c8a83c11; }
+.cur-btn           { transition:all .15s; }
+.cur-btn:hover     { border-color:#c8a83c88!important; }
+button:active      { transform:scale(.97); }
 
-  .row-hover:hover  { background: rgba(200,168,60,0.04) !important; }
-  .card-hover       { transition: border-color .2s, box-shadow .2s; }
-  .card-hover:hover { border-color: #c8a83c55 !important; box-shadow: 0 0 24px #c8a83c11; }
+/* ── Stars no hero ── */
+.star { position:absolute;border-radius:50%;background:#e8c96a;animation:starPulse 3s ease-in-out infinite; }
 
-  .glow-gold  { text-shadow: 0 0 20px #c8a83c66; }
-  .glow-green { text-shadow: 0 0 16px #4ade8066; }
+/* ── Título com shimmer ── */
+.hero-title {
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  background:linear-gradient(90deg,#8a7028,#e8c96a,#c8a83c,#f5e090,#c8a83c,#8a7028);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
 
-  button:active { transform: scale(0.97); }
+/* ── Rashid sprite ── */
+.rashid-sprite { animation:rashidBob 1.6s ease-in-out infinite; image-rendering:pixelated; }
+.rashid-eyes   { animation:rashidBlink 4s ease-in-out infinite; transform-origin:center; }
 
-  /* Currency buttons */
-  .cur-btn { transition: all .15s; }
-  .cur-btn:hover { border-color: #c8a83c88 !important; }
+/* ── Footer ── */
+.footer-link { color:#52527a;text-decoration:none;transition:color .2s; }
+.footer-link:hover { color:#c8a83c; }
 </style>
 </head>
 <body>
@@ -58,46 +74,41 @@
 <script type="text/babel">
 const { useState, useEffect, useRef, useMemo } = React;
 const SK = "tibia_farm_v3";
+const load = () => { try{return JSON.parse(localStorage.getItem(SK));}catch{return null;} };
+const save = d  => { try{localStorage.setItem(SK,JSON.stringify(d));}catch{} };
 
-const load = () => { try { return JSON.parse(localStorage.getItem(SK)); } catch { return null; } };
-const save = d  => { try { localStorage.setItem(SK, JSON.stringify(d)); } catch {} };
-
-// ── Moedas disponíveis ──────────────────────────────────────────────────────
 const CURRENCIES = [
-  { code:"BRL", sym:"R$",  name:"Real",              flag:"🇧🇷", defaultRate: 0.216  },
-  { code:"USD", sym:"$",   name:"Dólar",             flag:"🇺🇸", defaultRate: 0.040  },
-  { code:"EUR", sym:"€",   name:"Euro",              flag:"🇪🇺", defaultRate: 0.037  },
-  { code:"GBP", sym:"£",   name:"Libra",             flag:"🇬🇧", defaultRate: 0.032  },
-  { code:"CAD", sym:"CA$", name:"Dólar Canadense",   flag:"🇨🇦", defaultRate: 0.055  },
+  {code:"BRL",sym:"R$", name:"Real",           flag:"🇧🇷",defaultRate:0.216},
+  {code:"USD",sym:"$",  name:"Dólar",          flag:"🇺🇸",defaultRate:0.040},
+  {code:"EUR",sym:"€",  name:"Euro",           flag:"🇪🇺",defaultRate:0.037},
+  {code:"GBP",sym:"£",  name:"Libra",          flag:"🇬🇧",defaultRate:0.032},
+  {code:"CAD",sym:"CA$",name:"Dólar Canadense",flag:"🇨🇦",defaultRate:0.055},
+];
+
+// Rashid locations (Sunday=0 … Saturday=6)
+const RASHID = [
+  {city:"Carlin",    coords:"(Depot)",         region:"Tibia Central", tip:"Próximo ao depot da cidade"},
+  {city:"Svargrond", coords:"(Depot)",         region:"Tibia Norte",   tip:"Dentro do depot de Svargrond"},
+  {city:"Liberty Bay",coords:"(Depot)",        region:"Tibia Sul",     tip:"No depot de Liberty Bay"},
+  {city:"Port Hope",  coords:"(Depot)",        region:"Tibia Sul",     tip:"No depot de Port Hope"},
+  {city:"Ankrahmun",  coords:"(Depot)",        region:"Tibia Leste",   tip:"No depot de Ankrahmun"},
+  {city:"Darashia",   coords:"(Depot)",        region:"Tibia Leste",   tip:"No depot de Darashia"},
+  {city:"Edron",      coords:"(Depot)",        region:"Tibia Central", tip:"No depot de Edron"},
 ];
 
 function initState() {
-  return {
-    playerName: "",
-    gpPerTc:    41000,
-    currency:   "BRL",
-    rates: { BRL:0.216, USD:0.040, EUR:0.037, GBP:0.032, CAD:0.055 },
-    days: {},
-  };
+  return { playerName:"", gpPerTc:41000, currency:"BRL", rates:{BRL:0.216,USD:0.040,EUR:0.037,GBP:0.032,CAD:0.055}, days:{} };
 }
-
-const fmt        = n   => Math.round(n||0).toLocaleString("pt-BR");
-const toTC       = (gp,r) => gp / r;
-const toCur      = (tc,rate) => tc * rate;
-const mmLabel    = ym  => { const [y,m]=ym.split("-"); return new Date(+y,+m-1,1).toLocaleString("pt-BR",{month:"long",year:"numeric"}); };
-const nowYM      = ()  => { const t=new Date(); return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,"0")}`; };
-const daysInMonth= ym  => { const [y,m]=ym.split("-"); return new Date(+y,+m,0).getDate(); };
-const addMonth   = (ym,n) => { const [y,m]=ym.split("-"); const d=new Date(+y,+m-1+n,1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; };
-
-function getCur(state) {
-  return CURRENCIES.find(c=>c.code===state.currency) || CURRENCIES[0];
-}
-function getRate(state) {
-  return state.rates?.[state.currency] ?? getCur(state).defaultRate;
-}
-function fmtMoney(val, sym) {
-  return `${sym}${Math.abs(val).toFixed(2)}`;
-}
+const fmt         = n   => Math.round(n||0).toLocaleString("pt-BR");
+const toTC        = (gp,r)  => gp/r;
+const toCur       = (tc,r)  => tc*r;
+const mmLabel     = ym  => { const [y,m]=ym.split("-"); return new Date(+y,+m-1,1).toLocaleString("pt-BR",{month:"long",year:"numeric"}); };
+const nowYM       = ()  => { const t=new Date(); return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,"0")}`; };
+const daysInMonth = ym  => { const [y,m]=ym.split("-"); return new Date(+y,+m,0).getDate(); };
+const addMonth    = (ym,n) => { const [y,m]=ym.split("-"); const d=new Date(+y,+m-1+n,1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; };
+const getCur      = st  => CURRENCIES.find(c=>c.code===st.currency)||CURRENCIES[0];
+const getRate     = st  => st.rates?.[st.currency]??getCur(st).defaultRate;
+const fmtMoney    = (v,sym) => `${sym}${Math.abs(v).toFixed(2)}`;
 
 function useW() {
   const [w,sw]=useState(window.innerWidth);
@@ -106,18 +117,17 @@ function useW() {
 }
 
 function parseClip(text) {
-  if (!text) return null;
+  if(!text) return null;
   const dM=text.match(/From (\d{4}-\d{2}-\d{2})/),sM=text.match(/Session:\s*([\d:]+h)/),
         lM=text.match(/^Loot:\s*([\d,]+)/m),spM=text.match(/^Supplies:\s*([\d,]+)/m),
         bM=text.match(/^Balance:\s*(-?[\d,]+)/m);
-  if (!bM) return null;
+  if(!bM) return null;
   const n=s=>parseInt(s.replace(/,/g,""),10);
   const players=[]; const re=/^(.+?)\n\s+Loot:\s*([\d,]+)\n\s+Supplies:\s*([\d,]+)\n\s+Balance:\s*(-?[\d,]+)\n\s+Damage:\s*([\d,]+)\n\s+Healing:\s*([\d,]+)/gm;
   let m; while((m=re.exec(text))!==null) players.push({name:m[1].trim(),loot:n(m[2]),supplies:n(m[3]),balance:n(m[4]),damage:n(m[5]),healing:n(m[6])});
   return { date:dM?dM[1]:new Date().toISOString().slice(0,10), session:sM?sM[1]:"?", loot:lM?n(lM[1]):0, supplies:spM?n(spM[1]):0, balance:n(bM[1]), players };
 }
 
-// ── Paleta ───────────────────────────────────────────────────────────────────
 const C = {
   bg:"#08080f", bg2:"#0d0d18", card:"#0f0f1c", cardHi:"#13132a",
   border:"#1c1c30", borderHi:"#2a2a48",
@@ -130,50 +140,212 @@ const C = {
   muted:"#3a3a5a",
 };
 
-// ── Mini bar ─────────────────────────────────────────────────────────────────
-function MiniBar({ value, max }) {
-  const pct = max>0 ? Math.min(100,(Math.abs(value)/Math.abs(max))*100) : 0;
+/* ══ RASHID IMAGEM REAL ══════════════════════════════════════════════════════ */
+const RASHID_IMG = "https://tibia.fandom.com/wiki/Special:FilePath/Rashid.gif";
+
+function RashidSprite({ size=64 }) {
+  const [err, setErr] = useState(false);
+  if (err) {
+    return (
+      <div style={{width:size,height:size,display:"flex",alignItems:"center",justifyContent:"center",
+        background:"#1a2a1a",borderRadius:8,border:"1px solid #2a4a2a",fontSize:size*0.55,
+        animation:"rashidBob 1.6s ease-in-out infinite"}}>🧙</div>
+    );
+  }
   return (
-    <div className="bar-track">
-      <div className="bar-fill" style={{ width:`${pct}%`, background: value>=0?C.green:C.red }}/>
+    <img src={RASHID_IMG} alt="Rashid NPC" width={size} height={size}
+      onError={()=>setErr(true)}
+      style={{imageRendering:"pixelated",animation:"rashidBob 1.6s ease-in-out infinite",objectFit:"contain",display:"block"}}/>
+  );
+}
+
+/* ══ BOOSTED CREATURE (TibiaData API) ════════════════════════════════════════ */
+function BoostedWidget({ mob }) {
+  const [boosted, setBoosted] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=>{
+    const urls = [
+      "https://api.tibiadata.com/v4/creatures/boosted",
+      "https://corsproxy.io/?https://api.tibiadata.com/v4/creatures/boosted",
+    ];
+    (async()=>{
+      for(const url of urls){
+        try{
+          const r = await fetch(url,{signal:AbortSignal.timeout(5000)});
+          const d = await r.json();
+          if(d?.boosted_creature){ setBoosted(d.boosted_creature); break; }
+        }catch{}
+      }
+      setLoading(false);
+    })();
+  },[]);
+
+  if (loading) return (
+    <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:"12px 16px",display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
+      <div style={{width:36,height:36,background:C.bg2,borderRadius:8,animation:"starPulse 1s infinite"}}/>
+      <div style={{fontSize:12,color:C.textFaint}}>Carregando criatura boostada...</div>
+    </div>
+  );
+
+  if (!boosted) return null;
+
+  const imgUrl = boosted.image_url || `https://tibia.fandom.com/wiki/Special:FilePath/${boosted.name?.replace(/ /g,"_")}.gif`;
+
+  return (
+    <div style={{background:`linear-gradient(135deg,#1a0d2a,#0f0820)`,border:`1px solid #3a1a5a`,borderRadius:12,padding:mob?"10px 14px":"12px 18px",display:"flex",alignItems:"center",gap:12,marginBottom:8,flex:1}}>
+      <div style={{position:"relative",flexShrink:0}}>
+        <img src={imgUrl} alt={boosted.name} width={mob?36:44} height={mob?36:44}
+          style={{imageRendering:"pixelated",objectFit:"contain",display:"block"}}
+          onError={e=>{e.target.style.display="none";}}/>
+        <div style={{position:"absolute",top:-4,right:-4,background:"#7b3aed",borderRadius:99,width:14,height:14,display:"flex",alignItems:"center",justifyContent:"center",fontSize:8,fontWeight:700,color:"#fff"}}>★</div>
+      </div>
+      <div style={{flex:1,minWidth:0}}>
+        <div style={{fontSize:10,color:"#9b6dff",letterSpacing:.8,textTransform:"uppercase",marginBottom:1}}>⭐ Criatura Boostada</div>
+        <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?14:16,color:C.text,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{boosted.name}</div>
+      </div>
     </div>
   );
 }
 
-// ── Modal Entrada Manual ─────────────────────────────────────────────────────
+/* ══ WIDGET RASHID + BOOSTED ═════════════════════════════════════════════════ */
+function RashidWidget({ mob }) {
+  const today = new Date();
+  const dow   = today.getDay();
+  const rashid= RASHID[dow];
+  const dias  = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+
+  return (
+    <div style={{marginBottom:16}}>
+      {/* Row: Rashid + Boosted lado a lado no desktop */}
+      <div style={{display:"flex",gap:10,marginBottom:mob?8:10,flexDirection:mob?"column":"row"}}>
+        {/* Rashid */}
+        <div style={{background:`linear-gradient(135deg,#0d1a0d,#0a120a)`,border:`1px solid #1e3a1e`,borderRadius:16,padding:mob?"12px 14px":"14px 20px",display:"flex",alignItems:"center",gap:mob?12:16,animation:"borderGlow 3s ease-in-out infinite",position:"relative",overflow:"hidden",flex:2}}>
+          <div style={{position:"absolute",right:-10,top:-10,fontSize:60,opacity:.04,userSelect:"none"}}>🗺️</div>
+          <div style={{flexShrink:0}}>
+            <RashidSprite size={mob?44:56}/>
+          </div>
+          <div style={{flex:1,minWidth:0}}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4,flexWrap:"wrap"}}>
+              <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?13:14,color:C.gold,letterSpacing:.5}}>RASHID — HOJE</span>
+              <span style={{fontSize:10,background:"#1a3a1a",color:"#3dd68c",padding:"2px 8px",borderRadius:99,fontWeight:700,border:"1px solid #2a5a2a"}}>{dias[dow]}</span>
+            </div>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?20:24,color:"#3dd68c",lineHeight:1.1,marginBottom:2}}>{rashid.city}</div>
+            <div style={{fontSize:mob?10:11,color:C.textFaint}}>📍 {rashid.tip}</div>
+          </div>
+          {!mob && (
+            <div style={{display:"flex",gap:3,flexShrink:0}}>
+              {RASHID.map((r,i)=>(
+                <div key={i} title={`${dias[i]}: ${r.city}`}
+                  style={{width:26,padding:"4px 2px",borderRadius:6,background:i===dow?"#1a3a1a":"#0d0d18",border:`1px solid ${i===dow?"#2a5a2a":C.border}`,textAlign:"center"}}>
+                  <div style={{fontSize:8,color:i===dow?C.green:C.textFaint,fontWeight:i===dow?700:400}}>{dias[i].slice(0,3).toUpperCase()}</div>
+                  <div style={{fontSize:8,color:i===dow?C.goldLight:C.textFaint,marginTop:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.city.split(" ")[0]}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Boosted + Busca de char */}
+        <div style={{display:"flex",flexDirection:"column",gap:8,flex:1}}>
+          <BoostedWidget mob={mob}/>
+          <CharSearchWidget mob={mob}/>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ══ BUSCA DE PERSONAGEM (TibiaData API) ═════════════════════════════════════ */
+function CharSearchWidget({ mob }) {
+  const [name,setName] = useState("");
+  const [result,setResult] = useState(null);
+  const [loading,setLoading] = useState(false);
+  const [err,setErr] = useState("");
+
+  async function search() {
+    if(!name.trim()) return;
+    setLoading(true); setResult(null); setErr("");
+    const encoded = encodeURIComponent(name.trim());
+    const urls = [
+      `https://api.tibiadata.com/v4/character/${encoded}`,
+      `https://corsproxy.io/?https://api.tibiadata.com/v4/character/${encoded}`,
+    ];
+    let data = null;
+    for (const url of urls) {
+      try {
+        const r = await fetch(url, {signal: AbortSignal.timeout(6000)});
+        const d = await r.json();
+        if(d?.character?.character?.name){ data = d.character.character; break; }
+      } catch {}
+    }
+    if(data) setResult(data);
+    else setErr("Personagem não encontrado ou API indisponível. Tente pelo site tibiafarmtracker.com.br");
+    setLoading(false);
+  }
+
+  return (
+    <div style={{background:`linear-gradient(135deg,#0d0d20,#0a0a18)`,border:`1px solid ${C.border}`,borderRadius:12,padding:mob?"10px 12px":"12px 14px",flex:1}}>
+      <div style={{fontSize:10,color:C.accent,letterSpacing:.8,textTransform:"uppercase",marginBottom:8}}>🔍 Buscar Personagem</div>
+      <div style={{display:"flex",gap:6}}>
+        <input value={name} onChange={e=>setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&search()}
+          placeholder="Nome do char..." style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:7,padding:"6px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Inter',sans-serif"}}/>
+        <button onClick={search} disabled={loading}
+          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:7,padding:"6px 10px",cursor:"pointer",color:"#fff",fontSize:11,fontWeight:700,whiteSpace:"nowrap"}}>
+          {loading?"...":"Buscar"}
+        </button>
+      </div>
+      {err && <div style={{fontSize:10,color:C.red,marginTop:6}}>{err}</div>}
+      {result && (
+        <div style={{marginTop:8,background:C.bg2,borderRadius:8,padding:"8px 10px",fontSize:11}}>
+          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:C.gold}}>{result.name}</div>
+          <div style={{color:C.textSub,marginTop:2}}>
+            Nível <span style={{color:C.text,fontWeight:600}}>{result.level}</span>
+            {" · "}{result.vocation}
+            {" · "}<span style={{color:result.online?C.green:C.textFaint}}>{result.online?"● Online":"○ Offline"}</span>
+          </div>
+          {result.guild?.name && <div style={{color:C.purple,marginTop:1}}>🏰 {result.guild.name}</div>}
+          <div style={{color:C.textFaint,marginTop:1}}>🌍 {result.world}</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ══ MINI BAR ═══════════════════════════════════════════════════════════════ */
+function MiniBar({ value, max }) {
+  const pct=max>0?Math.min(100,(Math.abs(value)/Math.abs(max))*100):0;
+  return <div className="bar-track"><div className="bar-fill" style={{width:`${pct}%`,background:value>=0?C.green:C.red}}/></div>;
+}
+
+/* ══ MODAL ENTRADA MANUAL ═══════════════════════════════════════════════════ */
 function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate, onSave, onRemove, onClose }) {
   const [bal,setBal]=useState(""), [note,setNote]=useState(""), [editIdx,setEdit]=useState(null);
   const ref=useRef(null);
   useEffect(()=>{ setTimeout(()=>ref.current?.focus(),60); },[]);
   const num=Number(bal)||0, tc=toTC(num,gpPerTc), cur=toCur(tc,curRate);
-
   function startEdit(h,i){ setBal(String(h.balance)); setNote(h.note||""); setEdit(i); setTimeout(()=>ref.current?.focus(),30); }
   function clear(){ setBal(""); setNote(""); setEdit(null); }
   function handleSave(){ if(bal==="") return; onSave(dateKey,{balance:num,note,session:"manual",loot:0,supplies:0,players:[],manual:true,ts:Date.now()},editIdx); clear(); }
   function onKey(e){ if(e.key==="Enter") handleSave(); if(e.key==="Escape") onClose(); }
-
   const manuals=existingHunts.filter(h=>h.manual);
   const inp={ background:C.bg2, border:`1.5px solid ${editIdx!==null?C.accent:C.border}`, borderRadius:10, padding:"11px 14px", color:C.text, fontSize:15, width:"100%", outline:"none", fontFamily:"'Inter',sans-serif", transition:"border-color .2s" };
-
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="slide-up" style={{ background:C.card, border:`1px solid ${C.borderHi}`, borderRadius:18, padding:24, width:"100%", maxWidth:440, boxShadow:`0 24px 80px #000d, 0 0 0 1px ${C.muted}22` }}
-           onClick={e=>e.stopPropagation()}>
-
+      <div className="slide-up" style={{background:C.card,border:`1px solid ${C.borderHi}`,borderRadius:18,padding:24,width:"100%",maxWidth:440,boxShadow:`0 24px 80px #000d`}} onClick={e=>e.stopPropagation()}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20}}>
           <div>
             <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1}}>ENTRADA MANUAL</div>
             <div style={{fontSize:12,color:C.textFaint,marginTop:3}}>Dia {dayNum} · {dateKey}</div>
           </div>
-          <button style={{background:"none",border:"none",color:C.textFaint,cursor:"pointer",fontSize:22,lineHeight:1,padding:"0 2px"}} onClick={onClose}>×</button>
+          <button style={{background:"none",border:"none",color:C.textFaint,cursor:"pointer",fontSize:22,lineHeight:1}} onClick={onClose}>×</button>
         </div>
-
         <div style={{marginBottom:14}}>
           <div style={{fontSize:11,color:C.textSub,marginBottom:6,letterSpacing:.5,textTransform:"uppercase"}}>Profit / Balance (gp)</div>
           <input ref={ref} style={inp} type="number" placeholder="Ex: 5000000  (negativo = prejuízo)" value={bal} onChange={e=>setBal(e.target.value)} onKeyDown={onKey}/>
           {bal!==""&&(
             <div style={{display:"flex",gap:8,marginTop:8}}>
-              {[[`~${Math.round(tc).toLocaleString()} TC`,C.goldLight],[`${fmtMoney(cur,curSym)}`,num>=0?C.green:C.red]].map(([v,col])=>(
+              {[[`~${Math.round(tc).toLocaleString()} TC`,C.goldLight],[fmtMoney(cur,curSym),num>=0?C.green:C.red]].map(([v,col])=>(
                 <div key={v} style={{flex:1,background:C.bg2,borderRadius:8,padding:"7px 10px",textAlign:"center"}}>
                   <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:col}}>{v}</div>
                 </div>
@@ -181,21 +353,18 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
             </div>
           )}
         </div>
-
         <div style={{marginBottom:18}}>
           <div style={{fontSize:11,color:C.textSub,marginBottom:6,letterSpacing:.5,textTransform:"uppercase"}}>Observação (opcional)</div>
           <input style={inp} type="text" placeholder="Ex: Rashid, Ferumbras, venda de items…" value={note} onChange={e=>setNote(e.target.value)} onKeyDown={onKey}/>
         </div>
-
         <div style={{display:"flex",gap:10,marginBottom:manuals.length>0?20:0}}>
           <button disabled={bal===""} onClick={handleSave}
-            style={{flex:1,padding:12,borderRadius:10,border:"none",cursor:bal===""?"not-allowed":"pointer",fontWeight:700,fontSize:14,opacity:bal===""?.4:1,letterSpacing:.5,
+            style={{flex:1,padding:12,borderRadius:10,border:"none",cursor:bal===""?"not-allowed":"pointer",fontWeight:700,fontSize:14,opacity:bal===""?.4:1,
               background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:editIdx!==null?"#fff":"#0a0804"}}>
             {editIdx!==null?"💾  ATUALIZAR":"✅  SALVAR ENTRADA"}
           </button>
           {editIdx!==null&&<button onClick={clear} style={{padding:"12px 16px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13}}>Cancelar</button>}
         </div>
-
         {manuals.length>0&&(
           <div style={{borderTop:`1px solid ${C.border}`,paddingTop:16}}>
             <div style={{fontSize:11,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:10}}>Entradas manuais neste dia</div>
@@ -206,13 +375,12 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
                   {h.note&&<div style={{fontSize:11,color:C.textSub,marginTop:1}}>{h.note}</div>}
                   <div style={{fontSize:10,color:C.textFaint,marginTop:2}}>~{Math.round(toTC(h.balance,gpPerTc)).toLocaleString()} TC · {fmtMoney(toCur(toTC(h.balance,gpPerTc),curRate),curSym)}</div>
                 </div>
-                <button title="Editar" style={{background:"none",border:"none",color:C.accent,cursor:"pointer",fontSize:16,padding:"2px 5px"}} onClick={()=>startEdit(h,i)}>✏️</button>
-                <button title="Excluir" style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:16,padding:"2px 5px"}} onClick={()=>{onRemove(dateKey,i);clear();}}>🗑</button>
+                <button style={{background:"none",border:"none",color:C.accent,cursor:"pointer",fontSize:16,padding:"2px 5px"}} onClick={()=>startEdit(h,i)}>✏️</button>
+                <button style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:16,padding:"2px 5px"}} onClick={()=>{onRemove(dateKey,i);clear();}}>🗑</button>
               </div>
             ))}
           </div>
         )}
-
         {existingHunts.filter(h=>!h.manual).length>0&&(
           <div style={{borderTop:`1px solid ${C.border}`,paddingTop:14,marginTop:manuals.length>0?14:0}}>
             <div style={{fontSize:11,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:8}}>Hunts via copyboard</div>
@@ -229,32 +397,24 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
   );
 }
 
-// ── Linha da tabela ──────────────────────────────────────────────────────────
+/* ══ HUNT ROW ═══════════════════════════════════════════════════════════════ */
 function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, isMobile, onRemove, onEdit }) {
   const [open,setOpen]=useState(false);
   return (
     <>
       <tr className="row-hover" style={{background:open?"#0d0d22":"transparent",transition:"background .15s"}}>
-        <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}22`,color:hasData?C.text:C.textFaint,fontWeight:hasData?600:400,fontSize:13,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}}
-            onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
+        <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}22`,color:hasData?C.text:C.textFaint,fontWeight:hasData?600:400,fontSize:13,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}} onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
           <span style={{color:C.textFaint,marginRight:5,fontSize:11}}>{hunts.length>0?(open?"▾":"▸"):" "}</span>
           {isMobile?d:`Dia ${String(d).padStart(2," ")}`}
         </td>
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,cursor:hunts.length>0?"pointer":"default"}}>
-          {hasData
-            ? <div className="bar-cell">
-                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:gp>=0?C.green:C.red,minWidth:isMobile?60:90,textAlign:"right"}}>{fmt(gp)}</div>
-                {!isMobile&&<MiniBar value={gp} max={maxGP}/>}
-              </div>
-            : <span style={{color:C.textFaint,fontSize:13}}>—</span>}
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,cursor:"pointer"}}>
+          {hasData?<div className="bar-cell"><div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:gp>=0?C.green:C.red,minWidth:isMobile?60:90,textAlign:"right"}}>{fmt(gp)}</div>{!isMobile&&<MiniBar value={gp} max={maxGP}/>}</div>:<span style={{color:C.textFaint,fontSize:13}}>—</span>}
         </td>
         {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:600,fontSize:14,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
         <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
         <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:600,fontSize:13,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
         <td style={{padding:"6px 8px",textAlign:"center",borderBottom:`1px solid ${C.border}22`}}>
-          <button title="Editar manualmente" onClick={()=>onEdit()}
-            style={{background:"none",border:"none",color:C.gold,cursor:"pointer",fontSize:13,opacity:.6,padding:"3px 5px",borderRadius:6,transition:"opacity .15s"}}
-            onMouseEnter={e=>e.target.style.opacity=1} onMouseLeave={e=>e.target.style.opacity=.6}>✏️</button>
+          <button title="Editar manualmente" onClick={()=>onEdit()} style={{background:"none",border:"none",color:C.gold,cursor:"pointer",fontSize:13,opacity:.6,padding:"3px 5px",borderRadius:6}} onMouseEnter={e=>e.target.style.opacity=1} onMouseLeave={e=>e.target.style.opacity=.6}>✏️</button>
         </td>
       </tr>
       {open&&hunts.map((h,i)=>(
@@ -273,7 +433,7 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
   );
 }
 
-// ── Card do mês no Histórico ─────────────────────────────────────────────────
+/* ══ MONTH CARD ══════════════════════════════════════════════════════════════ */
 function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent }) {
   const prefix=ym+"-";
   const entries=Object.entries(days).filter(([k])=>k.startsWith(prefix));
@@ -284,33 +444,20 @@ function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent }) {
   const maxGP=Math.max(...entries.map(([,v])=>Math.abs(v.totalBalance)),1);
   const total=daysInMonth(ym);
   const bars=Array.from({length:total},(_,i)=>{const key=`${ym}-${String(i+1).padStart(2,"0")}`; return days[key]?.totalBalance||0;});
-
   return (
-    <div className="card-hover" onClick={onClick}
-      style={{background:C.card,border:`1px solid ${isCurrent?C.gold+"55":C.border}`,borderRadius:16,padding:20,cursor:"pointer",boxShadow:isCurrent?`0 0 30px ${C.gold}18`:"none",transition:"all .2s"}}>
-
+    <div className="card-hover" onClick={onClick} style={{background:C.card,border:`1px solid ${isCurrent?C.gold+"55":C.border}`,borderRadius:16,padding:20,cursor:"pointer",boxShadow:isCurrent?`0 0 30px ${C.gold}18`:"none",transition:"all .2s"}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
         <div>
           <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:16,fontWeight:700,color:isCurrent?C.gold:C.text,letterSpacing:.5,textTransform:"capitalize"}}>{mmLabel(ym)}</div>
           <div style={{fontSize:11,color:C.textFaint,marginTop:2}}>{daysOk} dia{daysOk!==1?"s":""} farmado{daysOk!==1?"s":""}</div>
         </div>
-        {isCurrent&&<span style={{fontSize:10,background:`${C.gold}22`,color:C.gold,padding:"3px 8px",borderRadius:99,fontWeight:700,letterSpacing:.5}}>MÊS ATUAL</span>}
+        {isCurrent&&<span style={{fontSize:10,background:`${C.gold}22`,color:C.gold,padding:"3px 8px",borderRadius:99,fontWeight:700}}>MÊS ATUAL</span>}
       </div>
-
       <div style={{display:"flex",alignItems:"flex-end",gap:2,height:32,marginBottom:14}}>
-        {bars.map((v,i)=>{
-          const h=maxGP>0?Math.max(2,(Math.abs(v)/maxGP)*32):2;
-          return <div key={i} style={{flex:1,height:`${h}px`,background:v>0?C.green:v<0?C.red:C.muted+"40",borderRadius:2,opacity:v!==0?1:.3}}/>;
-        })}
+        {bars.map((v,i)=>{ const h=maxGP>0?Math.max(2,(Math.abs(v)/maxGP)*32):2; return <div key={i} style={{flex:1,height:`${h}px`,background:v>0?C.green:v<0?C.red:C.muted+"40",borderRadius:2,opacity:v!==0?1:.3}}/>; })}
       </div>
-
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-        {[
-          ["Valor Total", totalCur>=0?fmtMoney(totalCur,curSym):"—", totalCur>=0?C.green:C.red],
-          ["Média/Dia", daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—", C.goldLight],
-          ["Gold Total", fmt(totalGP)+" gp", C.text],
-          ["Melhor Dia", bestDay.key?fmtMoney(toCur(toTC(bestDay.val,gpPerTc),curRate),curSym):"—", C.purple],
-        ].map(([label,val,color])=>(
+        {[["Valor Total",totalCur>=0?fmtMoney(totalCur,curSym):"—",totalCur>=0?C.green:C.red],["Média/Dia",daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight],["Gold Total",fmt(totalGP)+" gp",C.text],["Melhor Dia",bestDay.key?fmtMoney(toCur(toTC(bestDay.val,gpPerTc),curRate),curSym):"—",C.purple]].map(([label,val,color])=>(
           <div key={label} style={{background:C.bg2,borderRadius:10,padding:"10px 12px"}}>
             <div style={{fontSize:10,color:C.textFaint,marginBottom:3,textTransform:"uppercase",letterSpacing:.5}}>{label}</div>
             <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:18,color}}>{val}</div>
@@ -321,100 +468,118 @@ function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent }) {
   );
 }
 
-// ── Seletor de Moeda (Config) ────────────────────────────────────────────────
+/* ══ CURRENCY CONFIG ═════════════════════════════════════════════════════════ */
 function CurrencyConfig({ state, setState }) {
-  const cur = getCur(state);
-  const rate = getRate(state);
-  const preview = toCur(toTC(1000000, state.gpPerTc), rate);
-
-  function selectCurrency(code) {
-    setState(p => ({ ...p, currency: code }));
-  }
-
-  function updateRate(val) {
-    setState(p => ({ ...p, rates: { ...p.rates, [p.currency]: Number(val) } }));
-  }
-
+  const cur=getCur(state), rate=getRate(state);
+  const preview=toCur(toTC(1000000,state.gpPerTc),rate);
   return (
     <div style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:14,padding:20,marginBottom:16}}>
       <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>💱 MOEDA DE EXIBIÇÃO</div>
-
-      {/* Grade de moedas */}
       <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8,marginBottom:18}}>
-        {CURRENCIES.map(c=>{
-          const active = state.currency === c.code;
-          return (
-            <button key={c.code} className="cur-btn" onClick={()=>selectCurrency(c.code)}
-              style={{background: active?`${C.gold}14`:C.card, border:`1.5px solid ${active?C.gold:C.border}`, borderRadius:10, padding:"10px 8px", cursor:"pointer", textAlign:"center"}}>
-              <div style={{fontSize:20,marginBottom:4}}>{c.flag}</div>
-              <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:active?C.goldLight:C.text}}>{c.sym}</div>
-              <div style={{fontSize:10,color:active?C.gold:C.textFaint,marginTop:2}}>{c.name}</div>
-              <div style={{fontSize:10,color:active?C.gold:C.textFaint}}>{c.code}</div>
-            </button>
-          );
-        })}
+        {CURRENCIES.map(c=>{ const active=state.currency===c.code; return (
+          <button key={c.code} className="cur-btn" onClick={()=>setState(p=>({...p,currency:c.code}))}
+            style={{background:active?`${C.gold}14`:C.card,border:`1.5px solid ${active?C.gold:C.border}`,borderRadius:10,padding:"10px 8px",cursor:"pointer",textAlign:"center"}}>
+            <div style={{fontSize:20,marginBottom:4}}>{c.flag}</div>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:active?C.goldLight:C.text}}>{c.sym}</div>
+            <div style={{fontSize:10,color:active?C.gold:C.textFaint,marginTop:2}}>{c.name}</div>
+          </button>
+        );})}
       </div>
-
-      {/* Taxa da moeda selecionada */}
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:14,marginBottom:12}}>
-        <div style={{fontSize:11,color:C.textSub,marginBottom:8,letterSpacing:.5,textTransform:"uppercase"}}>
-          {cur.flag} Valor do TC em {cur.name} ({cur.code})
-        </div>
+        <div style={{fontSize:11,color:C.textSub,marginBottom:8,letterSpacing:.5,textTransform:"uppercase"}}>{cur.flag} Valor do TC em {cur.name} ({cur.code})</div>
         <div style={{display:"flex",gap:10,alignItems:"center"}}>
           <span style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold}}>{cur.sym}</span>
-          <input
-            type="number" step="0.001" value={rate}
-            onChange={e=>updateRate(e.target.value)}
+          <input type="number" step="0.001" value={rate} onChange={e=>setState(p=>({...p,rates:{...p.rates,[p.currency]:Number(e.target.value)}}))}
             style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,outline:"none",fontFamily:"'Rajdhani',sans-serif",fontWeight:700}}/>
           <span style={{fontSize:12,color:C.textFaint,whiteSpace:"nowrap"}}>por TC</span>
         </div>
       </div>
-
-      {/* Prévia */}
       <div style={{background:"#0d1a0d",border:"1px solid #1a3a1a",borderRadius:10,padding:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         <div>
           <div style={{fontSize:11,color:C.textFaint,marginBottom:3}}>PRÉVIA — 1.000.000 gp equivale a</div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:22,color:C.green}}>{fmtMoney(preview, cur.sym)}</div>
+          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:22,color:C.green}}>{fmtMoney(preview,cur.sym)}</div>
         </div>
         <div style={{textAlign:"right"}}>
-          <div style={{fontSize:11,color:C.textFaint,marginBottom:3}}>= TC</div>
+          <div style={{fontSize:11,color:C.textFaint,marginBottom:3}}>=  TC</div>
           <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.textSub}}>~{Math.round(toTC(1000000,state.gpPerTc)).toLocaleString()} TC</div>
         </div>
-      </div>
-
-      <div style={{fontSize:11,color:C.textFaint,marginTop:10,lineHeight:1.6}}>
-        💡 Atualize o valor sempre que a cotação do TC mudar no mercado do Tibia. Cada moeda guarda sua própria taxa.
       </div>
     </div>
   );
 }
 
-// ── APP ──────────────────────────────────────────────────────────────────────
+/* ══ FOOTER ══════════════════════════════════════════════════════════════════ */
+function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <footer style={{marginTop:48,borderTop:`1px solid ${C.border}`,background:"#09090f",padding:"28px 24px 20px"}}>
+      <div style={{maxWidth:960,margin:"0 auto"}}>
+        {/* Logo + descrição */}
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,marginBottom:24,textAlign:"center"}}>
+          <div style={{fontSize:26}}>⚔️</div>
+          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold,letterSpacing:2}}>TIBIA FARM TRACKER</div>
+          <div style={{fontSize:12,color:C.textFaint,maxWidth:380,lineHeight:1.6}}>
+            Ferramenta gratuita para acompanhar seu farm diário no Tibia. Registre, analise e maximize seus lucros!
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div style={{borderTop:`1px solid ${C.border}`,marginBottom:20}}/>
+
+        {/* Links */}
+        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:"8px 24px",marginBottom:20}}>
+          {[["⚔️ Tibia Oficial","https://www.tibia.com"],["🏰 CipSoft","https://www.cipsoft.com"]].map(([label,href])=>(
+            <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="footer-link" style={{fontSize:12}}>
+              {label}
+            </a>
+          ))}
+        </div>
+
+        {/* Aviso legal */}
+        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:"10px 16px",marginBottom:20,fontSize:11,color:C.textFaint,textAlign:"center",lineHeight:1.6}}>
+          ⚠️ <strong style={{color:C.textSub}}>Aviso:</strong> Tibia Farm Tracker é um projeto <strong style={{color:C.textSub}}>independente e não oficial</strong>. Não é afiliado, patrocinado ou endossado pela <strong style={{color:C.textSub}}>CipSoft GmbH</strong>. "Tibia" é marca registrada da CipSoft GmbH. Os dados de localização do Rashid são de domínio público da comunidade Tibia.
+        </div>
+
+        {/* Copyright */}
+        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:8}}>
+          <div style={{fontSize:11,color:C.textFaint}}>
+            © {year} <span style={{color:C.textSub,fontWeight:600}}>Tibia Farm Tracker</span> · Desenvolvido por <span style={{color:C.gold,fontWeight:600}}>MaltinhaDEV</span>
+          </div>
+          <div style={{fontSize:11,color:C.textFaint,display:"flex",gap:12,alignItems:"center"}}>
+            <span>Versão 2.1</span>
+            <span style={{color:C.muted}}>·</span>
+            <span>Open Source</span>
+            <span style={{color:C.muted}}>·</span>
+            <span style={{color:C.green}}>● Online</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ══ APP ══════════════════════════════════════════════════════════════════════ */
 function App() {
   const [state,setState] = useState(()=>{
-    const d = load() || initState();
-    // migração: se não tem currency/rates, adiciona
-    if (!d.currency) d.currency = "BRL";
-    if (!d.rates)    d.rates    = { BRL: d.brlPerTc||0.216, USD:0.040, EUR:0.037, GBP:0.032, CAD:0.055 };
+    const d=load()||initState();
+    if(!d.currency) d.currency="BRL";
+    if(!d.rates)    d.rates={BRL:d.brlPerTc||0.216,USD:0.040,EUR:0.037,GBP:0.032,CAD:0.055};
     return d;
   });
-  const [viewMonth,setViewMonth] = useState(nowYM());
-  const [clip,setClip]    = useState("");
-  const [parsed,setParsed]= useState(null);
-  const [parseErr,setErr] = useState("");
-  const [tab,setTab]      = useState("tracker");
-  const [flash,setFlash]  = useState(null);
-  const [modal,setModal]  = useState(null);
-  const w = useW(); const mob = w<600;
+  const [viewMonth,setViewMonth]=useState(nowYM());
+  const [clip,setClip]=useState("");
+  const [parsed,setParsed]=useState(null);
+  const [parseErr,setErr]=useState("");
+  const [tab,setTab]=useState("tracker");
+  const [flash,setFlash]=useState(null);
+  const [modal,setModal]=useState(null);
+  const w=useW(); const mob=w<600;
 
   useEffect(()=>{ save(state); },[state]);
 
-  const curObj  = getCur(state);
-  const curRate = getRate(state);
-  const curSym  = curObj.sym;
+  const curObj=getCur(state), curRate=getRate(state), curSym=curObj.sym;
 
   function showFlash(msg){ setFlash(msg); setTimeout(()=>setFlash(null),3200); }
-
   function handlePaste(t){ setClip(t); const r=parseClip(t); r?(setErr(""),setParsed(r)):(setErr("Não consegui ler o Balance. Verifique se o texto está completo."),setParsed(null)); }
 
   function confirmHunt(){
@@ -432,58 +597,88 @@ function App() {
 
   function saveManual(dateKey,entry,editIdx){
     setState(p=>{ const days={...p.days}; if(!days[dateKey]) days[dateKey]={hunts:[],totalBalance:0}; let h=[...days[dateKey].hunts],t=days[dateKey].totalBalance; if(editIdx!==null){t-=h[editIdx].balance;h[editIdx]=entry;}else h.push(entry); t+=entry.balance; days[dateKey]={hunts:h,totalBalance:t}; return{...p,days}; });
-    showFlash(editIdx!==null?"💾 Entrada atualizada!":` ✅ ${fmt(entry.balance)} gp salvo!`);
+    showFlash(editIdx!==null?"💾 Entrada atualizada!":`✅ ${fmt(entry.balance)} gp salvo!`);
   }
 
   function clearMonth(){ if(!confirm(`Apagar todos os dados de ${mmLabel(viewMonth)}?`)) return; setState(p=>{ const days={...p.days}; Object.keys(days).filter(k=>k.startsWith(viewMonth+"-")).forEach(k=>delete days[k]); return{...p,days}; }); }
 
   const {playerName,gpPerTc,days}=state;
-
-  const allMonths = useMemo(()=>{ const set=new Set(Object.keys(days).map(k=>k.slice(0,7))); set.add(nowYM()); return Array.from(set).sort().reverse(); },[days]);
+  const allMonths=useMemo(()=>{ const s=new Set(Object.keys(days).map(k=>k.slice(0,7))); s.add(nowYM()); return Array.from(s).sort().reverse(); },[days]);
 
   const total=daysInMonth(viewMonth);
   let cum=0;
   const rows=Array.from({length:total},(_,i)=>{
-    const d=i+1, key=`${viewMonth}-${String(d).padStart(2,"0")}`, day=days[key];
-    const gp=day?day.totalBalance:0, tc=toTC(gp,gpPerTc), cur=toCur(tc,curRate);
+    const d=i+1,key=`${viewMonth}-${String(d).padStart(2,"0")}`,day=days[key];
+    const gp=day?day.totalBalance:0,tc=toTC(gp,gpPerTc),cur=toCur(tc,curRate);
     cum+=day?cur:0;
     return {d,key,gp,tc,cur,cumulative:cum,hunts:day?.hunts||[],hasData:!!day};
   });
 
-  const maxGP    = Math.max(...rows.map(r=>Math.abs(r.gp)),1);
-  const totalGP  = rows.reduce((s,r)=>s+r.gp,0);
-  const totalTC  = toTC(totalGP,gpPerTc);
-  const totalCur = toCur(totalTC,curRate);
-  const daysOk   = rows.filter(r=>r.hasData).length;
+  const maxGP=Math.max(...rows.map(r=>Math.abs(r.gp)),1);
+  const totalGP=rows.reduce((s,r)=>s+r.gp,0);
+  const totalTC=toTC(totalGP,gpPerTc);
+  const totalCur=toCur(totalTC,curRate);
+  const daysOk=rows.filter(r=>r.hasData).length;
 
   const px=mob?12:24;
   const S={
-    th:  { background:C.bg2, color:C.gold, padding:mob?"8px 8px":"10px 14px", textAlign:"right", fontFamily:"'Rajdhani',sans-serif", fontSize:mob?11:12, letterSpacing:1, textTransform:"uppercase", borderBottom:`1px solid ${C.border}` },
-    inp: { background:C.bg2, border:`1px solid ${C.border}`, borderRadius:8, padding:"9px 12px", color:C.text, fontSize:13, width:"100%", outline:"none", fontFamily:"'Inter',sans-serif" },
-    lbl: { fontSize:11, color:C.textSub, marginBottom:5, display:"block", letterSpacing:.5, textTransform:"uppercase" },
+    th:  {background:C.bg2,color:C.gold,padding:mob?"8px 8px":"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontSize:mob?11:12,letterSpacing:1,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`},
+    inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Inter',sans-serif"},
+    lbl: {fontSize:11,color:C.textSub,marginBottom:5,display:"block",letterSpacing:.5,textTransform:"uppercase"},
   };
-  const btnPrimary = { padding:mob?"10px 18px":"11px 24px", borderRadius:10, border:"none", cursor:"pointer", fontWeight:700, fontSize:13, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, color:"#0a0804", letterSpacing:.5 };
-  const btnGhost   = { padding:mob?"10px 18px":"11px 24px", borderRadius:10, border:`1px solid ${C.border}`, cursor:"pointer", fontWeight:600, background:"transparent", color:C.textSub, fontSize:13 };
-  const btnDanger  = { padding:mob?"8px 12px":"9px 16px", borderRadius:8, border:`1px solid ${C.red}44`, cursor:"pointer", fontWeight:700, background:"transparent", color:C.red, fontSize:12 };
+  const btnPrimary={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:13,background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:"#0a0804",letterSpacing:.5};
+  const btnGhost={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13};
+  const btnDanger={padding:mob?"8px 12px":"9px 16px",borderRadius:8,border:`1px solid ${C.red}44`,cursor:"pointer",fontWeight:700,background:"transparent",color:C.red,fontSize:12};
 
   return (
-    <div style={{background:C.bg,minHeight:"100vh",color:C.text,paddingBottom:60}}>
+    <div style={{background:C.bg,minHeight:"100vh",color:C.text}}>
 
       {/* Flash */}
       {flash&&<div style={{position:"fixed",bottom:28,left:"50%",transform:"translateX(-50%)",background:"#0d2e1a",border:`1px solid ${C.green}55`,color:C.green,padding:"12px 22px",borderRadius:12,fontWeight:700,zIndex:999,fontSize:14,boxShadow:"0 8px 32px #000c",whiteSpace:"nowrap",maxWidth:"90vw",textAlign:"center",animation:"slideUp .2s ease"}}>{flash}</div>}
 
-      {/* Modal Manual */}
+      {/* Modal */}
       {modal&&<ManualModal dateKey={modal.dateKey} dayNum={modal.dayNum} existingHunts={days[modal.dateKey]?.hunts||[]} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} onSave={saveManual} onRemove={removeHunt} onClose={()=>setModal(null)}/>}
 
-      {/* ── HEADER centralizado ── */}
-      <div style={{background:`linear-gradient(180deg,#0d0d20,${C.bg})`,borderBottom:`1px solid ${C.border}`,padding:mob?"14px 16px 12px":"20px 28px 16px",position:"sticky",top:0,zIndex:100,backdropFilter:"blur(12px)"}}>
-        <div style={{maxWidth:960,margin:"0 auto",display:"flex",flexDirection:"column",alignItems:"center",gap:4}}>
-          <div style={{fontSize:mob?24:32,lineHeight:1}}>⚔️</div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:mob?18:24,fontWeight:700,color:C.goldLight,letterSpacing:mob?2:3,textTransform:"uppercase"}} className="glow-gold">Tibia Farm Tracker</div>
-          <div style={{fontSize:11,color:C.textFaint,marginBottom:4}}>
-            {playerName?`${playerName} · `:""}<span style={{textTransform:"capitalize"}}>{mmLabel(viewMonth)}</span> · {daysOk} dias · {curObj.flag} {curObj.code}
+      {/* ══ HERO HEADER ══ */}
+      <div style={{position:"relative",overflow:"hidden",background:"linear-gradient(180deg,#0a0a1a 0%,#0d0d20 60%,#08080f 100%)",borderBottom:`1px solid ${C.border}`,padding:mob?"24px 16px 20px":"36px 28px 28px",textAlign:"center",position:"sticky",top:0,zIndex:100,backdropFilter:"blur(16px)"}}>
+        {/* Decoração: estrelas */}
+        {[{x:"8%",y:"20%",s:2,d:0},{x:"92%",y:"30%",s:3,d:1},{x:"15%",y:"70%",s:2,d:2},{x:"85%",y:"65%",s:2,d:.5},{x:"50%",y:"10%",s:2,d:1.5},{x:"30%",y:"15%",s:3,d:2.5},{x:"70%",y:"20%",s:2,d:.8}].map((s,i)=>(
+          <div key={i} className="star" style={{left:s.x,top:s.y,width:s.s,height:s.s,animationDelay:`${s.d}s`,animationDuration:`${2+i*.3}s`}}/>
+        ))}
+
+        {/* Linha decorativa superior */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginBottom:mob?8:12}}>
+          <div style={{height:1,width:mob?30:60,background:`linear-gradient(90deg,transparent,${C.gold})`}}/>
+          <span style={{fontSize:mob?10:11,color:C.goldDim,letterSpacing:3,textTransform:"uppercase"}}>Farm Tracker</span>
+          <div style={{height:1,width:mob?30:60,background:`linear-gradient(270deg,transparent,${C.gold})`}}/>
+        </div>
+
+        {/* Ícone + Título */}
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:mob?6:10}}>
+          <div style={{fontSize:mob?32:44,lineHeight:1,filter:"drop-shadow(0 0 16px #c8a83c88)"}}>⚔️</div>
+          <h1 className="hero-title" style={{fontSize:mob?26:42,letterSpacing:mob?3:6,lineHeight:1,margin:0}}>
+            TIBIA FARM TRACKER
+          </h1>
+          <div style={{fontSize:mob?11:13,color:C.textFaint,letterSpacing:1}}>
+            {playerName?<><span style={{color:C.textSub,fontWeight:600}}>{playerName}</span> · </>:""}
+            <span style={{textTransform:"capitalize"}}>{mmLabel(viewMonth)}</span>
+            {" · "}<span style={{color:C.green,fontWeight:600}}>{daysOk}</span> dias farmados
+            {" · "}<span style={{color:C.gold}}>{curObj.flag} {curObj.code}</span>
           </div>
-          <button style={{...btnPrimary,fontSize:12,padding:mob?"7px 16px":"8px 20px"}} onClick={()=>setTab("paste")}>+ Hunt</button>
+        </div>
+
+        {/* Botão + Hunt */}
+        <div style={{marginTop:mob?12:16}}>
+          <button style={{...btnPrimary,fontSize:13,padding:mob?"9px 20px":"10px 28px",letterSpacing:1,boxShadow:`0 4px 20px ${C.gold}44`}} onClick={()=>setTab("paste")}>
+            ⚔️ + NOVA HUNT
+          </button>
+        </div>
+
+        {/* Linha decorativa inferior */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:mob?12:16}}>
+          <div style={{height:1,flex:1,background:`linear-gradient(90deg,transparent,${C.border})`}}/>
+          <div style={{width:6,height:6,background:C.gold,borderRadius:1,transform:"rotate(45deg)",opacity:.6}}/>
+          <div style={{height:1,flex:1,background:`linear-gradient(270deg,transparent,${C.border})`}}/>
         </div>
       </div>
 
@@ -503,15 +698,14 @@ function App() {
 
         {/* ══ TRACKER ══ */}
         {tab==="tracker"&&<>
+          {/* Widget Rashid */}
+          <RashidWidget mob={mob}/>
+
+          {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
-            {[
-              ["Gold Total",    fmt(totalGP)+" gp",                                    C.goldLight],
-              ["Tibia Coins",   Math.round(totalTC).toLocaleString()+" TC",             C.goldLight],
-              ["Valor "+curObj.code, fmtMoney(totalCur,curSym),                        C.green    ],
-              ["Média/Dia",     daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",         C.goldLight],
-            ].map(([label,val,color])=>(
+            {[["Gold Total",fmt(totalGP)+" gp",C.goldLight],["Tibia Coins",Math.round(totalTC).toLocaleString()+" TC",C.goldLight],["Valor "+curObj.code,fmtMoney(totalCur,curSym),C.green],["Média/Dia",daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
               <div key={label} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:mob?"12px":"16px 18px"}}>
-                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?18:24,color,lineHeight:1.1}} className={color===C.green?"glow-green":""}>{val}</div>
+                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?18:24,color,lineHeight:1.1}}>{val}</div>
                 <div style={{fontSize:mob?10:11,color:C.textFaint,marginTop:4,textTransform:"uppercase",letterSpacing:.7}}>{label}</div>
               </div>
             ))}
@@ -528,6 +722,7 @@ function App() {
             <button style={btnDanger} onClick={clearMonth}>🗑 {mob?"":"Limpar mês"}</button>
           </div>
 
+          {/* Tabela */}
           <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,overflow:"hidden"}}>
             <div style={{overflowX:"auto"}}>
               <table style={{width:"100%",borderCollapse:"collapse",fontSize:13}}>
@@ -566,15 +761,10 @@ function App() {
             <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1,marginBottom:4}}>📅 HISTÓRICO DE MESES</div>
             <div style={{fontSize:13,color:C.textSub}}>Clique em um mês para ver o detalhe no Tracker.</div>
           </div>
-          {allMonths.length===0
-            ? <div style={{textAlign:"center",padding:60,color:C.textFaint}}>Nenhum dado registrado ainda.</div>
-            : <div style={{display:"grid",gridTemplateColumns:mob?"1fr":w<800?"1fr 1fr":"repeat(3,1fr)",gap:14}}>
-                {allMonths.map(ym=>(
-                  <MonthCard key={ym} ym={ym} days={days} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} isCurrent={ym===nowYM()}
-                    onClick={()=>{setViewMonth(ym);setTab("tracker");}}/>
-                ))}
-              </div>
-          }
+          {allMonths.length===0?<div style={{textAlign:"center",padding:60,color:C.textFaint}}>Nenhum dado registrado ainda.</div>
+            :<div style={{display:"grid",gridTemplateColumns:mob?"1fr":w<800?"1fr 1fr":"repeat(3,1fr)",gap:14}}>
+              {allMonths.map(ym=><MonthCard key={ym} ym={ym} days={days} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} isCurrent={ym===nowYM()} onClick={()=>{setViewMonth(ym);setTab("tracker");}}/>)}
+            </div>}
         </>}
 
         {/* ══ COLAR SESSÃO ══ */}
@@ -597,17 +787,15 @@ function App() {
                     </div>
                   ))}
                 </div>
-                {parsed.players.length>0&&(
-                  <div style={{marginBottom:14}}>
-                    <div style={{fontSize:11,color:C.textFaint,marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>Jogadores</div>
-                    {parsed.players.map(p=>(
-                      <div key={p.name} style={{display:"flex",justifyContent:"space-between",background:"#0a160a",borderRadius:8,padding:"7px 12px",fontSize:13,marginBottom:4}}>
-                        <span style={{color:C.text,fontWeight:600}}>{p.name}</span>
-                        <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:p.balance>=0?C.green:C.red}}>{p.balance>=0?"+":""}{fmt(p.balance)} gp</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                {parsed.players.length>0&&(<div style={{marginBottom:14}}>
+                  <div style={{fontSize:11,color:C.textFaint,marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>Jogadores</div>
+                  {parsed.players.map(p=>(
+                    <div key={p.name} style={{display:"flex",justifyContent:"space-between",background:"#0a160a",borderRadius:8,padding:"7px 12px",fontSize:13,marginBottom:4}}>
+                      <span style={{color:C.text,fontWeight:600}}>{p.name}</span>
+                      <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:p.balance>=0?C.green:C.red}}>{p.balance>=0?"+":""}{fmt(p.balance)} gp</span>
+                    </div>
+                  ))}
+                </div>)}
                 <div style={{display:"flex",gap:10}}>
                   <button style={btnPrimary} onClick={confirmHunt}>✅ Salvar Hunt</button>
                   <button style={btnGhost} onClick={()=>{setClip("");setParsed(null);setErr("");}}>Cancelar</button>
@@ -620,9 +808,7 @@ function App() {
         {/* ══ CONFIG ══ */}
         {tab==="config"&&(
           <div>
-            {/* Seletor de moeda */}
             <CurrencyConfig state={state} setState={setState}/>
-
             <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:mob?16:24}}>
               <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>⚙️ DADOS DO JOGADOR</div>
               <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:14,marginBottom:20}}>
@@ -634,12 +820,10 @@ function App() {
                   </div>
                 ))}
               </div>
-
               <div style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:10,padding:14,fontSize:12,color:C.textSub,lineHeight:1.8,marginBottom:16}}>
                 ℹ️ Os dados são salvos <strong style={{color:C.text}}>automaticamente</strong> no navegador (localStorage).<br/>
                 Use o backup abaixo para não perder dados ao trocar de dispositivo ou limpar o navegador.
               </div>
-
               <div style={{marginBottom:14}}>
                 <label style={S.lbl}>Backup (copie e guarde em lugar seguro)</label>
                 <textarea style={{...S.inp,minHeight:70,fontSize:11,resize:"vertical"}} readOnly value={JSON.stringify(state)}/>
@@ -658,6 +842,9 @@ function App() {
           </div>
         )}
       </div>
+
+      {/* ══ FOOTER ══ */}
+      <Footer/>
     </div>
   );
 }
