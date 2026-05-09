@@ -572,12 +572,10 @@ function LeftSidebar({ mob }) {
   const rashid  = RASHID[dow];
   const dias    = t("ds");
   const diasFull= t("df");
-  const char    = useCharSearch();
-
   if(mob) return null;
 
   return (
-    <div style={{display:"flex",flexDirection:"column",gap:12,width:280,flexShrink:0}}>
+    <div style={{display:"flex",flexDirection:"column",gap:12,width:320,flexShrink:0}}>
 
       {/* ── RASHID CARD ── */}
       <div style={{
@@ -606,12 +604,12 @@ function LeftSidebar({ mob }) {
           {/* Sprite com glow */}
           <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
             <div style={{position:"absolute",width:118,height:118,borderRadius:"50%",background:"radial-gradient(circle,rgba(255,140,0,.15),transparent 70%)",animation:"starPulse 2s ease-in-out infinite"}}/>
-            <RashidSprite size={110}/>
+            <RashidSprite size={120}/>
           </div>
 
           {/* Nome da cidade */}
           <div style={{textAlign:"center"}}>
-            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:34,color:C.green,lineHeight:1,textShadow:`0 0 20px ${C.green}88`}}>{rashid.city}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:38,color:C.green,lineHeight:1,textShadow:`0 0 22px ${C.green}99`}}>{rashid.city}</div>
             <div style={{fontSize:11,color:C.textSub,marginTop:4,display:"flex",alignItems:"center",justifyContent:"center",gap:4}}>
               <span style={{color:C.green,fontSize:12}}>📍</span> {rashid.tip}
             </div>
@@ -642,107 +640,102 @@ function LeftSidebar({ mob }) {
         </div>
       </div>
 
-      {/* BUSCA DE PERSONAGEM */}
-      {/* BUSCA DE PERSONAGEM — Premium */}
-      <div style={{background:"linear-gradient(160deg,#0a0d1e,#080b18)",border:`1px solid ${C.accent}44`,borderRadius:18,overflow:"hidden",flex:1,display:"flex",flexDirection:"column",boxShadow:`0 8px 32px #000a, 0 0 0 1px ${C.accent}11`}}>
+
+            {/* ══ EXPLORER ══ */}
+      <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,overflow:"hidden",marginTop:4}}>
 
         {/* Header */}
-        <div style={{background:`linear-gradient(90deg,${C.accent}18,transparent)`,padding:"12px 16px",borderBottom:`1px solid ${C.accent}22`,display:"flex",alignItems:"center",gap:8}}>
-          <div style={{width:7,height:7,borderRadius:"50%",background:C.accent,boxShadow:`0 0 8px ${C.accent}`}}/>
-          <span style={{fontSize:9,color:C.accent,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("search_char")}</span>
-        </div>
-
-        <div style={{padding:"14px 14px 0"}}>
-          {/* Input com ícone */}
-          <div style={{position:"relative",marginBottom:8}}>
-            <span style={{position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",fontSize:14,color:C.accent,pointerEvents:"none",zIndex:1}}>🔍</span>
-            <input value={char.name} onChange={e=>char.setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&char.search()}
-              placeholder={t("char_ph")}
-              style={{width:"100%",background:C.bg2,border:`1.5px solid ${char.name?C.accent+"66":C.border}`,borderRadius:10,padding:"10px 10px 10px 34px",
-                color:C.text,fontSize:13,outline:"none",fontFamily:"'IM Fell English',serif",transition:"border-color .2s",
-                boxShadow:char.name?`0 0 12px ${C.accent}22`:"none"}}/>
-          </div>
-
-          {/* Botão buscar */}
-          <button onClick={char.search} disabled={char.loading}
-            style={{width:"100%",background:char.loading?C.bg2:`linear-gradient(135deg,${C.accent},#2a4a99)`,
-              border:`1px solid ${char.loading?C.border:C.accent+"88"}`,borderRadius:10,padding:"10px",
-              cursor:char.loading?"not-allowed":"pointer",color:"#fff",fontSize:12,fontWeight:700,letterSpacing:.8,
-              display:"flex",alignItems:"center",justifyContent:"center",gap:6,transition:"all .2s",
-              opacity:char.loading?.7:1,marginBottom:10}}>
-            {char.loading
-              ? <><span style={{display:"inline-block",animation:"starPulse 1s infinite"}}>⚔️</span> {t("searching")}</>
-              : <>{t("search_btn")} →</>}
-          </button>
-        </div>
-
-        {/* Resultado */}
-        {char.err && (
-          <div style={{margin:"0 14px 10px",background:"#2a0a0a",border:"1px solid #5a1a1a",borderRadius:10,padding:"8px 12px",fontSize:11,color:C.red,display:"flex",alignItems:"center",gap:6}}>
-            <span>⚠️</span> {char.err}
-          </div>
-        )}
-
-        {char.result ? (
-          <div style={{margin:"0 14px 14px",flex:1}}>
-            {/* Card do personagem */}
-            <div style={{background:"linear-gradient(160deg,#0f0f20,#0a0a18)",border:`1px solid ${C.gold}33`,borderRadius:12,overflow:"hidden"}}>
-              {/* Nome + status */}
-              <div style={{background:`linear-gradient(90deg,${C.gold}14,transparent)`,padding:"10px 14px",borderBottom:`1px solid ${C.gold}22`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:C.gold}}>{char.result.name}</div>
-                <span style={{fontSize:10,padding:"2px 8px",borderRadius:99,fontWeight:700,
-                  background:char.result.online?"#0a2a0a":"#1a1a1a",
-                  color:char.result.online?C.green:C.textFaint,
-                  border:`1px solid ${char.result.online?C.green+"44":C.border}`}}>
-                  {char.result.online?"● Online":"○ Offline"}
-                </span>
-              </div>
-
-              {/* Stats em grid */}
-              <div style={{padding:"10px 14px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"6px 10px"}}>
-                {[
-                  ["⚔️", t("lv"), char.result.level, C.gold],
-                  ["🧙", t("voc"), char.result.vocation?.split(" ").slice(-1)[0]||char.result.vocation, C.accent],
-                  ["🌍", t("world"), char.result.world, C.text],
-                  ["✨", "Achievements", char.result.achievement_points||"—", C.purple],
-                ].map(([icon,label,val,col])=>(
-                  <div key={label} style={{background:C.bg2,borderRadius:8,padding:"6px 8px"}}>
-                    <div style={{fontSize:9,color:C.textFaint,marginBottom:2}}>{icon} {label}</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:14,color:col,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{val}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Guild */}
-              {char.result.guild?.name && (
-                <div style={{margin:"0 14px",marginBottom:10,background:`${C.purple}12`,border:`1px solid ${C.purple}33`,borderRadius:8,padding:"6px 10px",fontSize:11,color:C.purple,display:"flex",alignItems:"center",gap:6}}>
-                  🏰 <strong>{char.result.guild.name}</strong>
-                  {char.result.guild.rank&&<span style={{color:C.textFaint}}>· {char.result.guild.rank}</span>}
-                </div>
-              )}
-
-              {/* Botão Tibia.com */}
-              <div style={{padding:"0 14px 14px"}}>
-                <a href={`https://www.tibia.com/community/?subtopic=characters&name=${encodeURIComponent(char.result.name)}`}
-                  target="_blank" rel="noopener noreferrer"
-                  style={{display:"flex",alignItems:"center",justifyContent:"center",gap:7,width:"100%",padding:"9px",
-                    borderRadius:9,background:"linear-gradient(135deg,#6a1500,#c03000)",
-                    color:"#fff",textDecoration:"none",fontSize:11,fontWeight:700,letterSpacing:.6,
-                    boxShadow:"0 4px 14px #c0300044",transition:"opacity .2s"}}
-                  onMouseEnter={e=>e.currentTarget.style.opacity=".85"}
-                  onMouseLeave={e=>e.currentTarget.style.opacity="1"}>
-                  ⚔️ Ver no Tibia.com
-                </a>
+        <div style={{position:"relative",padding:"14px 16px 12px",background:`linear-gradient(135deg,${C.gold}22,${C.bg2})`,borderBottom:`1px solid ${C.gold}44`}}>
+          <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,transparent,${C.gold},transparent)`,boxShadow:`0 0 8px ${C.gold}88`}}/>
+          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10}}>
+              <div style={{fontSize:24,filter:`drop-shadow(0 0 10px ${C.gold})`,animation:"starPulse 2.5s ease-in-out infinite"}}>🧭</div>
+              <div>
+                <div style={{
+                  fontFamily:"'Cinzel Decorative',serif",
+                  fontSize:14,color:C.gold,
+                  letterSpacing:3,fontWeight:700,
+                  textTransform:"uppercase",lineHeight:1,
+                  textShadow:`0 0 16px ${C.gold}88`
+                }}>Explorer</div>
+                <div style={{
+                  fontFamily:"'Share Tech Mono',monospace",
+                  fontSize:10,color:C.textSub,
+                  letterSpacing:2,marginTop:5,
+                }}>Tibia.com · Community</div>
               </div>
             </div>
+            <div style={{display:"flex",flexDirection:"column",gap:3,alignItems:"center"}}>
+              <div style={{width:5,height:5,background:C.gold,transform:"rotate(45deg)",boxShadow:`0 0 6px ${C.gold}`,animation:"starPulse 2s ease-in-out infinite"}}/>
+              <div style={{width:3,height:3,background:C.gold,transform:"rotate(45deg)",opacity:.5,animation:"starPulse 2s ease-in-out infinite .3s"}}/>
+            </div>
           </div>
-        ) : !char.loading && !char.err && (
-          <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"16px 14px",textAlign:"center",gap:8}}>
-            <div style={{fontSize:28,opacity:.3}}>🧙</div>
-            <div style={{fontSize:11,color:C.textFaint,lineHeight:1.7}}>{t("char_hint")}</div>
-            <div style={{fontSize:10,color:C.border,marginTop:4}}>↵ Enter para buscar</div>
-          </div>
-        )}
+        </div>
+
+        {/* Items */}
+        {[
+          {icon:"⚔️", label:"Characters", desc:"Buscar personagens", href:"https://www.tibia.com/community/?subtopic=characters", color:"#ff9944"},
+          {icon:"🌍", label:"Worlds",      desc:"Servidores online",  href:"https://www.tibia.com/community/?subtopic=worlds",     color:"#4ab8ff"},
+          {icon:"🏆", label:"Highscores",  desc:"Rankings globais",   href:"https://www.tibia.com/community/?subtopic=highscores", color:"#ffcc44"},
+          {icon:"🏰", label:"Guilds",      desc:"Buscar guildas",     href:"https://www.tibia.com/community/?subtopic=guilds",     color:"#bb88ff"},
+        ].map((item,i,arr)=>(
+          <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
+            style={{
+              display:"flex",alignItems:"center",gap:12,
+              padding:"11px 16px",
+              borderBottom:i<arr.length-1?`1px solid ${C.border}33`:"none",
+              textDecoration:"none",
+              background:"transparent",
+              transition:"all .18s",
+              cursor:"pointer",
+            }}
+            onMouseEnter={e=>{
+              e.currentTarget.style.background=`${item.color}0f`;
+              e.currentTarget.style.paddingLeft="20px";
+              e.currentTarget.querySelector(".exp-arrow").style.color=item.color;
+              e.currentTarget.querySelector(".exp-arrow").style.transform="translateX(3px)";
+            }}
+            onMouseLeave={e=>{
+              e.currentTarget.style.background="transparent";
+              e.currentTarget.style.paddingLeft="16px";
+              e.currentTarget.querySelector(".exp-arrow").style.color=C.textFaint;
+              e.currentTarget.querySelector(".exp-arrow").style.transform="translateX(0)";
+            }}>
+            {/* Ícone com bg colorido */}
+            <div style={{
+              width:38,height:38,borderRadius:8,flexShrink:0,
+              background:`${item.color}15`,
+              border:`1px solid ${item.color}33`,
+              display:"flex",alignItems:"center",justifyContent:"center",
+              fontSize:16,
+            }}>{item.icon}</div>
+            {/* Texto */}
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{
+                fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,
+                color:C.text,letterSpacing:1,lineHeight:1,
+                textShadow:"0 0 8px rgba(255,200,100,.1)"
+              }}>{item.label}</div>
+              <div style={{
+                fontFamily:"'Share Tech Mono',monospace",
+                fontSize:10,color:C.textSub,marginTop:4,letterSpacing:.3
+              }}>{item.desc}</div>
+            </div>
+            {/* Seta animada */}
+            <span className="exp-arrow" style={{fontSize:18,color:C.textFaint,fontWeight:700,transition:"all .18s",fontFamily:"'Cinzel',serif"}}>›</span>
+          </a>
+        ))}
+
+        {/* Footer */}
+        <div style={{padding:"9px 16px",borderTop:`1px solid ${C.gold}22`,background:`linear-gradient(90deg,${C.gold}0a,${C.bg2},${C.gold}0a)`,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+          <div style={{height:1,flex:1,background:`linear-gradient(90deg,transparent,${C.gold}33)`}}/>
+          <span style={{fontSize:13,filter:`drop-shadow(0 0 6px ${C.gold})`,animation:"starPulse 3s ease-in-out infinite"}}>🔱</span>
+          <span style={{
+            fontFamily:"'Share Tech Mono',monospace",fontSize:10,
+            color:C.textSub,letterSpacing:2,
+          }}>Abre no Tibia.com ↗</span>
+          <div style={{height:1,flex:1,background:`linear-gradient(270deg,transparent,${C.gold}33)`}}/>
+        </div>
       </div>
     </div>
   );
@@ -799,8 +792,6 @@ function InfoPanel({ mob, creature, boss }) {
   const dias  = t("ds");
   const diasFull = t("df");
 
-  const char = useCharSearch();
-
   const cardBase = { background:C.card, border:`1px solid ${C.border}`, borderRadius:14, padding:"14px 16px" };
 
   // Mini card para criatura/boss
@@ -842,15 +833,13 @@ function InfoPanel({ mob, creature, boss }) {
         <BoostCard data={creature} label={t("boosted_c")} color="#9b6dff" borderColor="#7b3aed" icon="★"/>
         <BoostCard data={boss} label={t("boosted_b")} color="#f06060" borderColor="#c03030" icon="☠"/>
       </div>
-      {/* Char search mobile */}
-      <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob}/>
     </div>
   );
 
   return (
     <div style={{marginBottom:16}}>
       {/* Grid 4 colunas: Rashid | Criatura | Boss | Busca */}
-      <div style={{display:"grid",gridTemplateColumns:"1.4fr 1fr 1fr 1.4fr",gap:10}}>
+      <div style={{display:"grid",gridTemplateColumns:"1.4fr 1fr 1fr",gap:10}}>
 
         {/* COL 1 — RASHID */}
         <div style={{...cardBase,border:"1px solid #3a1a0044",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",animation:"borderGlow 3s ease-in-out infinite",position:"relative",overflow:"hidden"}}>
@@ -884,8 +873,7 @@ function InfoPanel({ mob, creature, boss }) {
         {/* COL 3 — BOSS BOOSTADO */}
         <BoostCard data={boss} label="☠️ Boss Boostado" color="#f06060" borderColor="#c03030" icon="☠"/>
 
-        {/* COL 4 — BUSCA DE PERSONAGEM */}
-        <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob}/>
+
       </div>
     </div>
   );
