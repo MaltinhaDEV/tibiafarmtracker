@@ -361,31 +361,51 @@ function useLang(){
 }
 
 // ── Seletor de bandeiras ─────────────────────────────────────────────────
+// Flag image URLs (FlagCDN)
+const FLAG_IMGS = {
+  pt: "https://flagcdn.com/w40/br.png",
+  en: "https://flagcdn.com/w40/us.png",
+  es: "https://flagcdn.com/w40/es.png",
+  pl: "https://flagcdn.com/w40/pl.png",
+  de: "https://flagcdn.com/w40/de.png",
+};
+
 function LangSelector({ mob }){
   const lang = useLang();
   return (
-    <div style={{display:"flex",alignItems:"center",gap:mob?3:4}}>
+    <div style={{
+      position:"fixed", top:mob?8:14, right:mob?8:16, zIndex:999,
+      display:"flex", alignItems:"center", gap:mob?4:6,
+      background:"rgba(9,9,20,0.82)", backdropFilter:"blur(10px)",
+      border:"1px solid #2a2a48", borderRadius:12,
+      padding:mob?"5px 8px":"7px 12px",
+      boxShadow:"0 4px 20px #000a",
+    }}>
       {Object.entries(TR).map(([code,tr])=>{
         const active = code===lang;
         return (
           <button key={code} onClick={()=>setGlobalLang(code)} title={tr.name}
             style={{
-              background:"none",
-              border:`2px solid ${active?"#c8a83c":"transparent"}`,
-              borderRadius:8,
-              padding:mob?"2px 3px":"3px 4px",
-              cursor:"pointer",
-              fontSize:mob?20:22,
-              lineHeight:1,
-              opacity:active?1:0.45,
-              transform:active?"scale(1.15)":"scale(1)",
+              background:"none", border:"none", padding:0,
+              cursor:"pointer", outline:"none",
+              borderRadius:5, overflow:"hidden",
+              opacity: active ? 1 : 0.35,
+              transform: active ? "scale(1.18)" : "scale(1)",
               transition:"all .18s",
-              filter:active?"drop-shadow(0 0 6px #c8a83c88)":"none",
-              outline:"none",
+              boxShadow: active ? "0 0 0 2px #c8a83c, 0 0 10px #c8a83c66" : "none",
+              display:"block",
             }}
-            onMouseEnter={e=>{ if(!active){ e.currentTarget.style.opacity="0.8"; e.currentTarget.style.transform="scale(1.08)"; }}}
-            onMouseLeave={e=>{ if(!active){ e.currentTarget.style.opacity="0.45"; e.currentTarget.style.transform="scale(1)"; }}}>
-            {tr.flag}
+            onMouseEnter={e=>{ if(!active){ e.currentTarget.style.opacity="0.75"; e.currentTarget.style.transform="scale(1.08)"; }}}
+            onMouseLeave={e=>{ if(!active){ e.currentTarget.style.opacity="0.35"; e.currentTarget.style.transform="scale(1)"; }}}>
+            <img
+              src={FLAG_IMGS[code]}
+              alt={tr.name}
+              width={mob?26:30}
+              height={mob?17:20}
+              style={{display:"block", objectFit:"cover", borderRadius:3, imageRendering:"auto"}}
+              onError={e=>{ e.target.style.display="none"; e.target.nextSibling.style.display="inline"; }}
+            />
+            <span style={{display:"none", fontSize:mob?16:18}}>{tr.flag}</span>
           </button>
         );
       })}
@@ -1521,12 +1541,9 @@ function App() {
 
         {/* Botão + Hunt */}
         <div style={{marginTop:mob?12:16}}>
-          <div style={{display:"flex",gap:8,alignItems:"center"}}>
-            <LangSelector mob={mob}/>
-            <button style={{...btnPrimary,fontSize:13,padding:mob?"9px 16px":"10px 24px",letterSpacing:1,boxShadow:`0 4px 20px ${C.gold}44`}} onClick={()=>setTab("paste")}>
-              {t("new_hunt")}
-            </button>
-          </div>
+          <button style={{...btnPrimary,fontSize:13,padding:mob?"9px 16px":"10px 24px",letterSpacing:1,boxShadow:`0 4px 20px ${C.gold}44`}} onClick={()=>setTab("paste")}>
+            {t("new_hunt")}
+          </button>
         </div>
 
         {/* Linha decorativa inferior */}
