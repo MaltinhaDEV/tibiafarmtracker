@@ -46,13 +46,13 @@ input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 button:active      { transform:scale(.97); }
 
 /* ── Stars no hero ── */
-.star { position:absolute;border-radius:50%;background:#e8c96a;animation:starPulse 3s ease-in-out infinite; }
+.star { position:absolute;border-radius:50%;background:#e8c96a;animation:starPulse 3s ease-in-out infinite;box-shadow:0 0 6px rgba(232,201,106,.6); }
 
 /* ── Título com shimmer ── */
 .hero-title {
   font-family:'Cinzel',serif;
   font-weight:700;
-  background:linear-gradient(90deg,#8a7028,#e8c96a,#c8a83c,#f5e090,#c8a83c,#8a7028);
+  background:linear-gradient(90deg,#8a7028,#ffe066,#f5c842,#fff0a0,#f5c842,#e8c96a,#8a7028);
   background-size:200% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -66,7 +66,7 @@ button:active      { transform:scale(.97); }
 
 /* ── Footer ── */
 .footer-link { color:#52527a;text-decoration:none;transition:color .2s; }
-.footer-link:hover { color:#c8a83c; }
+.footer-link:hover { color:#b35a00; }
 </style>
 </head>
 <body>
@@ -382,8 +382,8 @@ function LangSelector({ mob }){
     <div style={{
       position:"fixed", top:mob?8:14, right:mob?8:16, zIndex:999,
       display:"flex", alignItems:"center", gap:mob?4:6,
-      background:"rgba(9,9,20,0.82)", backdropFilter:"blur(10px)",
-      border:"1px solid #2a2a48", borderRadius:12,
+      background:"rgba(245,240,232,0.95)", backdropFilter:"blur(10px)",
+      border:"1px solid #d4a85555", borderRadius:12,
       padding:mob?"5px 8px":"7px 12px",
       boxShadow:"0 4px 20px #000a",
     }}>
@@ -479,15 +479,17 @@ function parseClip(text) {
 }
 
 const C = {
-  bg:"#0f0800", bg2:"#180c00", card:"#1a0e00", cardHi:"#221200",
-  border:"#3a1a00", borderHi:"#5a2a00",
-  gold:"#ff8c00", goldLight:"#ffcc80", goldDim:"#7a4500",
-  accent:"#cc7000", accentGlow:"#ff8c00",
-  green:"#3dd68c", greenDim:"#1a3a20",
-  red:"#f06060", redDim:"#3a1010",
-  purple:"#9b6dff",
-  text:"#e8c890", textSub:"#aa7040", textFaint:"#5a3000",
-  muted:"#3a1a00",
+  bg:"#f5f0e8", bg2:"#ede4d0", card:"#ffffff", cardHi:"#faf5ed",
+  border:"#d4a855", borderHi:"#c8943a",
+  gold:"#b35a00", goldLight:"#d4780a", goldDim:"#8a4400",
+  accent:"#b35a00", accentGlow:"#d4780a",
+  green:"#1a6a3a", greenDim:"#d4f0e0",
+  red:"#cc2200", redDim:"#fde8e8",
+  purple:"#6633aa",
+  text:"#1a0e00",
+  textSub:"#6b3a10",
+  textFaint:"#9a6630",
+  muted:"#e8dcc8",
 };
 
 
@@ -579,11 +581,11 @@ function LeftSidebar({ mob }) {
 
       {/* ── RASHID CARD ── */}
       <div style={{
-        background:"linear-gradient(160deg,#1a0e00,#0f0800)",
-        border:"1px solid #2a4a2a",
+        background:"linear-gradient(160deg,#ffffff,#faf5ed)",
+        border:"1px solid #d4a85566",
         borderRadius:18,
         overflow:"hidden",
-        boxShadow:"0 8px 32px #00000066, 0 0 0 1px #1a3a1a",
+        boxShadow:"0 4px 16px rgba(179,90,0,.12), 0 0 0 1px #d4a85533",
         animation:"borderGlow 3s ease-in-out infinite",
         position:"relative",
       }}>
@@ -591,25 +593,25 @@ function LeftSidebar({ mob }) {
         <div style={{position:"absolute",inset:0,opacity:.04,backgroundImage:"radial-gradient(circle at 20% 80%, #3dd68c 0%, transparent 50%), radial-gradient(circle at 80% 20%, #c8a83c 0%, transparent 50%)",pointerEvents:"none"}}/>
 
         {/* Header badge */}
-        <div style={{background:"linear-gradient(90deg,#1a3a1a,#0d200d)",padding:"10px 16px",borderBottom:"1px solid #1e3a1e22",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+        <div style={{background:"linear-gradient(90deg,#f0e8d4,#f5f0e8)",padding:"10px 16px",borderBottom:"1px solid #d4a85533",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div style={{display:"flex",alignItems:"center",gap:6}}>
-            <div style={{width:6,height:6,borderRadius:"50%",background:C.green,boxShadow:`0 0 8px ${C.green}`}}/>
+            <div style={{width:6,height:6,borderRadius:"50%",background:C.green}}/>
             <span style={{fontSize:9,color:C.green,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("rashid_today")}</span>
           </div>
-          <span style={{fontSize:9,background:"#1a3a1a",color:C.green,padding:"2px 8px",borderRadius:99,fontWeight:700,border:"1px solid #2a5a2a"}}>{diasFull[dow]}</span>
+          <span style={{fontSize:9,background:C.greenDim,color:C.green,padding:"2px 8px",borderRadius:99,fontWeight:700,border:`1px solid ${C.green}44`}}>{diasFull[dow]}</span>
         </div>
 
         {/* Rashid + Cidade */}
         <div style={{padding:"16px",display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
           {/* Sprite com glow */}
           <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <div style={{position:"absolute",width:118,height:118,borderRadius:"50%",background:"radial-gradient(circle,rgba(255,140,0,.15),transparent 70%)",animation:"starPulse 2s ease-in-out infinite"}}/>
+            <div style={{position:"absolute",width:118,height:118,borderRadius:"50%",background:"none"}}/>
             <RashidSprite size={120}/>
           </div>
 
           {/* Nome da cidade */}
           <div style={{textAlign:"center"}}>
-            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:38,color:C.green,lineHeight:1,textShadow:`0 0 22px ${C.green}99`}}>{rashid.city}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:38,color:C.green,lineHeight:1,textShadow:"none"}}>{rashid.city}</div>
             <div style={{fontSize:11,color:C.textSub,marginTop:4,display:"flex",alignItems:"center",justifyContent:"center",gap:4}}>
               <span style={{color:C.green,fontSize:12}}>📍</span> {rashid.tip}
             </div>
@@ -625,10 +627,10 @@ function LeftSidebar({ mob }) {
                 style={{
                   padding:"6px 2px",
                   borderRadius:7,
-                  background:i===dow?"linear-gradient(160deg,#1a3a1a,#0d200d)":"#0a0f0a",
-                  border:`1px solid ${i===dow?"#3dd68c55":"#1a2a1a"}`,
+                  background:i===dow?"linear-gradient(160deg,#1a4a1a,#2a7a2a)":"#f0ece0",
+                  border:`1px solid ${i===dow?C.green+"88":"#d4a85533"}`,
                   textAlign:"center",
-                  boxShadow:i===dow?`0 0 10px #3dd68c22`:"none",
+                  boxShadow:"none",
                   transition:"all .2s",
                   cursor:"default",
                 }}>
@@ -642,7 +644,7 @@ function LeftSidebar({ mob }) {
 
 
             {/* ══ EXPLORER ══ */}
-      <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,overflow:"hidden",marginTop:4}}>
+      <div style={{background:"#ffffff",border:"1px solid #d4a85555",borderRadius:14,overflow:"hidden",marginTop:4,boxShadow:"0 2px 8px rgba(179,90,0,.08)"}}>
 
         {/* Header */}
         <div style={{position:"relative",padding:"14px 16px 12px",background:`linear-gradient(135deg,${C.gold}22,${C.bg2})`,borderBottom:`1px solid ${C.gold}44`}}>
@@ -749,7 +751,7 @@ function RightSidebar({ creature, boss, mob }) {
     const [imgOk, setImgOk] = useState(true);
     const imgSrc = data?.image_url || creatureImgUrl(data?.name, data?.race);
     return (
-      <div style={{background:`linear-gradient(160deg,${border}12,${C.card})`,border:`1px solid ${border}44`,borderRadius:16,padding:16}}>
+      <div style={{background:"#ffffff",border:`1px solid ${border}44`,borderRadius:16,padding:16}}>
         <div style={{fontSize:9,color,letterSpacing:1.5,textTransform:"uppercase",marginBottom:12}}>{icon} {label}</div>
         {!data ? (
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,padding:"12px 0"}}>
@@ -1509,6 +1511,192 @@ function DjinnTab({ mob }) {
   );
 }
 
+
+/* ══ META DIÁRIA ════════════════════════════════════════════════════════════ */
+const SK_META = "tibia_meta_v1";
+function loadMeta(){ try{ return JSON.parse(localStorage.getItem(SK_META)||"null"); }catch{return null;} }
+function saveMeta(d){ try{ localStorage.setItem(SK_META,JSON.stringify(d)); }catch{} }
+
+function MetaTab({ days, gpPerTc, viewMonth }) {
+  const [meta, setMeta] = useState(()=>loadMeta()||{goal:5000000, name:"Meta Diária"});
+  const [inputGoal, setInputGoal] = useState(String(meta.goal));
+  const [inputName, setInputName] = useState(meta.name);
+  const [saved, setSaved] = useState(false);
+
+  function saveGoal(){
+    const g = parseInt(inputGoal.replace(/[^0-9]/g,""),10);
+    if(!g||g<=0) return;
+    const m = {goal:g, name:inputName||"Meta Diária"};
+    setMeta(m); saveMeta(m); setSaved(true);
+    setTimeout(()=>setSaved(false),2000);
+  }
+
+  const prefix = viewMonth+"-";
+  const entries = Object.entries(days).filter(([k])=>k.startsWith(prefix));
+  const total = new Date(+viewMonth.split("-")[0], +viewMonth.split("-")[1], 0).getDate();
+
+  // build day map
+  const dayMap = {};
+  entries.forEach(([k,v])=>{ const d=+k.split("-")[2]; dayMap[d]=v.totalBalance; });
+
+  const today = new Date();
+  const isCurrentMonth = viewMonth === nowYM();
+  const todayDay = isCurrentMonth ? today.getDate() : null;
+  const todayGP = todayDay ? (dayMap[todayDay]||0) : 0;
+  const todayPct = Math.min(200, Math.round((todayGP/meta.goal)*100));
+  const todayHit = todayGP >= meta.goal;
+
+  const farmDays = Object.values(dayMap).filter(v=>v>0);
+  const hitDays = farmDays.filter(v=>v>=meta.goal).length;
+  const missDays = farmDays.filter(v=>v>0&&v<meta.goal).length;
+  const successRate = farmDays.length>0 ? Math.round((hitDays/farmDays.length)*100) : 0;
+
+  const cardBase = {background:C.card,border:`1px solid ${C.border}44`,borderRadius:14,padding:"18px 20px",marginBottom:14,boxShadow:"0 2px 8px rgba(179,90,0,.07)"};
+  const secTitle = {display:"flex",alignItems:"center",gap:8,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${C.border}33`};
+  const gem = {width:5,height:5,background:C.gold,transform:"rotate(45deg)",flexShrink:0};
+  const lbl = {fontFamily:"'Share Tech Mono',monospace",fontSize:9,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:6,display:"block"};
+
+  return (
+    <div style={{maxWidth:860,margin:"0 auto"}}>
+
+      {/* DEFINIR META */}
+      <div style={cardBase}>
+        <div style={secTitle}>
+          <div style={gem}/>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>🎯 Definir Meta de Farm</span>
+        </div>
+
+        <div style={{display:"flex",gap:12,alignItems:"flex-end",marginBottom:16,flexWrap:"wrap"}}>
+          <div style={{flex:1,minWidth:160}}>
+            <label style={lbl}>Meta diária (em GP)</label>
+            <input value={inputGoal} onChange={e=>setInputGoal(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
+              placeholder="Ex: 5000000" type="number"
+              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,width:"100%",outline:"none",fontFamily:"'Share Tech Mono',monospace",fontWeight:700}}/>
+          </div>
+          <div style={{flex:1,minWidth:140}}>
+            <label style={lbl}>Nome da meta</label>
+            <input value={inputName} onChange={e=>setInputName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
+              placeholder="Ex: Meta Rashid"
+              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Share Tech Mono',monospace"}}/>
+          </div>
+          <button onClick={saveGoal}
+            style={{padding:"11px 20px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:10,letterSpacing:1.5,whiteSpace:"nowrap",flexShrink:0,color:"#fff",
+              background:saved?"linear-gradient(135deg,#1a6a3a,#0d4a27)":"linear-gradient(135deg,#b35a00,#8a4400)"}}>
+            {saved?"✅ SALVO!":"💾 SALVAR META"}
+          </button>
+        </div>
+
+        {/* Progresso hoje */}
+        {isCurrentMonth&&(
+          <>
+            <label style={lbl}>Progresso de hoje — Dia {todayDay}</label>
+            <div style={{background:C.bg2,borderRadius:10,padding:"14px 16px",marginBottom:14,border:`1px solid ${C.border}22`}}>
+              <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
+                <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:todayHit?C.green:todayGP>0?C.red:C.textFaint}}>{fmt(todayGP)} gp</span>
+                <span style={{fontFamily:"'Share Tech Mono',monospace",fontSize:11,color:C.textFaint}}>Meta: {fmt(meta.goal)} gp</span>
+              </div>
+              <div style={{height:10,background:C.muted,borderRadius:99,overflow:"hidden",marginBottom:6}}>
+                <div style={{height:"100%",width:`${Math.min(100,todayPct)}%`,borderRadius:99,
+                  background:todayHit?"linear-gradient(90deg,#1a6a3a,#3dbb6a)":"linear-gradient(90deg,#cc2200,#ff4422)",
+                  transition:"width .4s ease"}}/>
+              </div>
+              <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:9,color:C.textFaint,textAlign:"right"}}>{todayPct}% {todayPct>=100?"✅":"da meta"}</div>
+            </div>
+
+            {/* Badge status */}
+            <div style={{display:"flex",gap:10}}>
+              <div style={{flex:1,background:todayHit?"#d4f0e0":"#fde8e8",
+                border:`1px solid ${todayHit?"#1a6a3a":"#cc2200"}44`,borderRadius:10,
+                padding:"12px 16px",display:"flex",alignItems:"center",gap:10}}>
+                <span style={{fontSize:22}}>{todayHit?"🟢":"🔴"}</span>
+                <div>
+                  <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:todayHit?C.green:C.red}}>
+                    {todayHit?"Meta Atingida!":todayGP>0?"Abaixo da Meta":"Sem registro hoje"}
+                  </div>
+                  {todayGP>0&&<div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:9,color:todayHit?"#1a6a3a":"#cc2200",marginTop:2,opacity:.8}}>
+                    {todayHit?`+${fmt(todayGP-meta.goal)} gp acima`:`Faltam ${fmt(meta.goal-todayGP)} gp`}
+                  </div>}
+                </div>
+              </div>
+              <div style={{background:C.bg2,border:`1px solid ${C.border}33`,borderRadius:10,padding:"12px 16px",textAlign:"center",minWidth:90}}>
+                <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4}}>DIAS ATINGIDOS</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:20,fontWeight:700,color:C.green}}>{hitDays}/{farmDays.length}</div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* CALENDÁRIO */}
+      <div style={cardBase}>
+        <div style={secTitle}>
+          <div style={gem}/>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>📅 {mmLabel(viewMonth)} — Visão Geral</span>
+        </div>
+
+        {/* Legenda */}
+        <div style={{display:"flex",gap:16,marginBottom:14,flexWrap:"wrap"}}>
+          {[["#d4f0e0","#1a6a3a","✅ Meta atingida"],["#fde8e8","#cc2200","❌ Abaixo da meta"],["#f5f0e8","#c8a870","— Sem registro"]].map(([bg,col,txt])=>(
+            <div key={txt} style={{display:"flex",alignItems:"center",gap:6,fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub}}>
+              <div style={{width:12,height:12,borderRadius:3,background:bg,border:`1px solid ${col}44`,flexShrink:0}}/>
+              {txt}
+            </div>
+          ))}
+        </div>
+
+        {/* Grid */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:6}}>
+          {Array.from({length:total},(_,i)=>{
+            const d = i+1;
+            const gp = dayMap[d]||0;
+            const hasData = gp!==0;
+            const hit = hasData && gp>=meta.goal;
+            const miss = hasData && gp<meta.goal;
+            const isToday = todayDay===d && isCurrentMonth;
+            return (
+              <div key={d} style={{
+                borderRadius:8,padding:"8px 4px",textAlign:"center",
+                background:hit?"#d4f0e0":miss?"#fde8e8":"#f5f0e8",
+                border:`1px solid ${hit?"#1a6a3a44":miss?"#cc220044":"#e8dcc8"}`,
+                boxShadow:isToday?`0 0 0 2px ${C.gold}`:"none",
+                transition:"all .2s",
+              }}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,
+                  color:hit?C.green:miss?C.red:C.textFaint,marginBottom:2}}>{d}</div>
+                <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:7,
+                  color:hit?"#1a6a3a":miss?"#cc2200":C.muted,overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>
+                  {hasData?`${(gp/1000000).toFixed(1)}M`:"—"}
+                </div>
+                {hasData&&<div style={{fontSize:9,marginTop:1}}>{hit?"✅":"❌"}</div>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* RESUMO */}
+      <div style={cardBase}>
+        <div style={secTitle}>
+          <div style={gem}/>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>📊 Resumo da Meta</span>
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
+          {[
+            {lbl:"✅ Dias com Meta",val:`${hitDays} dias`,color:C.green},
+            {lbl:"❌ Dias Abaixo", val:`${missDays} dias`,color:C.red},
+            {lbl:"🎯 Taxa de Sucesso",val:`${successRate}%`,color:C.gold},
+          ].map(({lbl,val,color})=>(
+            <div key={lbl} style={{background:C.bg2,border:`1px solid ${C.border}22`,borderRadius:10,padding:"12px 14px"}}>
+              <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:5,letterSpacing:.5}}>{lbl}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color}}>{val}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ══ APP ══════════════════════════════════════════════════════════════════════ */
 function App() {
   const [state,setState] = useState(()=>{
@@ -1575,7 +1763,7 @@ function App() {
 
   const px=mob?12:24;
   const S={
-    th:  {background:C.bg2,color:C.gold,padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:13,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`},
+    th:  {background:C.bg2,color:"#ffcc44",padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:14,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`,fontWeight:700},
     inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'IM Fell English',serif"},
     lbl: {fontSize:11,color:C.textSub,marginBottom:5,display:"block",letterSpacing:.5,textTransform:"uppercase"},
   };
@@ -1588,17 +1776,17 @@ function App() {
       {/* Inferno scanlines */}
       <div style={{position:"fixed",inset:0,backgroundImage:"repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px)",pointerEvents:"none",zIndex:9999}}/>
       {/* Inferno vignette */}
-      <div style={{position:"fixed",inset:0,background:"radial-gradient(ellipse at 50% 0%,rgba(255,140,0,.05) 0%,transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.6) 0%,transparent 65%)",pointerEvents:"none",zIndex:9998}}/>
+      <div style={{position:"fixed",inset:0,background:"none",pointerEvents:"none",zIndex:9998}}/>
       <LangSelector mob={mob}/>
 
       {/* Flash */}
-      {flash&&<div style={{position:"fixed",bottom:28,left:"50%",transform:"translateX(-50%)",background:"#0d2e1a",border:`1px solid ${C.green}55`,color:C.green,padding:"12px 22px",borderRadius:12,fontWeight:700,zIndex:999,fontSize:14,boxShadow:"0 8px 32px #000c",whiteSpace:"nowrap",maxWidth:"90vw",textAlign:"center",animation:"slideUp .2s ease"}}>{flash}</div>}
+      {flash&&<div style={{position:"fixed",bottom:28,left:"50%",transform:"translateX(-50%)",background:"#d4f0e0",border:`1px solid ${C.green}88`,color:C.green,padding:"12px 22px",borderRadius:12,fontWeight:700,zIndex:999,fontSize:14,boxShadow:"0 8px 32px #000c",whiteSpace:"nowrap",maxWidth:"90vw",textAlign:"center",animation:"slideUp .2s ease"}}>{flash}</div>}
 
       {/* Modal */}
       {modal&&<ManualModal dateKey={modal.dateKey} dayNum={modal.dayNum} existingHunts={days[modal.dateKey]?.hunts||[]} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} onSave={saveManual} onRemove={removeHunt} onClose={()=>setModal(null)}/>}
 
       {/* ══ HERO HEADER ══ */}
-      <div style={{position:"relative",overflow:"hidden",background:"linear-gradient(180deg,#0a0a1a 0%,#0d0d20 60%,#08080f 100%)",borderBottom:`1px solid ${C.border}`,padding:mob?"24px 16px 20px":"36px 28px 28px",textAlign:"center",position:"sticky",top:0,zIndex:100,backdropFilter:"blur(16px)"}}>
+      <div style={{position:"relative",overflow:"hidden",background:"linear-gradient(180deg,#07071a 0%,#0a0a20 50%,#08080f 100%)",borderBottom:"1px solid #2a2a48",padding:mob?"24px 16px 20px":"44px 28px 32px",textAlign:"center",position:"sticky",top:0,zIndex:100,backdropFilter:"blur(16px)"}}>
         {/* Decoração: estrelas */}
         {[{x:"8%",y:"20%",s:2,d:0},{x:"92%",y:"30%",s:3,d:1},{x:"15%",y:"70%",s:2,d:2},{x:"85%",y:"65%",s:2,d:.5},{x:"50%",y:"10%",s:2,d:1.5},{x:"30%",y:"15%",s:3,d:2.5},{x:"70%",y:"20%",s:2,d:.8}].map((s,i)=>(
           <div key={i} className="star" style={{left:s.x,top:s.y,width:s.s,height:s.s,animationDelay:`${s.d}s`,animationDuration:`${2+i*.3}s`}}/>
@@ -1606,48 +1794,49 @@ function App() {
 
         {/* Linha decorativa superior */}
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginBottom:mob?8:12}}>
-          <div style={{height:1,width:mob?30:60,background:`linear-gradient(90deg,transparent,${C.gold})`}}/>
-          <span style={{fontSize:mob?10:11,color:C.goldDim,letterSpacing:3,textTransform:"uppercase"}}>Farm Tracker</span>
-          <div style={{height:1,width:mob?30:60,background:`linear-gradient(270deg,transparent,${C.gold})`}}/>
+          <div style={{height:1,width:mob?30:60,background:"linear-gradient(90deg,transparent,#c8a83c)"}}/>
+          <span style={{fontSize:mob?10:11,color:"#8a7028",letterSpacing:4,textTransform:"uppercase",fontFamily:"'Share Tech Mono',monospace"}}>Farm Tracker</span>
+          <div style={{height:1,width:mob?30:60,background:"linear-gradient(270deg,transparent,#c8a83c)"}}/>
         </div>
 
         {/* Ícone + Título */}
         <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:mob?6:10}}>
-          <div style={{fontSize:mob?32:44,lineHeight:1,filter:"drop-shadow(0 0 16px #c8a83c88)"}}>⚔️</div>
+          <div style={{fontSize:mob?32:44,lineHeight:1,filter:"drop-shadow(0 0 20px #e8c96a) drop-shadow(0 0 40px #c8a83c66)"}}>⚔️</div>
           <h1 className="hero-title" style={{fontSize:mob?26:42,letterSpacing:mob?3:6,lineHeight:1,margin:0}}>
             TIBIA FARM TRACKER
           </h1>
-          <div style={{fontSize:mob?11:13,color:C.textFaint,letterSpacing:1}}>
-            {playerName?<><span style={{color:C.textSub,fontWeight:600}}>{playerName}</span> · </>:""}
+          <div style={{fontSize:mob?11:13,color:"#9090b8",letterSpacing:1}}>
+            {playerName?<><span style={{color:"#c8c8e0",fontWeight:600}}>{playerName}</span> · </>:""}
             <span style={{textTransform:"capitalize"}}>{mmLabel(viewMonth)}</span>
-            {" · "}<span style={{color:C.green,fontWeight:600}}>{daysOk}</span> {t("days_farmed")}
-            {" · "}<span style={{color:C.gold}}>{curObj.flag} {curObj.code}</span>
+            {" · "}<span style={{color:"#3dd68c",fontWeight:600}}>{daysOk}</span> {t("days_farmed")}
+            {" · "}<span style={{color:"#c8a83c"}}>{curObj.flag} {curObj.code}</span>
           </div>
         </div>
 
         {/* Botão + Hunt */}
         <div style={{marginTop:mob?12:16}}>
-          <button style={{...btnPrimary,fontSize:13,padding:mob?"9px 16px":"10px 24px",letterSpacing:1,boxShadow:`0 4px 20px ${C.gold}44`}} onClick={()=>setTab("paste")}>
+          <button style={{background:"linear-gradient(135deg,#c8a83c,#8a7028)",color:"#0a0804",border:"none",borderRadius:10,cursor:"pointer",fontWeight:700,fontSize:13,padding:mob?"9px 16px":"10px 24px",letterSpacing:1,boxShadow:"0 4px 24px rgba(200,168,60,.5),inset 0 1px 0 rgba(255,240,150,.4)"}} onClick={()=>setTab("paste")}>
             {t("new_hunt")}
           </button>
         </div>
 
         {/* Linha decorativa inferior */}
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:mob?12:16}}>
-          <div style={{height:1,flex:1,background:`linear-gradient(90deg,transparent,${C.border})`}}/>
-          <div style={{width:6,height:6,background:C.gold,borderRadius:1,transform:"rotate(45deg)",opacity:.6}}/>
-          <div style={{height:1,flex:1,background:`linear-gradient(270deg,transparent,${C.border})`}}/>
+          <div style={{height:1,flex:1,background:"linear-gradient(90deg,transparent,#2a2a48)"}}/>
+          <div style={{width:6,height:6,background:"#c8a83c",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 8px #c8a83c88",opacity:.8}}/>
+          <div style={{height:1,flex:1,background:"linear-gradient(270deg,transparent,#2a2a48)"}}/>
         </div>
       </div>
 
       {/* ══ TABS PREMIUM ══ */}
-      <div style={{background:"linear-gradient(180deg,#150a00,#0f0800)",borderBottom:`1px solid ${C.border}`,overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
+      <div style={{background:"linear-gradient(180deg,#0a0a1a,#0d0d20)",borderBottom:"1px solid #1e1e3a",overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
         <div style={{maxWidth:1400,margin:"0 auto",display:"flex",justifyContent:"center",padding:`0 ${px}px`,gap:2}}>
           {[
             {id:"tracker", icon:"⚔️",  label:t("t_tracker"), desc:t("t_tracker_d"), color:C.gold   },
             {id:"history", icon:"📅",  label:t("t_history"), desc:t("t_history_d"), color:"#7090ff"},
             {id:"djinn",   icon:"🧞",  label:"Djinn", desc:"Venda de itens",   color:"#3dd68c"},
             {id:"paste",   icon:"📋",  label:"Colar Sessão", desc:"Importar hunt",   color:"#f0a030"},
+            {id:"meta",    icon:"🎯",  label:"Meta Diária",   desc:"Seu objetivo",    color:"#e84040"},
             {id:"config",  icon:"⚙️",  label:"Configurações", desc:"Ajustes do app",  color:"#9b6dff"},
           ].map(({id,icon,label,desc,color})=>{
             const active = tab===id;
@@ -1662,7 +1851,7 @@ function App() {
                   marginBottom:active?0:0,
                 }}>
                 {/* Glow de fundo quando ativo */}
-                {active && <div style={{position:"absolute",bottom:0,left:"50%",transform:"translateX(-50%)",width:"60%",height:20,background:color,filter:"blur(12px)",opacity:.25,borderRadius:99,pointerEvents:"none"}}/>}
+                {false && null}
                 {/* Ícone com glow */}
                 <div style={{
                   fontSize: mob?18:20,
@@ -1725,7 +1914,7 @@ function App() {
           {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
             {[[t("gold_total"),fmt(totalGP)+" gp",C.goldLight],[t("tibia_coins"),Math.round(totalTC).toLocaleString()+" TC",C.goldLight],[t("value")+" "+curObj.code,fmtMoney(totalCur,curSym),C.green],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
-              <div key={label} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:mob?"12px":"16px 18px"}}>
+              <div key={label} style={{background:"#ffffff",border:"1px solid #d4a85544",borderRadius:14,padding:mob?"12px":"16px 18px",boxShadow:"0 2px 6px rgba(179,90,0,.08)"}}>
                 <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:mob?16:22,color,lineHeight:1.1}}>{val}</div>
                 <div style={{fontSize:mob?10:11,color:C.textFaint,marginTop:4,textTransform:"uppercase",letterSpacing:.7}}>{label}</div>
               </div>
@@ -1743,8 +1932,10 @@ function App() {
             <button style={btnDanger} onClick={clearMonth}>🗑 {mob?"":t("clear_month")}</button>
           </div>
 
-          {/* Tabela */}
-          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,overflow:"hidden"}}>
+          {/* Tabela com scroll fixo */}
+          <div style={{background:"#ffffff",border:"1px solid #d4a85544",borderRadius:16,overflow:"hidden",boxShadow:"0 2px 8px rgba(179,90,0,.08)"}}>
+
+            {/* Cabeçalho fixo */}
             <div style={{overflowX:"auto"}}>
               <table style={{width:"100%",borderCollapse:"collapse",fontSize:13}}>
                 <thead>
@@ -1757,23 +1948,62 @@ function App() {
                     <th style={{...S.th,width:36,padding:"10px 8px"}}></th>
                   </tr>
                 </thead>
+              </table>
+            </div>
+
+            {/* Corpo com scroll fixo */}
+            <div style={{overflowY:"auto",overflowX:"auto",maxHeight:320}}>
+              <table style={{width:"100%",borderCollapse:"collapse",fontSize:13}}>
                 <tbody>
                   {rows.map(r=><HuntRow key={r.key} {...r} maxGP={maxGP} curSym={curSym} isMobile={mob} onRemove={idx=>removeHunt(r.key,idx)} onEdit={()=>setModal({dateKey:r.key,dayNum:r.d})}/>)}
                 </tbody>
-                <tfoot>
-                  <tr style={{background:C.bg2}}>
-                    <td style={{padding:mob?"10px 8px":"10px 14px",fontFamily:"'Cinzel',serif",fontWeight:700,color:C.gold,fontSize:13,letterSpacing:1}}>{t("total")}</td>
-                    <td style={{padding:mob?"10px 6px":"10px 14px",fontFamily:"'Cinzel',serif",fontWeight:700,color:totalGP>=0?C.green:C.red,fontSize:18,textShadow:totalGP>=0?`0 0 12px ${C.green}55`:`0 0 12px ${C.red}55`}}>{fmt(totalGP)} gp</td>
-                    {!mob&&<td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:700,color:C.goldLight}}>{Math.round(totalTC).toLocaleString()}</td>}
-                    <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:700,color:totalCur>=0?C.green:C.red}}>{fmtMoney(totalCur,curSym)}</td>
-                    <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:600,color:C.accentGlow}}>{fmtMoney(totalCur,curSym)}</td>
-                    <td></td>
-                  </tr>
-                </tfoot>
               </table>
             </div>
-            <div style={{padding:"10px 16px",fontSize:11,color:C.textFaint,borderTop:`1px solid ${C.border}22`}}>{t("table_tip")}</div>
+
+            <div style={{padding:"8px 16px",fontSize:11,color:C.textFaint,borderTop:`1px solid ${C.border}22`}}>{t("table_tip")}</div>
           </div>
+
+          {/* Painel de análise — métricas únicas */}
+          {daysOk>0&&(()=>{
+            const farmDays = rows.filter(r=>r.hasData);
+            const bestDay  = farmDays.reduce((b,r)=>r.gp>b.gp?r:b, farmDays[0]);
+            const worstDay = farmDays.reduce((b,r)=>r.gp<b.gp?r:b, farmDays[0]);
+            const avgGP    = totalGP/daysOk;
+            const daysAbove= farmDays.filter(r=>r.gp>=avgGP).length;
+            const streak   = farmDays.reduce((max,_,i,a)=>{
+              let s=0; for(let j=i;j<a.length&&a[j].hasData;j++) s++; return Math.max(max,s);
+            },0);
+            return (
+              <div style={{background:"#ffffff",border:"1px solid #d4a85544",borderRadius:16,padding:"14px 18px",boxShadow:"0 2px 8px rgba(179,90,0,.08)",marginTop:10}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12,paddingBottom:10,borderBottom:`1px solid ${C.border}33`}}>
+                  <div style={{width:4,height:4,background:C.gold,transform:"rotate(45deg)",flexShrink:0}}/>
+                  <span style={{fontFamily:"'Cinzel',serif",fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>Análise · {mmLabel(viewMonth)}</span>
+                </div>
+                <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"repeat(4,1fr)",gap:8}}>
+                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🏆 Melhor Dia</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.green,lineHeight:1.2}}>Dia {bestDay.d}</div>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(bestDay.gp)} gp</div>
+                  </div>
+                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📉 Pior Dia</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:worstDay.gp<0?C.red:C.textSub,lineHeight:1.2}}>Dia {worstDay.d}</div>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(worstDay.gp)} gp</div>
+                  </div>
+                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📊 Dias Acima da Média</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.gold,lineHeight:1.2}}>{daysAbove} de {daysOk}</div>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(Math.round(avgGP))} gp/dia</div>
+                  </div>
+                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🔥 Maior Sequência</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.accent,lineHeight:1.2}}>{streak} {streak===1?"dia":"dias"}</div>
+                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>seguidos farmando</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </>}
 
           </div>{/* fim conteudo central */}
@@ -1798,6 +2028,9 @@ function App() {
         {/* ══ DJINN ══ */}
         {tab==="djinn"&&<DjinnTab mob={mob}/>}
 
+        {/* ══ META DIÁRIA ══ */}
+        {tab==="meta"&&<MetaTab days={days} gpPerTc={gpPerTc} viewMonth={viewMonth}/>}
+
         {/* ══ COLAR SESSÃO ══ */}
         {tab==="paste"&&(
           <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:mob?16:24}}>
@@ -1808,7 +2041,7 @@ function App() {
               value={clip} onChange={e=>handlePaste(e.target.value)}/>
             {parseErr&&<div style={{color:C.red,background:C.redDim,border:`1px solid ${C.red}33`,borderRadius:8,padding:"10px 14px",fontSize:13,marginTop:10}}>⚠️ {parseErr}</div>}
             {parsed&&(
-              <div style={{background:"#0b1a0b",border:"1px solid #2a4a2a",borderRadius:14,padding:mob?14:20,marginTop:14}}>
+              <div style={{background:"#0b1a0b",border:"1px solid #d4a85566",borderRadius:14,padding:mob?14:20,marginTop:14}}>
                 <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:C.green,fontSize:15,marginBottom:14}}>{t("sess_ok")}</div>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,marginBottom:14}}>
                   {[[t("s_date"),parsed.date],[t("s_dur"),parsed.session],[t("s_loot"),fmt(parsed.loot)+" gp"],[t("s_supp"),fmt(parsed.supplies)+" gp"],[t("s_bal"),fmt(parsed.balance)+" gp"],[t("s_tc"),`~${Math.round(toTC(parsed.balance,gpPerTc)).toLocaleString()} TC`]].map(([k,v])=>(
