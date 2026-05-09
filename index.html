@@ -6,14 +6,15 @@
 <title>⚔️ Tibia Farm Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
-body { background:#f5f0e8; font-family:'IM Fell English',serif; }
+body { background:#f5f0e8; font-family:'Fira Code',monospace; }
+html { background:#f5f0e8; }
 
 ::-webkit-scrollbar { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
@@ -45,7 +46,85 @@ input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 .cur-btn:hover     { border-color:#c8a83c88!important; }
 button:active      { transform:scale(.97); }
 
-/* ── Stars no hero ── */
+/* ── Tibia-style 3D panel effects ── */
+
+/* Background texture on body */
+body {
+  background-color:#e8dcc8 !important;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(180,140,80,.04) 2px,
+      rgba(180,140,80,.04) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 24px,
+      rgba(180,140,80,.02) 24px,
+      rgba(180,140,80,.02) 25px
+    );
+}
+
+/* Raised panel — main cards */
+.panel-raised {
+  background: linear-gradient(180deg, #fdfaf4 0%, #faf6ee 60%, #f0e8d8 100%) !important;
+  border: 1px solid #c8a050 !important;
+  border-top: 2px solid #e8c870 !important;
+  border-bottom: 2px solid #9a7030 !important;
+  box-shadow:
+    0 1px 0 #f5e8c0 inset,
+    0 -1px 0 #8a6020 inset,
+    2px 0 0 #e0c060 inset,
+    -2px 0 0 #e0c060 inset,
+    0 4px 12px rgba(100,60,0,.18),
+    0 8px 24px rgba(100,60,0,.10),
+    0 2px 4px rgba(0,0,0,.12) !important;
+  border-radius:8px !important;
+}
+
+/* Inner bevel on headers */
+.panel-header {
+  background: linear-gradient(180deg, #d4a850 0%, #c89840 40%, #a87830 100%) !important;
+  border-bottom: 1px solid #8a6020 !important;
+  border-top: 1px solid #e8c860 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,.2), 0 1px 0 #f0d870 inset !important;
+  color: #fff8e0 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5) !important;
+}
+
+/* Ornamental divider */
+.ornament-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #c8a050, #e8c860, #c8a050, transparent);
+  margin: 0;
+  box-shadow: 0 1px 3px rgba(150,100,0,.3);
+}
+
+/* Table 3D effect */
+.table-3d {
+  box-shadow:
+    0 4px 16px rgba(100,60,0,.18),
+    0 8px 32px rgba(100,60,0,.10),
+    0 1px 0 #f5e8c0 inset,
+    0 -1px 0 #a07830 inset !important;
+}
+
+/* KPI card 3D */
+.kpi-3d {
+  background: linear-gradient(180deg, #fdfaf4 0%, #f5edd8 100%) !important;
+  border: 1px solid #c8a050 !important;
+  border-top: 2px solid #e8c870 !important;
+  border-bottom: 2px solid #9a7030 !important;
+  box-shadow:
+    0 1px 0 rgba(255,240,180,.8) inset,
+    0 4px 10px rgba(100,60,0,.15),
+    0 2px 4px rgba(0,0,0,.10) !important;
+}
+
+/* Stars no hero */
 .star { position:absolute;border-radius:50%;background:#d4a855;animation:starPulse 3s ease-in-out infinite;box-shadow:none; }
 
 /* ── Título com shimmer ── */
@@ -479,8 +558,8 @@ function parseClip(text) {
 }
 
 const C = {
-  bg:"#f5f0e8", bg2:"#ede4d0", card:"#ffffff", cardHi:"#faf5ed",
-  border:"#d4a855", borderHi:"#c8943a",
+  bg:"#f5f0e8", bg2:"#ede4d0", card:"#fafaf8", cardHi:"#faf5ed",
+  border:"#c8a855", borderHi:"#c8943a",
   gold:"#b35a00", goldLight:"#d4780a", goldDim:"#8a4400",
   accent:"#b35a00", accentGlow:"#d4780a",
   green:"#1a6a3a", greenDim:"#d4f0e0",
@@ -577,7 +656,7 @@ function LeftSidebar({ mob }) {
   if(mob) return null;
 
   return (
-    <div style={{display:"flex",flexDirection:"column",gap:12,width:320,flexShrink:0}}>
+    <div style={{display:"flex",flexDirection:"column",gap:14,width:320,flexShrink:0}}>
 
       {/* ── RASHID CARD ── */}
       <div style={{
@@ -593,9 +672,9 @@ function LeftSidebar({ mob }) {
         <div style={{position:"absolute",inset:0,opacity:.04,backgroundImage:"radial-gradient(circle at 20% 80%, #3dd68c 0%, transparent 50%), radial-gradient(circle at 80% 20%, #c8a83c 0%, transparent 50%)",pointerEvents:"none"}}/>
 
         {/* Header badge */}
-        <div style={{background:"linear-gradient(90deg,#f0e8d4,#f5f0e8)",padding:"10px 16px",borderBottom:"1px solid #d4a85533",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+        <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"10px 16px",borderBottom:"2px solid #8a6020",boxShadow:"0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div style={{display:"flex",alignItems:"center",gap:6}}>
-            <div style={{width:6,height:6,borderRadius:"50%",background:C.green}}/>
+            <div style={{width:6,height:6,borderRadius:"50%",background:"#ffee88",boxShadow:"0 0 4px #ffee88"}}/>
             <span style={{fontSize:9,color:C.green,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("rashid_today")}</span>
           </div>
           <span style={{fontSize:9,background:C.greenDim,color:C.green,padding:"2px 8px",borderRadius:99,fontWeight:700,border:`1px solid ${C.green}44`}}>{diasFull[dow]}</span>
@@ -644,34 +723,27 @@ function LeftSidebar({ mob }) {
 
 
             {/* ══ EXPLORER ══ */}
-      <div style={{background:"#ffffff",border:"1px solid #d4a85555",borderRadius:14,overflow:"hidden",marginTop:4,boxShadow:"0 2px 8px rgba(179,90,0,.08)"}}>
+      <div style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",marginTop:4,boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 12px rgba(100,60,0,.15)"}}>
 
-        {/* Header */}
-        <div style={{position:"relative",padding:"14px 16px 12px",background:`linear-gradient(135deg,${C.gold}22,${C.bg2})`,borderBottom:`1px solid ${C.gold}44`}}>
-          <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,transparent,${C.gold},transparent)`,boxShadow:`0 0 8px ${C.gold}88`}}/>
-          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-            <div style={{display:"flex",alignItems:"center",gap:10}}>
-              <div style={{fontSize:24,filter:`drop-shadow(0 0 10px ${C.gold})`,animation:"starPulse 2.5s ease-in-out infinite"}}>🧭</div>
-              <div>
-                <div style={{
-                  fontFamily:"'Cinzel Decorative',serif",
-                  fontSize:14,color:C.gold,
-                  letterSpacing:3,fontWeight:700,
-                  textTransform:"uppercase",lineHeight:1,
-                  textShadow:`0 0 16px ${C.gold}88`
-                }}>Explorer</div>
-                <div style={{
-                  fontFamily:"'Share Tech Mono',monospace",
-                  fontSize:10,color:C.textSub,
-                  letterSpacing:2,marginTop:5,
-                }}>Tibia.com · Community</div>
-              </div>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",gap:3,alignItems:"center"}}>
-              <div style={{width:5,height:5,background:C.gold,transform:"rotate(45deg)",boxShadow:`0 0 6px ${C.gold}`,animation:"starPulse 2s ease-in-out infinite"}}/>
-              <div style={{width:3,height:3,background:C.gold,transform:"rotate(45deg)",opacity:.5,animation:"starPulse 2s ease-in-out infinite .3s"}}/>
+        {/* Header — golden igual Rashid */}
+        <div style={{
+          background:"linear-gradient(180deg,#c8a040,#a87830)",
+          padding:"10px 14px",
+          borderBottom:"2px solid #8a6020",
+          boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",
+          display:"flex",alignItems:"center",justifyContent:"space-between"
+        }}>
+          <div style={{display:"flex",alignItems:"center",gap:8}}>
+            <span style={{fontSize:18,filter:"drop-shadow(0 0 4px rgba(255,200,50,.8))"}}>🧭</span>
+            <div>
+              <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:12,color:"#fff8e0",
+                letterSpacing:2,fontWeight:700,textTransform:"uppercase",lineHeight:1,
+                textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>Explorer</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,
+                color:"rgba(255,240,180,.8)",letterSpacing:1.5,marginTop:3}}>Tibia.com · Community</div>
             </div>
           </div>
+          <div style={{width:5,height:5,background:"#fff8e0",transform:"rotate(45deg)",opacity:.6}}/>
         </div>
 
         {/* Items */}
@@ -719,7 +791,7 @@ function LeftSidebar({ mob }) {
                 textShadow:"0 0 8px rgba(255,200,100,.1)"
               }}>{item.label}</div>
               <div style={{
-                fontFamily:"'Share Tech Mono',monospace",
+                fontFamily:"'Fira Code',monospace",
                 fontSize:10,color:C.textSub,marginTop:4,letterSpacing:.3
               }}>{item.desc}</div>
             </div>
@@ -733,7 +805,7 @@ function LeftSidebar({ mob }) {
           <div style={{height:1,flex:1,background:`linear-gradient(90deg,transparent,${C.gold}33)`}}/>
           <span style={{fontSize:13,filter:`drop-shadow(0 0 6px ${C.gold})`,animation:"starPulse 3s ease-in-out infinite"}}>🔱</span>
           <span style={{
-            fontFamily:"'Share Tech Mono',monospace",fontSize:10,
+            fontFamily:"'Fira Code',monospace",fontSize:10,
             color:C.textSub,letterSpacing:2,
           }}>Abre no Tibia.com ↗</span>
           <div style={{height:1,flex:1,background:`linear-gradient(270deg,transparent,${C.gold}33)`}}/>
@@ -751,8 +823,21 @@ function RightSidebar({ creature, boss, mob }) {
     const [imgOk, setImgOk] = useState(true);
     const imgSrc = data?.image_url || creatureImgUrl(data?.name, data?.race);
     return (
-      <div style={{background:"#ffffff",border:`1px solid ${border}44`,borderRadius:16,padding:16}}>
-        <div style={{fontSize:9,color,letterSpacing:1.5,textTransform:"uppercase",marginBottom:12}}>{icon} {label}</div>
+      <div style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+        border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",
+        borderRadius:10,overflow:"hidden",
+        boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 14px rgba(100,60,0,.15)"}}>
+        {/* Golden header */}
+        <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",
+          padding:"9px 14px",borderBottom:"2px solid #8a6020",
+          boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",
+          display:"flex",alignItems:"center",gap:7}}>
+          <span style={{fontSize:13}}>{icon}</span>
+          <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#fff8e0",
+            letterSpacing:1.5,textTransform:"uppercase",fontWeight:600,
+            textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{label}</span>
+        </div>
+        <div style={{padding:16}}>
         {!data ? (
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,padding:"12px 0"}}>
             <div style={{width:80,height:80,background:C.bg2,borderRadius:12,animation:"starPulse 1.5s ease-in-out infinite"}}/>
@@ -767,13 +852,14 @@ function RightSidebar({ creature, boss, mob }) {
                     onError={()=>setImgOk(false)}/>
                 : <div style={{width:90,height:90,background:`${border}22`,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:36}}>{icon}</div>
               }
-              <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#fff",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
+              <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#fafaf8",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
             </div>
             <div style={{textAlign:"center"}}>
               <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:C.text,lineHeight:1.3,wordBreak:"break-word"}}>{data.name}</div>
             </div>
           </div>
         )}
+        </div>{/* end padding */}
       </div>
     );
   }
@@ -809,7 +895,7 @@ function InfoPanel({ mob, creature, boss }) {
       <div style={{...cardBase,border:`1px solid ${borderColor}44`,background:`linear-gradient(135deg,${borderColor}10,${C.card})`,display:"flex",alignItems:"center",gap:12,flex:1,minWidth:0}}>
         <div style={{position:"relative",flexShrink:0}}>
           <img src={img} alt={data.name} width={44} height={44} style={{imageRendering:"pixelated",objectFit:"contain",display:"block"}} onError={e=>e.target.style.display="none"}/>
-          <div style={{position:"absolute",top:-5,right:-5,background:borderColor,borderRadius:99,width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#fff",fontWeight:700}}>{icon}</div>
+          <div style={{position:"absolute",top:-5,right:-5,background:borderColor,borderRadius:99,width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#fafaf8",fontWeight:700}}>{icon}</div>
         </div>
         <div style={{minWidth:0}}>
           <div style={{fontSize:9,color,letterSpacing:.8,textTransform:"uppercase",marginBottom:2}}>{label}</div>
@@ -889,9 +975,9 @@ function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSe
       <div style={{display:"flex",gap:6,marginBottom:8}}>
         <input value={charName} onChange={e=>setCharName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&onSearch()}
           placeholder="Nome do char..."
-          style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'IM Fell English',serif"}}/>
+          style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Cinzel',serif"}}/>
         <button onClick={onSearch} disabled={charLoad}
-          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
+          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#fafaf8",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
           {charLoad?t("searching"):t("search_btn")}
         </button>
       </div>
@@ -933,7 +1019,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
   function handleSave(){ if(bal==="") return; onSave(dateKey,{balance:num,note,session:"manual",loot:0,supplies:0,players:[],manual:true,ts:Date.now()},editIdx); clear(); }
   function onKey(e){ if(e.key==="Enter") handleSave(); if(e.key==="Escape") onClose(); }
   const manuals=existingHunts.filter(h=>h.manual);
-  const inp={ background:C.bg2, border:`1.5px solid ${editIdx!==null?C.accent:C.border}`, borderRadius:10, padding:"11px 14px", color:C.text, fontSize:15, width:"100%", outline:"none", fontFamily:"'IM Fell English',serif", transition:"border-color .2s" };
+  const inp={ background:C.bg2, border:`1.5px solid ${editIdx!==null?C.accent:C.border}`, borderRadius:10, padding:"11px 14px", color:C.text, fontSize:15, width:"100%", outline:"none", fontFamily:"'Cinzel',serif", transition:"border-color .2s" };
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="slide-up" style={{background:C.card,border:`1px solid ${C.borderHi}`,borderRadius:18,padding:24,width:"100%",maxWidth:440,boxShadow:`0 24px 80px #000d`}} onClick={e=>e.stopPropagation()}>
@@ -964,7 +1050,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
         <div style={{display:"flex",gap:10,marginBottom:manuals.length>0?20:0}}>
           <button disabled={bal===""} onClick={handleSave}
             style={{flex:1,padding:12,borderRadius:10,border:"none",cursor:bal===""?"not-allowed":"pointer",fontWeight:700,fontSize:14,opacity:bal===""?.4:1,
-              background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:editIdx!==null?"#fff":"#0a0804"}}>
+              background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:editIdx!==null?"#fafaf8":"#0a0804"}}>
             {editIdx!==null?t("manual_upd"):t("manual_save")}
           </button>
           {editIdx!==null&&<button onClick={clear} style={{padding:"12px 16px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13}}>Cancelar</button>}
@@ -1007,28 +1093,28 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
   return (
     <>
       <tr className="row-hover" style={{background:open?"#0d0d22":"transparent",transition:"background .15s"}}>
-        <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}22`,color:hasData?C.text:C.textFaint,fontWeight:hasData?700:400,fontSize:14,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}} onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
+        <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}09`,color:hasData?C.text:C.textFaint,fontWeight:hasData?700:400,fontSize:14,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}} onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
           <span style={{color:C.textFaint,marginRight:5,fontSize:11}}>{hunts.length>0?(open?"▾":"▸"):" "}</span>
           {isMobile?d:`${t("day")} ${String(d).padStart(2," ")}`}
         </td>
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,cursor:"pointer"}}>
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}09`,cursor:"pointer"}}>
           {hasData?<div className="bar-cell"><div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:gp>=0?C.green:C.red,minWidth:isMobile?60:100,textAlign:"right",textShadow:gp>=0?`0 0 10px ${C.green}66`:`0 0 10px ${C.red}66`}}>{fmt(gp)}</div>{!isMobile&&<MiniBar value={gp} max={maxGP}/>}</div>:<span style={{color:C.textFaint,fontSize:13}}>—</span>}
         </td>
-        {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer",textShadow:hasData?(cur>=0?`0 0 10px ${C.green}55`:`0 0 10px ${C.red}55`):"none"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
-        <td style={{padding:"6px 8px",textAlign:"center",borderBottom:`1px solid ${C.border}22`}}>
+        {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}09`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}09`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer",textShadow:hasData?(cur>=0?`0 0 10px ${C.green}55`:`0 0 10px ${C.red}55`):"none"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}09`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
+        <td style={{padding:"6px 8px",textAlign:"center",borderBottom:`1px solid ${C.border}09`}}>
           <button title="Editar manualmente" onClick={()=>onEdit()} style={{background:"none",border:"none",color:C.gold,cursor:"pointer",fontSize:13,opacity:.6,padding:"3px 5px",borderRadius:6}} onMouseEnter={e=>e.target.style.opacity=1} onMouseLeave={e=>e.target.style.opacity=.6}>✏️</button>
         </td>
       </tr>
       {open&&hunts.map((h,i)=>(
         <tr key={i} style={{background:"#0a0a1e"}}>
-          <td colSpan={isMobile?4:5} style={{padding:"7px 14px 7px 28px",borderBottom:`1px solid ${C.border}11`,fontSize:11}}>
+          <td colSpan={isMobile?4:5} style={{padding:"7px 14px 7px 28px",borderBottom:`1px solid ${C.border}09`,fontSize:11}}>
             {h.manual?<span style={{color:C.accent,fontWeight:600}}>✏️ Manual{h.note&&` · ${h.note}`}</span>:<span style={{color:C.textSub}}>Hunt {i+1} · {h.session}</span>}
             <span style={{marginLeft:10,fontFamily:"'Cinzel',serif",fontWeight:700,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</span>
             {!isMobile&&!h.manual&&<span style={{marginLeft:10,color:C.textFaint}}>Loot: {fmt(h.loot)} · Supplies: {fmt(h.supplies)}</span>}
           </td>
-          <td style={{padding:"5px 8px",borderBottom:`1px solid ${C.border}11`,textAlign:"center"}}>
+          <td style={{padding:"5px 8px",borderBottom:`1px solid ${C.border}09`,textAlign:"center"}}>
             <button style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:13}} onClick={e=>{e.stopPropagation();onRemove(i);}}>🗑</button>
           </td>
         </tr>
@@ -1349,7 +1435,7 @@ function DjinnTab({ mob }) {
   const greenTotal = (lists.green||[]).reduce((s,i)=>s+i.total,0);
   const grand      = blueTotal+greenTotal;
 
-  const inp={background:C.bg2,border:`1.5px solid ${C.border}`,borderRadius:10,padding:"10px 14px",color:C.text,fontSize:14,outline:"none",fontFamily:"'IM Fell English',serif",width:"100%",transition:"border-color .2s"};
+  const inp={background:C.bg2,border:`1.5px solid ${C.border}`,borderRadius:10,padding:"10px 14px",color:C.text,fontSize:14,outline:"none",fontFamily:"'Cinzel',serif",width:"100%",transition:"border-color .2s"};
 
   return (
     <div style={{maxWidth:900,margin:"0 auto"}}>
@@ -1554,7 +1640,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
   const cardBase = {background:C.card,border:`1px solid ${C.border}44`,borderRadius:14,padding:"18px 20px",marginBottom:14,boxShadow:"0 2px 8px rgba(179,90,0,.07)"};
   const secTitle = {display:"flex",alignItems:"center",gap:8,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${C.border}33`};
   const gem = {width:5,height:5,background:C.gold,transform:"rotate(45deg)",flexShrink:0};
-  const lbl = {fontFamily:"'Share Tech Mono',monospace",fontSize:9,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:6,display:"block"};
+  const lbl = {fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:6,display:"block"};
 
   return (
     <div style={{maxWidth:860,margin:"0 auto"}}>
@@ -1571,16 +1657,16 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
             <label style={lbl}>Meta diária (em GP)</label>
             <input value={inputGoal} onChange={e=>setInputGoal(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: 5000000" type="number"
-              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,width:"100%",outline:"none",fontFamily:"'Share Tech Mono',monospace",fontWeight:700}}/>
+              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",fontWeight:700}}/>
           </div>
           <div style={{flex:1,minWidth:140}}>
             <label style={lbl}>Nome da meta</label>
             <input value={inputName} onChange={e=>setInputName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: Meta Rashid"
-              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Share Tech Mono',monospace"}}/>
+              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace"}}/>
           </div>
           <button onClick={saveGoal}
-            style={{padding:"11px 20px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:10,letterSpacing:1.5,whiteSpace:"nowrap",flexShrink:0,color:"#fff",
+            style={{padding:"11px 20px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:10,letterSpacing:1.5,whiteSpace:"nowrap",flexShrink:0,color:"#fafaf8",
               background:saved?"linear-gradient(135deg,#1a6a3a,#0d4a27)":"linear-gradient(135deg,#b35a00,#8a4400)"}}>
             {saved?"✅ SALVO!":"💾 SALVAR META"}
           </button>
@@ -1593,14 +1679,14 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
             <div style={{background:C.bg2,borderRadius:10,padding:"14px 16px",marginBottom:14,border:`1px solid ${C.border}22`}}>
               <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
                 <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:todayHit?C.green:todayGP>0?C.red:C.textFaint}}>{fmt(todayGP)} gp</span>
-                <span style={{fontFamily:"'Share Tech Mono',monospace",fontSize:11,color:C.textFaint}}>Meta: {fmt(meta.goal)} gp</span>
+                <span style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:C.textFaint}}>Meta: {fmt(meta.goal)} gp</span>
               </div>
               <div style={{height:10,background:C.muted,borderRadius:99,overflow:"hidden",marginBottom:6}}>
                 <div style={{height:"100%",width:`${Math.min(100,todayPct)}%`,borderRadius:99,
                   background:todayHit?"linear-gradient(90deg,#1a6a3a,#3dbb6a)":"linear-gradient(90deg,#cc2200,#ff4422)",
                   transition:"width .4s ease"}}/>
               </div>
-              <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:9,color:C.textFaint,textAlign:"right"}}>{todayPct}% {todayPct>=100?"✅":"da meta"}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,textAlign:"right"}}>{todayPct}% {todayPct>=100?"✅":"da meta"}</div>
             </div>
 
             {/* Badge status */}
@@ -1613,13 +1699,13 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
                   <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:todayHit?C.green:C.red}}>
                     {todayHit?"Meta Atingida!":todayGP>0?"Abaixo da Meta":"Sem registro hoje"}
                   </div>
-                  {todayGP>0&&<div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:9,color:todayHit?"#1a6a3a":"#cc2200",marginTop:2,opacity:.8}}>
+                  {todayGP>0&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:todayHit?"#1a6a3a":"#cc2200",marginTop:2,opacity:.8}}>
                     {todayHit?`+${fmt(todayGP-meta.goal)} gp acima`:`Faltam ${fmt(meta.goal-todayGP)} gp`}
                   </div>}
                 </div>
               </div>
               <div style={{background:C.bg2,border:`1px solid ${C.border}33`,borderRadius:10,padding:"12px 16px",textAlign:"center",minWidth:90}}>
-                <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4}}>DIAS ATINGIDOS</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4}}>DIAS ATINGIDOS</div>
                 <div style={{fontFamily:"'Cinzel',serif",fontSize:20,fontWeight:700,color:C.green}}>{hitDays}/{farmDays.length}</div>
               </div>
             </div>
@@ -1637,7 +1723,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
         {/* Legenda */}
         <div style={{display:"flex",gap:16,marginBottom:14,flexWrap:"wrap"}}>
           {[["#d4f0e0","#1a6a3a","✅ Meta atingida"],["#fde8e8","#cc2200","❌ Abaixo da meta"],["#f5f0e8","#c8a870","— Sem registro"]].map(([bg,col,txt])=>(
-            <div key={txt} style={{display:"flex",alignItems:"center",gap:6,fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub}}>
+            <div key={txt} style={{display:"flex",alignItems:"center",gap:6,fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub}}>
               <div style={{width:12,height:12,borderRadius:3,background:bg,border:`1px solid ${col}44`,flexShrink:0}}/>
               {txt}
             </div>
@@ -1663,7 +1749,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
               }}>
                 <div style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,
                   color:hit?C.green:miss?C.red:C.textFaint,marginBottom:2}}>{d}</div>
-                <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:7,
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:7,
                   color:hit?"#1a6a3a":miss?"#cc2200":C.muted,overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>
                   {hasData?`${(gp/1000000).toFixed(1)}M`:"—"}
                 </div>
@@ -1687,7 +1773,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
             {lbl:"🎯 Taxa de Sucesso",val:`${successRate}%`,color:C.gold},
           ].map(({lbl,val,color})=>(
             <div key={lbl} style={{background:C.bg2,border:`1px solid ${C.border}22`,borderRadius:10,padding:"12px 14px"}}>
-              <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:5,letterSpacing:.5}}>{lbl}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:5,letterSpacing:.5}}>{lbl}</div>
               <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color}}>{val}</div>
             </div>
           ))}
@@ -1763,8 +1849,8 @@ function App() {
 
   const px=mob?12:24;
   const S={
-    th:  {background:C.bg2,color:"#ffcc44",padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:14,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`,fontWeight:700},
-    inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'IM Fell English',serif"},
+    th:  {background:"linear-gradient(180deg,#c8a040,#a87830)",color:"#fff8e0",textShadow:"0 1px 2px rgba(0,0,0,.4)",padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:14,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`,fontWeight:700},
+    inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Cinzel',serif"},
     lbl: {fontSize:11,color:C.textSub,marginBottom:5,display:"block",letterSpacing:.5,textTransform:"uppercase"},
   };
   const btnPrimary={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:13,background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:"#0a0804",letterSpacing:.5};
@@ -1795,7 +1881,7 @@ function App() {
         {/* Linha decorativa superior */}
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginBottom:mob?8:12}}>
           <div style={{height:1,width:mob?30:60,background:"linear-gradient(90deg,transparent,#c8a83c)"}}/>
-          <span style={{fontSize:mob?10:11,color:"#8a7028",letterSpacing:4,textTransform:"uppercase",fontFamily:"'Share Tech Mono',monospace"}}>Farm Tracker</span>
+          <span style={{fontSize:mob?10:11,color:"#8a7028",letterSpacing:4,textTransform:"uppercase",fontFamily:"'Fira Code',monospace"}}>Farm Tracker</span>
           <div style={{height:1,width:mob?30:60,background:"linear-gradient(270deg,transparent,#c8a83c)"}}/>
         </div>
 
@@ -1914,7 +2000,7 @@ function App() {
           {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
             {[[t("gold_total"),fmt(totalGP)+" gp",C.goldLight],[t("tibia_coins"),Math.round(totalTC).toLocaleString()+" TC",C.goldLight],[t("value")+" "+curObj.code,fmtMoney(totalCur,curSym),C.green],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
-              <div key={label} style={{background:"#ffffff",border:"1px solid #d4a85544",borderRadius:14,padding:mob?"12px":"16px 18px",boxShadow:"0 2px 6px rgba(179,90,0,.08)"}}>
+              <div key={label} style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,padding:mob?"12px":"16px 18px",boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 10px rgba(100,60,0,.15),0 2px 4px rgba(0,0,0,.10)"}}>
                 <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:mob?16:22,color,lineHeight:1.1}}>{val}</div>
                 <div style={{fontSize:mob?10:11,color:C.textFaint,marginTop:4,textTransform:"uppercase",letterSpacing:.7}}>{label}</div>
               </div>
@@ -1933,7 +2019,7 @@ function App() {
           </div>
 
           {/* Tabela com scroll fixo */}
-          <div style={{background:"#ffffff",border:"1px solid #d4a85544",borderRadius:16,overflow:"hidden",boxShadow:"0 2px 8px rgba(179,90,0,.08)"}}>
+          <div style={{background:"linear-gradient(180deg,#fdfaf4,#faf6ee)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 16px rgba(100,60,0,.18),0 8px 32px rgba(100,60,0,.08)"}}>
 
             {/* Cabeçalho fixo */}
             <div style={{overflowX:"auto"}}>
@@ -1974,31 +2060,31 @@ function App() {
               let s=0; for(let j=i;j<a.length&&a[j].hasData;j++) s++; return Math.max(max,s);
             },0);
             return (
-              <div style={{background:"#ffffff",border:"1px solid #d4a85544",borderRadius:16,padding:"14px 18px",boxShadow:"0 2px 8px rgba(179,90,0,.08)",marginTop:10}}>
+              <div style={{background:"#fafaf8",border:"1px solid #d4a85544",borderRadius:16,padding:"14px 18px",boxShadow:"0 2px 8px rgba(179,90,0,.08)",marginTop:10}}>
                 <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12,paddingBottom:10,borderBottom:`1px solid ${C.border}33`}}>
                   <div style={{width:4,height:4,background:C.gold,transform:"rotate(45deg)",flexShrink:0}}/>
                   <span style={{fontFamily:"'Cinzel',serif",fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>Análise · {mmLabel(viewMonth)}</span>
                 </div>
                 <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"repeat(4,1fr)",gap:8}}>
                   <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🏆 Melhor Dia</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🏆 Melhor Dia</div>
                     <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.green,lineHeight:1.2}}>Dia {bestDay.d}</div>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(bestDay.gp)} gp</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(bestDay.gp)} gp</div>
                   </div>
                   <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📉 Pior Dia</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📉 Pior Dia</div>
                     <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:worstDay.gp<0?C.red:C.textSub,lineHeight:1.2}}>Dia {worstDay.d}</div>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(worstDay.gp)} gp</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(worstDay.gp)} gp</div>
                   </div>
                   <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📊 Dias Acima da Média</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📊 Dias Acima da Média</div>
                     <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.gold,lineHeight:1.2}}>{daysAbove} de {daysOk}</div>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(Math.round(avgGP))} gp/dia</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(Math.round(avgGP))} gp/dia</div>
                   </div>
                   <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🔥 Maior Sequência</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🔥 Maior Sequência</div>
                     <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.accent,lineHeight:1.2}}>{streak} {streak===1?"dia":"dias"}</div>
-                    <div style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:C.textSub,marginTop:3}}>seguidos farmando</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>seguidos farmando</div>
                   </div>
                 </div>
               </div>
