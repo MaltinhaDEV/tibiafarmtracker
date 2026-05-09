@@ -96,366 +96,6 @@ const RASHID = [
   {city:"Edron",      coords:"(Depot)",        region:"Tibia Central", tip:"No depot de Edron"},
 ];
 
-/* ══ SISTEMA DE TRADUÇÃO ════════════════════════════════════════════════════ */
-const LANGS = {
-  "pt": {
-    code:"pt", flag:"🇧🇷", name:"Português",
-    // Geral
-    days_farmed:"dias farmados", today:"Hoje", clear_month:"Limpar mês",
-    // Tabs
-    tab_tracker:"Tracker",     tab_tracker_desc:"Farm diário",
-    tab_history:"Histórico",   tab_history_desc:"Meses anteriores",
-    tab_djinn:"Djinn",         tab_djinn_desc:"Venda de itens",
-    tab_paste:"Colar Sessão",  tab_paste_desc:"Importar hunt",
-    tab_config:"Configurações",tab_config_desc:"Ajustes do app",
-    // KPIs
-    gold_total:"Gold Total", tibia_coins:"Tibia Coins", daily_avg:"Média/Dia",
-    // Tabela
-    day:"Dia", gold_balance:"Gold Balance", value:"Valor", accumulated:"Acumulado",
-    total:"TOTAL", table_tip:"Clique em ✏️ para adicionar ou editar valores manualmente.",
-    // Rashid
-    rashid_today:"Rashid — Hoje", location_by_day:"Localização por dia",
-    days_short:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
-    days_full:["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
-    // Boostados
-    boosted_creature:"Criatura Boostada", boosted_boss:"Boss Boostado", loading_api:"Buscando na API...",
-    // Busca char
-    search_char:"Buscar Personagem", char_placeholder:"Nome do personagem...",
-    search_btn:"Buscar", searching:"Buscando...", char_not_found:"Personagem não encontrado.",
-    level:"Nível", vocation:"Vocação", status:"Status", world:"Mundo",
-    online:"● Online", offline:"○ Offline", view_tibia:{t("view_tibia")},
-    char_hint:"Digite o nome de um\npersonagem Tibia",
-    // Histórico
-    history_title:"HISTÓRICO DE MESES", history_subtitle:"Clique em um mês para ver o detalhe no Tracker.",
-    current_month:"MÊS ATUAL", days_farmed_label:"dias farmados", best_day:"Melhor Dia",
-    no_data:"Nenhum dado registrado ainda.",
-    // Djinn
-    djinn_search_placeholder:"Buscar item do",
-    djinn_add:"➕ Adicionar", djinn_update:"💾 Atualizar", djinn_cancel:"Cancelar",
-    djinn_adding:"➕ Adicionar item", djinn_editing:"✏️ Editando item",
-    djinn_qty:"Qtd", djinn_unit:"Valor Unit.", djinn_total:"Total",
-    djinn_empty:"Nenhum item adicionado ainda.\nUse o campo acima para começar.",
-    djinn_tip:"💡 Digite o nome do item para buscar · Selecione · Informe a quantidade · Clique em Adicionar",
-    djinn_preview:"PRÉVIA — 1.000.000 gp equivale a", djinn_per_tc:"por TC",
-    djinn_grand:"Total Geral", djinn_items_in_list:"itens na lista",
-    djinn_clear:"🗑 Limpar",
-    // Colar Sessão
-    paste_title:"COLAR COPYBOARD",
-    paste_subtitle:"No Tibia: ícone de sessão → "Copy to Clipboard" → cole abaixo.",
-    paste_placeholder:"Session data: From 2026-05-01...\nBalance: 5,465,827",
-    paste_error:"Não consegui ler o Balance. Verifique se o texto está completo.",
-    session_detected:"✅ SESSÃO DETECTADA",
-    sess_date:"📅 Data", sess_dur:"⏱ Duração", sess_loot:"📦 Loot",
-    sess_supplies:"💊 Supplies", sess_balance:"💰 Balance", sess_tc:"💎 Em TC",
-    sess_players:"Jogadores", save_hunt:"✅ Salvar Hunt", cancel:"Cancelar",
-    // Config
-    config_currency:"💱 MOEDA DE EXIBIÇÃO", config_player:"⚙️ DADOS DO JOGADOR",
-    config_name:"Seu nome no Tibia", config_gppertc:"GP por TC",
-    config_tip:"Os dados são salvos automaticamente no navegador (localStorage).\nUse o backup abaixo para não perder dados ao trocar de dispositivo.",
-    config_backup:"Backup (copie e guarde em lugar seguro)",
-    config_restore:"Restaurar backup", config_restore_ph:"Cole o backup aqui...",
-    restore_btn:"Restaurar", currency_preview:"PRÉVIA — 1.000.000 gp equivale a",
-    currency_rate:"Valor do TC em", currency_per_tc:"por TC",
-    // Modal manual
-    manual_title:"ENTRADA MANUAL", manual_gp:"Profit / Balance (gp)",
-    manual_gp_ph:"Ex: 5000000  (negativo = prejuízo)",
-    manual_note:"Observação (opcional)", manual_note_ph:"Ex: Rashid, Ferumbras, venda de items…",
-    manual_save:"✅  SALVAR ENTRADA", manual_update:"💾  ATUALIZAR",
-    manual_entries:"Entradas manuais neste dia", manual_copyboard:"Hunts via copyboard",
-    // Footer
-    footer_desc:"Ferramenta gratuita para acompanhar seu farm diário no Tibia.",
-    footer_disclaimer:"Aviso: Tibia Farm Tracker é um projeto independente e não oficial. Não é afiliado, patrocinado ou endossado pela CipSoft GmbH.",
-    footer_open:"Open Source", footer_online:"● Online", footer_dev:"Desenvolvido por",
-    // Botão hunt
-    new_hunt:"⚔️ + NOVA HUNT",
-  },
-  "en": {
-    code:"en", flag:"🇺🇸", name:"English",
-    days_farmed:"days farmed", today:"Today", clear_month:"Clear month",
-    tab_tracker:"Tracker",    tab_tracker_desc:"Daily farm",
-    tab_history:"History",    tab_history_desc:"Past months",
-    tab_djinn:"Djinn",        tab_djinn_desc:"Item selling",
-    tab_paste:"Paste Session",tab_paste_desc:"Import hunt",
-    tab_config:"Settings",    tab_config_desc:"App settings",
-    gold_total:"Total Gold", tibia_coins:"Tibia Coins", daily_avg:"Daily Avg",
-    day:"Day", gold_balance:"Gold Balance", value:"Value", accumulated:"Accumulated",
-    total:"TOTAL", table_tip:"Click ✏️ on any row to add or edit values manually.",
-    rashid_today:"Rashid — Today", location_by_day:"Location by day",
-    days_short:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-    days_full:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-    boosted_creature:"Boosted Creature", boosted_boss:"Boosted Boss", loading_api:"Fetching from API...",
-    search_char:"Search Character", char_placeholder:"Character name...",
-    search_btn:"Search", searching:"Searching...", char_not_found:"Character not found.",
-    level:"Level", vocation:"Vocation", status:"Status", world:"World",
-    online:"● Online", offline:"○ Offline", view_tibia:"View on Tibia.com",
-    char_hint:"Type a Tibia character\nname and press Search",
-    history_title:"MONTHLY HISTORY", history_subtitle:"Click a month to view details in Tracker.",
-    current_month:"CURRENT MONTH", days_farmed_label:"days farmed", best_day:"Best Day",
-    no_data:"No data recorded yet.",
-    djinn_search_placeholder:"Search item from",
-    djinn_add:"➕ Add", djinn_update:"💾 Update", djinn_cancel:"Cancel",
-    djinn_adding:"➕ Add item", djinn_editing:"✏️ Editing item",
-    djinn_qty:"Qty", djinn_unit:"Unit Price", djinn_total:"Total",
-    djinn_empty:"No items added yet.\nUse the field above to start.",
-    djinn_tip:"💡 Type item name to search · Select · Enter quantity · Click Add",
-    djinn_preview:"PREVIEW — 1,000,000 gp equals", djinn_per_tc:"per TC",
-    djinn_grand:"Grand Total", djinn_items_in_list:"items in list",
-    djinn_clear:"🗑 Clear",
-    paste_title:"PASTE COPYBOARD",
-    paste_subtitle:"In Tibia: session icon → "Copy to Clipboard" → paste below.",
-    paste_placeholder:"Session data: From 2026-05-01...\nBalance: 5,465,827",
-    paste_error:"Could not read the Balance. Please check if the text is complete.",
-    session_detected:"✅ SESSION DETECTED",
-    sess_date:"📅 Date", sess_dur:"⏱ Duration", sess_loot:"📦 Loot",
-    sess_supplies:"💊 Supplies", sess_balance:"💰 Balance", sess_tc:"💎 In TC",
-    sess_players:"Players", save_hunt:"✅ Save Hunt", cancel:"Cancel",
-    config_currency:"💱 DISPLAY CURRENCY", config_player:"⚙️ PLAYER DATA",
-    config_name:"Your Tibia name", config_gppertc:"GP per TC",
-    config_tip:"Data is saved automatically in your browser (localStorage).\nUse the backup below to avoid data loss when switching devices.",
-    config_backup:"Backup (copy and keep in a safe place)",
-    config_restore:"Restore backup", config_restore_ph:"Paste your backup here...",
-    restore_btn:"Restore", currency_preview:"PREVIEW — 1,000,000 gp equals",
-    currency_rate:"TC value in", currency_per_tc:"per TC",
-    manual_title:"MANUAL ENTRY", manual_gp:"Profit / Balance (gp)",
-    manual_gp_ph:"e.g. 5000000  (negative = loss)",
-    manual_note:"Note (optional)", manual_note_ph:"e.g. Rashid, Ferumbras, item sales…",
-    manual_save:"✅  SAVE ENTRY", manual_update:"💾  UPDATE",
-    manual_entries:"Manual entries for this day", manual_copyboard:"Copyboard hunts",
-    footer_desc:"Free tool to track your daily Tibia gold farming.",
-    footer_disclaimer:"Notice: Tibia Farm Tracker is an independent, unofficial project. It is not affiliated, sponsored or endorsed by CipSoft GmbH.",
-    footer_open:"Open Source", footer_online:"● Online", footer_dev:"Developed by",
-    new_hunt:"⚔️ + NEW HUNT",
-  },
-  "es": {
-    code:"es", flag:"🇪🇸", name:"Español",
-    days_farmed:"días farmeados", today:"Hoy", clear_month:"Limpiar mes",
-    tab_tracker:"Tracker",      tab_tracker_desc:"Farm diario",
-    tab_history:"Historial",    tab_history_desc:"Meses anteriores",
-    tab_djinn:"Djinn",          tab_djinn_desc:"Venta de items",
-    tab_paste:"Pegar Sesión",   tab_paste_desc:"Importar hunt",
-    tab_config:"Configuración", tab_config_desc:"Ajustes de la app",
-    gold_total:"Oro Total", tibia_coins:"Tibia Coins", daily_avg:"Promedio/Día",
-    day:"Día", gold_balance:"Balance de Oro", value:"Valor", accumulated:"Acumulado",
-    total:"TOTAL", table_tip:"Haz clic en ✏️ para añadir o editar valores manualmente.",
-    rashid_today:"Rashid — Hoy", location_by_day:"Ubicación por día",
-    days_short:["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
-    days_full:["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],
-    boosted_creature:"Criatura Potenciada", boosted_boss:"Boss Potenciado", loading_api:"Cargando API...",
-    search_char:"Buscar Personaje", char_placeholder:"Nombre del personaje...",
-    search_btn:"Buscar", searching:"Buscando...", char_not_found:"Personaje no encontrado.",
-    level:"Nivel", vocation:"Vocación", status:"Estado", world:"Mundo",
-    online:"● En línea", offline:"○ Desconectado", view_tibia:"Ver en Tibia.com",
-    char_hint:"Escribe el nombre de un\npersonaje de Tibia",
-    history_title:"HISTORIAL MENSUAL", history_subtitle:"Haz clic en un mes para ver detalles.",
-    current_month:"MES ACTUAL", days_farmed_label:"días farmeados", best_day:"Mejor Día",
-    no_data:"Sin datos registrados aún.",
-    djinn_search_placeholder:"Buscar item del",
-    djinn_add:"➕ Agregar", djinn_update:"💾 Actualizar", djinn_cancel:"Cancelar",
-    djinn_adding:"➕ Agregar item", djinn_editing:"✏️ Editando item",
-    djinn_qty:"Cant.", djinn_unit:"Precio Unit.", djinn_total:"Total",
-    djinn_empty:"Sin items aún.\nUsa el campo de arriba para comenzar.",
-    djinn_tip:"💡 Escribe el nombre del item para buscar · Selecciona · Cantidad · Agregar",
-    djinn_preview:"VISTA PREVIA — 1.000.000 gp equivale a", djinn_per_tc:"por TC",
-    djinn_grand:"Total General", djinn_items_in_list:"items en lista",
-    djinn_clear:"🗑 Limpiar",
-    paste_title:"PEGAR COPYBOARD",
-    paste_subtitle:"En Tibia: icono de sesión → "Copy to Clipboard" → pega abajo.",
-    paste_placeholder:"Session data: From 2026-05-01...\nBalance: 5,465,827",
-    paste_error:"No pude leer el Balance. Verifica que el texto esté completo.",
-    session_detected:"✅ SESIÓN DETECTADA",
-    sess_date:"📅 Fecha", sess_dur:"⏱ Duración", sess_loot:"📦 Loot",
-    sess_supplies:"💊 Supplies", sess_balance:"💰 Balance", sess_tc:"💎 En TC",
-    sess_players:"Jugadores", save_hunt:"✅ Guardar Hunt", cancel:"Cancelar",
-    config_currency:"💱 MONEDA DE VISUALIZACIÓN", config_player:"⚙️ DATOS DEL JUGADOR",
-    config_name:"Tu nombre en Tibia", config_gppertc:"GP por TC",
-    config_tip:"Los datos se guardan automáticamente en el navegador.\nUsa el backup para no perder datos.",
-    config_backup:"Backup (copia y guarda en lugar seguro)",
-    config_restore:"Restaurar backup", config_restore_ph:"Pega el backup aquí...",
-    restore_btn:"Restaurar", currency_preview:"VISTA PREVIA — 1.000.000 gp equivale a",
-    currency_rate:"Valor del TC en", currency_per_tc:"por TC",
-    manual_title:"ENTRADA MANUAL", manual_gp:"Profit / Balance (gp)",
-    manual_gp_ph:"Ej: 5000000  (negativo = pérdida)",
-    manual_note:"Observación (opcional)", manual_note_ph:"Ej: Rashid, Ferumbras, venta...",
-    manual_save:"✅  GUARDAR", manual_update:"💾  ACTUALIZAR",
-    manual_entries:"Entradas manuales de este día", manual_copyboard:"Hunts del copyboard",
-    footer_desc:"Herramienta gratuita para rastrear tu farm diario en Tibia.",
-    footer_disclaimer:"Aviso: Tibia Farm Tracker es un proyecto independiente y no oficial. No está afiliado, patrocinado ni avalado por CipSoft GmbH.",
-    footer_open:"Código Abierto", footer_online:"● En línea", footer_dev:"Desarrollado por",
-    new_hunt:"⚔️ + NUEVA HUNT",
-  },
-  "pl": {
-    code:"pl", flag:"🇵🇱", name:"Polski",
-    days_farmed:"dni farmienia", today:"Dzisiaj", clear_month:"Wyczyść miesiąc",
-    tab_tracker:"Tracker",     tab_tracker_desc:"Codzienny farm",
-    tab_history:"Historia",    tab_history_desc:"Poprzednie miesiące",
-    tab_djinn:"Djinn",         tab_djinn_desc:"Sprzedaż itemów",
-    tab_paste:"Wklej Sesję",   tab_paste_desc:"Importuj hunt",
-    tab_config:"Ustawienia",   tab_config_desc:"Ustawienia aplikacji",
-    gold_total:"Łączne Złoto", tibia_coins:"Tibia Coins", daily_avg:"Śr./Dzień",
-    day:"Dzień", gold_balance:"Saldo Złota", value:"Wartość", accumulated:"Narastająco",
-    total:"SUMA", table_tip:"Kliknij ✏️ aby ręcznie dodać lub edytować wartości.",
-    rashid_today:"Rashid — Dzisiaj", location_by_day:"Lokalizacja wg dnia",
-    days_short:["Nd","Pn","Wt","Śr","Cz","Pt","Sb"],
-    days_full:["Niedziela","Poniedziałek","Wtorek","Środa","Czwartek","Piątek","Sobota"],
-    boosted_creature:"Wzmocnione Stworzenie", boosted_boss:"Wzmocniony Boss", loading_api:"Pobieranie z API...",
-    search_char:"Szukaj Postaci", char_placeholder:"Nazwa postaci...",
-    search_btn:"Szukaj", searching:"Szukam...", char_not_found:"Nie znaleziono postaci.",
-    level:"Poziom", vocation:"Zawód", status:"Status", world:"Świat",
-    online:"● Online", offline:"○ Offline", view_tibia:"Zobacz na Tibia.com",
-    char_hint:"Wpisz nazwę postaci\ni naciśnij Szukaj",
-    history_title:"HISTORIA MIESIĘCZNA", history_subtitle:"Kliknij miesiąc, aby zobaczyć szczegóły.",
-    current_month:"BIEŻĄCY MIESIĄC", days_farmed_label:"dni farmienia", best_day:"Najlepszy Dzień",
-    no_data:"Brak zarejestrowanych danych.",
-    djinn_search_placeholder:"Szukaj itemu od",
-    djinn_add:"➕ Dodaj", djinn_update:"💾 Aktualizuj", djinn_cancel:"Anuluj",
-    djinn_adding:"➕ Dodaj item", djinn_editing:"✏️ Edytowanie itemu",
-    djinn_qty:"Ilość", djinn_unit:"Cena jedn.", djinn_total:"Suma",
-    djinn_empty:"Brak dodanych itemów.\nUżyj pola powyżej, aby zacząć.",
-    djinn_tip:"💡 Wpisz nazwę itemu · Wybierz · Wpisz ilość · Kliknij Dodaj",
-    djinn_preview:"PODGLĄD — 1.000.000 gp równa się", djinn_per_tc:"za TC",
-    djinn_grand:"Łączna Suma", djinn_items_in_list:"itemów na liście",
-    djinn_clear:"🗑 Wyczyść",
-    paste_title:"WKLEJ COPYBOARD",
-    paste_subtitle:"W Tibia: ikona sesji → "Copy to Clipboard" → wklej poniżej.",
-    paste_placeholder:"Session data: From 2026-05-01...\nBalance: 5,465,827",
-    paste_error:"Nie udało się odczytać Balance. Sprawdź czy tekst jest kompletny.",
-    session_detected:"✅ WYKRYTO SESJĘ",
-    sess_date:"📅 Data", sess_dur:"⏱ Czas trwania", sess_loot:"📦 Loot",
-    sess_supplies:"💊 Supplies", sess_balance:"💰 Balance", sess_tc:"💎 W TC",
-    sess_players:"Gracze", save_hunt:"✅ Zapisz Hunt", cancel:"Anuluj",
-    config_currency:"💱 WALUTA WYŚWIETLANIA", config_player:"⚙️ DANE GRACZA",
-    config_name:"Twoja nazwa w Tibia", config_gppertc:"GP za TC",
-    config_tip:"Dane są zapisywane automatycznie w przeglądarce.\nUżyj kopii zapasowej, aby nie stracić danych.",
-    config_backup:"Kopia zapasowa (skopiuj i zachowaj)",
-    config_restore:"Przywróć kopię", config_restore_ph:"Wklej kopię tutaj...",
-    restore_btn:"Przywróć", currency_preview:"PODGLĄD — 1.000.000 gp równa się",
-    currency_rate:"Wartość TC w", currency_per_tc:"za TC",
-    manual_title:"RĘCZNY WPIS", manual_gp:"Zysk / Balance (gp)",
-    manual_gp_ph:"Np. 5000000  (ujemne = strata)",
-    manual_note:"Notatka (opcjonalna)", manual_note_ph:"Np. Rashid, Ferumbras...",
-    manual_save:"✅  ZAPISZ", manual_update:"💾  AKTUALIZUJ",
-    manual_entries:"Ręczne wpisy na ten dzień", manual_copyboard:"Hunty z copyboard",
-    footer_desc:"Darmowe narzędzie do śledzenia codziennego farmu w Tibia.",
-    footer_disclaimer:"Uwaga: Tibia Farm Tracker to niezależny, nieoficjalny projekt. Nie jest powiązany, sponsorowany ani popierany przez CipSoft GmbH.",
-    footer_open:"Open Source", footer_online:"● Online", footer_dev:"Stworzone przez",
-    new_hunt:"⚔️ + NOWY HUNT",
-  },
-  "de": {
-    code:"de", flag:"🇩🇪", name:"Deutsch",
-    days_farmed:"Tage gefarmt", today:"Heute", clear_month:"Monat löschen",
-    tab_tracker:"Tracker",    tab_tracker_desc:"Tägliches Farm",
-    tab_history:"Verlauf",    tab_history_desc:"Vergangene Monate",
-    tab_djinn:"Djinn",        tab_djinn_desc:"Items verkaufen",
-    tab_paste:"Sitzung einfügen", tab_paste_desc:"Hunt importieren",
-    tab_config:"Einstellungen",   tab_config_desc:"App-Einstellungen",
-    gold_total:"Gold Gesamt", tibia_coins:"Tibia Coins", daily_avg:"Tägl. Ø",
-    day:"Tag", gold_balance:"Gold-Bilanz", value:"Wert", accumulated:"Kumuliert",
-    total:"GESAMT", table_tip:"Klicke ✏️ in einer Zeile, um Werte manuell hinzuzufügen.",
-    rashid_today:"Rashid — Heute", location_by_day:"Standort nach Tag",
-    days_short:["So","Mo","Di","Mi","Do","Fr","Sa"],
-    days_full:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
-    boosted_creature:"Geboostetes Wesen", boosted_boss:"Geboosteter Boss", loading_api:"API wird geladen...",
-    search_char:"Charakter suchen", char_placeholder:"Charaktername...",
-    search_btn:"Suchen", searching:"Suche...", char_not_found:"Charakter nicht gefunden.",
-    level:"Level", vocation:"Beruf", status:"Status", world:"Welt",
-    online:"● Online", offline:"○ Offline", view_tibia:"Auf Tibia.com ansehen",
-    char_hint:"Gib einen Tibia-Charakternamen\nein und drücke Suchen",
-    history_title:"MONATSVERLAUF", history_subtitle:"Klicke auf einen Monat für Details.",
-    current_month:"AKTUELLER MONAT", days_farmed_label:"Tage gefarmt", best_day:"Bester Tag",
-    no_data:"Noch keine Daten aufgezeichnet.",
-    djinn_search_placeholder:"Item suchen bei",
-    djinn_add:"➕ Hinzufügen", djinn_update:"💾 Aktualisieren", djinn_cancel:"Abbrechen",
-    djinn_adding:"➕ Item hinzufügen", djinn_editing:"✏️ Item bearbeiten",
-    djinn_qty:"Menge", djinn_unit:"Einzelpreis", djinn_total:"Gesamt",
-    djinn_empty:"Noch keine Items.\nVerwende das Feld oben um zu beginnen.",
-    djinn_tip:"💡 Itemname eingeben · Auswählen · Menge eingeben · Hinzufügen",
-    djinn_preview:"VORSCHAU — 1.000.000 gp entspricht", djinn_per_tc:"pro TC",
-    djinn_grand:"Gesamtsumme", djinn_items_in_list:"Items in Liste",
-    djinn_clear:"🗑 Löschen",
-    paste_title:"COPYBOARD EINFÜGEN",
-    paste_subtitle:"In Tibia: Sitzungssymbol → "Copy to Clipboard" → unten einfügen.",
-    paste_placeholder:"Session data: From 2026-05-01...\nBalance: 5,465,827",
-    paste_error:"Balance konnte nicht gelesen werden. Bitte Text überprüfen.",
-    session_detected:"✅ SITZUNG ERKANNT",
-    sess_date:"📅 Datum", sess_dur:"⏱ Dauer", sess_loot:"📦 Loot",
-    sess_supplies:"💊 Supplies", sess_balance:"💰 Balance", sess_tc:"💎 In TC",
-    sess_players:"Spieler", save_hunt:"✅ Hunt speichern", cancel:"Abbrechen",
-    config_currency:"💱 ANZEIGEWÄHRUNG", config_player:"⚙️ SPIELERDATEN",
-    config_name:"Dein Tibia-Name", config_gppertc:"GP pro TC",
-    config_tip:"Daten werden automatisch im Browser gespeichert.\nVerwende die Sicherung, um Daten nicht zu verlieren.",
-    config_backup:"Sicherung (kopieren und aufbewahren)",
-    config_restore:"Sicherung wiederherstellen", config_restore_ph:"Sicherung hier einfügen...",
-    restore_btn:"Wiederherstellen", currency_preview:"VORSCHAU — 1.000.000 gp entspricht",
-    currency_rate:"TC-Wert in", currency_per_tc:"pro TC",
-    manual_title:"MANUELLER EINTRAG", manual_gp:"Profit / Balance (gp)",
-    manual_gp_ph:"z.B. 5000000  (negativ = Verlust)",
-    manual_note:"Notiz (optional)", manual_note_ph:"z.B. Rashid, Ferumbras...",
-    manual_save:"✅  SPEICHERN", manual_update:"💾  AKTUALISIEREN",
-    manual_entries:"Manuelle Einträge für diesen Tag", manual_copyboard:"Hunts vom Copyboard",
-    footer_desc:"Kostenloses Tool zum Verfolgen deines täglichen Tibia-Farms.",
-    footer_disclaimer:"Hinweis: Tibia Farm Tracker ist ein unabhängiges, inoffizielles Projekt. Es ist nicht mit CipSoft GmbH verbunden.",
-    footer_open:"Open Source", footer_online:"● Online", footer_dev:"Entwickelt von",
-    new_hunt:"⚔️ + NEUER HUNT",
-  },
-};
-
-// Detecta idioma do navegador
-function detectBrowserLang() {
-  const saved = localStorage.getItem("tft_lang");
-  if(saved && LANGS[saved]) return saved;
-  const nav = navigator.language?.slice(0,2).toLowerCase();
-  if(nav === "pt") return "pt";
-  if(nav === "es") return "es";
-  if(nav === "pl") return "pl";
-  if(nav === "de") return "de";
-  return "en"; // default
-}
-
-// Hook de idioma
-function useLang() {
-  const [lang, setLangState] = React.useState(detectBrowserLang);
-  function setLang(code) {
-    localStorage.setItem("tft_lang", code);
-    setLangState(code);
-    // Atualiza html lang
-    document.documentElement.lang = code === "pt" ? "pt-BR" : code;
-  }
-  const T = LANGS[lang] || LANGS["en"];
-  const t = (key) => T[key] ?? LANGS["en"][key] ?? key;
-  return { lang, setLang, t, T };
-}
-
-// Seletor de idioma
-function LangSelector({ lang, setLang, mob }) {
-  const [open, setOpen] = React.useState(false);
-  const cur = LANGS[lang];
-  return (
-    <div style={{position:"relative"}}>
-      <button onClick={()=>setOpen(v=>!v)}
-        style={{background:"none",border:`1px solid ${open?"#c8a83c44":"#1c1c30"}`,borderRadius:8,padding:mob?"5px 8px":"6px 10px",cursor:"pointer",display:"flex",alignItems:"center",gap:5,color:"#ddd9f0",fontSize:mob?13:14,transition:"border-color .2s"}}>
-        <span>{cur.flag}</span>
-        {!mob&&<span style={{fontSize:11,color:"#9090b8",fontWeight:600}}>{cur.code.toUpperCase()}</span>}
-        <span style={{fontSize:9,color:"#52527a"}}>▾</span>
-      </button>
-      {open&&(
-        <div style={{position:"absolute",top:"calc(100% + 6px)",right:0,background:"#0f0f1c",border:"1px solid #2a2a48",borderRadius:12,overflow:"hidden",zIndex:200,minWidth:150,boxShadow:"0 8px 32px #000a",animation:"slideUp .15s ease"}}>
-          {Object.values(LANGS).map(l=>(
-            <button key={l.code} onClick={()=>{setLang(l.code);setOpen(false);}}
-              style={{width:"100%",display:"flex",alignItems:"center",gap:10,padding:"9px 14px",background:l.code===lang?"#1a1a30":"none",border:"none",cursor:"pointer",color:l.code===lang?"#c8a83c":"#9090b8",fontSize:13,fontWeight:l.code===lang?700:400,transition:"background .15s",textAlign:"left"}}
-              onMouseEnter={e=>e.currentTarget.style.background="#1a1a2a"}
-              onMouseLeave={e=>e.currentTarget.style.background=l.code===lang?"#1a1a30":"none"}>
-              <span style={{fontSize:18}}>{l.flag}</span>
-              <span>{l.name}</span>
-              {l.code===lang&&<span style={{marginLeft:"auto",fontSize:10,color:"#c8a83c"}}>✓</span>}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-
 function initState() {
   return { playerName:"", gpPerTc:41000, currency:"BRL", rates:{BRL:0.216,USD:0.040,EUR:0.037,GBP:0.032,CAD:0.055}, days:{} };
 }
@@ -575,12 +215,12 @@ function useCharSearch() {
 }
 
 /* ══ SIDEBAR ESQUERDA: Rashid + Busca de Personagem ═════════════════════════ */
-function LeftSidebar({ mob, t }) {
+function LeftSidebar({ mob }) {
   const today   = new Date();
   const dow     = today.getDay();
   const rashid  = RASHID[dow];
-  const dias    = t("days_short");
-  const diasFull= t("days_full");
+  const dias    = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  const diasFull= ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
   const char    = useCharSearch();
 
   if(mob) return null;
@@ -605,7 +245,7 @@ function LeftSidebar({ mob, t }) {
         <div style={{background:"linear-gradient(90deg,#1a3a1a,#0d200d)",padding:"10px 16px",borderBottom:"1px solid #1e3a1e22",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div style={{display:"flex",alignItems:"center",gap:6}}>
             <div style={{width:6,height:6,borderRadius:"50%",background:C.green,boxShadow:`0 0 8px ${C.green}`}}/>
-            <span style={{fontSize:9,color:C.green,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("rashid_today")}</span>
+            <span style={{fontSize:9,color:C.green,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>Rashid — Hoje</span>
           </div>
           <span style={{fontSize:9,background:"#1a3a1a",color:C.green,padding:"2px 8px",borderRadius:99,fontWeight:700,border:"1px solid #2a5a2a"}}>{diasFull[dow]}</span>
         </div>
@@ -629,7 +269,7 @@ function LeftSidebar({ mob, t }) {
 
         {/* Calendário semanal */}
         <div style={{padding:"0 12px 14px"}}>
-          <div style={{fontSize:8,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:6,textAlign:"center"}}>{t("location_by_day")}</div>
+          <div style={{fontSize:8,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:6,textAlign:"center"}}>Localização por dia</div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3}}>
             {RASHID.map((r,i)=>(
               <div key={i} title={`${diasFull[i]}: ${r.city}`}
@@ -653,10 +293,10 @@ function LeftSidebar({ mob, t }) {
 
       {/* BUSCA DE PERSONAGEM */}
       <div style={{background:`linear-gradient(160deg,${C.accent}0d,${C.card})`,border:`1px solid ${C.accent}33`,borderRadius:16,padding:16,flex:1}}>
-        <div style={{fontSize:9,color:C.accent,letterSpacing:1.5,textTransform:"uppercase",marginBottom:10}}>{t("search_char")}</div>
+        <div style={{fontSize:9,color:C.accent,letterSpacing:1.5,textTransform:"uppercase",marginBottom:10}}>🔍 Buscar Personagem</div>
         <div style={{display:"flex",flexDirection:"column",gap:6,marginBottom:10}}>
           <input value={char.name} onChange={e=>char.setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&char.search()}
-            placeholder={t("char_placeholder")}
+            placeholder="Nome do personagem..."
             style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",width:"100%",fontFamily:"'Inter',sans-serif"}}/>
           <button onClick={char.search} disabled={char.loading}
             style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:700,opacity:char.loading?.6:1}}>
@@ -706,7 +346,7 @@ function LeftSidebar({ mob, t }) {
 }
 
 /* ══ SIDEBAR DIREITA: Criatura Boostada + Boss ═══════════════════════════════ */
-function RightSidebar({ creature, boss, mob, t }) {
+function RightSidebar({ creature, boss, mob }) {
   if(mob) return null;
 
   function BigBoostCard({ data, label, color, border, icon }) {
@@ -718,7 +358,7 @@ function RightSidebar({ creature, boss, mob, t }) {
         {!data ? (
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,padding:"12px 0"}}>
             <div style={{width:80,height:80,background:C.bg2,borderRadius:12,animation:"starPulse 1.5s ease-in-out infinite"}}/>
-            <div style={{fontSize:11,color:C.textFaint}}>{t("loading_api")}</div>
+            <div style={{fontSize:11,color:C.textFaint}}>Buscando na API...</div>
           </div>
         ) : (
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
@@ -742,19 +382,19 @@ function RightSidebar({ creature, boss, mob, t }) {
 
   return (
     <div style={{display:"flex",flexDirection:"column",gap:12,width:220,flexShrink:0}}>
-      <BigBoostCard data={creature} label={t("boosted_creature")} color="#9b6dff" border="#7b3aed" icon="⭐"/>
-      <BigBoostCard data={boss} label={t("boosted_boss")} color="#f06060" border="#c03030" icon="☠️"/>
+      <BigBoostCard data={creature} label="Criatura Boostada" color="#9b6dff" border="#7b3aed" icon="⭐"/>
+      <BigBoostCard data={boss} label="Boss Boostado" color="#f06060" border="#c03030" icon="☠️"/>
     </div>
   );
 }
 
 /* ══ PAINEL INFO MOBILE ═════════════════════════════════════════════════════ */
-function InfoPanel({ mob, creature, boss, t }) {
+function InfoPanel({ mob, creature, boss }) {
   const today = new Date();
   const dow   = today.getDay();
   const rashid= RASHID[dow];
-  const dias  = t("days_short");
-  const diasFull = t("days_full");
+  const dias  = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  const diasFull = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
 
   const char = useCharSearch();
 
@@ -800,7 +440,7 @@ function InfoPanel({ mob, creature, boss, t }) {
         <BoostCard data={boss} label="Boss Boostado" color="#f06060" borderColor="#c03030" icon="☠"/>
       </div>
       {/* Char search mobile */}
-      <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob} t={t}/>
+      <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob}/>
     </div>
   );
 
@@ -842,13 +482,13 @@ function InfoPanel({ mob, creature, boss, t }) {
         <BoostCard data={boss} label="☠️ Boss Boostado" color="#f06060" borderColor="#c03030" icon="☠"/>
 
         {/* COL 4 — BUSCA DE PERSONAGEM */}
-        <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob} t={t}/>
+        <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob}/>
       </div>
     </div>
   );
 }
 
-function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSearch, mob, t }) {
+function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSearch, mob }) {
   const cardBase = { background:C.card, border:`1px solid ${C.border}`, borderRadius:14, padding:"14px 16px" };
   return (
     <div style={{...cardBase,border:`1px solid ${C.accent}33`,background:`linear-gradient(135deg,${C.accent}08,${C.card})`}}>
@@ -859,10 +499,10 @@ function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSe
           style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Inter',sans-serif"}}/>
         <button onClick={onSearch} disabled={charLoad}
           style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
-          {charLoad?t("searching"):t("search_btn")}
+          {charLoad?"⏳":"Buscar"}
         </button>
       </div>
-      {charErr && <div style={{fontSize:10,color:C.red,marginBottom:6}}>{charErr==="Personagem não encontrado."?t("char_not_found"):charErr}</div>}
+      {charErr && <div style={{fontSize:10,color:C.red,marginBottom:6}}>{charErr}</div>}
       {charResult ? (
         <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px"}}>
           <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold,marginBottom:4}}>{charResult.name}</div>
@@ -876,7 +516,7 @@ function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSe
         </div>
       ) : !charLoad && !charErr && (
         <div style={{textAlign:"center",padding:"12px 0",color:C.textFaint,fontSize:11}}>
-          <>{t("char_hint").split("\n")[0]}<br/>{t("char_hint").split("\n")[1]||""}</>
+          Digite o nome de um personagem<br/>e pressione Enter ou Buscar
         </div>
       )}
     </div>
@@ -1005,7 +645,7 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
 }
 
 /* ══ MONTH CARD ══════════════════════════════════════════════════════════════ */
-function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent, t }) {
+function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent }) {
   const prefix=ym+"-";
   const entries=Object.entries(days).filter(([k])=>k.startsWith(prefix));
   const totalGP=entries.reduce((s,[,v])=>s+v.totalBalance,0);
@@ -1020,15 +660,15 @@ function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent, t }
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
         <div>
           <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:16,fontWeight:700,color:isCurrent?C.gold:C.text,letterSpacing:.5,textTransform:"capitalize"}}>{mmLabel(ym)}</div>
-          <div style={{fontSize:11,color:C.textFaint,marginTop:2}}>{daysOk} {t("days_farmed_label")}</div>
+          <div style={{fontSize:11,color:C.textFaint,marginTop:2}}>{daysOk} dia{daysOk!==1?"s":""} farmado{daysOk!==1?"s":""}</div>
         </div>
-        {isCurrent&&<span style={{fontSize:10,background:`${C.gold}22`,color:C.gold,padding:"3px 8px",borderRadius:99,fontWeight:700}}>{t("current_month")}</span>}
+        {isCurrent&&<span style={{fontSize:10,background:`${C.gold}22`,color:C.gold,padding:"3px 8px",borderRadius:99,fontWeight:700}}>MÊS ATUAL</span>}
       </div>
       <div style={{display:"flex",alignItems:"flex-end",gap:2,height:32,marginBottom:14}}>
         {bars.map((v,i)=>{ const h=maxGP>0?Math.max(2,(Math.abs(v)/maxGP)*32):2; return <div key={i} style={{flex:1,height:`${h}px`,background:v>0?C.green:v<0?C.red:C.muted+"40",borderRadius:2,opacity:v!==0?1:.3}}/>; })}
       </div>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-        {[[t("value")+" Total",totalCur>=0?fmtMoney(totalCur,curSym):"—",totalCur>=0?C.green:C.red],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight],[t("gold_total"),fmt(totalGP)+" gp",C.text],[t("best_day"),bestDay.key?fmtMoney(toCur(toTC(bestDay.val,gpPerTc),curRate),curSym):"—",C.purple]].map(([label,val,color])=>(
+        {[["Valor Total",totalCur>=0?fmtMoney(totalCur,curSym):"—",totalCur>=0?C.green:C.red],["Média/Dia",daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight],["Gold Total",fmt(totalGP)+" gp",C.text],["Melhor Dia",bestDay.key?fmtMoney(toCur(toTC(bestDay.val,gpPerTc),curRate),curSym):"—",C.purple]].map(([label,val,color])=>(
           <div key={label} style={{background:C.bg2,borderRadius:10,padding:"10px 12px"}}>
             <div style={{fontSize:10,color:C.textFaint,marginBottom:3,textTransform:"uppercase",letterSpacing:.5}}>{label}</div>
             <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:18,color}}>{val}</div>
@@ -1080,7 +720,7 @@ function CurrencyConfig({ state, setState }) {
 }
 
 /* ══ FOOTER ══════════════════════════════════════════════════════════════════ */
-function Footer({ t }) {
+function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer style={{marginTop:48,borderTop:`1px solid ${C.border}`,background:"#09090f",padding:"28px 24px 20px"}}>
@@ -1090,7 +730,7 @@ function Footer({ t }) {
           <div style={{fontSize:26}}>⚔️</div>
           <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold,letterSpacing:2}}>TIBIA FARM TRACKER</div>
           <div style={{fontSize:12,color:C.textFaint,maxWidth:380,lineHeight:1.6}}>
-            {t("footer_desc")}
+            Ferramenta gratuita para acompanhar seu farm diário no Tibia. Registre, analise e maximize seus lucros!
           </div>
         </div>
 
@@ -1108,20 +748,20 @@ function Footer({ t }) {
 
         {/* Aviso legal */}
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:"10px 16px",marginBottom:20,fontSize:11,color:C.textFaint,textAlign:"center",lineHeight:1.6}}>
-          {t("footer_disclaimer")}
+          ⚠️ <strong style={{color:C.textSub}}>Aviso:</strong> Tibia Farm Tracker é um projeto <strong style={{color:C.textSub}}>independente e não oficial</strong>. Não é afiliado, patrocinado ou endossado pela <strong style={{color:C.textSub}}>CipSoft GmbH</strong>. "Tibia" é marca registrada da CipSoft GmbH. Os dados de localização do Rashid são de domínio público da comunidade Tibia.
         </div>
 
         {/* Copyright */}
         <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:8}}>
           <div style={{fontSize:11,color:C.textFaint}}>
-            © {year} <span style={{color:C.textSub,fontWeight:600}}>Tibia Farm Tracker</span> · {t("footer_dev")} <span style={{color:C.gold,fontWeight:600}}>MaltinhaDEV</span>
+            © {year} <span style={{color:C.textSub,fontWeight:600}}>Tibia Farm Tracker</span> · Desenvolvido por <span style={{color:C.gold,fontWeight:600}}>MaltinhaDEV</span>
           </div>
           <div style={{fontSize:11,color:C.textFaint,display:"flex",gap:12,alignItems:"center"}}>
             <span>Versão 2.1</span>
             <span style={{color:C.muted}}>·</span>
-            <span>{t("footer_open")}</span>
+            <span>Open Source</span>
             <span style={{color:C.muted}}>·</span>
-            <span style={{color:C.green}}>{t("footer_online")}</span>
+            <span style={{color:C.green}}>● Online</span>
           </div>
         </div>
       </div>
@@ -1202,7 +842,7 @@ const loadDjinn = () => { try{ const d=JSON.parse(localStorage.getItem(SK_DJINN)
 const saveDjinn = d => { try{ localStorage.setItem(SK_DJINN,JSON.stringify(d)); }catch{} };
 
 /* ══ DJINN TAB ═══════════════════════════════════════════════════════════════ */
-function DjinnTab({ mob, t }) {
+function DjinnTab({ mob }) {
   const [djinnType, setDjinnType] = useState("blue");
   const [lists, setLists]         = useState(()=>{ const d=loadDjinn(); return {blue:d.blue||[],green:d.green||[]}; });
   const [search, setSearch]       = useState("");
@@ -1266,7 +906,7 @@ function DjinnTab({ mob, t }) {
   }
 
   function clearList() {
-    if(!confirm(t("djinn_clear")+" "+djinn.name+"?")) return;
+    if(!confirm(`Limpar toda a lista ${djinn.name}?`)) return;
     setLists(p=>({...p,[djinnType]:[]}));
   }
 
@@ -1436,7 +1076,7 @@ function DjinnTab({ mob, t }) {
         )}
 
         <div style={{padding:"10px 20px",fontSize:11,color:C.textFaint,borderTop:`1px solid ${djinn.border}22`}}>
-          {t("djinn_tip")}
+          💡 Digite o nome do item para buscar · Selecione · Informe a quantidade · Clique em Adicionar
         </div>
       </div>
     </div>
@@ -1451,7 +1091,6 @@ function App() {
     if(!d.rates)    d.rates={BRL:d.brlPerTc||0.216,USD:0.040,EUR:0.037,GBP:0.032,CAD:0.055};
     return d;
   });
-  const {lang, setLang, t, T} = useLang();
   const [viewMonth,setViewMonth]=useState(nowYM());
   const [clip,setClip]=useState("");
   const [parsed,setParsed]=useState(null);
@@ -1467,7 +1106,7 @@ function App() {
   const curObj=getCur(state), curRate=getRate(state), curSym=curObj.sym;
 
   function showFlash(msg){ setFlash(msg); setTimeout(()=>setFlash(null),3200); }
-  function handlePaste(t){ setClip(t); const r=parseClip(t); r?(setErr(""),setParsed(r)):(setErr(t("paste_error")),setParsed(null)); }
+  function handlePaste(t){ setClip(t); const r=parseClip(t); r?(setErr(""),setParsed(r)):(setErr("Não consegui ler o Balance. Verifique se o texto está completo."),setParsed(null)); }
 
   function confirmHunt(){
     if(!parsed) return;
@@ -1556,12 +1195,9 @@ function App() {
 
         {/* Botão + Hunt */}
         <div style={{marginTop:mob?12:16}}>
-          <div style={{display:"flex",gap:8,alignItems:"center"}}>
-            <LangSelector lang={lang} setLang={setLang} mob={mob}/>
-            <button style={{...btnPrimary,fontSize:13,padding:mob?"9px 16px":"10px 24px",letterSpacing:1,boxShadow:`0 4px 20px ${C.gold}44`}} onClick={()=>setTab("paste")}>
-              {t("new_hunt")}
-            </button>
-          </div>
+          <button style={{...btnPrimary,fontSize:13,padding:mob?"9px 20px":"10px 28px",letterSpacing:1,boxShadow:`0 4px 20px ${C.gold}44`}} onClick={()=>setTab("paste")}>
+            ⚔️ + NOVA HUNT
+          </button>
         </div>
 
         {/* Linha decorativa inferior */}
@@ -1576,13 +1212,12 @@ function App() {
       <div style={{background:"linear-gradient(180deg,#0f0f1e,#0d0d18)",borderBottom:`1px solid ${C.border}`,overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
         <div style={{maxWidth:1400,margin:"0 auto",display:"flex",justifyContent:"center",padding:`0 ${px}px`,gap:2}}>
           {[
-            {id:"tracker", icon:"⚔️",  lk:"tab_tracker", dk:"tab_tracker_desc", color:C.gold   },
-            {id:"history", icon:"📅",  lk:"tab_history",  dk:"tab_history_desc", color:"#7090ff"},
-            {id:"djinn",   icon:"🧞",  lk:"tab_djinn",    dk:"tab_djinn_desc",   color:"#3dd68c"},
-            {id:"paste",   icon:"📋",  lk:"tab_paste",    dk:"tab_paste_desc",   color:"#f0a030"},
-            {id:"config",  icon:"⚙️",  lk:"tab_config",   dk:"tab_config_desc",  color:"#9b6dff"},
-          ].map(({id,icon,lk,dk,color})=>{
-            const label=t(lk), desc=t(dk);
+            {id:"tracker", icon:"⚔️",  svg:"M", label:"Tracker",      desc:"Farm diário",      color:C.gold   },
+            {id:"history", icon:"📅",  svg:"H", label:"Histórico",     desc:"Meses anteriores", color:"#7090ff"},
+            {id:"djinn",   icon:"🧞",  svg:"D", label:"Djinn",         desc:"Venda de itens",   color:"#3dd68c"},
+            {id:"paste",   icon:"📋",  svg:"P", label:"Colar Sessão",  desc:"Importar hunt",    color:"#f0a030"},
+            {id:"config",  icon:"⚙️",  svg:"C", label:"Configurações", desc:"Ajustes do app",   color:"#9b6dff"},
+          ].map(({id,icon,label,desc,color})=>{
             const active = tab===id;
             return (
               <button key={id} onClick={()=>setTab(id)}
@@ -1645,7 +1280,7 @@ function App() {
         <div style={{display:mob||tab!=="tracker"?"block":"flex",gap:16,alignItems:"flex-start"}}>
 
           {/* SIDEBAR ESQUERDA */}
-          {tab==="tracker"&&!mob&&<LeftSidebar mob={mob} t={t}/>}
+          {tab==="tracker"&&!mob&&<LeftSidebar mob={mob}/>}
 
           {/* CONTEÚDO CENTRAL */}
           <div style={{flex:1,minWidth:0}}>
@@ -1653,11 +1288,11 @@ function App() {
         {/* ══ TRACKER ══ */}
         {tab==="tracker"&&<>
           {/* Mobile: InfoPanel inline */}
-          {mob&&<InfoPanel mob={mob} creature={boostedData.creature} boss={boostedData.boss} t={t}/>}
+          {mob&&<InfoPanel mob={mob} creature={boostedData.creature} boss={boostedData.boss}/>}
 
           {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
-            {[[t("gold_total"),fmt(totalGP)+" gp",C.goldLight],[t("tibia_coins"),Math.round(totalTC).toLocaleString()+" TC",C.goldLight],[t("value")+" "+curObj.code,fmtMoney(totalCur,curSym),C.green],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
+            {[["Gold Total",fmt(totalGP)+" gp",C.goldLight],["Tibia Coins",Math.round(totalTC).toLocaleString()+" TC",C.goldLight],["Valor "+curObj.code,fmtMoney(totalCur,curSym),C.green],["Média/Dia",daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
               <div key={label} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:mob?"12px":"16px 18px"}}>
                 <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?18:24,color,lineHeight:1.1}}>{val}</div>
                 <div style={{fontSize:mob?10:11,color:C.textFaint,marginTop:4,textTransform:"uppercase",letterSpacing:.7}}>{label}</div>
@@ -1671,9 +1306,9 @@ function App() {
               <button onClick={()=>setViewMonth(m=>addMonth(m,-1))} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:8,padding:"6px 12px",cursor:"pointer",color:C.textSub,fontSize:13,fontWeight:700}}>‹</button>
               <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.text,fontSize:14,textTransform:"capitalize",minWidth:140,textAlign:"center"}}>{mmLabel(viewMonth)}</span>
               <button onClick={()=>setViewMonth(m=>addMonth(m,1))} disabled={viewMonth>=nowYM()} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:8,padding:"6px 12px",cursor:viewMonth>=nowYM()?"not-allowed":"pointer",color:viewMonth>=nowYM()?C.muted:C.textSub,fontSize:13,fontWeight:700,opacity:viewMonth>=nowYM()?.4:1}}>›</button>
-              {viewMonth!==nowYM()&&<button onClick={()=>setViewMonth(nowYM())} style={{fontSize:11,background:"none",border:`1px solid ${C.border}`,borderRadius:6,padding:"4px 10px",cursor:"pointer",color:C.textSub}}>{t("today")}</button>}
+              {viewMonth!==nowYM()&&<button onClick={()=>setViewMonth(nowYM())} style={{fontSize:11,background:"none",border:`1px solid ${C.border}`,borderRadius:6,padding:"4px 10px",cursor:"pointer",color:C.textSub}}>Hoje</button>}
             </div>
-            <button style={btnDanger} onClick={clearMonth}>🗑 {mob?"":t("clear_month")}</button>
+            <button style={btnDanger} onClick={clearMonth}>🗑 {mob?"":"Limpar mês"}</button>
           </div>
 
           {/* Tabela */}
@@ -1682,11 +1317,11 @@ function App() {
               <table style={{width:"100%",borderCollapse:"collapse",fontSize:13}}>
                 <thead>
                   <tr>
-                    <th style={{...S.th,textAlign:"left"}}>{t("day")}</th>
-                    <th style={{...S.th,textAlign:"left",paddingLeft:0}}>{t("gold_balance")}</th>
+                    <th style={{...S.th,textAlign:"left"}}>Dia</th>
+                    <th style={{...S.th,textAlign:"left",paddingLeft:0}}>Gold Balance</th>
                     {!mob&&<th style={S.th}>TC</th>}
-                    <th style={S.th}>{curSym} {t("value")}</th>
-                    <th style={S.th}>{t("accumulated")}</th>
+                    <th style={S.th}>{curSym} Valor</th>
+                    <th style={S.th}>Acumulado</th>
                     <th style={{...S.th,width:36,padding:"10px 8px"}}></th>
                   </tr>
                 </thead>
@@ -1695,7 +1330,7 @@ function App() {
                 </tbody>
                 <tfoot>
                   <tr style={{background:C.bg2}}>
-                    <td style={{padding:mob?"10px 8px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.gold,fontSize:13,letterSpacing:1}}>{t("total")}</td>
+                    <td style={{padding:mob?"10px 8px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.gold,fontSize:13,letterSpacing:1}}>TOTAL</td>
                     <td style={{padding:mob?"10px 6px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:totalGP>=0?C.green:C.red,fontSize:18,textShadow:totalGP>=0?`0 0 12px ${C.green}55`:`0 0 12px ${C.red}55`}}>{fmt(totalGP)} gp</td>
                     {!mob&&<td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.goldLight}}>{Math.round(totalTC).toLocaleString()}</td>}
                     <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:totalCur>=0?C.green:C.red}}>{fmtMoney(totalCur,curSym)}</td>
@@ -1705,46 +1340,46 @@ function App() {
                 </tfoot>
               </table>
             </div>
-            <div style={{padding:"10px 16px",fontSize:11,color:C.textFaint,borderTop:`1px solid ${C.border}22`}}>{t("table_tip")}</div>
+            <div style={{padding:"10px 16px",fontSize:11,color:C.textFaint,borderTop:`1px solid ${C.border}22`}}>💡 Clique em ✏️ para adicionar ou editar valores manualmente.</div>
           </div>
         </>}
 
           </div>{/* fim conteudo central */}
 
           {/* SIDEBAR DIREITA */}
-          {tab==="tracker"&&!mob&&<RightSidebar creature={boostedData.creature} boss={boostedData.boss} mob={mob} t={t}/>}
+          {tab==="tracker"&&!mob&&<RightSidebar creature={boostedData.creature} boss={boostedData.boss} mob={mob}/>}
 
         </div>{/* fim flex 3col */}
 
         {/* ══ HISTÓRICO ══ */}
         {tab==="history"&&<>
           <div style={{marginBottom:16}}>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1,marginBottom:4}}>📅 {t("history_title")}</div>
-            <div style={{fontSize:13,color:C.textSub}}>{t("history_subtitle")}</div>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1,marginBottom:4}}>📅 HISTÓRICO DE MESES</div>
+            <div style={{fontSize:13,color:C.textSub}}>Clique em um mês para ver o detalhe no Tracker.</div>
           </div>
-          {allMonths.length===0?<div style={{textAlign:"center",padding:60,color:C.textFaint}}>{t("no_data")}</div>
+          {allMonths.length===0?<div style={{textAlign:"center",padding:60,color:C.textFaint}}>Nenhum dado registrado ainda.</div>
             :<div style={{display:"grid",gridTemplateColumns:mob?"1fr":w<800?"1fr 1fr":"repeat(3,1fr)",gap:14}}>
-              {allMonths.map(ym=><MonthCard key={ym} ym={ym} days={days} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} isCurrent={ym===nowYM()} onClick={()=>{setViewMonth(ym);setTab("tracker");}} t={t}/>)}
+              {allMonths.map(ym=><MonthCard key={ym} ym={ym} days={days} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} isCurrent={ym===nowYM()} onClick={()=>{setViewMonth(ym);setTab("tracker");}}/>)}
             </div>}
         </>}
 
         {/* ══ DJINN ══ */}
-        {tab==="djinn"&&<DjinnTab mob={mob} t={t}/>}
+        {tab==="djinn"&&<DjinnTab mob={mob}/>}
 
         {/* ══ COLAR SESSÃO ══ */}
         {tab==="paste"&&(
           <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:mob?16:24}}>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:17,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:4}}>📋 {t("paste_title")}</div>
-            <div style={{fontSize:12,color:C.textSub,marginBottom:14}}>{t("paste_subtitle")}</div>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:17,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:4}}>📋 COLAR COPYBOARD</div>
+            <div style={{fontSize:12,color:C.textSub,marginBottom:14}}>No Tibia: ícone de sessão → "Copy to Clipboard" → cole abaixo.</div>
             <textarea style={{width:"100%",minHeight:mob?160:200,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:10,padding:14,color:C.text,fontSize:mob?12:13,fontFamily:"monospace",resize:"vertical",outline:"none",lineHeight:1.5}}
               placeholder={"Session data: From 2026-05-01, 19:36:27 to ...\nSession: 01:37h\nLoot: 8,784,927\nSupplies: 3,319,100\nBalance: 5,465,827\n..."}
               value={clip} onChange={e=>handlePaste(e.target.value)}/>
             {parseErr&&<div style={{color:C.red,background:C.redDim,border:`1px solid ${C.red}33`,borderRadius:8,padding:"10px 14px",fontSize:13,marginTop:10}}>⚠️ {parseErr}</div>}
             {parsed&&(
               <div style={{background:"#0b1a0b",border:"1px solid #2a4a2a",borderRadius:14,padding:mob?14:20,marginTop:14}}>
-                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.green,fontSize:15,marginBottom:14}}>{t("session_detected")}</div>
+                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.green,fontSize:15,marginBottom:14}}>✅ SESSÃO DETECTADA</div>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,marginBottom:14}}>
-                  {[[t("sess_date"),parsed.date],[t("sess_dur"),parsed.session],[t("sess_loot"),fmt(parsed.loot)+" gp"],[t("sess_supplies"),fmt(parsed.supplies)+" gp"],[t("sess_balance"),fmt(parsed.balance)+" gp"],[t("sess_tc"),`~${Math.round(toTC(parsed.balance,gpPerTc)).toLocaleString()} TC`]].map(([k,v])=>(
+                  {[["📅 Data",parsed.date],["⏱ Duração",parsed.session],["📦 Loot",fmt(parsed.loot)+" gp"],["💊 Supplies",fmt(parsed.supplies)+" gp"],["💰 Balance",fmt(parsed.balance)+" gp"],["💎 Em TC",`~${Math.round(toTC(parsed.balance,gpPerTc)).toLocaleString()} TC`]].map(([k,v])=>(
                     <div key={k} style={{background:"#0a160a",borderRadius:8,padding:"9px 12px"}}>
                       <div style={{fontSize:10,color:C.textFaint}}>{k}</div>
                       <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?13:15,color:k.includes("Balance")?(parsed.balance>=0?C.green:C.red):C.text}}>{v}</div>
@@ -1752,7 +1387,7 @@ function App() {
                   ))}
                 </div>
                 {parsed.players.length>0&&(<div style={{marginBottom:14}}>
-                  <div style={{fontSize:11,color:C.textFaint,marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>{t("sess_players")}</div>
+                  <div style={{fontSize:11,color:C.textFaint,marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>Jogadores</div>
                   {parsed.players.map(p=>(
                     <div key={p.name} style={{display:"flex",justifyContent:"space-between",background:"#0a160a",borderRadius:8,padding:"7px 12px",fontSize:13,marginBottom:4}}>
                       <span style={{color:C.text,fontWeight:600}}>{p.name}</span>
@@ -1761,7 +1396,7 @@ function App() {
                   ))}
                 </div>)}
                 <div style={{display:"flex",gap:10}}>
-                  <button style={btnPrimary} onClick={confirmHunt}>{t("save_hunt")}</button>
+                  <button style={btnPrimary} onClick={confirmHunt}>✅ Salvar Hunt</button>
                   <button style={btnGhost} onClick={()=>{setClip("");setParsed(null);setErr("");}}>Cancelar</button>
                 </div>
               </div>
@@ -1774,9 +1409,9 @@ function App() {
           <div>
             <CurrencyConfig state={state} setState={setState}/>
             <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:mob?16:24}}>
-              <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>{t("config_player")}</div>
+              <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>⚙️ DADOS DO JOGADOR</div>
               <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:14,marginBottom:20}}>
-                {[[t("config_name"),"text","playerName","Ex: Czar Malta"],[t("config_gppertc"),"number","gpPerTc","Ex: 41000"]].map(([label,type,key,ph])=>(
+                {[["Seu nome no Tibia","text","playerName","Ex: Czar Malta"],["GP por TC","number","gpPerTc","Ex: 41000"]].map(([label,type,key,ph])=>(
                   <div key={key}>
                     <label style={S.lbl}>{label}</label>
                     <input style={S.inp} type={type} value={state[key]} placeholder={ph}
@@ -1789,13 +1424,13 @@ function App() {
                 Use o backup abaixo para não perder dados ao trocar de dispositivo ou limpar o navegador.
               </div>
               <div style={{marginBottom:14}}>
-                <label style={S.lbl}>{t("config_backup")}</label>
+                <label style={S.lbl}>Backup (copie e guarde em lugar seguro)</label>
                 <textarea style={{...S.inp,minHeight:70,fontSize:11,resize:"vertical"}} readOnly value={JSON.stringify(state)}/>
               </div>
               <div>
-                <label style={S.lbl}>{t("config_restore")}</label>
+                <label style={S.lbl}>Restaurar backup</label>
                 <div style={{display:"flex",gap:8}}>
-                  <textarea id="rb" style={{...S.inp,minHeight:60,fontSize:11,flex:1,resize:"vertical"}} placeholder={t("config_restore_ph")}/>
+                  <textarea id="rb" style={{...S.inp,minHeight:60,fontSize:11,flex:1,resize:"vertical"}} placeholder="Cole o backup aqui..."/>
                   <button style={{...btnPrimary,alignSelf:"flex-end",whiteSpace:"nowrap"}}
                     onClick={()=>{try{const d=JSON.parse(document.getElementById("rb").value);setState(d);showFlash("✅ Backup restaurado!");}catch{alert("Dados inválidos.");}}}>
                     Restaurar
@@ -1808,7 +1443,7 @@ function App() {
       </div>
 
       {/* ══ FOOTER ══ */}
-      <Footer t={t}/>
+      <Footer/>
     </div>
   );
 }
