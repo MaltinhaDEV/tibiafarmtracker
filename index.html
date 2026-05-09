@@ -170,14 +170,15 @@ function useBoosted() {
       return null;
     };
 
-    tryFetch("creatures/boosted").then(d=>{
-      // TibiaData v4 returns { boosted_creature: { name, image_url, featured } }
-      const c = d?.boosted_creature || d?.creature;
+    // Endpoint correto: /v4/creatures — estrutura: { creatures: { boosted: { name, race, image_url } } }
+    tryFetch("creatures").then(d=>{
+      const c = d?.creatures?.boosted;
       if(c?.name) setCreature(c);
     });
 
+    // Boss boostado: /v4/boostablebosses — estrutura: { boostable_bosses: { boosted: { name, race, image_url } } }
     tryFetch("boostablebosses").then(d=>{
-      const b = d?.boostable_bosses?.boosted || d?.boosted_boss;
+      const b = d?.boostable_bosses?.boosted;
       if(b?.name) setBoss(b);
     });
   },[]);
@@ -186,11 +187,12 @@ function useBoosted() {
 }
 
 // Helper: monta URL de imagem da criatura com fallback
-function creatureImgUrl(name) {
-  if(!name) return "";
-  const encoded = name.replace(/ /g,"_");
-  // TibiaWiki via Special:FilePath (sem CORS normalmente)
-  return `https://tibia.fandom.com/wiki/Special:FilePath/${encoded}.gif`;
+function creatureImgUrl(nameOrRace, race) {
+  // Usa image_url do static.tibia.com se disponível via race
+  if(race) return `https://static.tibia.com/images/global/header/monsters/${race.toLowerCase()}.gif`;
+  if(!nameOrRace) return "";
+  // Fallback: fandom wiki
+  return `https://tibia.fandom.com/wiki/Special:FilePath/${nameOrRace.replace(/ /g,"_")}.gif`;
 }
 
 /* ══ HOOK: busca de personagem ═══════════════════════════════════════════════ */
@@ -349,7 +351,7 @@ function RightSidebar({ creature, boss, mob }) {
 
   function BigBoostCard({ data, label, color, border, icon }) {
     const [imgOk, setImgOk] = useState(true);
-    const imgSrc = data?.image_url || creatureImgUrl(data?.name);
+    const imgSrc = data?.image_url || creatureImgUrl(data?.name, data?.race);
     return (
       <div style={{background:`linear-gradient(160deg,${border}12,${C.card})`,border:`1px solid ${border}44`,borderRadius:16,padding:16}}>
         <div style={{fontSize:9,color,letterSpacing:1.5,textTransform:"uppercase",marginBottom:12}}>{icon} {label}</div>
@@ -406,7 +408,7 @@ function InfoPanel({ mob, creature, boss }) {
         <div style={{fontSize:11,color:C.textFaint}}>Carregando...</div>
       </div>
     );
-    const img = data.image_url || creatureImgUrl(data.name);
+    const img = data.image_url || creatureImgUrl(data.name, data.race);
     return (
       <div style={{...cardBase,border:`1px solid ${borderColor}44`,background:`linear-gradient(135deg,${borderColor}10,${C.card})`,display:"flex",alignItems:"center",gap:12,flex:1,minWidth:0}}>
         <div style={{position:"relative",flexShrink:0}}>
@@ -1206,15 +1208,70 @@ function App() {
         </div>
       </div>
 
-      {/* Tabs */}
-      <div style={{background:C.card,borderBottom:`1px solid ${C.border}`,overflowX:"auto",WebkitOverflowScrolling:"touch"}}>
-        <div style={{maxWidth:960,margin:"0 auto",display:"flex",justifyContent:"center",padding:`0 ${px}px`}}>
-          {[["tracker","📊","Tracker"],["history","📅","Histórico"],["djinn","💎","Djinn"],["paste","📋","Colar Sessão"],["config","⚙️","Config"]].map(([id,icon,label])=>(
-            <button key={id} onClick={()=>setTab(id)}
-              style={{padding:mob?"10px 14px":"11px 20px",cursor:"pointer",fontSize:mob?11:13,fontWeight:600,whiteSpace:"nowrap",background:"none",border:"none",borderBottom:tab===id?`2px solid ${C.gold}`:"2px solid transparent",color:tab===id?C.gold:C.textSub,flexShrink:0,letterSpacing:.3,transition:"color .15s"}}>
-              {mob?icon:`${icon} ${label}`}
-            </button>
-          ))}
+      {/* ══ TABS PREMIUM ══ */}
+      <div style={{background:"linear-gradient(180deg,#0f0f1e,#0d0d18)",borderBottom:`1px solid ${C.border}`,overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
+        <div style={{maxWidth:1400,margin:"0 auto",display:"flex",justifyContent:"center",padding:`0 ${px}px`,gap:2}}>
+          {[
+            {id:"tracker", icon:"⚔️",  svg:"M", label:"Tracker",      desc:"Farm diário",      color:C.gold   },
+            {id:"history", icon:"📅",  svg:"H", label:"Histórico",     desc:"Meses anteriores", color:"#7090ff"},
+            {id:"djinn",   icon:"🧞",  svg:"D", label:"Djinn",         desc:"Venda de itens",   color:"#3dd68c"},
+            {id:"paste",   icon:"📋",  svg:"P", label:"Colar Sessão",  desc:"Importar hunt",    color:"#f0a030"},
+            {id:"config",  icon:"⚙️",  svg:"C", label:"Configurações", desc:"Ajustes do app",   color:"#9b6dff"},
+          ].map(({id,icon,label,desc,color})=>{
+            const active = tab===id;
+            return (
+              <button key={id} onClick={()=>setTab(id)}
+                style={{
+                  position:"relative", cursor:"pointer", background:"none", border:"none", outline:"none",
+                  padding: mob?"12px 14px":"14px 22px",
+                  flexShrink:0, display:"flex", flexDirection:"column", alignItems:"center", gap:3,
+                  transition:"all .2s",
+                  borderBottom: active?`3px solid ${color}`:"3px solid transparent",
+                  marginBottom:active?0:0,
+                }}>
+                {/* Glow de fundo quando ativo */}
+                {active && <div style={{position:"absolute",bottom:0,left:"50%",transform:"translateX(-50%)",width:"60%",height:20,background:color,filter:"blur(12px)",opacity:.25,borderRadius:99,pointerEvents:"none"}}/>}
+                {/* Ícone com glow */}
+                <div style={{
+                  fontSize: mob?18:20,
+                  lineHeight:1,
+                  filter: active?`drop-shadow(0 0 8px ${color}aa)`:"none",
+                  transform: active?"scale(1.15)":"scale(1)",
+                  transition:"all .2s",
+                }}>
+                  {icon}
+                </div>
+                {/* Label */}
+                {!mob && (
+                  <div style={{
+                    fontFamily:"'Rajdhani',sans-serif",
+                    fontWeight:700,
+                    fontSize:12,
+                    letterSpacing:1,
+                    textTransform:"uppercase",
+                    color: active?color:C.textSub,
+                    transition:"color .2s",
+                    lineHeight:1,
+                  }}>
+                    {label}
+                  </div>
+                )}
+                {/* Desc (só desktop, só quando ativo) */}
+                {!mob && (
+                  <div style={{
+                    fontSize:9,
+                    color: active?color+"99":C.textFaint,
+                    letterSpacing:.3,
+                    transition:"all .2s",
+                    lineHeight:1,
+                    opacity: active?1:.6,
+                  }}>
+                    {desc}
+                  </div>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
 
