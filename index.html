@@ -149,46 +149,176 @@ function RashidSprite({ size=64 }) {
   return <img src={RASHID_IMG} alt="Rashid NPC" width={size} height={size} onError={()=>setErr(true)} style={{imageRendering:"pixelated",animation:"rashidBob 1.6s ease-in-out infinite",objectFit:"contain",display:"block"}}/>;
 }
 
-/* ══ PAINEL DE INFO (Rashid + Boosted + Boss + Busca) ═══════════════════════ */
-function InfoPanel({ mob }) {
+/* ══ HOOK: busca Boosted Creature + Boss ═════════════════════════════════════ */
+function useBoosted() {
+  const [creature, setCreature] = useState(null);
+  const [boss,     setBoss]     = useState(null);
+  useEffect(()=>{
+    const tryFetch = async (path) => {
+      const urls=[`https://api.tibiadata.com/v4/${path}`,`https://corsproxy.io/?https://api.tibiadata.com/v4/${path}`];
+      for(const url of urls){ try{ const r=await fetch(url,{signal:AbortSignal.timeout(6000)}); return await r.json(); }catch{} }
+      return null;
+    };
+    tryFetch("creatures/boosted").then(d=>{ if(d?.boosted_creature) setCreature(d.boosted_creature); });
+    tryFetch("boostablebosses").then(d=>{ if(d?.boostable_bosses?.boosted) setBoss(d.boostable_bosses.boosted); });
+  },[]);
+  return {creature, boss};
+}
+
+/* ══ HOOK: busca de personagem ═══════════════════════════════════════════════ */
+function useCharSearch() {
+  const [name,   setName]   = useState("");
+  const [result, setResult] = useState(null);
+  const [loading,setLoading]= useState(false);
+  const [err,    setErr]    = useState("");
+  async function search() {
+    if(!name.trim()) return;
+    setLoading(true); setResult(null); setErr("");
+    const enc=encodeURIComponent(name.trim());
+    const urls=[`https://api.tibiadata.com/v4/character/${enc}`,`https://corsproxy.io/?https://api.tibiadata.com/v4/character/${enc}`];
+    let data=null;
+    for(const url of urls){ try{ const r=await fetch(url,{signal:AbortSignal.timeout(6000)}); const d=await r.json(); if(d?.character?.character?.name){data=d.character.character;break;} }catch{} }
+    if(data) setResult(data); else setErr("Personagem não encontrado.");
+    setLoading(false);
+  }
+  return {name, setName, result, loading, err, search};
+}
+
+/* ══ SIDEBAR ESQUERDA: Rashid + Busca de Personagem ═════════════════════════ */
+function LeftSidebar({ mob }) {
+  const today = new Date();
+  const dow   = today.getDay();
+  const rashid= RASHID[dow];
+  const dias  = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  const diasFull = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+  const char  = useCharSearch();
+
+  if(mob) return null; // no mobile mostra inline
+
+  return (
+    <div style={{display:"flex",flexDirection:"column",gap:12,width:220,flexShrink:0}}>
+
+      {/* RASHID */}
+      <div style={{background:"linear-gradient(160deg,#0d1e0d,#091209)",border:"1px solid #1e3a1e",borderRadius:16,padding:16,animation:"borderGlow 3s ease-in-out infinite"}}>
+        <div style={{fontSize:9,color:C.gold,letterSpacing:1.5,textTransform:"uppercase",marginBottom:10}}>📍 Rashid — Hoje</div>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,marginBottom:12}}>
+          <RashidSprite size={80}/>
+          <div style={{textAlign:"center"}}>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:24,color:C.green,lineHeight:1}}>{rashid.city}</div>
+            <div style={{fontSize:10,color:C.textFaint,marginTop:3}}>📍 {rashid.tip}</div>
+          </div>
+        </div>
+        <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"#1a3a1a",border:"1px solid #2a5a2a",borderRadius:99,padding:"3px 12px",marginBottom:12}}>
+          <span style={{fontSize:11,color:C.green,fontWeight:700}}>{diasFull[dow]}</span>
+        </div>
+        {/* Calendário */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2}}>
+          {RASHID.map((r,i)=>(
+            <div key={i} title={`${diasFull[i]}: ${r.city}`}
+              style={{padding:"3px 1px",borderRadius:4,background:i===dow?"#1a3a1a":"#0d0d16",border:`1px solid ${i===dow?"#2a5a2a":C.border}`,textAlign:"center"}}>
+              <div style={{fontSize:7,color:i===dow?C.green:C.textFaint,fontWeight:i===dow?700:400}}>{dias[i]}</div>
+              <div style={{fontSize:6,color:i===dow?C.goldLight:C.textFaint,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.city.split(" ")[0]}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* BUSCA DE PERSONAGEM */}
+      <div style={{background:`linear-gradient(160deg,${C.accent}0d,${C.card})`,border:`1px solid ${C.accent}33`,borderRadius:16,padding:16,flex:1}}>
+        <div style={{fontSize:9,color:C.accent,letterSpacing:1.5,textTransform:"uppercase",marginBottom:10}}>🔍 Buscar Personagem</div>
+        <div style={{display:"flex",flexDirection:"column",gap:6,marginBottom:10}}>
+          <input value={char.name} onChange={e=>char.setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&char.search()}
+            placeholder="Nome do personagem..."
+            style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",width:"100%",fontFamily:"'Inter',sans-serif"}}/>
+          <button onClick={char.search} disabled={char.loading}
+            style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:700,opacity:char.loading?.6:1}}>
+            {char.loading?"Buscando...":"Buscar"}
+          </button>
+        </div>
+        {char.err && <div style={{fontSize:10,color:C.red,marginBottom:8}}>{char.err}</div>}
+        {char.result ? (
+          <div style={{background:C.bg2,borderRadius:10,padding:"12px"}}>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:18,color:C.gold,marginBottom:6}}>{char.result.name}</div>
+            <div style={{display:"flex",flexDirection:"column",gap:4,fontSize:12}}>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <span style={{color:C.textFaint}}>Nível</span>
+                <span style={{color:C.text,fontWeight:700}}>{char.result.level}</span>
+              </div>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <span style={{color:C.textFaint}}>Vocação</span>
+                <span style={{color:C.text,fontSize:11}}>{char.result.vocation}</span>
+              </div>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <span style={{color:C.textFaint}}>Status</span>
+                <span style={{color:char.result.online?C.green:C.textFaint,fontWeight:600}}>{char.result.online?"● Online":"○ Offline"}</span>
+              </div>
+              <div style={{display:"flex",justifyContent:"space-between"}}>
+                <span style={{color:C.textFaint}}>Mundo</span>
+                <span style={{color:C.text}}>{char.result.world}</span>
+              </div>
+              {char.result.guild?.name && (
+                <div style={{marginTop:4,background:C.card,borderRadius:6,padding:"4px 8px",fontSize:11,color:C.purple}}>🏰 {char.result.guild.name}</div>
+              )}
+            </div>
+          </div>
+        ) : !char.loading && !char.err && (
+          <div style={{textAlign:"center",padding:"16px 0",color:C.textFaint,fontSize:11,lineHeight:1.8}}>
+            Digite o nome de um<br/>personagem Tibia
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ══ SIDEBAR DIREITA: Criatura Boostada + Boss ═══════════════════════════════ */
+function RightSidebar({ creature, boss, mob }) {
+  if(mob) return null;
+
+  function BigBoostCard({ data, label, color, border, icon, loading }) {
+    const img = data?.image_url || `https://tibia.fandom.com/wiki/Special:FilePath/${(data?.name||"").replace(/ /g,"_")}.gif`;
+    return (
+      <div style={{background:`linear-gradient(160deg,${border}12,${C.card})`,border:`1px solid ${border}44`,borderRadius:16,padding:16}}>
+        <div style={{fontSize:9,color,letterSpacing:1.5,textTransform:"uppercase",marginBottom:12}}>{icon} {label}</div>
+        {!data ? (
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,padding:"12px 0"}}>
+            <div style={{width:80,height:80,background:C.bg2,borderRadius:12,animation:"starPulse 1.5s ease-in-out infinite"}}/>
+            <div style={{fontSize:11,color:C.textFaint}}>Carregando...</div>
+          </div>
+        ) : (
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
+            <div style={{position:"relative"}}>
+              <img src={img} alt={data.name} width={90} height={90}
+                style={{imageRendering:"pixelated",objectFit:"contain",display:"block",filter:`drop-shadow(0 0 12px ${border}66)`}}
+                onError={e=>e.target.style.display="none"}/>
+              <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#fff",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
+            </div>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.text,lineHeight:1.3,wordBreak:"break-word"}}>{data.name}</div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{display:"flex",flexDirection:"column",gap:12,width:220,flexShrink:0}}>
+      <BigBoostCard data={creature} label="Criatura Boostada" color="#9b6dff" border="#7b3aed" icon="⭐"/>
+      <BigBoostCard data={boss} label="Boss Boostado" color="#f06060" border="#c03030" icon="☠️"/>
+    </div>
+  );
+}
+
+/* ══ PAINEL INFO MOBILE ═════════════════════════════════════════════════════ */
+function InfoPanel({ mob, creature, boss }) {
   const today = new Date();
   const dow   = today.getDay();
   const rashid= RASHID[dow];
   const dias  = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
   const diasFull = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
 
-  const [creature,  setCreature]  = useState(null);
-  const [boss,      setBoss]      = useState(null);
-  const [charName,  setCharName]  = useState("");
-  const [charResult,setCharResult]= useState(null);
-  const [charLoad,  setCharLoad]  = useState(false);
-  const [charErr,   setCharErr]   = useState("");
-
-  // Fetch boosted creature + boss simultaneamente
-  useEffect(()=>{
-    const tryFetch = async (paths) => {
-      for(const path of paths){
-        const urls=[`https://api.tibiadata.com/v4/${path}`,`https://corsproxy.io/?https://api.tibiadata.com/v4/${path}`];
-        for(const url of urls){
-          try{ const r=await fetch(url,{signal:AbortSignal.timeout(6000)}); return await r.json(); }catch{}
-        }
-      }
-      return null;
-    };
-    tryFetch(["creatures/boosted"]).then(d=>{ if(d?.boosted_creature) setCreature(d.boosted_creature); });
-    tryFetch(["boostablebosses"]).then(d=>{ if(d?.boostable_bosses?.boosted) setBoss(d.boostable_bosses.boosted); });
-  },[]);
-
-  async function searchChar(){
-    if(!charName.trim()) return;
-    setCharLoad(true); setCharResult(null); setCharErr("");
-    const enc=encodeURIComponent(charName.trim());
-    const urls=[`https://api.tibiadata.com/v4/character/${enc}`,`https://corsproxy.io/?https://api.tibiadata.com/v4/character/${enc}`];
-    let data=null;
-    for(const url of urls){ try{ const r=await fetch(url,{signal:AbortSignal.timeout(6000)}); const d=await r.json(); if(d?.character?.character?.name){data=d.character.character;break;} }catch{} }
-    if(data) setCharResult(data); else setCharErr("Personagem não encontrado.");
-    setCharLoad(false);
-  }
+  const char = useCharSearch();
 
   const cardBase = { background:C.card, border:`1px solid ${C.border}`, borderRadius:14, padding:"14px 16px" };
 
@@ -232,7 +362,7 @@ function InfoPanel({ mob }) {
         <BoostCard data={boss} label="Boss Boostado" color="#f06060" borderColor="#c03030" icon="☠"/>
       </div>
       {/* Char search mobile */}
-      <CharSearch charName={charName} setCharName={setCharName} charResult={charResult} charLoad={charLoad} charErr={charErr} onSearch={searchChar} mob={mob}/>
+      <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob}/>
     </div>
   );
 
@@ -274,7 +404,7 @@ function InfoPanel({ mob }) {
         <BoostCard data={boss} label="☠️ Boss Boostado" color="#f06060" borderColor="#c03030" icon="☠"/>
 
         {/* COL 4 — BUSCA DE PERSONAGEM */}
-        <CharSearch charName={charName} setCharName={setCharName} charResult={charResult} charLoad={charLoad} charErr={charErr} onSearch={searchChar} mob={mob}/>
+        <CharSearch charName={char.name} setCharName={char.setName} charResult={char.result} charLoad={char.loading} charErr={char.err} onSearch={char.search} mob={mob}/>
       </div>
     </div>
   );
@@ -561,6 +691,320 @@ function Footer() {
   );
 }
 
+
+/* ══ DJINN DATA — fonte: tibiascape.com/library/npc ════════════════════════ */
+const DJINN_ITEMS = {
+  blue: {
+    name:"Blue Djinn", npcs:"Nah'Bob + Haroun", local:"Ashta'daramai",
+    color:"#4a8aef", border:"#2a5aaa", bg:"linear-gradient(135deg,#080d1e,#0a1030)",
+    icon:"💙",
+    items:{
+      // Nah'Bob — armas
+      "Angelic Axe":5000,"Bonebreaker":10000,"Broadsword":500,
+      "Butcher's Axe":14500,"Dragon Hammer":2000,"Dragon Lance":9000,
+      "Fire Axe":8000,"Fire Sword":4000,"Giant Sword":17000,
+      "Glorious Axe":2000,"Haunted Blade":7000,"Ice Rapier":1000,
+      "Icicle Bow":20000,"Knight Axe":2000,"Mercenary Sword":12000,
+      "Obsidian Lance":500,"Onyx Flail":20000,"Poison Dagger":50,
+      "Serpent Sword":900,"Shadow Sceptre":8000,"Skull Staff":6000,
+      "Spike Sword":1000,"Titan Axe":4000,"War Hammer":1200,
+      // Haroun — anéis, varinhas, amuletos
+      "Axe Ring":100,"Blue Robe":10000,"Bronze Amulet":50,
+      "Club Ring":100,"Distance Ring":50,"Elven Amulet":100,
+      "Emerald Bangle":800,"Focus Cape":4000,"Garlic Necklace":50,
+      "Hailstorm Rod":2000,"Life Crystal":50,"Lunar Staff":5000,
+      "Magic Light Wand":35,"Mind Stone":100,"Mystic Turban":150,
+      "Orb":750,"Radiant Axe Ring":2000,"Radiant Club Ring":2000,
+      "Radiant Distance Ring":2000,"Radiant Sword Ring":2000,
+      "Ring of Enigma":10000,"Shrunken Head Necklace":10000,
+      "Spellbook of Enlightenment":500,"Spellbook of Lost Souls":15000,
+      "Spellbook of Mind Control":2000,"Spellbook of Warding":1000,
+      "Stealth Ring":200,"Stone Skin Amulet":500,"Sword Ring":100,
+      "Voodoo Doll":400,"Wand of Cosmic Energy":3000,
+      "Wand of Decay":500,"Wand of Defiance":6500,
+      "Wand of Dragonbreath":300,"Wand of Draconia":1000,
+      "Wand of Everblazing":6000,"Wand of Voodoo":4400,
+    }
+  },
+  green: {
+    name:"Green Djinn", npcs:"Alesar + Yaman", local:"Mal'ouquah",
+    color:"#3dd68c", border:"#1e5a38", bg:"linear-gradient(135deg,#060f09,#081408)",
+    icon:"💚",
+    items:{
+      // Alesar — armaduras, escudos, capacetes
+      "Ancient Shield":900,"Bandana":150,"Black Shield":800,"Bone Shield":80,
+      "Buckle":7000,"Castle Shield":5000,"Crest of the Deep Seas":10000,
+      "Crown Armor":12000,"Crown Helmet":2500,"Crown Legs":12000,"Crown Shield":8000,
+      "Crusader Helmet":6000,"Crystalline Armor":14400,"Dark Armor":400,
+      "Dark Helmet":250,"Dark Shield":400,"Devil Helmet":1000,"Dragon Shield":4000,
+      "Frozen Shield":8000,"Fur Armor":5000,"Glacier Kilt":9000,"Glacier Mask":2500,
+      "Golden Armor":20000,"Grasshopper Legs":5000,"Guardian Shield":2000,
+      "Haunted Mirror Piece":20000,"Helmet of the Lost":2000,"Knight Armor":5000,
+      "Knight Legs":5000,"Lightning Legs":9000,"Magma Legs":9000,"Medusa Shield":9000,
+      "Noble Armor":900,"Paladin Armor":12000,"Phoenix Shield":16000,
+      "Scarab Shield":2000,"Skullcracker Armor":15000,"Soulful Legs":7000,
+      "Strange Helmet":500,"Terra Hood":2500,"Terra Legs":9000,"Tower Shield":8000,
+      "Vampire Shield":15000,"Warrior Helmet":5000,"Warriors Shield":7000,
+      "Zaoan Armor":10000,"Zaoan Helmet":20000,"Zaoan Legs":6000,
+      // Yaman — anéis, amuletos, itens especiais
+      "Ancient Amulet":200,"Badger Boots":7500,"Beetle Necklace":1500,
+      "Blessed Ankh":100,"Crocodile Boots":1000,"Crystal Necklace":250,
+      "Crystal Ring":200,"Death Ring":500,"Dragon Necklace":100,
+      "Dwarven Ring":100,"Energy Ring":100,"Glooth Amulet":2000,
+      "Glooth Cape":7000,"Life Ring":50,"Might Ring":250,
+      "Mysterious Fetish":50,"Protection Amulet":100,"Radiant Time Ring":2000,
+      "Ring of Healing":100,"Shapeshifter Ring":8300,"Silver Amulet":50,
+      "Strange Talisman":30,"Time Ring":100,
+    }
+  },
+};
+
+const SK_DJINN = "tibia_djinn_v2";
+const loadDjinn = () => { try{ const d=JSON.parse(localStorage.getItem(SK_DJINN)); return d&&typeof d==="object"?d:{}; }catch{ return {}; } };
+const saveDjinn = d => { try{ localStorage.setItem(SK_DJINN,JSON.stringify(d)); }catch{} };
+
+/* ══ DJINN TAB ═══════════════════════════════════════════════════════════════ */
+function DjinnTab({ mob }) {
+  const [djinnType, setDjinnType] = useState("blue");
+  const [lists, setLists]         = useState(()=>{ const d=loadDjinn(); return {blue:d.blue||[],green:d.green||[]}; });
+  const [search, setSearch]       = useState("");
+  const [qty, setQty]             = useState("");
+  const [suggestions, setSugg]    = useState([]);
+  const [selected, setSelected]   = useState(null); // {name, price}
+  const [editIdx, setEditIdx]     = useState(null);
+  const searchRef = useRef(null);
+  const qtyRef    = useRef(null);
+
+  useEffect(()=>{ saveDjinn(lists); },[lists]);
+
+  const djinn = DJINN_ITEMS[djinnType];
+  const list  = lists[djinnType]||[];
+
+  function handleSearchChange(val) {
+    setSearch(val); setSelected(null);
+    if(val.length<1){ setSugg([]); return; }
+    const q=val.toLowerCase();
+    const matches=Object.entries(djinn.items)
+      .filter(([name])=>name.toLowerCase().includes(q))
+      .sort(([a],[b])=>a.toLowerCase().startsWith(q)?-1:b.toLowerCase().startsWith(q)?1:0)
+      .slice(0,8);
+    setSugg(matches);
+  }
+
+  function selectItem(name, price) {
+    setSearch(name); setSelected({name,price}); setSugg([]);
+    setTimeout(()=>qtyRef.current?.focus(),30);
+  }
+
+  function addItem() {
+    if(!selected || !qty || parseInt(qty)<=0) return;
+    const num = parseInt(qty);
+    if(editIdx!==null){
+      setLists(p=>{ const l=[...p[djinnType]]; l[editIdx]={...l[editIdx],qty:num,total:num*selected.price}; return{...p,[djinnType]:l}; });
+      setEditIdx(null);
+    } else {
+      // merge if item already exists
+      setLists(p=>{
+        const l=[...p[djinnType]];
+        const existing=l.findIndex(i=>i.name===selected.name);
+        if(existing>=0){ l[existing]={...l[existing],qty:l[existing].qty+num,total:(l[existing].qty+num)*selected.price}; }
+        else l.push({name:selected.name,price:selected.price,qty:num,total:num*selected.price});
+        return{...p,[djinnType]:l};
+      });
+    }
+    setSearch(""); setQty(""); setSelected(null);
+    setTimeout(()=>searchRef.current?.focus(),30);
+  }
+
+  function removeItem(idx) {
+    setLists(p=>{ const l=[...p[djinnType]]; l.splice(idx,1); return{...p,[djinnType]:l}; });
+  }
+
+  function startEdit(idx) {
+    const item=list[idx];
+    setSearch(item.name); setSelected({name:item.name,price:item.price}); setQty(String(item.qty));
+    setEditIdx(idx); setSugg([]);
+    setTimeout(()=>qtyRef.current?.focus(),30);
+  }
+
+  function clearList() {
+    if(!confirm(`Limpar toda a lista ${djinn.name}?`)) return;
+    setLists(p=>({...p,[djinnType]:[]}));
+  }
+
+  function onKey(e) {
+    if(e.key==="Enter") addItem();
+    if(e.key==="Escape"){ setSugg([]); setSearch(""); setSelected(null); setQty(""); setEditIdx(null); }
+    if(e.key==="ArrowDown"&&suggestions.length>0){ e.preventDefault(); document.querySelector(".sugg-item")?.focus(); }
+  }
+
+  const totalGP    = list.reduce((s,i)=>s+i.total,0);
+  const blueTotal  = (lists.blue||[]).reduce((s,i)=>s+i.total,0);
+  const greenTotal = (lists.green||[]).reduce((s,i)=>s+i.total,0);
+  const grand      = blueTotal+greenTotal;
+
+  const inp={background:C.bg2,border:`1.5px solid ${C.border}`,borderRadius:10,padding:"10px 14px",color:C.text,fontSize:14,outline:"none",fontFamily:"'Inter',sans-serif",width:"100%",transition:"border-color .2s"};
+
+  return (
+    <div style={{maxWidth:900,margin:"0 auto"}}>
+
+      {/* Totais superiores */}
+      <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"repeat(3,1fr)",gap:10,marginBottom:18}}>
+        {[
+          {key:"blue",  d:DJINN_ITEMS.blue,  val:blueTotal },
+          {key:"green", d:DJINN_ITEMS.green, val:greenTotal},
+          {key:"grand", d:{name:"Total Geral",color:C.goldLight,icon:"💰"}, val:grand},
+        ].map(({key,d,val})=>(
+          <div key={key} onClick={()=>key!=="grand"&&setDjinnType(key)}
+            style={{background:C.card,border:`1px solid ${key===djinnType||key==="grand"?d.color+"44":C.border}`,borderRadius:14,padding:"14px 18px",
+              cursor:key!=="grand"?"pointer":"default",transition:"all .2s",boxShadow:key===djinnType||key==="grand"?`0 0 20px ${d.color}22`:"none"}}>
+            <div style={{fontSize:10,color:d.color,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{d.icon} {d.name}</div>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?20:26,color:val>0?d.color:C.textFaint}}>{fmt(val)} gp</div>
+            {key!=="grand"&&<div style={{fontSize:10,color:C.textFaint,marginTop:2}}>{(lists[key]||[]).length} itens na lista</div>}
+          </div>
+        ))}
+      </div>
+
+      {/* Seletor Blue / Green */}
+      <div style={{display:"flex",gap:8,marginBottom:14}}>
+        {["blue","green"].map(k=>{
+          const d=DJINN_ITEMS[k];
+          return(
+            <button key={k} onClick={()=>{ setDjinnType(k); setSearch(""); setQty(""); setSelected(null); setSugg([]); setEditIdx(null); }}
+              style={{padding:"9px 22px",borderRadius:10,border:`1.5px solid ${djinnType===k?d.color:C.border}`,cursor:"pointer",fontWeight:700,fontSize:13,
+                background:djinnType===k?`${d.border}33`:"transparent",color:djinnType===k?d.color:C.textSub,transition:"all .15s",display:"flex",flexDirection:"column",alignItems:"flex-start",gap:2}}>
+              <span>{d.icon} {d.name}</span>
+              <span style={{fontSize:9,color:djinnType===k?d.color+"99":C.textFaint,fontWeight:400}}>{d.npcs} · {d.local}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Card principal */}
+      <div style={{background:C.card,border:`1px solid ${djinn.border}44`,borderRadius:18,overflow:"hidden",boxShadow:`0 0 30px ${djinn.border}22`}}>
+
+        {/* Header */}
+        <div style={{background:djinn.bg,padding:"16px 20px",borderBottom:`1px solid ${djinn.border}44`,display:"flex",alignItems:"center",gap:12}}>
+          <div style={{fontSize:36}}>{djinn.icon}</div>
+          <div>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:18,color:djinn.color,letterSpacing:1}}>{djinn.name.toUpperCase()}</div>
+            <div style={{fontSize:11,color:C.textFaint}}>NPC {djinn.npc} · {djinn.local}</div>
+          </div>
+        </div>
+
+        {/* Input de adicionar */}
+        <div style={{padding:"16px 20px",borderBottom:`1px solid ${djinn.border}22`,background:`${djinn.border}08`}}>
+          <div style={{fontSize:10,color:djinn.color,letterSpacing:1,textTransform:"uppercase",marginBottom:10}}>
+            {editIdx!==null?"✏️ Editando item":"➕ Adicionar item"}
+          </div>
+          <div style={{display:"flex",gap:10,flexWrap:mob?"wrap":"nowrap"}}>
+            {/* Busca com autocomplete */}
+            <div style={{position:"relative",flex:2,minWidth:mob?"100%":180}}>
+              <input ref={searchRef} value={search} onChange={e=>handleSearchChange(e.target.value)} onKeyDown={onKey}
+                placeholder={`Buscar item do ${djinn.name}...`}
+                style={{...inp,borderColor:selected?djinn.color:search.length>0?djinn.border:C.border,paddingRight:selected?36:14}}/>
+              {selected&&<div style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",color:djinn.color,fontSize:16}}>✓</div>}
+              {/* Suggestions */}
+              {suggestions.length>0&&(
+                <div style={{position:"absolute",top:"calc(100% + 4px)",left:0,right:0,background:C.cardHi,border:`1px solid ${djinn.border}66`,borderRadius:10,zIndex:50,overflow:"hidden",boxShadow:"0 8px 24px #000a"}}>
+                  {suggestions.map(([name,price])=>(
+                    <button key={name} className="sugg-item" onClick={()=>selectItem(name,price)}
+                      style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",padding:"9px 14px",background:"none",border:"none",cursor:"pointer",color:C.text,fontSize:13,textAlign:"left",borderBottom:`1px solid ${C.border}33`,transition:"background .1s"}}
+                      onMouseEnter={e=>e.currentTarget.style.background=`${djinn.border}22`}
+                      onMouseLeave={e=>e.currentTarget.style.background="none"}>
+                      <span>{name}</span>
+                      <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:djinn.color,fontSize:13}}>{fmt(price)} gp</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Quantidade */}
+            <input ref={qtyRef} type="number" min="1" value={qty} onChange={e=>setQty(e.target.value)} onKeyDown={onKey}
+              placeholder="Qtd" style={{...inp,width:mob?"100%":90,textAlign:"center",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,borderColor:qty?djinn.border:C.border}}/>
+
+            {/* Preview do total */}
+            {selected&&qty&&parseInt(qty)>0&&(
+              <div style={{display:"flex",alignItems:"center",background:`${djinn.border}22`,border:`1px solid ${djinn.border}44`,borderRadius:10,padding:"0 14px",whiteSpace:"nowrap",minWidth:120}}>
+                <div>
+                  <div style={{fontSize:9,color:djinn.color,letterSpacing:.5}}>TOTAL</div>
+                  <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:C.text}}>{fmt(parseInt(qty)*selected.price)} gp</div>
+                </div>
+              </div>
+            )}
+
+            {/* Botão adicionar */}
+            <button onClick={addItem} disabled={!selected||!qty||parseInt(qty)<=0}
+              style={{padding:"10px 20px",borderRadius:10,border:"none",cursor:(!selected||!qty)?"not-allowed":"pointer",fontWeight:700,fontSize:14,whiteSpace:"nowrap",
+                background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${djinn.color},${djinn.border})`,
+                color:"#0a0a0a",opacity:(!selected||!qty||parseInt(qty)<=0)?.4:1,transition:"opacity .2s"}}>
+              {editIdx!==null?"💾 Atualizar":"➕ Adicionar"}
+            </button>
+            {editIdx!==null&&(
+              <button onClick={()=>{setSearch("");setQty("");setSelected(null);setEditIdx(null);setSugg([]);}}
+                style={{padding:"10px 14px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13}}>
+                Cancelar
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Lista de itens adicionados */}
+        {list.length===0?(
+          <div style={{textAlign:"center",padding:"40px 20px",color:C.textFaint}}>
+            <div style={{fontSize:36,marginBottom:8}}>📦</div>
+            <div style={{fontSize:13}}>Nenhum item adicionado ainda.<br/>Use o campo acima para começar.</div>
+          </div>
+        ):(
+          <>
+            <div style={{overflowX:"auto"}}>
+              <table style={{width:"100%",borderCollapse:"collapse",fontSize:13}}>
+                <thead>
+                  <tr style={{background:C.bg2}}>
+                    {["Item","Qtd","Valor Unit.","Total",""].map((h,i)=>(
+                      <th key={i} style={{padding:"9px "+(i===0?"20px":"14px"),textAlign:i===0?"left":"right",color:djinn.color,fontFamily:"'Rajdhani',sans-serif",fontSize:11,letterSpacing:1,textTransform:"uppercase",borderBottom:`1px solid ${djinn.border}33`,whiteSpace:"nowrap"}}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {list.map((item,i)=>(
+                    <tr key={i} className="row-hover" style={{background:editIdx===i?`${djinn.border}18`:"transparent",borderBottom:`1px solid ${djinn.border}18`,transition:"background .15s"}}>
+                      <td style={{padding:"10px 20px",color:C.text,fontWeight:600}}>{item.name}</td>
+                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:djinn.color}}>{item.qty.toLocaleString("pt-BR")}</td>
+                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontSize:13,color:C.textSub}}>{fmt(item.price)} gp</td>
+                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:djinn.color}}>{fmt(item.total)} gp</td>
+                      <td style={{padding:"10px 14px",textAlign:"right",whiteSpace:"nowrap"}}>
+                        <button title="Editar" onClick={()=>startEdit(i)} style={{background:"none",border:"none",color:C.accent,cursor:"pointer",fontSize:14,padding:"2px 5px"}}>✏️</button>
+                        <button title="Remover" onClick={()=>removeItem(i)} style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:14,padding:"2px 5px"}}>🗑</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr style={{background:C.bg2,borderTop:`2px solid ${djinn.border}44`}}>
+                    <td style={{padding:"13px 20px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:djinn.color,fontSize:13,letterSpacing:1}}>TOTAL {djinn.name.toUpperCase()}</td>
+                    <td style={{padding:"13px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",color:C.textFaint,fontSize:12}}>{list.length} itens</td>
+                    <td></td>
+                    <td style={{padding:"13px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:22,color:djinn.color}}>{fmt(totalGP)} gp</td>
+                    <td style={{padding:"13px 14px",textAlign:"right"}}>
+                      <button onClick={clearList} style={{background:"none",border:`1px solid ${C.red}44`,borderRadius:6,padding:"4px 10px",cursor:"pointer",color:C.red,fontSize:11,fontWeight:700}}>🗑 Limpar</button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </>
+        )}
+
+        <div style={{padding:"10px 20px",fontSize:11,color:C.textFaint,borderTop:`1px solid ${djinn.border}22`}}>
+          💡 Digite o nome do item para buscar · Selecione · Informe a quantidade · Clique em Adicionar
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ══ APP ══════════════════════════════════════════════════════════════════════ */
 function App() {
   const [state,setState] = useState(()=>{
@@ -577,6 +1021,7 @@ function App() {
   const [flash,setFlash]=useState(null);
   const [modal,setModal]=useState(null);
   const w=useW(); const mob=w<600;
+  const boostedData = useBoosted();
 
   useEffect(()=>{ save(state); },[state]);
 
@@ -688,7 +1133,7 @@ function App() {
       {/* Tabs */}
       <div style={{background:C.card,borderBottom:`1px solid ${C.border}`,overflowX:"auto",WebkitOverflowScrolling:"touch"}}>
         <div style={{maxWidth:960,margin:"0 auto",display:"flex",justifyContent:"center",padding:`0 ${px}px`}}>
-          {[["tracker","📊","Tracker"],["history","📅","Histórico"],["paste","📋","Colar Sessão"],["config","⚙️","Config"]].map(([id,icon,label])=>(
+          {[["tracker","📊","Tracker"],["history","📅","Histórico"],["djinn","💎","Djinn"],["paste","📋","Colar Sessão"],["config","⚙️","Config"]].map(([id,icon,label])=>(
             <button key={id} onClick={()=>setTab(id)}
               style={{padding:mob?"10px 14px":"11px 20px",cursor:"pointer",fontSize:mob?11:13,fontWeight:600,whiteSpace:"nowrap",background:"none",border:"none",borderBottom:tab===id?`2px solid ${C.gold}`:"2px solid transparent",color:tab===id?C.gold:C.textSub,flexShrink:0,letterSpacing:.3,transition:"color .15s"}}>
               {mob?icon:`${icon} ${label}`}
@@ -697,12 +1142,20 @@ function App() {
         </div>
       </div>
 
-      <div style={{maxWidth:960,margin:"0 auto",padding:mob?"12px":"20px 28px"}}>
+      {/* ══ LAYOUT 3 COLUNAS (só desktop) ══ */}
+      <div style={{maxWidth:1400,margin:"0 auto",padding:mob?"12px":"20px 28px"}}>
+        <div style={{display:mob||tab!=="tracker"?"block":"flex",gap:16,alignItems:"flex-start"}}>
+
+          {/* SIDEBAR ESQUERDA */}
+          {tab==="tracker"&&!mob&&<LeftSidebar mob={mob}/>}
+
+          {/* CONTEÚDO CENTRAL */}
+          <div style={{flex:1,minWidth:0}}>
 
         {/* ══ TRACKER ══ */}
         {tab==="tracker"&&<>
-          {/* Widget Rashid */}
-          <InfoPanel mob={mob}/>
+          {/* Mobile: InfoPanel inline */}
+          {mob&&<InfoPanel mob={mob} creature={boostedData.creature} boss={boostedData.boss}/>}
 
           {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
@@ -758,6 +1211,13 @@ function App() {
           </div>
         </>}
 
+          </div>{/* fim conteudo central */}
+
+          {/* SIDEBAR DIREITA */}
+          {tab==="tracker"&&!mob&&<RightSidebar creature={boostedData.creature} boss={boostedData.boss} mob={mob}/>}
+
+        </div>{/* fim flex 3col */}
+
         {/* ══ HISTÓRICO ══ */}
         {tab==="history"&&<>
           <div style={{marginBottom:16}}>
@@ -769,6 +1229,9 @@ function App() {
               {allMonths.map(ym=><MonthCard key={ym} ym={ym} days={days} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} isCurrent={ym===nowYM()} onClick={()=>{setViewMonth(ym);setTab("tracker");}}/>)}
             </div>}
         </>}
+
+        {/* ══ DJINN ══ */}
+        {tab==="djinn"&&<DjinnTab mob={mob}/>}
 
         {/* ══ COLAR SESSÃO ══ */}
         {tab==="paste"&&(
