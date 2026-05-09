@@ -614,16 +614,16 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
   return (
     <>
       <tr className="row-hover" style={{background:open?"#0d0d22":"transparent",transition:"background .15s"}}>
-        <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}22`,color:hasData?C.text:C.textFaint,fontWeight:hasData?600:400,fontSize:13,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}} onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
+        <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}22`,color:hasData?C.text:C.textFaint,fontWeight:hasData?700:400,fontSize:14,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}} onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
           <span style={{color:C.textFaint,marginRight:5,fontSize:11}}>{hunts.length>0?(open?"▾":"▸"):" "}</span>
           {isMobile?d:`Dia ${String(d).padStart(2," ")}`}
         </td>
         <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,cursor:"pointer"}}>
-          {hasData?<div className="bar-cell"><div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:gp>=0?C.green:C.red,minWidth:isMobile?60:90,textAlign:"right"}}>{fmt(gp)}</div>{!isMobile&&<MiniBar value={gp} max={maxGP}/>}</div>:<span style={{color:C.textFaint,fontSize:13}}>—</span>}
+          {hasData?<div className="bar-cell"><div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:gp>=0?C.green:C.red,minWidth:isMobile?60:100,textAlign:"right",textShadow:gp>=0?`0 0 10px ${C.green}66`:`0 0 10px ${C.red}66`}}>{fmt(gp)}</div>{!isMobile&&<MiniBar value={gp} max={maxGP}/>}</div>:<span style={{color:C.textFaint,fontSize:13}}>—</span>}
         </td>
-        {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:600,fontSize:14,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:600,fontSize:13,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
+        {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer",textShadow:hasData?(cur>=0?`0 0 10px ${C.green}55`:`0 0 10px ${C.red}55`):"none"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
         <td style={{padding:"6px 8px",textAlign:"center",borderBottom:`1px solid ${C.border}22`}}>
           <button title="Editar manualmente" onClick={()=>onEdit()} style={{background:"none",border:"none",color:C.gold,cursor:"pointer",fontSize:13,opacity:.6,padding:"3px 5px",borderRadius:6}} onMouseEnter={e=>e.target.style.opacity=1} onMouseLeave={e=>e.target.style.opacity=.6}>✏️</button>
         </td>
@@ -1148,7 +1148,7 @@ function App() {
 
   const px=mob?12:24;
   const S={
-    th:  {background:C.bg2,color:C.gold,padding:mob?"8px 8px":"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontSize:mob?11:12,letterSpacing:1,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`},
+    th:  {background:C.bg2,color:C.gold,padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontSize:mob?11:13,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`},
     inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Inter',sans-serif"},
     lbl: {fontSize:11,color:C.textSub,marginBottom:5,display:"block",letterSpacing:.5,textTransform:"uppercase"},
   };
@@ -1331,7 +1331,7 @@ function App() {
                 <tfoot>
                   <tr style={{background:C.bg2}}>
                     <td style={{padding:mob?"10px 8px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.gold,fontSize:13,letterSpacing:1}}>TOTAL</td>
-                    <td style={{padding:mob?"10px 6px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:totalGP>=0?C.green:C.red,fontSize:15}}>{fmt(totalGP)} gp</td>
+                    <td style={{padding:mob?"10px 6px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:totalGP>=0?C.green:C.red,fontSize:18,textShadow:totalGP>=0?`0 0 12px ${C.green}55`:`0 0 12px ${C.red}55`}}>{fmt(totalGP)} gp</td>
                     {!mob&&<td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.goldLight}}>{Math.round(totalTC).toLocaleString()}</td>}
                     <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:totalCur>=0?C.green:C.red}}>{fmtMoney(totalCur,curSym)}</td>
                     <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:600,color:C.accentGlow}}>{fmtMoney(totalCur,curSym)}</td>
