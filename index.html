@@ -6,14 +6,14 @@
 <title>⚔️ Tibia Farm Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=MedievalSharp&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
-body { background:#08080f; font-family:'Inter',sans-serif; }
+body { background:#08080f; font-family:'IM Fell English',serif; }
 
 ::-webkit-scrollbar { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
@@ -50,7 +50,7 @@ button:active      { transform:scale(.97); }
 
 /* ── Título com shimmer ── */
 .hero-title {
-  font-family:'Rajdhani',sans-serif;
+  font-family:'Cinzel',serif;
   font-weight:700;
   background:linear-gradient(90deg,#8a7028,#e8c96a,#c8a83c,#f5e090,#c8a83c,#8a7028);
   background-size:200% auto;
@@ -479,15 +479,15 @@ function parseClip(text) {
 }
 
 const C = {
-  bg:"#08080f", bg2:"#0d0d18", card:"#0f0f1c", cardHi:"#13132a",
-  border:"#1c1c30", borderHi:"#2a2a48",
-  gold:"#c8a83c", goldLight:"#e8c96a", goldDim:"#8a7028",
-  accent:"#5b7ee5", accentGlow:"#7090ff",
-  green:"#3dd68c", greenDim:"#1a4a35",
-  red:"#f06060", redDim:"#4a1a1a",
+  bg:"#0f0800", bg2:"#180c00", card:"#1a0e00", cardHi:"#221200",
+  border:"#3a1a00", borderHi:"#5a2a00",
+  gold:"#ff8c00", goldLight:"#ffcc80", goldDim:"#7a4500",
+  accent:"#cc7000", accentGlow:"#ff8c00",
+  green:"#3dd68c", greenDim:"#1a3a20",
+  red:"#f06060", redDim:"#3a1010",
   purple:"#9b6dff",
-  text:"#ddd9f0", textSub:"#9090b8", textFaint:"#52527a",
-  muted:"#3a3a5a",
+  text:"#e8c890", textSub:"#aa7040", textFaint:"#5a3000",
+  muted:"#3a1a00",
 };
 
 
@@ -581,7 +581,7 @@ function LeftSidebar({ mob }) {
 
       {/* ── RASHID CARD ── */}
       <div style={{
-        background:"linear-gradient(160deg,#0a1a0a,#060e06)",
+        background:"linear-gradient(160deg,#1a0e00,#0f0800)",
         border:"1px solid #2a4a2a",
         borderRadius:18,
         overflow:"hidden",
@@ -605,13 +605,13 @@ function LeftSidebar({ mob }) {
         <div style={{padding:"16px",display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
           {/* Sprite com glow */}
           <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <div style={{position:"absolute",width:118,height:118,borderRadius:"50%",background:"radial-gradient(circle,#3dd68c22,transparent 70%)",animation:"starPulse 2s ease-in-out infinite"}}/>
+            <div style={{position:"absolute",width:118,height:118,borderRadius:"50%",background:"radial-gradient(circle,rgba(255,140,0,.15),transparent 70%)",animation:"starPulse 2s ease-in-out infinite"}}/>
             <RashidSprite size={110}/>
           </div>
 
           {/* Nome da cidade */}
           <div style={{textAlign:"center"}}>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:34,color:C.green,lineHeight:1,textShadow:`0 0 20px ${C.green}88`}}>{rashid.city}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:34,color:C.green,lineHeight:1,textShadow:`0 0 20px ${C.green}88`}}>{rashid.city}</div>
             <div style={{fontSize:11,color:C.textSub,marginTop:4,display:"flex",alignItems:"center",justifyContent:"center",gap:4}}>
               <span style={{color:C.green,fontSize:12}}>📍</span> {rashid.tip}
             </div>
@@ -659,7 +659,7 @@ function LeftSidebar({ mob }) {
             <input value={char.name} onChange={e=>char.setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&char.search()}
               placeholder={t("char_ph")}
               style={{width:"100%",background:C.bg2,border:`1.5px solid ${char.name?C.accent+"66":C.border}`,borderRadius:10,padding:"10px 10px 10px 34px",
-                color:C.text,fontSize:13,outline:"none",fontFamily:"'Inter',sans-serif",transition:"border-color .2s",
+                color:C.text,fontSize:13,outline:"none",fontFamily:"'IM Fell English',serif",transition:"border-color .2s",
                 boxShadow:char.name?`0 0 12px ${C.accent}22`:"none"}}/>
           </div>
 
@@ -689,7 +689,7 @@ function LeftSidebar({ mob }) {
             <div style={{background:"linear-gradient(160deg,#0f0f20,#0a0a18)",border:`1px solid ${C.gold}33`,borderRadius:12,overflow:"hidden"}}>
               {/* Nome + status */}
               <div style={{background:`linear-gradient(90deg,${C.gold}14,transparent)`,padding:"10px 14px",borderBottom:`1px solid ${C.gold}22`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold}}>{char.result.name}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:C.gold}}>{char.result.name}</div>
                 <span style={{fontSize:10,padding:"2px 8px",borderRadius:99,fontWeight:700,
                   background:char.result.online?"#0a2a0a":"#1a1a1a",
                   color:char.result.online?C.green:C.textFaint,
@@ -708,7 +708,7 @@ function LeftSidebar({ mob }) {
                 ].map(([icon,label,val,col])=>(
                   <div key={label} style={{background:C.bg2,borderRadius:8,padding:"6px 8px"}}>
                     <div style={{fontSize:9,color:C.textFaint,marginBottom:2}}>{icon} {label}</div>
-                    <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:col,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{val}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:14,color:col,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{val}</div>
                   </div>
                 ))}
               </div>
@@ -775,7 +775,7 @@ function RightSidebar({ creature, boss, mob }) {
               <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#fff",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
             </div>
             <div style={{textAlign:"center"}}>
-              <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:C.text,lineHeight:1.3,wordBreak:"break-word"}}>{data.name}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:C.text,lineHeight:1.3,wordBreak:"break-word"}}>{data.name}</div>
             </div>
           </div>
         )}
@@ -820,7 +820,7 @@ function InfoPanel({ mob, creature, boss }) {
         </div>
         <div style={{minWidth:0}}>
           <div style={{fontSize:9,color,letterSpacing:.8,textTransform:"uppercase",marginBottom:2}}>{label}</div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:C.text,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{data.name}</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:C.text,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{data.name}</div>
         </div>
       </div>
     );
@@ -829,11 +829,11 @@ function InfoPanel({ mob, creature, boss }) {
   if(mob) return (
     <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:16}}>
       {/* Rashid mobile */}
-      <div style={{...cardBase,border:"1px solid #1e3a1e",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",display:"flex",alignItems:"center",gap:12}}>
+      <div style={{...cardBase,border:"1px solid #3a1a0044",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",display:"flex",alignItems:"center",gap:12}}>
         <RashidSprite size={48}/>
         <div style={{flex:1}}>
           <div style={{fontSize:9,color:C.gold,letterSpacing:1,textTransform:"uppercase",marginBottom:2}}>Rashid Hoje · {diasFull[dow]}</div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:20,color:C.green}}>{rashid.city}</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:20,color:C.green}}>{rashid.city}</div>
           <div style={{fontSize:10,color:C.textFaint}}>📍 {rashid.tip}</div>
         </div>
       </div>
@@ -853,13 +853,13 @@ function InfoPanel({ mob, creature, boss }) {
       <div style={{display:"grid",gridTemplateColumns:"1.4fr 1fr 1fr 1.4fr",gap:10}}>
 
         {/* COL 1 — RASHID */}
-        <div style={{...cardBase,border:"1px solid #1e3a1e",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",animation:"borderGlow 3s ease-in-out infinite",position:"relative",overflow:"hidden"}}>
+        <div style={{...cardBase,border:"1px solid #3a1a0044",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",animation:"borderGlow 3s ease-in-out infinite",position:"relative",overflow:"hidden"}}>
           <div style={{position:"absolute",right:-8,bottom:-8,fontSize:52,opacity:.05,userSelect:"none"}}>🗺️</div>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
             <RashidSprite size={52}/>
             <div>
               <div style={{fontSize:9,color:C.gold,letterSpacing:1,textTransform:"uppercase"}}>{t("rashid_today")}</div>
-              <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:22,color:C.green,lineHeight:1.1}}>{rashid.city}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:22,color:C.green,lineHeight:1.1}}>{rashid.city}</div>
               <div style={{fontSize:10,color:C.textFaint,marginTop:1}}>📍 {rashid.tip}</div>
             </div>
           </div>
@@ -899,7 +899,7 @@ function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSe
       <div style={{display:"flex",gap:6,marginBottom:8}}>
         <input value={charName} onChange={e=>setCharName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&onSearch()}
           placeholder="Nome do char..."
-          style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Inter',sans-serif"}}/>
+          style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'IM Fell English',serif"}}/>
         <button onClick={onSearch} disabled={charLoad}
           style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
           {charLoad?t("searching"):t("search_btn")}
@@ -908,7 +908,7 @@ function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSe
       {charErr && <div style={{fontSize:10,color:C.red,marginBottom:6}}>{charErr}</div>}
       {charResult ? (
         <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px"}}>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold,marginBottom:4}}>{charResult.name}</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:C.gold,marginBottom:4}}>{charResult.name}</div>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"3px 8px",fontSize:11}}>
             <div><span style={{color:C.textFaint}}>Nível</span> <span style={{color:C.text,fontWeight:600}}>{charResult.level}</span></div>
             <div><span style={{color:charResult.online?C.green:C.textFaint}}>{charResult.online?"● Online":"○ Offline"}</span></div>
@@ -943,13 +943,13 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
   function handleSave(){ if(bal==="") return; onSave(dateKey,{balance:num,note,session:"manual",loot:0,supplies:0,players:[],manual:true,ts:Date.now()},editIdx); clear(); }
   function onKey(e){ if(e.key==="Enter") handleSave(); if(e.key==="Escape") onClose(); }
   const manuals=existingHunts.filter(h=>h.manual);
-  const inp={ background:C.bg2, border:`1.5px solid ${editIdx!==null?C.accent:C.border}`, borderRadius:10, padding:"11px 14px", color:C.text, fontSize:15, width:"100%", outline:"none", fontFamily:"'Inter',sans-serif", transition:"border-color .2s" };
+  const inp={ background:C.bg2, border:`1.5px solid ${editIdx!==null?C.accent:C.border}`, borderRadius:10, padding:"11px 14px", color:C.text, fontSize:15, width:"100%", outline:"none", fontFamily:"'IM Fell English',serif", transition:"border-color .2s" };
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="slide-up" style={{background:C.card,border:`1px solid ${C.borderHi}`,borderRadius:18,padding:24,width:"100%",maxWidth:440,boxShadow:`0 24px 80px #000d`}} onClick={e=>e.stopPropagation()}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20}}>
           <div>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1}}>{t("manual_title")}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1}}>{t("manual_title")}</div>
             <div style={{fontSize:12,color:C.textFaint,marginTop:3}}>{t("day")} {dayNum} · {dateKey}</div>
           </div>
           <button style={{background:"none",border:"none",color:C.textFaint,cursor:"pointer",fontSize:22,lineHeight:1}} onClick={onClose}>×</button>
@@ -961,7 +961,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
             <div style={{display:"flex",gap:8,marginTop:8}}>
               {[[`~${Math.round(tc).toLocaleString()} TC`,C.goldLight],[fmtMoney(cur,curSym),num>=0?C.green:C.red]].map(([v,col])=>(
                 <div key={v} style={{flex:1,background:C.bg2,borderRadius:8,padding:"7px 10px",textAlign:"center"}}>
-                  <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:col}}>{v}</div>
+                  <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:14,color:col}}>{v}</div>
                 </div>
               ))}
             </div>
@@ -985,7 +985,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
             {existingHunts.map((h,i)=>!h.manual?null:(
               <div key={i} style={{display:"flex",alignItems:"center",gap:8,background:editIdx===i?C.cardHi:C.bg2,border:`1px solid ${editIdx===i?C.accent:C.border}`,borderRadius:10,padding:"9px 12px",marginBottom:6}}>
                 <div style={{flex:1}}>
-                  <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</div>
+                  <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</div>
                   {h.note&&<div style={{fontSize:11,color:C.textSub,marginTop:1}}>{h.note}</div>}
                   <div style={{fontSize:10,color:C.textFaint,marginTop:2}}>~{Math.round(toTC(h.balance,gpPerTc)).toLocaleString()} TC · {fmtMoney(toCur(toTC(h.balance,gpPerTc),curRate),curSym)}</div>
                 </div>
@@ -1001,7 +1001,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
             {existingHunts.map((h,i)=>h.manual?null:(
               <div key={i} style={{display:"flex",justifyContent:"space-between",background:C.bg2,borderRadius:8,padding:"6px 12px",marginBottom:4,fontSize:12}}>
                 <span style={{color:C.textSub}}>Hunt {i+1} · {h.session}</span>
-                <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</span>
+                <span style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</span>
               </div>
             ))}
           </div>
@@ -1022,11 +1022,11 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
           {isMobile?d:`${t("day")} ${String(d).padStart(2," ")}`}
         </td>
         <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,cursor:"pointer"}}>
-          {hasData?<div className="bar-cell"><div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:gp>=0?C.green:C.red,minWidth:isMobile?60:100,textAlign:"right",textShadow:gp>=0?`0 0 10px ${C.green}66`:`0 0 10px ${C.red}66`}}>{fmt(gp)}</div>{!isMobile&&<MiniBar value={gp} max={maxGP}/>}</div>:<span style={{color:C.textFaint,fontSize:13}}>—</span>}
+          {hasData?<div className="bar-cell"><div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:gp>=0?C.green:C.red,minWidth:isMobile?60:100,textAlign:"right",textShadow:gp>=0?`0 0 10px ${C.green}66`:`0 0 10px ${C.red}66`}}>{fmt(gp)}</div>{!isMobile&&<MiniBar value={gp} max={maxGP}/>}</div>:<span style={{color:C.textFaint,fontSize:13}}>—</span>}
         </td>
-        {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer",textShadow:hasData?(cur>=0?`0 0 10px ${C.green}55`:`0 0 10px ${C.red}55`):"none"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
+        {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer",textShadow:hasData?(cur>=0?`0 0 10px ${C.green}55`:`0 0 10px ${C.red}55`):"none"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
+        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
         <td style={{padding:"6px 8px",textAlign:"center",borderBottom:`1px solid ${C.border}22`}}>
           <button title="Editar manualmente" onClick={()=>onEdit()} style={{background:"none",border:"none",color:C.gold,cursor:"pointer",fontSize:13,opacity:.6,padding:"3px 5px",borderRadius:6}} onMouseEnter={e=>e.target.style.opacity=1} onMouseLeave={e=>e.target.style.opacity=.6}>✏️</button>
         </td>
@@ -1035,7 +1035,7 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
         <tr key={i} style={{background:"#0a0a1e"}}>
           <td colSpan={isMobile?4:5} style={{padding:"7px 14px 7px 28px",borderBottom:`1px solid ${C.border}11`,fontSize:11}}>
             {h.manual?<span style={{color:C.accent,fontWeight:600}}>✏️ Manual{h.note&&` · ${h.note}`}</span>:<span style={{color:C.textSub}}>Hunt {i+1} · {h.session}</span>}
-            <span style={{marginLeft:10,fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</span>
+            <span style={{marginLeft:10,fontFamily:"'Cinzel',serif",fontWeight:700,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</span>
             {!isMobile&&!h.manual&&<span style={{marginLeft:10,color:C.textFaint}}>Loot: {fmt(h.loot)} · Supplies: {fmt(h.supplies)}</span>}
           </td>
           <td style={{padding:"5px 8px",borderBottom:`1px solid ${C.border}11`,textAlign:"center"}}>
@@ -1062,7 +1062,7 @@ function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent }) {
     <div className="card-hover" onClick={onClick} style={{background:C.card,border:`1px solid ${isCurrent?C.gold+"55":C.border}`,borderRadius:16,padding:20,cursor:"pointer",boxShadow:isCurrent?`0 0 30px ${C.gold}18`:"none",transition:"all .2s"}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
         <div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:16,fontWeight:700,color:isCurrent?C.gold:C.text,letterSpacing:.5,textTransform:"capitalize"}}>{mmLabel(ym)}</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontSize:16,fontWeight:700,color:isCurrent?C.gold:C.text,letterSpacing:.5,textTransform:"capitalize"}}>{mmLabel(ym)}</div>
           <div style={{fontSize:11,color:C.textFaint,marginTop:2}}>{daysOk} {t("d_farmed")}</div>
         </div>
         {isCurrent&&<span style={{fontSize:10,background:`${C.gold}22`,color:C.gold,padding:"3px 8px",borderRadius:99,fontWeight:700}}>{t("cur_month")}</span>}
@@ -1074,7 +1074,7 @@ function MonthCard({ ym, days, gpPerTc, curSym, curRate, onClick, isCurrent }) {
         {[[t("value")+" Total",totalCur>=0?fmtMoney(totalCur,curSym):"—",totalCur>=0?C.green:C.red],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight],[t("gold_total"),fmt(totalGP)+" gp",C.text],[t("best_day"),bestDay.key?fmtMoney(toCur(toTC(bestDay.val,gpPerTc),curRate),curSym):"—",C.purple]].map(([label,val,color])=>(
           <div key={label} style={{background:C.bg2,borderRadius:10,padding:"10px 12px"}}>
             <div style={{fontSize:10,color:C.textFaint,marginBottom:3,textTransform:"uppercase",letterSpacing:.5}}>{label}</div>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:18,color}}>{val}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color}}>{val}</div>
           </div>
         ))}
       </div>
@@ -1088,13 +1088,13 @@ function CurrencyConfig({ state, setState }) {
   const preview=toCur(toTC(1000000,state.gpPerTc),rate);
   return (
     <div style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:14,padding:20,marginBottom:16}}>
-      <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>{t("cfg_currency")}</div>
+      <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>{t("cfg_currency")}</div>
       <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8,marginBottom:18}}>
         {CURRENCIES.map(c=>{ const active=state.currency===c.code; return (
           <button key={c.code} className="cur-btn" onClick={()=>setState(p=>({...p,currency:c.code}))}
             style={{background:active?`${C.gold}14`:C.card,border:`1.5px solid ${active?C.gold:C.border}`,borderRadius:10,padding:"10px 8px",cursor:"pointer",textAlign:"center"}}>
             <div style={{fontSize:20,marginBottom:4}}>{c.flag}</div>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:active?C.goldLight:C.text}}>{c.sym}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:active?C.goldLight:C.text}}>{c.sym}</div>
             <div style={{fontSize:10,color:active?C.gold:C.textFaint,marginTop:2}}>{c.name}</div>
           </button>
         );})}
@@ -1102,20 +1102,20 @@ function CurrencyConfig({ state, setState }) {
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:14,marginBottom:12}}>
         <div style={{fontSize:11,color:C.textSub,marginBottom:8,letterSpacing:.5,textTransform:"uppercase"}}>{cur.flag} Valor do TC em {cur.name} ({cur.code})</div>
         <div style={{display:"flex",gap:10,alignItems:"center"}}>
-          <span style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold}}>{cur.sym}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:C.gold}}>{cur.sym}</span>
           <input type="number" step="0.001" value={rate} onChange={e=>setState(p=>({...p,rates:{...p.rates,[p.currency]:Number(e.target.value)}}))}
-            style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,outline:"none",fontFamily:"'Rajdhani',sans-serif",fontWeight:700}}/>
+            style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,outline:"none",fontFamily:"'Cinzel',serif",fontWeight:700}}/>
           <span style={{fontSize:12,color:C.textFaint,whiteSpace:"nowrap"}}>por TC</span>
         </div>
       </div>
       <div style={{background:"#0d1a0d",border:"1px solid #1a3a1a",borderRadius:10,padding:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         <div>
           <div style={{fontSize:11,color:C.textFaint,marginBottom:3}}>PRÉVIA — 1.000.000 gp equivale a</div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:22,color:C.green}}>{fmtMoney(preview,cur.sym)}</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:22,color:C.green}}>{fmtMoney(preview,cur.sym)}</div>
         </div>
         <div style={{textAlign:"right"}}>
           <div style={{fontSize:11,color:C.textFaint,marginBottom:3}}>=  TC</div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.textSub}}>~{Math.round(toTC(1000000,state.gpPerTc)).toLocaleString()} TC</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:C.textSub}}>~{Math.round(toTC(1000000,state.gpPerTc)).toLocaleString()} TC</div>
         </div>
       </div>
     </div>
@@ -1131,7 +1131,7 @@ function Footer() {
         {/* Logo + descrição */}
         <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,marginBottom:24,textAlign:"center"}}>
           <div style={{fontSize:26}}>⚔️</div>
-          <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold,letterSpacing:2}}>TIBIA FARM TRACKER</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:C.gold,letterSpacing:2}}>TIBIA FARM TRACKER</div>
           <div style={{fontSize:12,color:C.textFaint,maxWidth:380,lineHeight:1.6}}>
             {t("footer_desc")}
           </div>
@@ -1359,7 +1359,7 @@ function DjinnTab({ mob }) {
   const greenTotal = (lists.green||[]).reduce((s,i)=>s+i.total,0);
   const grand      = blueTotal+greenTotal;
 
-  const inp={background:C.bg2,border:`1.5px solid ${C.border}`,borderRadius:10,padding:"10px 14px",color:C.text,fontSize:14,outline:"none",fontFamily:"'Inter',sans-serif",width:"100%",transition:"border-color .2s"};
+  const inp={background:C.bg2,border:`1.5px solid ${C.border}`,borderRadius:10,padding:"10px 14px",color:C.text,fontSize:14,outline:"none",fontFamily:"'IM Fell English',serif",width:"100%",transition:"border-color .2s"};
 
   return (
     <div style={{maxWidth:900,margin:"0 auto"}}>
@@ -1375,7 +1375,7 @@ function DjinnTab({ mob }) {
             style={{background:C.card,border:`1px solid ${key===djinnType||key==="grand"?d.color+"44":C.border}`,borderRadius:14,padding:"14px 18px",
               cursor:key!=="grand"?"pointer":"default",transition:"all .2s",boxShadow:key===djinnType||key==="grand"?`0 0 20px ${d.color}22`:"none"}}>
             <div style={{fontSize:10,color:d.color,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{d.icon} {d.name}</div>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?20:26,color:val>0?d.color:C.textFaint}}>{fmt(val)} gp</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:mob?20:26,color:val>0?d.color:C.textFaint}}>{fmt(val)} gp</div>
             {key!=="grand"&&<div style={{fontSize:10,color:C.textFaint,marginTop:2}}>{(lists[key]||[]).length} itens na lista</div>}
           </div>
         ))}
@@ -1403,7 +1403,7 @@ function DjinnTab({ mob }) {
         <div style={{background:djinn.bg,padding:"16px 20px",borderBottom:`1px solid ${djinn.border}44`,display:"flex",alignItems:"center",gap:12}}>
           <div style={{fontSize:36}}>{djinn.icon}</div>
           <div>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:18,color:djinn.color,letterSpacing:1}}>{djinn.name.toUpperCase()}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:djinn.color,letterSpacing:1}}>{djinn.name.toUpperCase()}</div>
             <div style={{fontSize:11,color:C.textFaint}}>NPC {djinn.npc} · {djinn.local}</div>
           </div>
         </div>
@@ -1429,7 +1429,7 @@ function DjinnTab({ mob }) {
                       onMouseEnter={e=>e.currentTarget.style.background=`${djinn.border}22`}
                       onMouseLeave={e=>e.currentTarget.style.background="none"}>
                       <span>{name}</span>
-                      <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:djinn.color,fontSize:13}}>{fmt(price)} gp</span>
+                      <span style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:djinn.color,fontSize:13}}>{fmt(price)} gp</span>
                     </button>
                   ))}
                 </div>
@@ -1438,14 +1438,14 @@ function DjinnTab({ mob }) {
 
             {/* Quantidade */}
             <input ref={qtyRef} type="number" min="1" value={qty} onChange={e=>setQty(e.target.value)} onKeyDown={onKey}
-              placeholder="Qtd" style={{...inp,width:mob?"100%":90,textAlign:"center",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,borderColor:qty?djinn.border:C.border}}/>
+              placeholder="Qtd" style={{...inp,width:mob?"100%":90,textAlign:"center",fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,borderColor:qty?djinn.border:C.border}}/>
 
             {/* Preview do total */}
             {selected&&qty&&parseInt(qty)>0&&(
               <div style={{display:"flex",alignItems:"center",background:`${djinn.border}22`,border:`1px solid ${djinn.border}44`,borderRadius:10,padding:"0 14px",whiteSpace:"nowrap",minWidth:120}}>
                 <div>
                   <div style={{fontSize:9,color:djinn.color,letterSpacing:.5}}>{t("total")}</div>
-                  <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:C.text}}>{fmt(parseInt(qty)*selected.price)} gp</div>
+                  <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:C.text}}>{fmt(parseInt(qty)*selected.price)} gp</div>
                 </div>
               </div>
             )}
@@ -1479,7 +1479,7 @@ function DjinnTab({ mob }) {
                 <thead>
                   <tr style={{background:C.bg2}}>
                     {["Item","Qtd","Valor Unit.","Total",""].map((h,i)=>(
-                      <th key={i} style={{padding:"9px "+(i===0?"20px":"14px"),textAlign:i===0?"left":"right",color:djinn.color,fontFamily:"'Rajdhani',sans-serif",fontSize:11,letterSpacing:1,textTransform:"uppercase",borderBottom:`1px solid ${djinn.border}33`,whiteSpace:"nowrap"}}>{h}</th>
+                      <th key={i} style={{padding:"9px "+(i===0?"20px":"14px"),textAlign:i===0?"left":"right",color:djinn.color,fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:1,textTransform:"uppercase",borderBottom:`1px solid ${djinn.border}33`,whiteSpace:"nowrap"}}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -1487,9 +1487,9 @@ function DjinnTab({ mob }) {
                   {list.map((item,i)=>(
                     <tr key={i} className="row-hover" style={{background:editIdx===i?`${djinn.border}18`:"transparent",borderBottom:`1px solid ${djinn.border}18`,transition:"background .15s"}}>
                       <td style={{padding:"10px 20px",color:C.text,fontWeight:600}}>{item.name}</td>
-                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:djinn.color}}>{item.qty.toLocaleString("pt-BR")}</td>
-                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontSize:13,color:C.textSub}}>{fmt(item.price)} gp</td>
-                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:15,color:djinn.color}}>{fmt(item.total)} gp</td>
+                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:djinn.color}}>{item.qty.toLocaleString("pt-BR")}</td>
+                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:13,color:C.textSub}}>{fmt(item.price)} gp</td>
+                      <td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:djinn.color}}>{fmt(item.total)} gp</td>
                       <td style={{padding:"10px 14px",textAlign:"right",whiteSpace:"nowrap"}}>
                         <button title="Editar" onClick={()=>startEdit(i)} style={{background:"none",border:"none",color:C.accent,cursor:"pointer",fontSize:14,padding:"2px 5px"}}>✏️</button>
                         <button title="Remover" onClick={()=>removeItem(i)} style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:14,padding:"2px 5px"}}>🗑</button>
@@ -1499,10 +1499,10 @@ function DjinnTab({ mob }) {
                 </tbody>
                 <tfoot>
                   <tr style={{background:C.bg2,borderTop:`2px solid ${djinn.border}44`}}>
-                    <td style={{padding:"13px 20px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:djinn.color,fontSize:13,letterSpacing:1}}>TOTAL {djinn.name.toUpperCase()}</td>
-                    <td style={{padding:"13px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",color:C.textFaint,fontSize:12}}>{list.length} itens</td>
+                    <td style={{padding:"13px 20px",fontFamily:"'Cinzel',serif",fontWeight:700,color:djinn.color,fontSize:13,letterSpacing:1}}>TOTAL {djinn.name.toUpperCase()}</td>
+                    <td style={{padding:"13px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",color:C.textFaint,fontSize:12}}>{list.length} itens</td>
                     <td></td>
-                    <td style={{padding:"13px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:22,color:djinn.color}}>{fmt(totalGP)} gp</td>
+                    <td style={{padding:"13px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:22,color:djinn.color}}>{fmt(totalGP)} gp</td>
                     <td style={{padding:"13px 14px",textAlign:"right"}}>
                       <button onClick={clearList} style={{background:"none",border:`1px solid ${C.red}44`,borderRadius:6,padding:"4px 10px",cursor:"pointer",color:C.red,fontSize:11,fontWeight:700}}>🗑 Limpar</button>
                     </td>
@@ -1587,8 +1587,8 @@ function App() {
 
   const px=mob?12:24;
   const S={
-    th:  {background:C.bg2,color:C.gold,padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontSize:mob?11:13,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`},
-    inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Inter',sans-serif"},
+    th:  {background:C.bg2,color:C.gold,padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:13,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`},
+    inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'IM Fell English',serif"},
     lbl: {fontSize:11,color:C.textSub,marginBottom:5,display:"block",letterSpacing:.5,textTransform:"uppercase"},
   };
   const btnPrimary={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:13,background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:"#0a0804",letterSpacing:.5};
@@ -1596,7 +1596,11 @@ function App() {
   const btnDanger={padding:mob?"8px 12px":"9px 16px",borderRadius:8,border:`1px solid ${C.red}44`,cursor:"pointer",fontWeight:700,background:"transparent",color:C.red,fontSize:12};
 
   return (
-    <div style={{background:C.bg,minHeight:"100vh",color:C.text}}>
+    <div style={{background:C.bg,minHeight:"100vh",color:C.text,position:"relative"}}>
+      {/* Inferno scanlines */}
+      <div style={{position:"fixed",inset:0,backgroundImage:"repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px)",pointerEvents:"none",zIndex:9999}}/>
+      {/* Inferno vignette */}
+      <div style={{position:"fixed",inset:0,background:"radial-gradient(ellipse at 50% 0%,rgba(255,140,0,.05) 0%,transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.6) 0%,transparent 65%)",pointerEvents:"none",zIndex:9998}}/>
       <LangSelector mob={mob}/>
 
       {/* Flash */}
@@ -1649,7 +1653,7 @@ function App() {
       </div>
 
       {/* ══ TABS PREMIUM ══ */}
-      <div style={{background:"linear-gradient(180deg,#0f0f1e,#0d0d18)",borderBottom:`1px solid ${C.border}`,overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
+      <div style={{background:"linear-gradient(180deg,#150a00,#0f0800)",borderBottom:`1px solid ${C.border}`,overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
         <div style={{maxWidth:1400,margin:"0 auto",display:"flex",justifyContent:"center",padding:`0 ${px}px`,gap:2}}>
           {[
             {id:"tracker", icon:"⚔️",  label:t("t_tracker"), desc:t("t_tracker_d"), color:C.gold   },
@@ -1684,7 +1688,7 @@ function App() {
                 {/* Label */}
                 {!mob && (
                   <div style={{
-                    fontFamily:"'Rajdhani',sans-serif",
+                    fontFamily:"'Cinzel',serif",
                     fontWeight:700,
                     fontSize:12,
                     letterSpacing:1,
@@ -1734,7 +1738,7 @@ function App() {
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
             {[[t("gold_total"),fmt(totalGP)+" gp",C.goldLight],[t("tibia_coins"),Math.round(totalTC).toLocaleString()+" TC",C.goldLight],[t("value")+" "+curObj.code,fmtMoney(totalCur,curSym),C.green],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
               <div key={label} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:mob?"12px":"16px 18px"}}>
-                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?18:24,color,lineHeight:1.1}}>{val}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:mob?16:22,color,lineHeight:1.1}}>{val}</div>
                 <div style={{fontSize:mob?10:11,color:C.textFaint,marginTop:4,textTransform:"uppercase",letterSpacing:.7}}>{label}</div>
               </div>
             ))}
@@ -1744,7 +1748,7 @@ function App() {
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
             <div style={{display:"flex",alignItems:"center",gap:8}}>
               <button onClick={()=>setViewMonth(m=>addMonth(m,-1))} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:8,padding:"6px 12px",cursor:"pointer",color:C.textSub,fontSize:13,fontWeight:700}}>‹</button>
-              <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.text,fontSize:14,textTransform:"capitalize",minWidth:140,textAlign:"center"}}>{mmLabel(viewMonth)}</span>
+              <span style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:C.text,fontSize:14,textTransform:"capitalize",minWidth:140,textAlign:"center"}}>{mmLabel(viewMonth)}</span>
               <button onClick={()=>setViewMonth(m=>addMonth(m,1))} disabled={viewMonth>=nowYM()} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:8,padding:"6px 12px",cursor:viewMonth>=nowYM()?"not-allowed":"pointer",color:viewMonth>=nowYM()?C.muted:C.textSub,fontSize:13,fontWeight:700,opacity:viewMonth>=nowYM()?.4:1}}>›</button>
               {viewMonth!==nowYM()&&<button onClick={()=>setViewMonth(nowYM())} style={{fontSize:11,background:"none",border:`1px solid ${C.border}`,borderRadius:6,padding:"4px 10px",cursor:"pointer",color:C.textSub}}>{t("today")}</button>}
             </div>
@@ -1770,11 +1774,11 @@ function App() {
                 </tbody>
                 <tfoot>
                   <tr style={{background:C.bg2}}>
-                    <td style={{padding:mob?"10px 8px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.gold,fontSize:13,letterSpacing:1}}>{t("total")}</td>
-                    <td style={{padding:mob?"10px 6px":"10px 14px",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:totalGP>=0?C.green:C.red,fontSize:18,textShadow:totalGP>=0?`0 0 12px ${C.green}55`:`0 0 12px ${C.red}55`}}>{fmt(totalGP)} gp</td>
-                    {!mob&&<td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.goldLight}}>{Math.round(totalTC).toLocaleString()}</td>}
-                    <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:totalCur>=0?C.green:C.red}}>{fmtMoney(totalCur,curSym)}</td>
-                    <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Rajdhani',sans-serif",fontWeight:600,color:C.accentGlow}}>{fmtMoney(totalCur,curSym)}</td>
+                    <td style={{padding:mob?"10px 8px":"10px 14px",fontFamily:"'Cinzel',serif",fontWeight:700,color:C.gold,fontSize:13,letterSpacing:1}}>{t("total")}</td>
+                    <td style={{padding:mob?"10px 6px":"10px 14px",fontFamily:"'Cinzel',serif",fontWeight:700,color:totalGP>=0?C.green:C.red,fontSize:18,textShadow:totalGP>=0?`0 0 12px ${C.green}55`:`0 0 12px ${C.red}55`}}>{fmt(totalGP)} gp</td>
+                    {!mob&&<td style={{padding:"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:700,color:C.goldLight}}>{Math.round(totalTC).toLocaleString()}</td>}
+                    <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:700,color:totalCur>=0?C.green:C.red}}>{fmtMoney(totalCur,curSym)}</td>
+                    <td style={{padding:mob?"10px 6px":"10px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontWeight:600,color:C.accentGlow}}>{fmtMoney(totalCur,curSym)}</td>
                     <td></td>
                   </tr>
                 </tfoot>
@@ -1794,7 +1798,7 @@ function App() {
         {/* ══ HISTÓRICO ══ */}
         {tab==="history"&&<>
           <div style={{marginBottom:16}}>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1,marginBottom:4}}>{t("hist_title")}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1,marginBottom:4}}>{t("hist_title")}</div>
             <div style={{fontSize:13,color:C.textSub}}>{t("hist_sub")}</div>
           </div>
           {allMonths.length===0?<div style={{textAlign:"center",padding:60,color:C.textFaint}}>{t("no_data")}</div>
@@ -1809,7 +1813,7 @@ function App() {
         {/* ══ COLAR SESSÃO ══ */}
         {tab==="paste"&&(
           <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:mob?16:24}}>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:17,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:4}}>{t("paste_title")}</div>
+            <div style={{fontFamily:"'Cinzel',serif",fontSize:17,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:4}}>{t("paste_title")}</div>
             <div style={{fontSize:12,color:C.textSub,marginBottom:14}}>{t("paste_sub")}</div>
             <textarea style={{width:"100%",minHeight:mob?160:200,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:10,padding:14,color:C.text,fontSize:mob?12:13,fontFamily:"monospace",resize:"vertical",outline:"none",lineHeight:1.5}}
               placeholder={"Session data: From 2026-05-01, 19:36:27 to ...\nSession: 01:37h\nLoot: 8,784,927\nSupplies: 3,319,100\nBalance: 5,465,827\n..."}
@@ -1817,12 +1821,12 @@ function App() {
             {parseErr&&<div style={{color:C.red,background:C.redDim,border:`1px solid ${C.red}33`,borderRadius:8,padding:"10px 14px",fontSize:13,marginTop:10}}>⚠️ {parseErr}</div>}
             {parsed&&(
               <div style={{background:"#0b1a0b",border:"1px solid #2a4a2a",borderRadius:14,padding:mob?14:20,marginTop:14}}>
-                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:C.green,fontSize:15,marginBottom:14}}>{t("sess_ok")}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:C.green,fontSize:15,marginBottom:14}}>{t("sess_ok")}</div>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,marginBottom:14}}>
                   {[[t("s_date"),parsed.date],[t("s_dur"),parsed.session],[t("s_loot"),fmt(parsed.loot)+" gp"],[t("s_supp"),fmt(parsed.supplies)+" gp"],[t("s_bal"),fmt(parsed.balance)+" gp"],[t("s_tc"),`~${Math.round(toTC(parsed.balance,gpPerTc)).toLocaleString()} TC`]].map(([k,v])=>(
                     <div key={k} style={{background:"#0a160a",borderRadius:8,padding:"9px 12px"}}>
                       <div style={{fontSize:10,color:C.textFaint}}>{k}</div>
-                      <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:mob?13:15,color:k.includes("Balance")?(parsed.balance>=0?C.green:C.red):C.text}}>{v}</div>
+                      <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:mob?13:15,color:k.includes("Balance")?(parsed.balance>=0?C.green:C.red):C.text}}>{v}</div>
                     </div>
                   ))}
                 </div>
@@ -1831,7 +1835,7 @@ function App() {
                   {parsed.players.map(p=>(
                     <div key={p.name} style={{display:"flex",justifyContent:"space-between",background:"#0a160a",borderRadius:8,padding:"7px 12px",fontSize:13,marginBottom:4}}>
                       <span style={{color:C.text,fontWeight:600}}>{p.name}</span>
-                      <span style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,color:p.balance>=0?C.green:C.red}}>{p.balance>=0?"+":""}{fmt(p.balance)} gp</span>
+                      <span style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:p.balance>=0?C.green:C.red}}>{p.balance>=0?"+":""}{fmt(p.balance)} gp</span>
                     </div>
                   ))}
                 </div>)}
@@ -1849,7 +1853,7 @@ function App() {
           <div>
             <CurrencyConfig state={state} setState={setState}/>
             <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:mob?16:24}}>
-              <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>{t("cfg_player")}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:C.gold,letterSpacing:.5,marginBottom:16}}>{t("cfg_player")}</div>
               <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:14,marginBottom:20}}>
                 {[[t("cfg_name"),"text","playerName","Ex: Czar Malta"],[t("cfg_gp"),"number","gpPerTc","Ex: 41000"]].map(([label,type,key,ph])=>(
                   <div key={key}>
