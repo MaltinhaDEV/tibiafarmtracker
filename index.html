@@ -13,11 +13,11 @@
 <style>
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
-body { background:#08080f; font-family:'IM Fell English',serif; }
+body { background:#f5f0e8; font-family:'IM Fell English',serif; }
 
 ::-webkit-scrollbar { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:#252540; border-radius:99px; }
+::-webkit-scrollbar-thumb { background:#d4a855; border-radius:99px; opacity:.5; }
 
 input[type=month]::-webkit-calendar-picker-indicator,
 input[type=date]::-webkit-calendar-picker-indicator  { filter:invert(0.4); cursor:pointer; }
@@ -33,26 +33,26 @@ input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 @keyframes starPulse{ 0%,100%{opacity:.2} 50%{opacity:.8} }
 @keyframes borderGlow{ 0%,100%{box-shadow:0 0 10px #c8a83c22} 50%{box-shadow:0 0 28px #c8a83c55} }
 
-.modal-overlay { position:fixed;inset:0;background:rgba(4,4,12,.85);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px;backdrop-filter:blur(8px);animation:fadeIn .15s ease; }
+.modal-overlay { position:fixed;inset:0;background:rgba(30,10,0,.7);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px;backdrop-filter:blur(8px);animation:fadeIn .15s ease; }
 .slide-up      { animation:slideUp .2s ease; }
 .bar-cell      { display:flex;align-items:center;gap:6px; }
-.bar-track     { flex:1;height:4px;background:#1a1a2e;border-radius:2px;overflow:hidden; }
+.bar-track     { flex:1;height:4px;background:#e8dcc8;border-radius:2px;overflow:hidden; }
 .bar-fill      { height:100%;border-radius:2px;transition:width .4s ease; }
-.row-hover:hover   { background:rgba(200,168,60,.04)!important; }
+.row-hover:hover   { background:rgba(179,90,0,.05)!important; }
 .card-hover        { transition:border-color .2s,box-shadow .2s; }
-.card-hover:hover  { border-color:#c8a83c55!important;box-shadow:0 0 24px #c8a83c11; }
+.card-hover:hover  { border-color:#b35a0055!important;box-shadow:0 2px 12px rgba(179,90,0,.12); }
 .cur-btn           { transition:all .15s; }
 .cur-btn:hover     { border-color:#c8a83c88!important; }
 button:active      { transform:scale(.97); }
 
 /* ── Stars no hero ── */
-.star { position:absolute;border-radius:50%;background:#e8c96a;animation:starPulse 3s ease-in-out infinite;box-shadow:0 0 6px rgba(232,201,106,.6); }
+.star { position:absolute;border-radius:50%;background:#d4a855;animation:starPulse 3s ease-in-out infinite;box-shadow:none; }
 
 /* ── Título com shimmer ── */
 .hero-title {
   font-family:'Cinzel',serif;
   font-weight:700;
-  background:linear-gradient(90deg,#8a7028,#ffe066,#f5c842,#fff0a0,#f5c842,#e8c96a,#8a7028);
+  background:linear-gradient(90deg,#8a4400,#d4780a,#b35a00,#e8a040,#b35a00,#d4780a,#8a4400);
   background-size:200% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -65,7 +65,7 @@ button:active      { transform:scale(.97); }
 .rashid-eyes   { animation:rashidBlink 4s ease-in-out infinite; transform-origin:center; }
 
 /* ── Footer ── */
-.footer-link { color:#52527a;text-decoration:none;transition:color .2s; }
+.footer-link { color:#6b3a10;text-decoration:none;transition:color .2s;font-weight:600; }
 .footer-link:hover { color:#b35a00; }
 </style>
 </head>
