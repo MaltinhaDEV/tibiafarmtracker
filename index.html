@@ -1504,6 +1504,7 @@ function App() {
 
   return (
     <div style={{background:C.bg,minHeight:"100vh",color:C.text}}>
+      <LangSelector mob={mob}/>
 
       {/* Flash */}
       {flash&&<div style={{position:"fixed",bottom:28,left:"50%",transform:"translateX(-50%)",background:"#0d2e1a",border:`1px solid ${C.green}55`,color:C.green,padding:"12px 22px",borderRadius:12,fontWeight:700,zIndex:999,fontSize:14,boxShadow:"0 8px 32px #000c",whiteSpace:"nowrap",maxWidth:"90vw",textAlign:"center",animation:"slideUp .2s ease"}}>{flash}</div>}
