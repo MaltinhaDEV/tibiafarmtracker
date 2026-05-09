@@ -331,31 +331,37 @@ const TR = {
   },
 };
 
-// ── Lang state (global, sem prop drilling) ───────────────────────────────
-let _lang = (()=>{
+// ── Lang state ───────────────────────────────────────────────────────────
+function detectLang(){
   const saved = localStorage.getItem("tft_lang");
   if(saved && TR[saved]) return saved;
   const nav = (navigator.language||"pt").slice(0,2).toLowerCase();
   return TR[nav] ? nav : "pt";
-})();
+}
 
+// _lang é global lido por t() durante render
+let _lang = detectLang();
+
+// t() lê _lang no momento do render — sempre atualizado
 function t(k){ return (TR[_lang]||TR["pt"])[k] ?? (TR["pt"])[k] ?? k; }
 
-// forceUpdate listeners
-const _langListeners = new Set();
+// Setter global — atualiza _lang E o estado React do App
+let _setAppLang = null;
 function setGlobalLang(code){
   if(!TR[code]) return;
   _lang = code;
   localStorage.setItem("tft_lang", code);
   document.documentElement.lang = code==="pt"?"pt-BR":code;
-  _langListeners.forEach(fn=>fn(code));
+  if(_setAppLang) _setAppLang(code);   // força re-render do App
 }
+
+// ── useLang hook ─────────────────────────────────────────────────────────
 function useLang(){
   const [lang, setLang] = useState(_lang);
   useEffect(()=>{
-    const fn = (c)=>setLang(c);
-    _langListeners.add(fn);
-    return ()=>_langListeners.delete(fn);
+    // Registra este setter como o responsável por re-renderizar o App
+    _setAppLang = setLang;
+    return ()=>{ if(_setAppLang===setLang) _setAppLang=null; };
   },[]);
   return lang;
 }
@@ -571,7 +577,7 @@ function LeftSidebar({ mob }) {
   if(mob) return null;
 
   return (
-    <div style={{display:"flex",flexDirection:"column",gap:12,width:240,flexShrink:0}}>
+    <div style={{display:"flex",flexDirection:"column",gap:12,width:280,flexShrink:0}}>
 
       {/* ── RASHID CARD ── */}
       <div style={{
@@ -599,13 +605,13 @@ function LeftSidebar({ mob }) {
         <div style={{padding:"16px",display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
           {/* Sprite com glow */}
           <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <div style={{position:"absolute",width:100,height:100,borderRadius:"50%",background:"radial-gradient(circle,#3dd68c22,transparent 70%)",animation:"starPulse 2s ease-in-out infinite"}}/>
-            <RashidSprite size={96}/>
+            <div style={{position:"absolute",width:118,height:118,borderRadius:"50%",background:"radial-gradient(circle,#3dd68c22,transparent 70%)",animation:"starPulse 2s ease-in-out infinite"}}/>
+            <RashidSprite size={110}/>
           </div>
 
           {/* Nome da cidade */}
           <div style={{textAlign:"center"}}>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:30,color:C.green,lineHeight:1,textShadow:`0 0 20px ${C.green}88`}}>{rashid.city}</div>
+            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:34,color:C.green,lineHeight:1,textShadow:`0 0 20px ${C.green}88`}}>{rashid.city}</div>
             <div style={{fontSize:11,color:C.textSub,marginTop:4,display:"flex",alignItems:"center",justifyContent:"center",gap:4}}>
               <span style={{color:C.green,fontSize:12}}>📍</span> {rashid.tip}
             </div>
@@ -613,13 +619,13 @@ function LeftSidebar({ mob }) {
         </div>
 
         {/* Calendário semanal */}
-        <div style={{padding:"0 12px 14px"}}>
-          <div style={{fontSize:8,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:6,textAlign:"center"}}>{t("loc_by_day")}</div>
+        <div style={{padding:"0 14px 16px"}}>
+          <div style={{fontSize:9,color:C.textFaint,letterSpacing:1.2,textTransform:"uppercase",marginBottom:8,textAlign:"center"}}>{t("loc_by_day")}</div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3}}>
             {RASHID.map((r,i)=>(
               <div key={i} title={`${diasFull[i]}: ${r.city}`}
                 style={{
-                  padding:"5px 2px",
+                  padding:"6px 2px",
                   borderRadius:7,
                   background:i===dow?"linear-gradient(160deg,#1a3a1a,#0d200d)":"#0a0f0a",
                   border:`1px solid ${i===dow?"#3dd68c55":"#1a2a1a"}`,
@@ -628,8 +634,8 @@ function LeftSidebar({ mob }) {
                   transition:"all .2s",
                   cursor:"default",
                 }}>
-                <div style={{fontSize:8,color:i===dow?C.green:C.textFaint,fontWeight:700,marginBottom:2}}>{dias[i]}</div>
-                <div style={{fontSize:7,color:i===dow?C.goldLight:"#3a5a3a",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",lineHeight:1.3,fontWeight:i===dow?700:400}}>{r.city.split(" ")[0]}</div>
+                <div style={{fontSize:9,color:i===dow?C.green:C.textFaint,fontWeight:700,marginBottom:2}}>{dias[i]}</div>
+                <div style={{fontSize:8,color:i===dow?C.goldLight:"#3a5a3a",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",lineHeight:1.3,fontWeight:i===dow?700:400}}>{r.city.split(" ")[0]}</div>
               </div>
             ))}
           </div>
@@ -637,52 +643,104 @@ function LeftSidebar({ mob }) {
       </div>
 
       {/* BUSCA DE PERSONAGEM */}
-      <div style={{background:`linear-gradient(160deg,${C.accent}0d,${C.card})`,border:`1px solid ${C.accent}33`,borderRadius:16,padding:16,flex:1}}>
-        <div style={{fontSize:9,color:C.accent,letterSpacing:1.5,textTransform:"uppercase",marginBottom:10}}>{t("search_char")}</div>
-        <div style={{display:"flex",flexDirection:"column",gap:6,marginBottom:10}}>
-          <input value={char.name} onChange={e=>char.setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&char.search()}
-            placeholder={t("char_ph")}
-            style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",width:"100%",fontFamily:"'Inter',sans-serif"}}/>
+      {/* BUSCA DE PERSONAGEM — Premium */}
+      <div style={{background:"linear-gradient(160deg,#0a0d1e,#080b18)",border:`1px solid ${C.accent}44`,borderRadius:18,overflow:"hidden",flex:1,display:"flex",flexDirection:"column",boxShadow:`0 8px 32px #000a, 0 0 0 1px ${C.accent}11`}}>
+
+        {/* Header */}
+        <div style={{background:`linear-gradient(90deg,${C.accent}18,transparent)`,padding:"12px 16px",borderBottom:`1px solid ${C.accent}22`,display:"flex",alignItems:"center",gap:8}}>
+          <div style={{width:7,height:7,borderRadius:"50%",background:C.accent,boxShadow:`0 0 8px ${C.accent}`}}/>
+          <span style={{fontSize:9,color:C.accent,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("search_char")}</span>
+        </div>
+
+        <div style={{padding:"14px 14px 0"}}>
+          {/* Input com ícone */}
+          <div style={{position:"relative",marginBottom:8}}>
+            <span style={{position:"absolute",left:11,top:"50%",transform:"translateY(-50%)",fontSize:14,color:C.accent,pointerEvents:"none",zIndex:1}}>🔍</span>
+            <input value={char.name} onChange={e=>char.setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&char.search()}
+              placeholder={t("char_ph")}
+              style={{width:"100%",background:C.bg2,border:`1.5px solid ${char.name?C.accent+"66":C.border}`,borderRadius:10,padding:"10px 10px 10px 34px",
+                color:C.text,fontSize:13,outline:"none",fontFamily:"'Inter',sans-serif",transition:"border-color .2s",
+                boxShadow:char.name?`0 0 12px ${C.accent}22`:"none"}}/>
+          </div>
+
+          {/* Botão buscar */}
           <button onClick={char.search} disabled={char.loading}
-            style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px",cursor:"pointer",color:"#fff",fontSize:12,fontWeight:700,opacity:char.loading?.6:1}}>
-            {char.loading?"Buscando...":"Buscar"}
+            style={{width:"100%",background:char.loading?C.bg2:`linear-gradient(135deg,${C.accent},#2a4a99)`,
+              border:`1px solid ${char.loading?C.border:C.accent+"88"}`,borderRadius:10,padding:"10px",
+              cursor:char.loading?"not-allowed":"pointer",color:"#fff",fontSize:12,fontWeight:700,letterSpacing:.8,
+              display:"flex",alignItems:"center",justifyContent:"center",gap:6,transition:"all .2s",
+              opacity:char.loading?.7:1,marginBottom:10}}>
+            {char.loading
+              ? <><span style={{display:"inline-block",animation:"starPulse 1s infinite"}}>⚔️</span> {t("searching")}</>
+              : <>{t("search_btn")} →</>}
           </button>
         </div>
-        {char.err && <div style={{fontSize:10,color:C.red,marginBottom:8}}>{char.err}</div>}
+
+        {/* Resultado */}
+        {char.err && (
+          <div style={{margin:"0 14px 10px",background:"#2a0a0a",border:"1px solid #5a1a1a",borderRadius:10,padding:"8px 12px",fontSize:11,color:C.red,display:"flex",alignItems:"center",gap:6}}>
+            <span>⚠️</span> {char.err}
+          </div>
+        )}
+
         {char.result ? (
-          <div style={{background:C.bg2,borderRadius:10,padding:"12px"}}>
-            <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:18,color:C.gold,marginBottom:6}}>{char.result.name}</div>
-            <div style={{display:"flex",flexDirection:"column",gap:4,fontSize:12,marginBottom:10}}>
-              <div style={{display:"flex",justifyContent:"space-between"}}>
-                <span style={{color:C.textFaint}}>Nível</span>
-                <span style={{color:C.text,fontWeight:700}}>{char.result.level}</span>
+          <div style={{margin:"0 14px 14px",flex:1}}>
+            {/* Card do personagem */}
+            <div style={{background:"linear-gradient(160deg,#0f0f20,#0a0a18)",border:`1px solid ${C.gold}33`,borderRadius:12,overflow:"hidden"}}>
+              {/* Nome + status */}
+              <div style={{background:`linear-gradient(90deg,${C.gold}14,transparent)`,padding:"10px 14px",borderBottom:`1px solid ${C.gold}22`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:C.gold}}>{char.result.name}</div>
+                <span style={{fontSize:10,padding:"2px 8px",borderRadius:99,fontWeight:700,
+                  background:char.result.online?"#0a2a0a":"#1a1a1a",
+                  color:char.result.online?C.green:C.textFaint,
+                  border:`1px solid ${char.result.online?C.green+"44":C.border}`}}>
+                  {char.result.online?"● Online":"○ Offline"}
+                </span>
               </div>
-              <div style={{display:"flex",justifyContent:"space-between"}}>
-                <span style={{color:C.textFaint}}>Vocação</span>
-                <span style={{color:C.text,fontSize:11}}>{char.result.vocation}</span>
+
+              {/* Stats em grid */}
+              <div style={{padding:"10px 14px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"6px 10px"}}>
+                {[
+                  ["⚔️", t("lv"), char.result.level, C.gold],
+                  ["🧙", t("voc"), char.result.vocation?.split(" ").slice(-1)[0]||char.result.vocation, C.accent],
+                  ["🌍", t("world"), char.result.world, C.text],
+                  ["✨", "Achievements", char.result.achievement_points||"—", C.purple],
+                ].map(([icon,label,val,col])=>(
+                  <div key={label} style={{background:C.bg2,borderRadius:8,padding:"6px 8px"}}>
+                    <div style={{fontSize:9,color:C.textFaint,marginBottom:2}}>{icon} {label}</div>
+                    <div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:14,color:col,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{val}</div>
+                  </div>
+                ))}
               </div>
-              <div style={{display:"flex",justifyContent:"space-between"}}>
-                <span style={{color:C.textFaint}}>Status</span>
-                <span style={{color:char.result.online?C.green:C.textFaint,fontWeight:600}}>{char.result.online?"● Online":"○ Offline"}</span>
-              </div>
-              <div style={{display:"flex",justifyContent:"space-between"}}>
-                <span style={{color:C.textFaint}}>Mundo</span>
-                <span style={{color:C.text}}>{char.result.world}</span>
-              </div>
+
+              {/* Guild */}
               {char.result.guild?.name && (
-                <div style={{marginTop:4,background:C.card,borderRadius:6,padding:"4px 8px",fontSize:11,color:C.purple}}>🏰 {char.result.guild.name}</div>
+                <div style={{margin:"0 14px",marginBottom:10,background:`${C.purple}12`,border:`1px solid ${C.purple}33`,borderRadius:8,padding:"6px 10px",fontSize:11,color:C.purple,display:"flex",alignItems:"center",gap:6}}>
+                  🏰 <strong>{char.result.guild.name}</strong>
+                  {char.result.guild.rank&&<span style={{color:C.textFaint}}>· {char.result.guild.rank}</span>}
+                </div>
               )}
+
+              {/* Botão Tibia.com */}
+              <div style={{padding:"0 14px 14px"}}>
+                <a href={`https://www.tibia.com/community/?subtopic=characters&name=${encodeURIComponent(char.result.name)}`}
+                  target="_blank" rel="noopener noreferrer"
+                  style={{display:"flex",alignItems:"center",justifyContent:"center",gap:7,width:"100%",padding:"9px",
+                    borderRadius:9,background:"linear-gradient(135deg,#6a1500,#c03000)",
+                    color:"#fff",textDecoration:"none",fontSize:11,fontWeight:700,letterSpacing:.6,
+                    boxShadow:"0 4px 14px #c0300044",transition:"opacity .2s"}}
+                  onMouseEnter={e=>e.currentTarget.style.opacity=".85"}
+                  onMouseLeave={e=>e.currentTarget.style.opacity="1"}>
+                  ⚔️ Ver no Tibia.com
+                </a>
+              </div>
             </div>
-            {/* Botão abrir no Tibia.com */}
-            <a href={`https://www.tibia.com/community/?subtopic=characters&name=${encodeURIComponent(char.result.name)}`}
-              target="_blank" rel="noopener noreferrer"
-              style={{display:"flex",alignItems:"center",justifyContent:"center",gap:6,width:"100%",padding:"8px",borderRadius:8,background:"linear-gradient(135deg,#8a2000,#c03000)",color:"#fff",textDecoration:"none",fontSize:11,fontWeight:700,letterSpacing:.5}}>
-              <span>⚔️</span> Ver no Tibia.com
-            </a>
           </div>
         ) : !char.loading && !char.err && (
-          <div style={{textAlign:"center",padding:"16px 0",color:C.textFaint,fontSize:11,lineHeight:1.8}}>
-            {t("char_hint")}
+          <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"16px 14px",textAlign:"center",gap:8}}>
+            <div style={{fontSize:28,opacity:.3}}>🧙</div>
+            <div style={{fontSize:11,color:C.textFaint,lineHeight:1.7}}>{t("char_hint")}</div>
+            <div style={{fontSize:10,color:C.border,marginTop:4}}>↵ Enter para buscar</div>
           </div>
         )}
       </div>
@@ -892,7 +950,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20}}>
           <div>
             <div style={{fontFamily:"'Rajdhani',sans-serif",fontSize:18,fontWeight:700,color:C.gold,letterSpacing:1}}>{t("manual_title")}</div>
-            <div style={{fontSize:12,color:C.textFaint,marginTop:3}}>Dia {dayNum} · {dateKey}</div>
+            <div style={{fontSize:12,color:C.textFaint,marginTop:3}}>{t("day")} {dayNum} · {dateKey}</div>
           </div>
           <button style={{background:"none",border:"none",color:C.textFaint,cursor:"pointer",fontSize:22,lineHeight:1}} onClick={onClose}>×</button>
         </div>
@@ -961,7 +1019,7 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
       <tr className="row-hover" style={{background:open?"#0d0d22":"transparent",transition:"background .15s"}}>
         <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}22`,color:hasData?C.text:C.textFaint,fontWeight:hasData?700:400,fontSize:14,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}} onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
           <span style={{color:C.textFaint,marginRight:5,fontSize:11}}>{hunts.length>0?(open?"▾":"▸"):" "}</span>
-          {isMobile?d:`Dia ${String(d).padStart(2," ")}`}
+          {isMobile?d:`${t("day")} ${String(d).padStart(2," ")}`}
         </td>
         <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}22`,cursor:"pointer"}}>
           {hasData?<div className="bar-cell"><div style={{fontFamily:"'Rajdhani',sans-serif",fontWeight:700,fontSize:16,color:gp>=0?C.green:C.red,minWidth:isMobile?60:100,textAlign:"right",textShadow:gp>=0?`0 0 10px ${C.green}66`:`0 0 10px ${C.red}66`}}>{fmt(gp)}</div>{!isMobile&&<MiniBar value={gp} max={maxGP}/>}</div>:<span style={{color:C.textFaint,fontSize:13}}>—</span>}
@@ -1436,7 +1494,7 @@ function App() {
     if(!d.rates)    d.rates={BRL:d.brlPerTc||0.216,USD:0.040,EUR:0.037,GBP:0.032,CAD:0.055};
     return d;
   });
-  useLang(); // subscribe to language changes for re-render
+  const _appLang = useLang(); // lang reativo — força re-render do App inteiro
   const [viewMonth,setViewMonth]=useState(nowYM());
   const [clip,setClip]=useState("");
   const [parsed,setParsed]=useState(null);
