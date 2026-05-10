@@ -169,14 +169,11 @@ const TR = {
     t_config:"Configurações", t_config_d:"Ajustes do app",
     // Rashid
     rashid_today:"Rashid — Hoje", loc_by_day:"Localização por dia",
-    ds:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
-    df:["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
     // Boostados
     boosted_c:"Criatura Boostada", boosted_b:"Boss Boostado", loading:"Buscando na API...",
     // Busca personagem
     search_char:"Buscar Personagem", char_ph:"Nome do personagem...",
     search_btn:"Buscar", searching:"Buscando...", not_found:"Personagem não encontrado.",
-    lv:"Nível", voc:"Vocação", status:"Status", world:"Mundo",
     online:"● Online", offline:"○ Offline",
     char_hint:"Digite o nome de um personagem Tibia",
     // Tracker
@@ -190,7 +187,6 @@ const TR = {
     no_data:"Nenhum dado registrado ainda.",
     // Sessão
     paste_title:"COLAR COPYBOARD",
-    paste_sub:'No Tibia: ícone de sessão → "Copy to Clipboard" → cole abaixo.',
     paste_err:"Não consegui ler o Balance. Verifique se o texto está completo.",
     sess_ok:"✅ SESSÃO DETECTADA",
     s_date:"📅 Data", s_dur:"⏱ Duração", s_loot:"📦 Loot",
@@ -216,6 +212,73 @@ const TR = {
     // Footer
     footer_desc:"Ferramenta gratuita para acompanhar seu farm diário no Tibia.",
     footer_disc:"⚠️ Aviso: Tibia Farm Tracker é um projeto independente e não oficial. Não é afiliado, patrocinado ou endossado pela CipSoft GmbH.",
+
+    best_day:"🏆 Melhor Dia",
+    worst_day:"📉 Pior Dia",
+    above_avg:"📊 Acima da Média",
+    streak:"🔥 Maior Sequência",
+    days_streak:"seguidos farmando",
+    analysis:"Análise",
+    meta_tab_lbl:"Meta Diária",
+    meta_tab_desc:"Seu objetivo",
+    meta_goal_lbl:"Meta diária (em GP)",
+    meta_name_lbl:"Nome da meta",
+    meta_save:"💾 SALVAR META",
+    meta_saved:"✅ SALVO!",
+    meta_progress:"Progresso de hoje",
+    meta_hit:"Meta Atingida!",
+    meta_miss:"Abaixo da Meta",
+    meta_no_data:"Sem registro hoje",
+    meta_above:"gp acima",
+    meta_left:"Faltam",
+    meta_overview:"Visão Geral",
+    meta_summary:"Resumo da Meta",
+    
+    accum:"Acumulado",
+    boosted_b:"Boss Boostado",
+    cfg_gp:"GP por TC",
+    cfg_player:"⚙️ DADOS DO JOGADOR",
+    cfg_restore_ph:"Cole o backup aqui...",
+    clear_month:"Limpar mês",
+    d_farmed:"dias farmados",
+    daily_avg:"Média/Dia",
+    djinn_clear:"🗑 Limpar",
+    djinn_upd:"💾 Atualizar entrada",
+    footer_open:"Open Source",
+    gold_bal:"Gold Balance",
+    hist_sub:"Clique em um mês para ver o detalhe no Tracker.",
+    loading:"Buscando na API...",
+    loc_by_day:"Localização por dia",
+    manual_copy:"Hunts via copyboard",
+    manual_note_ph:"Ex: Rashid, Ferumbras, venda de items…",
+    manual_upd:"💾  ATUALIZAR",
+    meta_days_hit:"DIAS ATINGIDOS",
+    meta_hit_days:"✅ Dias com Meta",
+    meta_miss_days:"❌ Dias Abaixo",
+    meta_rate:"🎯 Taxa de Sucesso",
+    new_hunt:"⚔️ + NOVA HUNT",
+    paste_sub:"No Tibia: ícone de sessão → Copy to Clipboard → cole abaixo.",
+    s_bal:"💰 Balance",
+    s_dur:"⏱ Duração",
+    s_loot:"📦 Loot",
+    s_tc:"💎 Em TC",
+    save_hunt:"✅ Salvar Hunt",
+    searching:"Buscando...",
+    t_config_d:"Ajustes do app",
+    t_djinn_d:"Venda de itens",
+    t_history_d:"Meses anteriores",
+    t_paste_d:"Importar hunt",
+    t_tracker_d:"Farm diário",
+    table_tip:"Clique em ✏️ para adicionar ou editar valores manualmente.",
+    tibia_coins:"Tibia Coins",
+    value:"Valor",
+    char_ph:"Nome do personagem...",
+    voc:"Vocação",
+    world:"Mundo",
+    lv:"Nível",
+    status:"Status",
+    ds:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
+    df:["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
     footer_dev:"Desenvolvido por", footer_open:"Open Source",
   },
   en:{flag:"🇺🇸",name:"English",
@@ -226,12 +289,9 @@ const TR = {
     t_paste:"Paste Session", t_paste_d:"Import hunt",
     t_config:"Settings", t_config_d:"App settings",
     rashid_today:"Rashid — Today", loc_by_day:"Location by day",
-    ds:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-    df:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
     boosted_c:"Boosted Creature", boosted_b:"Boosted Boss", loading:"Fetching from API...",
     search_char:"Search Character", char_ph:"Character name...",
     search_btn:"Search", searching:"Searching...", not_found:"Character not found.",
-    lv:"Level", voc:"Vocation", status:"Status", world:"World",
     online:"● Online", offline:"○ Offline",
     char_hint:"Type a Tibia character name",
     gold_total:"Total Gold", tibia_coins:"Tibia Coins", daily_avg:"Daily Avg",
@@ -242,7 +302,6 @@ const TR = {
     cur_month:"CURRENT MONTH", d_farmed:"days farmed", best_day:"Best Day",
     no_data:"No data recorded yet.",
     paste_title:"PASTE COPYBOARD",
-    paste_sub:'In Tibia: session icon → "Copy to Clipboard" → paste below.',
     paste_err:"Could not read Balance. Please check if the text is complete.",
     sess_ok:"✅ SESSION DETECTED",
     s_date:"📅 Date", s_dur:"⏱ Duration", s_loot:"📦 Loot",
@@ -264,6 +323,73 @@ const TR = {
     djinn_tip:"💡 Type item name · Select · Enter quantity · Click Add",
     footer_desc:"Free tool to track your daily Tibia gold farming.",
     footer_disc:"⚠️ Notice: Tibia Farm Tracker is an independent, unofficial project. Not affiliated with CipSoft GmbH.",
+
+    best_day:"🏆 Best Day",
+    worst_day:"📉 Worst Day",
+    above_avg:"📊 Above Average",
+    streak:"🔥 Longest Streak",
+    days_streak:"days in a row",
+    analysis:"Analysis",
+    meta_tab_lbl:"Daily Goal",
+    meta_tab_desc:"Your target",
+    meta_goal_lbl:"Daily goal (in GP)",
+    meta_name_lbl:"Goal name",
+    meta_save:"💾 SAVE GOAL",
+    meta_saved:"✅ SAVED!",
+    meta_progress:"Today's progress",
+    meta_hit:"Goal Reached!",
+    meta_miss:"Below Goal",
+    meta_no_data:"No record today",
+    meta_above:"gp above",
+    meta_left:"Missing",
+    meta_overview:"Overview",
+    meta_summary:"Goal Summary",
+    
+    accum:"Accumulated",
+    boosted_b:"Boosted Boss",
+    cfg_gp:"GP per TC",
+    cfg_player:"⚙️ PLAYER DATA",
+    cfg_restore_ph:"Paste your backup here...",
+    clear_month:"Clear month",
+    d_farmed:"days farmed",
+    daily_avg:"Daily Avg",
+    djinn_clear:"🗑 Clear",
+    djinn_upd:"💾 Update",
+    footer_open:"Open Source",
+    gold_bal:"Gold Balance",
+    hist_sub:"Click a month to view details in Tracker.",
+    loading:"Fetching from API...",
+    loc_by_day:"Location by day",
+    manual_copy:"Copyboard hunts",
+    manual_note_ph:"e.g. Rashid, Ferumbras...",
+    manual_upd:"💾  UPDATE",
+    meta_days_hit:"DAYS HIT",
+    meta_hit_days:"✅ Days with Goal",
+    meta_miss_days:"❌ Days Below",
+    meta_rate:"🎯 Success Rate",
+    new_hunt:"⚔️ + NEW HUNT",
+    paste_sub:"In Tibia: session icon → Copy to Clipboard → paste below.",
+    s_bal:"💰 Balance",
+    s_dur:"⏱ Duration",
+    s_loot:"📦 Loot",
+    s_tc:"💎 In TC",
+    save_hunt:"✅ Save Hunt",
+    searching:"Searching...",
+    t_config_d:"App settings",
+    t_djinn_d:"Item selling",
+    t_history_d:"Past months",
+    t_paste_d:"Import hunt",
+    t_tracker_d:"Daily farm",
+    table_tip:"Click ✏️ to add or edit values manually.",
+    tibia_coins:"Tibia Coins",
+    value:"Value",
+    char_ph:"Character name...",
+    voc:"Vocation",
+    world:"World",
+    lv:"Level",
+    status:"Status",
+    ds:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+    df:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
     footer_dev:"Developed by", footer_open:"Open Source",
   },
   es:{flag:"🇪🇸",name:"Español",
@@ -279,7 +405,6 @@ const TR = {
     boosted_c:"Criatura Potenciada", boosted_b:"Boss Potenciado", loading:"Cargando API...",
     search_char:"Buscar Personaje", char_ph:"Nombre del personaje...",
     search_btn:"Buscar", searching:"Buscando...", not_found:"Personaje no encontrado.",
-    lv:"Nivel", voc:"Vocación", status:"Estado", world:"Mundo",
     online:"● En línea", offline:"○ Desconectado",
     char_hint:"Escribe el nombre de un personaje de Tibia",
     gold_total:"Oro Total", tibia_coins:"Tibia Coins", daily_avg:"Promedio/Día",
@@ -290,7 +415,6 @@ const TR = {
     cur_month:"MES ACTUAL", d_farmed:"días farmeados", best_day:"Mejor Día",
     no_data:"Sin datos registrados aún.",
     paste_title:"PEGAR COPYBOARD",
-    paste_sub:'En Tibia: icono de sesión → "Copy to Clipboard" → pega abajo.',
     paste_err:"No pude leer el Balance. Verifica que el texto esté completo.",
     sess_ok:"✅ SESIÓN DETECTADA",
     s_date:"📅 Fecha", s_dur:"⏱ Duración", s_loot:"📦 Loot",
@@ -312,6 +436,71 @@ const TR = {
     djinn_tip:"💡 Escribe el nombre del item · Selecciona · Cantidad · Agregar",
     footer_desc:"Herramienta gratuita para rastrear tu farm diario en Tibia.",
     footer_disc:"⚠️ Aviso: Tibia Farm Tracker es independiente y no oficial. No afiliado a CipSoft GmbH.",
+
+    best_day:"🏆 Mejor Día",
+    worst_day:"📉 Peor Día",
+    above_avg:"📊 Sobre el Promedio",
+    streak:"🔥 Mayor Racha",
+    days_streak:"días seguidos",
+    analysis:"Análisis",
+    meta_tab_lbl:"Meta Diaria",
+    meta_tab_desc:"Tu objetivo",
+    meta_goal_lbl:"Meta diaria (en GP)",
+    meta_name_lbl:"Nombre de la meta",
+    meta_save:"💾 GUARDAR META",
+    meta_saved:"✅ ¡GUARDADO!",
+    meta_progress:"Progreso de hoy",
+    meta_hit:"¡Meta Alcanzada!",
+    meta_miss:"Por Debajo",
+    meta_no_data:"Sin registro hoy",
+    meta_above:"gp sobre la meta",
+    meta_left:"Faltan",
+    meta_overview:"Visión General",
+    meta_summary:"Resumen de Meta",
+    
+    accum:"Acumulado",
+    boosted_b:"Boss Potenciado",
+    cfg_gp:"GP por TC",
+    cfg_player:"⚙️ DATOS DEL JUGADOR",
+    cfg_restore_ph:"Pega el backup aquí...",
+    clear_month:"Limpiar mes",
+    d_farmed:"días farmeados",
+    daily_avg:"Promedio/Día",
+    djinn_clear:"🗑 Limpiar",
+    djinn_upd:"💾 Actualizar",
+    footer_open:"Código Abierto",
+    gold_bal:"Balance de Oro",
+    hist_sub:"Haz clic en un mes para ver detalles.",
+    loading:"Cargando API...",
+    loc_by_day:"Ubicación por día",
+    manual_copy:"Hunts del copyboard",
+    manual_note_ph:"Ej: Rashid, Ferumbras...",
+    manual_upd:"💾  ACTUALIZAR",
+    meta_days_hit:"DÍAS LOGRADOS",
+    meta_hit_days:"✅ Días con Meta",
+    meta_miss_days:"❌ Días Abajo",
+    meta_rate:"🎯 Tasa de Éxito",
+    new_hunt:"⚔️ + NUEVA HUNT",
+    paste_sub:"En Tibia: icono de sesión → Copy to Clipboard → pega abajo.",
+    s_bal:"💰 Balance",
+    s_dur:"⏱ Duración",
+    s_loot:"📦 Loot",
+    s_tc:"💎 En TC",
+    save_hunt:"✅ Guardar Hunt",
+    searching:"Buscando...",
+    t_config_d:"Ajustes de la app",
+    t_djinn_d:"Venta de items",
+    t_history_d:"Meses anteriores",
+    t_paste_d:"Importar hunt",
+    t_tracker_d:"Farm diario",
+    table_tip:"Haz clic en ✏️ para añadir o editar valores.",
+    tibia_coins:"Tibia Coins",
+    value:"Valor",
+    char_ph:"Nombre del personaje...",
+    voc:"Vocación",
+    world:"Mundo",
+    lv:"Nivel",
+    status:"Estado",
     footer_dev:"Desarrollado por", footer_open:"Código Abierto",
   },
   pl:{flag:"🇵🇱",name:"Polski",
@@ -338,7 +527,6 @@ const TR = {
     cur_month:"BIEŻĄCY MIESIĄC", d_farmed:"dni farmienia", best_day:"Najlepszy Dzień",
     no_data:"Brak zarejestrowanych danych.",
     paste_title:"WKLEJ COPYBOARD",
-    paste_sub:'W Tibia: ikona sesji → "Copy to Clipboard" → wklej poniżej.',
     paste_err:"Nie udało się odczytać Balance. Sprawdź czy tekst jest kompletny.",
     sess_ok:"✅ WYKRYTO SESJĘ",
     s_date:"📅 Data", s_dur:"⏱ Czas", s_loot:"📦 Loot",
@@ -349,7 +537,6 @@ const TR = {
     cfg_tip:"Dane są zapisywane automatycznie w przeglądarce.",
     cfg_tip2:"Użyj kopii zapasowej, aby nie stracić danych.",
     cfg_backup:"Kopia zapasowa", cfg_restore:"Przywróć kopię",
-    cfg_restore_ph:"Wklej kopię tutaj...", restore_btn:"Przywróć",
     manual_title:"RĘCZNY WPIS", manual_gp:"Zysk / Balance (gp)",
     manual_gp_ph:"Np. 5000000 (ujemne = strata)",
     manual_note:"Notatka (opcjonalna)", manual_note_ph:"Np. Rashid, Ferumbras...",
@@ -359,6 +546,70 @@ const TR = {
     djinn_tip:"💡 Wpisz nazwę itemu · Wybierz · Ilość · Dodaj",
     footer_desc:"Darmowe narzędzie do śledzenia farmu w Tibia.",
     footer_disc:"⚠️ Uwaga: Tibia Farm Tracker to nieoficjalny projekt. Nie jest powiązany z CipSoft GmbH.",
+
+    best_day:"🏆 Najlepszy Dzień",
+    worst_day:"📉 Najgorszy Dzień",
+    above_avg:"📊 Powyżej Średniej",
+    streak:"🔥 Najdłuższa Passa",
+    days_streak:"dni z rzędu",
+    analysis:"Analiza",
+    meta_tab_lbl:"Dzienny Cel",
+    meta_tab_desc:"Twój cel",
+    meta_goal_lbl:"Dzienny cel (w GP)",
+    meta_name_lbl:"Nazwa celu",
+    meta_save:"💾 ZAPISZ CEL",
+    meta_saved:"✅ ZAPISANO!",
+    meta_progress:"Postęp dzisiaj",
+    meta_hit:"Cel Osiągnięty!",
+    meta_miss:"Poniżej Celu",
+    meta_no_data:"Brak wpisu dziś",
+    meta_above:"gp powyżej",
+    meta_left:"Brakuje",
+    meta_overview:"Przegląd",
+    meta_summary:"Podsumowanie",
+    
+    accum:"Narastająco",
+    boosted_b:"Wzmocniony Boss",
+    cfg_gp:"GP za TC",
+    cfg_player:"⚙️ DANE GRACZA",
+    cfg_restore_ph:"Wklej kopię tutaj...",
+    clear_month:"Wyczyść miesiąc",
+    d_farmed:"dni farmienia",
+    daily_avg:"Śr./Dzień",
+    djinn_clear:"🗑 Wyczyść",
+    djinn_upd:"💾 Aktualizuj",
+    footer_open:"Open Source",
+    gold_bal:"Saldo Złota",
+    hist_sub:"Kliknij miesiąc aby zobaczyć szczegóły.",
+    loading:"Pobieranie z API...",
+    loc_by_day:"Lokalizacja wg dnia",
+    manual_copy:"Hunty z copyboard",
+    manual_note_ph:"Np. Rashid, Ferumbras...",
+    manual_upd:"💾  AKTUALIZUJ",
+    meta_days_hit:"DNI Z CELEM",
+    meta_hit_days:"✅ Dni z Celem",
+    meta_miss_days:"❌ Dni Poniżej",
+    meta_rate:"🎯 Skuteczność",
+    new_hunt:"⚔️ + NOWY HUNT",
+    paste_sub:"W Tibia: ikona sesji → Copy to Clipboard → wklej poniżej.",
+    s_bal:"💰 Balance",
+    s_dur:"⏱ Czas",
+    s_loot:"📦 Loot",
+    s_tc:"💎 W TC",
+    save_hunt:"✅ Zapisz Hunt",
+    searching:"Szukam...",
+    t_config_d:"Ustawienia aplikacji",
+    t_djinn_d:"Sprzedaż itemów",
+    t_history_d:"Poprzednie miesiące",
+    t_paste_d:"Importuj hunt",
+    t_tracker_d:"Codzienny farm",
+    table_tip:"Kliknij ✏️ aby ręcznie dodać lub edytować wartości.",
+    tibia_coins:"Tibia Coins",
+    value:"Wartość",
+    char_ph:"Nazwa postaci...",
+    voc:"Zawód",
+    world:"Świat",
+    status:"Status",
     footer_dev:"Stworzone przez", footer_open:"Open Source",
   },
   de:{flag:"🇩🇪",name:"Deutsch",
@@ -369,12 +620,9 @@ const TR = {
     t_paste:"Einfügen", t_paste_d:"Hunt importieren",
     t_config:"Einstellungen", t_config_d:"App-Einstellungen",
     rashid_today:"Rashid — Heute", loc_by_day:"Standort nach Tag",
-    ds:["So","Mo","Di","Mi","Do","Fr","Sa"],
-    df:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
     boosted_c:"Geboostetes Wesen", boosted_b:"Geboosteter Boss", loading:"Wird geladen...",
     search_char:"Charakter suchen", char_ph:"Charaktername...",
     search_btn:"Suchen", searching:"Suche...", not_found:"Charakter nicht gefunden.",
-    lv:"Level", voc:"Beruf", status:"Status", world:"Welt",
     online:"● Online", offline:"○ Offline",
     char_hint:"Tibia-Charakternamen eingeben",
     gold_total:"Gold Gesamt", tibia_coins:"Tibia Coins", daily_avg:"Tägl. Ø",
@@ -385,7 +633,6 @@ const TR = {
     cur_month:"AKTUELLER MONAT", d_farmed:"Tage gefarmt", best_day:"Bester Tag",
     no_data:"Noch keine Daten aufgezeichnet.",
     paste_title:"COPYBOARD EINFÜGEN",
-    paste_sub:'In Tibia: Sitzungssymbol → "Copy to Clipboard" → unten einfügen.',
     paste_err:"Balance konnte nicht gelesen werden. Bitte Text überprüfen.",
     sess_ok:"✅ SITZUNG ERKANNT",
     s_date:"📅 Datum", s_dur:"⏱ Dauer", s_loot:"📦 Loot",
@@ -396,7 +643,6 @@ const TR = {
     cfg_tip:"Daten werden automatisch im Browser gespeichert.",
     cfg_tip2:"Verwende die Sicherung, um Daten nicht zu verlieren.",
     cfg_backup:"Sicherung", cfg_restore:"Sicherung wiederherstellen",
-    cfg_restore_ph:"Sicherung hier einfügen...", restore_btn:"Wiederherstellen",
     manual_title:"MANUELLER EINTRAG", manual_gp:"Profit / Balance (gp)",
     manual_gp_ph:"z.B. 5000000 (negativ = Verlust)",
     manual_note:"Notiz (optional)", manual_note_ph:"z.B. Rashid, Ferumbras...",
@@ -406,6 +652,73 @@ const TR = {
     djinn_tip:"💡 Itemname eingeben · Auswählen · Menge · Hinzufügen",
     footer_desc:"Kostenloses Tool zum Verfolgen deines Tibia-Farms.",
     footer_disc:"⚠️ Hinweis: Tibia Farm Tracker ist ein inoffizielles Projekt. Nicht mit CipSoft GmbH verbunden.",
+
+    best_day:"🏆 Bester Tag",
+    worst_day:"📉 Schlechtester Tag",
+    above_avg:"📊 Über Durchschnitt",
+    streak:"🔥 Längste Serie",
+    days_streak:"Tage hintereinander",
+    analysis:"Analyse",
+    meta_tab_lbl:"Tagesziel",
+    meta_tab_desc:"Dein Ziel",
+    meta_goal_lbl:"Tagesziel (in GP)",
+    meta_name_lbl:"Zielname",
+    meta_save:"💾 ZIEL SPEICHERN",
+    meta_saved:"✅ GESPEICHERT!",
+    meta_progress:"Heutiger Fortschritt",
+    meta_hit:"Ziel Erreicht!",
+    meta_miss:"Unter dem Ziel",
+    meta_no_data:"Kein Eintrag heute",
+    meta_above:"gp über Ziel",
+    meta_left:"Noch fehlen",
+    meta_overview:"Übersicht",
+    meta_summary:"Ziel-Zusammenfassung",
+    
+    accum:"Kumuliert",
+    boosted_b:"Geboosteter Boss",
+    cfg_gp:"GP pro TC",
+    cfg_player:"⚙️ SPIELERDATEN",
+    cfg_restore_ph:"Sicherung hier einfügen...",
+    clear_month:"Monat löschen",
+    d_farmed:"Tage gefarmt",
+    daily_avg:"Tägl. Ø",
+    djinn_clear:"🗑 Löschen",
+    djinn_upd:"💾 Aktualisieren",
+    footer_open:"Open Source",
+    gold_bal:"Gold-Bilanz",
+    hist_sub:"Klicke auf einen Monat für Details.",
+    loading:"Wird geladen...",
+    loc_by_day:"Standort nach Tag",
+    manual_copy:"Hunts vom Copyboard",
+    manual_note_ph:"z.B. Rashid, Ferumbras...",
+    manual_upd:"💾  AKTUALISIEREN",
+    meta_days_hit:"TAGE ERREICHT",
+    meta_hit_days:"✅ Tage mit Ziel",
+    meta_miss_days:"❌ Tage Darunter",
+    meta_rate:"🎯 Erfolgsrate",
+    new_hunt:"⚔️ + NEUER HUNT",
+    paste_sub:"In Tibia: Sitzungssymbol → Copy to Clipboard → unten einfügen.",
+    s_bal:"💰 Balance",
+    s_dur:"⏱ Dauer",
+    s_loot:"📦 Loot",
+    s_tc:"💎 In TC",
+    save_hunt:"✅ Hunt speichern",
+    searching:"Suche...",
+    t_config_d:"App-Einstellungen",
+    t_djinn_d:"Items verkaufen",
+    t_history_d:"Vergangene Monate",
+    t_paste_d:"Hunt importieren",
+    t_tracker_d:"Tägliches Farm",
+    table_tip:"Klicke ✏️ zum manuellen Hinzufügen oder Bearbeiten.",
+    tibia_coins:"Tibia Coins",
+    value:"Wert",
+    char_ph:"Charaktername...",
+    voc:"Beruf",
+    world:"Welt",
+    lv:"Level",
+    status:"Status",
+    ds:["So","Mo","Di","Mi","Do","Fr","Sa"],
+    df:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
     footer_dev:"Entwickelt von", footer_open:"Open Source",
   },
 };
@@ -1649,18 +1962,18 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
       <div style={cardBase}>
         <div style={secTitle}>
           <div style={gem}/>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>🎯 Definir Meta de Farm</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>{t("meta_goal_lbl")}</span>
         </div>
 
         <div style={{display:"flex",gap:12,alignItems:"flex-end",marginBottom:16,flexWrap:"wrap"}}>
           <div style={{flex:1,minWidth:160}}>
-            <label style={lbl}>Meta diária (em GP)</label>
+            <label style={lbl}>{t("meta_goal_lbl")}</label>
             <input value={inputGoal} onChange={e=>setInputGoal(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: 5000000" type="number"
               style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",fontWeight:700}}/>
           </div>
           <div style={{flex:1,minWidth:140}}>
-            <label style={lbl}>Nome da meta</label>
+            <label style={lbl}>{t("meta_name_lbl")}</label>
             <input value={inputName} onChange={e=>setInputName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: Meta Rashid"
               style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace"}}/>
@@ -1668,14 +1981,14 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
           <button onClick={saveGoal}
             style={{padding:"11px 20px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:10,letterSpacing:1.5,whiteSpace:"nowrap",flexShrink:0,color:"#fafaf8",
               background:saved?"linear-gradient(135deg,#1a6a3a,#0d4a27)":"linear-gradient(135deg,#b35a00,#8a4400)"}}>
-            {saved?"✅ SALVO!":"💾 SALVAR META"}
+            {saved?t("meta_saved"):t("meta_save")}
           </button>
         </div>
 
         {/* Progresso hoje */}
         {isCurrentMonth&&(
           <>
-            <label style={lbl}>Progresso de hoje — Dia {todayDay}</label>
+            <label style={lbl}>{t("meta_progress")} — Dia {todayDay}</label>
             <div style={{background:C.bg2,borderRadius:10,padding:"14px 16px",marginBottom:14,border:`1px solid ${C.border}22`}}>
               <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
                 <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:todayHit?C.green:todayGP>0?C.red:C.textFaint}}>{fmt(todayGP)} gp</span>
@@ -1697,15 +2010,15 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
                 <span style={{fontSize:22}}>{todayHit?"🟢":"🔴"}</span>
                 <div>
                   <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:todayHit?C.green:C.red}}>
-                    {todayHit?"Meta Atingida!":todayGP>0?"Abaixo da Meta":"Sem registro hoje"}
+                    {todayHit?t("meta_hit"):todayGP>0?t("meta_miss"):t("meta_no_data")}
                   </div>
                   {todayGP>0&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:todayHit?"#1a6a3a":"#cc2200",marginTop:2,opacity:.8}}>
-                    {todayHit?`+${fmt(todayGP-meta.goal)} gp acima`:`Faltam ${fmt(meta.goal-todayGP)} gp`}
+                    {todayHit?`+${fmt(todayGP-meta.goal)} ${t("meta_above")}`:`${t("meta_left")} ${fmt(meta.goal-todayGP)} gp`}
                   </div>}
                 </div>
               </div>
               <div style={{background:C.bg2,border:`1px solid ${C.border}33`,borderRadius:10,padding:"12px 16px",textAlign:"center",minWidth:90}}>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4}}>DIAS ATINGIDOS</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4}}>{t("meta_days_hit")}</div>
                 <div style={{fontFamily:"'Cinzel',serif",fontSize:20,fontWeight:700,color:C.green}}>{hitDays}/{farmDays.length}</div>
               </div>
             </div>
@@ -1768,9 +2081,9 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
         </div>
         <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
           {[
-            {lbl:"✅ Dias com Meta",val:`${hitDays} dias`,color:C.green},
-            {lbl:"❌ Dias Abaixo", val:`${missDays} dias`,color:C.red},
-            {lbl:"🎯 Taxa de Sucesso",val:`${successRate}%`,color:C.gold},
+            {lbl:t("meta_hit_days"),val:`${hitDays} dias`,color:C.green},
+            {lbl:t("meta_miss_days"), val:`${missDays} dias`,color:C.red},
+            {lbl:t("meta_rate"),val:`${successRate}%`,color:C.gold},
           ].map(({lbl,val,color})=>(
             <div key={lbl} style={{background:C.bg2,border:`1px solid ${C.border}22`,borderRadius:10,padding:"12px 14px"}}>
               <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:5,letterSpacing:.5}}>{lbl}</div>
@@ -1922,7 +2235,7 @@ function App() {
             {id:"history", icon:"📅",  label:t("t_history"), desc:t("t_history_d"), color:"#7090ff"},
             {id:"djinn",   icon:"🧞",  label:"Djinn", desc:"Venda de itens",   color:"#3dd68c"},
             {id:"paste",   icon:"📋",  label:"Colar Sessão", desc:"Importar hunt",   color:"#f0a030"},
-            {id:"meta",    icon:"🎯",  label:"Meta Diária",   desc:"Seu objetivo",    color:"#e84040"},
+            {id:"meta",    icon:"🎯",  label:t("meta_tab_lbl"), desc:t("meta_tab_desc"), color:"#e84040"},
             {id:"config",  icon:"⚙️",  label:"Configurações", desc:"Ajustes do app",  color:"#9b6dff"},
           ].map(({id,icon,label,desc,color})=>{
             const active = tab===id;
@@ -1940,7 +2253,7 @@ function App() {
                 {false && null}
                 {/* Ícone com glow */}
                 <div style={{
-                  fontSize: mob?18:20,
+                  fontSize: mob?20:22,
                   lineHeight:1,
                   filter: active?`drop-shadow(0 0 8px ${color}aa)`:"none",
                   transform: active?"scale(1.15)":"scale(1)",
@@ -1953,25 +2266,28 @@ function App() {
                   <div style={{
                     fontFamily:"'Cinzel',serif",
                     fontWeight:700,
-                    fontSize:12,
-                    letterSpacing:1,
+                    fontSize:13,
+                    letterSpacing:1.5,
                     textTransform:"uppercase",
-                    color: active?color:C.textSub,
+                    color: active?color:"#f5e8c8",
                     transition:"color .2s",
                     lineHeight:1,
+                    textShadow: active?`0 0 12px ${color}88`:"none",
                   }}>
                     {label}
                   </div>
                 )}
-                {/* Desc (só desktop, só quando ativo) */}
+                {/* Desc (só desktop) */}
                 {!mob && (
                   <div style={{
-                    fontSize:9,
-                    color: active?color+"99":C.textFaint,
+                    fontFamily:"'Fira Code',monospace",
+                    fontSize:10,
+                    color: active?color+"cc":"#c8a870",
                     letterSpacing:.3,
                     transition:"all .2s",
                     lineHeight:1,
-                    opacity: active?1:.6,
+                    opacity: active?1:.75,
+                    fontWeight: active?500:400,
                   }}>
                     {desc}
                   </div>
@@ -2060,32 +2376,63 @@ function App() {
               let s=0; for(let j=i;j<a.length&&a[j].hasData;j++) s++; return Math.max(max,s);
             },0);
             return (
-              <div style={{background:"#fafaf8",border:"1px solid #d4a85544",borderRadius:16,padding:"14px 18px",boxShadow:"0 2px 8px rgba(179,90,0,.08)",marginTop:10}}>
-                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12,paddingBottom:10,borderBottom:`1px solid ${C.border}33`}}>
-                  <div style={{width:4,height:4,background:C.gold,transform:"rotate(45deg)",flexShrink:0}}/>
-                  <span style={{fontFamily:"'Cinzel',serif",fontSize:9,color:C.gold,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>Análise · {mmLabel(viewMonth)}</span>
+              <div style={{
+                background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+                border:"1px solid #c8a050",
+                borderTop:"2px solid #e8c870",
+                borderBottom:"2px solid #9a7030",
+                borderRadius:12,
+                padding:"14px 18px",
+                boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 14px rgba(100,60,0,.15)",
+                marginTop:10
+              }}>
+                {/* Header dourado */}
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:14,paddingBottom:10,borderBottom:"1px solid #c8a05044"}}>
+                  <div style={{width:6,height:6,background:C.gold,transform:"rotate(45deg)",flexShrink:0,boxShadow:`0 0 6px ${C.gold}88`}}/>
+                  <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("analysis")} · {mmLabel(viewMonth)}</span>
                 </div>
-                <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"repeat(4,1fr)",gap:8}}>
-                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🏆 Melhor Dia</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.green,lineHeight:1.2}}>Dia {bestDay.d}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(bestDay.gp)} gp</div>
+                <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"repeat(4,1fr)",gap:10}}>
+
+                  {/* Melhor Dia */}
+                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
+                    border:"1px solid #c8a05033",
+                    borderTop:"2px solid #1a6a3a44",
+                    boxShadow:"0 2px 6px rgba(26,106,58,.08)"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#1a6a3a",marginBottom:6,fontWeight:600}}>{t("best_day")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:"#1a6a3a",lineHeight:1.1}}>Dia {bestDay.d}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:"#1a6a3a",marginTop:5,fontWeight:500}}>{fmt(bestDay.gp)} gp</div>
                   </div>
-                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📉 Pior Dia</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:worstDay.gp<0?C.red:C.textSub,lineHeight:1.2}}>Dia {worstDay.d}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(worstDay.gp)} gp</div>
+
+                  {/* Pior Dia */}
+                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
+                    border:"1px solid #c8a05033",
+                    borderTop:`2px solid ${worstDay.gp<0?"#cc220044":"#9a703044"}`,
+                    boxShadow:"0 2px 6px rgba(100,60,0,.08)"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:worstDay.gp<0?C.red:C.textSub,marginBottom:6,fontWeight:600}}>{t("worst_day")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:worstDay.gp<0?C.red:"#6b3a10",lineHeight:1.1}}>Dia {worstDay.d}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:worstDay.gp<0?C.red:C.textSub,marginTop:5,fontWeight:500}}>{fmt(worstDay.gp)} gp</div>
                   </div>
-                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>📊 Dias Acima da Média</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.gold,lineHeight:1.2}}>{daysAbove} de {daysOk}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>{fmt(Math.round(avgGP))} gp/dia</div>
+
+                  {/* Dias Acima da Média */}
+                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
+                    border:"1px solid #c8a05033",
+                    borderTop:"2px solid #b35a0044",
+                    boxShadow:"0 2px 6px rgba(179,90,0,.08)"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.gold,marginBottom:6,fontWeight:600}}>{t("above_avg")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:C.gold,lineHeight:1.1}}>{daysAbove} de {daysOk}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,marginTop:5,fontWeight:500}}>{fmt(Math.round(avgGP))} gp/dia</div>
                   </div>
-                  <div style={{background:C.bg2,borderRadius:10,padding:"10px 12px",border:`1px solid ${C.border}22`}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4,letterSpacing:.5}}>🔥 Maior Sequência</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:13,color:C.accent,lineHeight:1.2}}>{streak} {streak===1?"dia":"dias"}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub,marginTop:3}}>seguidos farmando</div>
+
+                  {/* Maior Sequência */}
+                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
+                    border:"1px solid #c8a05033",
+                    borderTop:"2px solid #b35a0044",
+                    boxShadow:"0 2px 6px rgba(179,90,0,.08)"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.accent,marginBottom:6,fontWeight:600}}>{t("streak")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:C.accent,lineHeight:1.1}}>{streak} {streak===1?"dia":"dias"}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,marginTop:5,fontWeight:500}}>{t("days_streak")}</div>
                   </div>
+
                 </div>
               </div>
             );
