@@ -960,9 +960,19 @@ function useCharSearch() {
 }
 
 /* ══ SIDEBAR ESQUERDA: Rashid + Busca de Personagem ═════════════════════════ */
+function getRashidDay() {
+  // Rashid muda às 10h AM horário da Alemanha (Server Save do Tibia)
+  // CET = UTC+1 (inverno), CEST = UTC+2 (verão) — Intl API lida automaticamente
+  const germanyTime = new Date(new Date().toLocaleString("en-US", {timeZone:"Europe/Berlin"}));
+  const hour = germanyTime.getHours();
+  const day  = germanyTime.getDay();
+  // Antes das 10h AM (hora alemã), o Rashid ainda é do dia anterior
+  return hour < 10 ? (day + 6) % 7 : day;
+}
+
 function LeftSidebar({ mob }) {
   const today   = new Date();
-  const dow     = today.getDay();
+  const dow     = getRashidDay();
   const rashid  = RASHID[dow];
   const dias    = t("ds");
   const diasFull= t("df");
@@ -2096,6 +2106,208 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
   );
 }
 
+
+/* ══ WELCOME POPUP ══════════════════════════════════════════════════════════ */
+const SK_POPUP = "tibia_popup_v1";
+
+function WelcomePopup({ onClose }) {
+  const [step, setStep] = useState(0);
+  const [selectedLang, setSelectedLang] = useState(_lang);
+  const total = 4;
+
+  function goStep(n) { setStep(n); }
+  function next() { if(step < total-1) setStep(s=>s+1); else handleClose(); }
+  function prev() { if(step > 0) setStep(s=>s-1); }
+
+  function handleClose() {
+    localStorage.setItem(SK_POPUP, Date.now().toString());
+    onClose();
+  }
+
+  function handleLangSelect(code) {
+    setSelectedLang(code);
+    setGlobalLang(code);
+  }
+
+  const overlay = {
+    position:"fixed",inset:0,background:"rgba(25,12,0,.20)",
+    backdropFilter:"blur(4px)",WebkitBackdropFilter:"blur(4px)",
+    display:"flex",alignItems:"center",justifyContent:"center",
+    zIndex:9000,padding:16,
+  };
+  const popup = {
+    background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+    border:"1px solid #c8a050",
+    borderTop:"3px solid #e8c870",
+    borderBottom:"3px solid #9a7030",
+    borderRadius:14,
+    width:"100%",maxWidth:560,
+    overflow:"hidden",
+    boxShadow:"0 8px 48px rgba(100,60,0,.45),0 1px 0 rgba(255,240,180,.8) inset",
+  };
+
+  const langs = [
+    {code:"pt",flag:"🇧🇷",name:"Português",native:"Brasil"},
+    {code:"en",flag:"🇺🇸",name:"English",native:"United States"},
+    {code:"es",flag:"🇪🇸",name:"Español",native:"España"},
+    {code:"pl",flag:"🇵🇱",name:"Polski",native:"Polska"},
+    {code:"de",flag:"🇩🇪",name:"Deutsch",native:"Deutschland"},
+  ];
+
+  const today = new Date().toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"});
+  const rashid = RASHID[getRashidDay()];
+
+  const tips = [
+    {text:"Use o Djinn Calculator antes de vender seus loots!", detail:"Abra a aba Djinn, selecione os itens farmados e veja o total em Gold que vai receber. Evita surpresas com Alesar e Yaman.", tag:"⚔️ Dica de Farm"},
+    {text:"Faça backup dos seus dados semanalmente!", detail:"Vá em Configurações → Backup e copie o texto gerado. Guarde em lugar seguro para não perder seu histórico de hunts.", tag:"💾 Dica de Segurança"},
+    {text:"Cole sessões de hunt em grupo para dividir automaticamente!", detail:"O site detecta os jogadores na sessão. Cole o copyboard completo e veja os dados de cada membro.", tag:"👥 Dica de Grupo"},
+  ];
+  const tip = tips[new Date().getDate() % tips.length];
+
+  return (
+    <div style={overlay} onClick={handleClose}>
+    <div style={popup} onClick={e=>e.stopPropagation()}>
+
+      {/* HEADER */}
+      <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"18px 20px 15px",borderBottom:"2px solid #8a6020",textAlign:"center",position:"relative"}}>
+        <button onClick={handleClose} style={{position:"absolute",top:12,right:14,background:"rgba(0,0,0,.25)",border:"1px solid rgba(255,255,255,.25)",borderRadius:"50%",width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:15,color:"#fff8e0",fontWeight:700,flexShrink:0}}>✕</button>
+        <div style={{fontSize:40,marginBottom:8,filter:"drop-shadow(0 0 14px rgba(255,220,80,.6)) drop-shadow(0 2px 8px rgba(0,0,0,.4))"}}>⚔️</div>
+        <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:26,color:"#fff8e0",letterSpacing:4,textShadow:"0 0 20px rgba(255,220,80,.5), 0 2px 6px rgba(0,0,0,.5)",marginBottom:6}}>BEM-VINDO</div>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,margin:"0 auto"}}>
+          <div style={{height:1,width:40,background:"linear-gradient(90deg,transparent,rgba(255,240,180,.5))"}}/>
+          <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#fff8e0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 4px rgba(0,0,0,.4)"}}>TIBIA FARM TRACKER</div>
+          <div style={{height:1,width:40,background:"linear-gradient(270deg,transparent,rgba(255,240,180,.5))"}}/>
+        </div>
+        <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"rgba(255,240,180,.6)",marginTop:5,letterSpacing:1}}>v2.1</div>
+      </div>
+
+      {/* TABS */}
+      <div style={{display:"flex",background:"#ede4d0",borderBottom:"1px solid #c8a05033"}}>
+        {[["📖","Tutorial"],["🌍","Idioma"],["ℹ️","Aviso"],["💡","Dica do Dia"]].map(([icon,lbl],i)=>(
+          <div key={i} onClick={()=>goStep(i)}
+            style={{flex:1,padding:"11px 4px 9px",textAlign:"center",cursor:"pointer",
+              borderBottom:`3px solid ${step===i?"#b35a00":"transparent"}`,
+              background:step===i?"rgba(179,90,0,.06)":"transparent",
+              fontFamily:"'Fira Code',monospace",fontSize:10,
+              color:step===i?"#b35a00":"#9a6630",transition:"all .2s"}}>
+            <div style={{fontSize:19,marginBottom:4}}>{icon}</div>
+            {lbl}
+          </div>
+        ))}
+      </div>
+
+      {/* CONTENT */}
+      <div style={{padding:"20px 22px 16px",minHeight:260}}>
+
+        {/* TUTORIAL */}
+        {step===0&&(
+          <div>
+            {[
+              ["1","Cole sua sessão de hunt","No Tibia, abra o painel de análise → Copy to Clipboard. Cole na aba Colar Sessão aqui no site."],
+              ["2","Acompanhe seu progresso","Na aba Tracker veja seu Gold, Tibia Coins e valor em moeda real atualizado automaticamente."],
+              ["3","Defina sua Meta Diária","Na aba Meta Diária defina quantos GP quer farmar por dia e veja o calendário ficando verde! 🟢"],
+            ].map(([num,title,desc])=>(
+              <div key={num} style={{display:"flex",alignItems:"flex-start",gap:13,marginBottom:13,padding:"12px 14px",background:"#fafaf8",borderRadius:10,border:"1px solid #c8a05033",borderLeft:"3px solid #c8a040"}}>
+                <div style={{width:30,height:30,background:"linear-gradient(135deg,#c8a040,#a87830)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#fff8e0",flexShrink:0,boxShadow:"0 2px 6px rgba(0,0,0,.15)"}}>{num}</div>
+                <div>
+                  <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#1a0e00",marginBottom:4}}>{title}</div>
+                  <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#6b3a10",lineHeight:1.6}}>{desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* IDIOMA */}
+        {step===1&&(
+          <div>
+            <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#9a6630",marginBottom:14,letterSpacing:.3}}>Selecione o idioma do site:</div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
+              {langs.map(l=>(
+                <div key={l.code} onClick={()=>handleLangSelect(l.code)}
+                  style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",
+                    background:selectedLang===l.code?"linear-gradient(135deg,#f0e8d4,#ede0c0)":"#fafaf8",
+                    border:selectedLang===l.code?"1.5px solid #c8a050":"1.5px solid #c8a05044",
+                    borderLeft:selectedLang===l.code?"3px solid #c8a040":"1.5px solid #c8a05044",
+                    borderRadius:10,cursor:"pointer",transition:"all .18s",
+                    gridColumn:l.code==="de"?"span 2":"auto"}}>
+                  <span style={{fontSize:28,flexShrink:0}}>{l.flag}</span>
+                  <div style={{flex:1}}>
+                    <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#1a0e00"}}>{l.name}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",marginTop:2}}>{l.native}</div>
+                  </div>
+                  <span style={{fontSize:17,color:"#1a6a3a",opacity:selectedLang===l.code?1:0,transition:"opacity .2s"}}>✓</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* AVISO */}
+        {step===2&&(
+          <div>
+            {[
+              ["blue","#4488cc","💾 Seus dados ficam no seu navegador","Todos os registros são salvos localmente via localStorage. Nenhum dado é enviado para servidores — ficam apenas no seu dispositivo."],
+              ["orange","#cc8800","⚠️ Cuidado ao limpar o navegador","Se limpar os dados do navegador ou usar modo privado, seus registros serão perdidos. Use a função Backup nas Configurações para salvar seus dados."],
+              ["green","#1a6a3a","✅ Projeto independente e gratuito","Tibia Farm Tracker não é afiliado à CipSoft GmbH. Projeto gratuito e open source. 'Tibia' é marca registrada da CipSoft."],
+            ].map(([,color,title,text])=>(
+              <div key={title} style={{background:"#fafaf8",border:"1px solid #c8a05033",borderLeft:`3px solid ${color}`,borderRadius:10,padding:"13px 15px",marginBottom:10}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,fontWeight:700,color:"#1a0e00",marginBottom:5}}>{title}</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#6b3a10",lineHeight:1.6}}>{text}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* DICA DO DIA */}
+        {step===3&&(
+          <div>
+            <div style={{background:"linear-gradient(135deg,#fff8e8,#faf0d8)",border:"1px solid #c8a050",borderRadius:11,padding:"16px 18px",marginBottom:12,position:"relative",overflow:"hidden"}}>
+              <div style={{position:"absolute",right:14,top:12,fontSize:34,opacity:.12}}>💡</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",letterSpacing:1.5,marginBottom:8,textTransform:"uppercase"}}>💡 Dica do dia · {today}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#1a0e00",lineHeight:1.5,marginBottom:8}}>{tip.text}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#6b3a10",lineHeight:1.6}}>{tip.detail}</div>
+              <div style={{display:"inline-block",fontFamily:"'Fira Code',monospace",fontSize:9,color:"#b35a00",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:4,padding:"2px 8px",marginTop:8}}>{tip.tag}</div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
+              <div style={{background:"#fafaf8",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#b35a00",marginBottom:5,fontWeight:700}}>🧙 Rashid hoje</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",lineHeight:1.6}}>Está em <strong>{rashid?.city||"—"}</strong>. Não esqueça de vender seus loots!</div>
+              </div>
+              <div style={{background:"#fafaf8",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#b35a00",marginBottom:5,fontWeight:700}}>🎯 Meta Diária</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",lineHeight:1.6}}>Defina seu objetivo de GP na aba Meta Diária e acompanhe o calendário!</div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* FOOTER */}
+      <div style={{padding:"13px 22px",background:"#f0e8d4",borderTop:"1px solid #c8a05033",display:"flex",alignItems:"center",justifyContent:"space-between",gap:10}}>
+        <div style={{display:"flex",gap:6,alignItems:"center"}}>
+          {[0,1,2,3].map(i=>(
+            <div key={i} onClick={()=>goStep(i)} style={{
+              height:7,borderRadius:99,cursor:"pointer",transition:"all .2s",
+              background:step===i?"#b35a00":"#c8a05055",
+              width:step===i?20:7,
+            }}/>
+          ))}
+        </div>
+        <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#c8a870"}}>aparece 1× por semana</div>
+        <div style={{display:"flex",gap:8}}>
+          {step>0&&<button onClick={prev} style={{background:"none",border:"1px solid #c8a05055",borderRadius:8,padding:"10px 16px",color:"#9a6630",fontFamily:"'Fira Code',monospace",fontSize:11,cursor:"pointer"}}>← Anterior</button>}
+          <button onClick={next} style={{background:"linear-gradient(135deg,#b35a00,#8a4400)",border:"none",borderRadius:8,padding:"10px 22px",color:"#fff",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:1.5,fontWeight:700,cursor:"pointer"}}>
+            {step===total-1?"✅ Entrar no site":"Próximo →"}
+          </button>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  );
+}
+
 /* ══ APP ══════════════════════════════════════════════════════════════════════ */
 function App() {
   const [state,setState] = useState(()=>{
@@ -2111,6 +2323,12 @@ function App() {
   const [parseErr,setErr]=useState("");
   const [tab,setTab]=useState("tracker");
   const [flash,setFlash]=useState(null);
+  const [showPopup,setShowPopup]=useState(()=>{
+    const last = localStorage.getItem("tibia_popup_v1");
+    if(!last) return true;
+    const diff = Date.now() - parseInt(last,10);
+    return diff > 7*24*60*60*1000; // 1 semana
+  });
   const [modal,setModal]=useState(null);
   const w=useW(); const mob=w<600;
   const boostedData = useBoosted();
@@ -2172,6 +2390,7 @@ function App() {
 
   return (
     <div style={{background:C.bg,minHeight:"100vh",color:C.text,position:"relative"}}>
+      {showPopup&&<WelcomePopup onClose={()=>setShowPopup(false)}/>}
       {/* Inferno scanlines */}
       <div style={{position:"fixed",inset:0,backgroundImage:"repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px)",pointerEvents:"none",zIndex:9999}}/>
       {/* Inferno vignette */}
