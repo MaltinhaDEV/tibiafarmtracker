@@ -279,6 +279,14 @@ const TR = {
     status:"Status",
     ds:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
     df:["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
+    
+    t_about:"About",
+    t_about_d:"Sobre o projeto",
+    meta_leg_hit:"✅ Meta atingida",
+    meta_leg_miss:"❌ Abaixo da meta",
+    meta_leg_none:"— Sem registro",
+    meta_goal_title:"🎯 Definir Meta de Farm",
+    days:"dias",
     footer_dev:"Desenvolvido por", footer_open:"Open Source",
   },
   en:{flag:"🇺🇸",name:"English",
@@ -390,6 +398,14 @@ const TR = {
     status:"Status",
     ds:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
     df:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    
+    t_about:"About",
+    t_about_d:"About the project",
+    meta_leg_hit:"✅ Goal reached",
+    meta_leg_miss:"❌ Below goal",
+    meta_leg_none:"— No record",
+    meta_goal_title:"🎯 Set Daily Goal",
+    days:"days",
     footer_dev:"Developed by", footer_open:"Open Source",
   },
   es:{flag:"🇪🇸",name:"Español",
@@ -501,6 +517,14 @@ const TR = {
     world:"Mundo",
     lv:"Nivel",
     status:"Estado",
+    
+    t_about:"About",
+    t_about_d:"Sobre el proyecto",
+    meta_leg_hit:"✅ Meta alcanzada",
+    meta_leg_miss:"❌ Por debajo",
+    meta_leg_none:"— Sin registro",
+    meta_goal_title:"🎯 Definir Meta Diaria",
+    days:"días",
     footer_dev:"Desarrollado por", footer_open:"Código Abierto",
   },
   pl:{flag:"🇵🇱",name:"Polski",
@@ -610,6 +634,15 @@ const TR = {
     voc:"Zawód",
     world:"Świat",
     status:"Status",
+    
+    t_about:"About",
+    t_about_d:"O projekcie",
+    meta_leg_hit:"✅ Cel osiągnięty",
+    meta_leg_miss:"❌ Poniżej celu",
+    meta_leg_none:"— Brak wpisu",
+    meta_goal_title:"🎯 Ustaw Dzienny Cel",
+    days:"dni",
+    cfg_restore:"Przywróć kopię",
     footer_dev:"Stworzone przez", footer_open:"Open Source",
   },
   de:{flag:"🇩🇪",name:"Deutsch",
@@ -719,6 +752,15 @@ const TR = {
     status:"Status",
     ds:["So","Mo","Di","Mi","Do","Fr","Sa"],
     df:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
+    
+    t_about:"About",
+    t_about_d:"Über das Projekt",
+    meta_leg_hit:"✅ Ziel erreicht",
+    meta_leg_miss:"❌ Unter Ziel",
+    meta_leg_none:"— Kein Eintrag",
+    meta_goal_title:"🎯 Tagesziel festlegen",
+    days:"Tage",
+    cfg_restore:"Backup wiederherstellen",
     footer_dev:"Entwickelt von", footer_open:"Open Source",
   },
 };
@@ -982,62 +1024,68 @@ function LeftSidebar({ mob }) {
     <div style={{display:"flex",flexDirection:"column",gap:14,width:320,flexShrink:0}}>
 
       {/* ── RASHID CARD ── */}
+      {/* ══ RASHID CARD PREMIUM ══ */}
       <div style={{
-        background:"linear-gradient(160deg,#ffffff,#faf5ed)",
-        border:"1px solid #d4a85566",
-        borderRadius:18,
+        background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+        border:"1px solid #c8a050",
+        borderTop:"2px solid #e8c870",
+        borderBottom:"2px solid #9a7030",
+        borderRadius:14,
         overflow:"hidden",
-        boxShadow:"0 4px 16px rgba(179,90,0,.12), 0 0 0 1px #d4a85533",
-        animation:"borderGlow 3s ease-in-out infinite",
+        boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 6px 20px rgba(100,60,0,.18)",
         position:"relative",
       }}>
-        {/* Fundo decorativo com padrão */}
-        <div style={{position:"absolute",inset:0,opacity:.04,backgroundImage:"radial-gradient(circle at 20% 80%, #3dd68c 0%, transparent 50%), radial-gradient(circle at 80% 20%, #c8a83c 0%, transparent 50%)",pointerEvents:"none"}}/>
 
-        {/* Header badge */}
-        <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"10px 16px",borderBottom:"2px solid #8a6020",boxShadow:"0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-          <div style={{display:"flex",alignItems:"center",gap:6}}>
-            <div style={{width:6,height:6,borderRadius:"50%",background:"#ffee88",boxShadow:"0 0 4px #ffee88"}}/>
-            <span style={{fontSize:9,color:C.green,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("rashid_today")}</span>
+        {/* Header dourado premium */}
+        <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"11px 16px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.2),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+          <div style={{display:"flex",alignItems:"center",gap:8}}>
+            <div style={{width:7,height:7,borderRadius:"50%",background:"#ffee88",boxShadow:"0 0 6px #ffee88",flexShrink:0}}/>
+            <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:"#fff8e0",letterSpacing:2,textTransform:"uppercase",fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{t("rashid_today")}</span>
           </div>
-          <span style={{fontSize:9,background:C.greenDim,color:C.green,padding:"2px 8px",borderRadius:99,fontWeight:700,border:`1px solid ${C.green}44`}}>{diasFull[dow]}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,background:"rgba(0,0,0,.25)",color:"#fff8e0",padding:"3px 10px",borderRadius:99,border:"1px solid rgba(255,255,255,.2)",letterSpacing:1}}>{diasFull[dow]}</span>
         </div>
 
-        {/* Rashid + Cidade */}
-        <div style={{padding:"16px",display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
-          {/* Sprite com glow */}
+        {/* Sprite + cidade */}
+        <div style={{padding:"20px 16px 14px",display:"flex",flexDirection:"column",alignItems:"center",gap:12,background:"radial-gradient(ellipse at 50% 0%,rgba(200,168,64,.08),transparent 70%)"}}>
+
+          {/* Sprite maior com anel decorativo */}
           <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <div style={{position:"absolute",width:118,height:118,borderRadius:"50%",background:"none"}}/>
-            <RashidSprite size={120}/>
+            <div style={{position:"absolute",width:136,height:136,borderRadius:"50%",border:"1.5px solid #c8a05033",background:"radial-gradient(circle,rgba(200,168,64,.06),transparent 70%)"}}/>
+            <RashidSprite size={128}/>
           </div>
 
-          {/* Nome da cidade */}
+          {/* Nome da cidade grande e nítido */}
           <div style={{textAlign:"center"}}>
-            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:38,color:C.green,lineHeight:1,textShadow:"none"}}>{rashid.city}</div>
-            <div style={{fontSize:11,color:C.textSub,marginTop:4,display:"flex",alignItems:"center",justifyContent:"center",gap:4}}>
-              <span style={{color:C.green,fontSize:12}}>📍</span> {rashid.tip}
+            <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:34,color:C.green,lineHeight:1,letterSpacing:2}}>{rashid.city}</div>
+            <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,marginTop:6,display:"flex",alignItems:"center",justifyContent:"center",gap:5,letterSpacing:.5}}>
+              <span style={{color:C.green,fontSize:14}}>📍</span>
+              <span>{rashid.tip}</span>
             </div>
           </div>
         </div>
 
-        {/* Calendário semanal */}
-        <div style={{padding:"0 14px 16px"}}>
-          <div style={{fontSize:9,color:C.textFaint,letterSpacing:1.2,textTransform:"uppercase",marginBottom:8,textAlign:"center"}}>{t("loc_by_day")}</div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:3}}>
+        {/* Divider dourada */}
+        <div style={{height:1,background:"linear-gradient(90deg,transparent,#c8a05066,transparent)",margin:"0 16px"}}/>
+
+        {/* Calendário semanal premium */}
+        <div style={{padding:"12px 14px 16px"}}>
+          <div style={{fontFamily:"'Cinzel',serif",fontSize:10,color:C.gold,letterSpacing:2,textTransform:"uppercase",marginBottom:10,textAlign:"center",fontWeight:700}}>{t("loc_by_day")}</div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:4}}>
             {RASHID.map((r,i)=>(
               <div key={i} title={`${diasFull[i]}: ${r.city}`}
                 style={{
-                  padding:"6px 2px",
-                  borderRadius:7,
-                  background:i===dow?"linear-gradient(160deg,#1a4a1a,#2a7a2a)":"#f0ece0",
-                  border:`1px solid ${i===dow?C.green+"88":"#d4a85533"}`,
+                  padding:"7px 3px",
+                  borderRadius:8,
+                  background:i===dow?"linear-gradient(180deg,#c8a040,#a87830)":"#fafaf8",
+                  border:`1px solid ${i===dow?"#c8a040":"#d4a85533"}`,
+                  borderTop:i===dow?"2px solid #e8c870":"1px solid #d4a85533",
                   textAlign:"center",
-                  boxShadow:"none",
                   transition:"all .2s",
                   cursor:"default",
+                  boxShadow:i===dow?"0 2px 6px rgba(100,60,0,.2)":"none",
                 }}>
-                <div style={{fontSize:9,color:i===dow?C.green:C.textFaint,fontWeight:700,marginBottom:2}}>{dias[i]}</div>
-                <div style={{fontSize:8,color:i===dow?C.goldLight:"#3a5a3a",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",lineHeight:1.3,fontWeight:i===dow?700:400}}>{r.city.split(" ")[0]}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:10,color:i===dow?"#fff8e0":C.textFaint,fontWeight:700,marginBottom:3,letterSpacing:.5}}>{dias[i]}</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:i===dow?"#fde68a":C.textSub,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",lineHeight:1.3,fontWeight:i===dow?700:400}}>{r.city.split(" ")[0]}</div>
               </div>
             ))}
           </div>
@@ -1056,47 +1104,65 @@ function LeftSidebar({ mob }) {
         const [worldLoad, setWorldLoad]   = useState(false);
         const [hsData, setHsData]         = useState(null);
         const [hsLoad, setHsLoad]         = useState(false);
+        const [hsWorld, setHsWorld]       = useState("Antica");
+        const [hsInput, setHsInput]       = useState("Antica");
         const [guildName, setGuildName]   = useState("");
         const [guildData, setGuildData]   = useState(null);
         const [guildErr, setGuildErr]     = useState("");
         const [guildLoad, setGuildLoad]   = useState(false);
 
         const API = "https://api.tibiadata.com";
-        const cors = u => `https://corsproxy.io/?${encodeURIComponent(u)}`;
+
+        // Proxies em fallback — tenta direto primeiro, depois proxies
+        async function apiFetch(path) {
+          const urls = [
+            `${API}${path}`,
+            `https://corsproxy.io/?${API}${path}`,
+            `https://api.allorigins.win/raw?url=${encodeURIComponent(API+path)}`,
+          ];
+          for(const url of urls) {
+            try {
+              const r = await fetch(url, {headers:{"Accept":"application/json"}});
+              if(!r.ok) continue;
+              const d = await r.json();
+              return d;
+            } catch(e) { continue; }
+          }
+          throw new Error("Todos os proxies falharam");
+        }
 
         function toggle(id) {
           setActive(a => a===id ? null : id);
           if(id==="worlds" && !worldData) loadWorlds();
-          if(id==="hs" && !hsData) loadHighscores();
+          if(id==="hs") { if(!hsData) loadHighscores(); }
         }
 
         async function searchChar() {
           if(!charName.trim()) return;
           setCharLoad(true); setCharErr(""); setCharData(null);
           try {
-            const r = await fetch(cors(`${API}/v4/character/${encodeURIComponent(charName.trim())}`));
-            const d = await r.json();
+            const name = charName.trim();
+            const d = await apiFetch(`/v4/character/${encodeURIComponent(name)}`);
             if(d?.character?.character?.name) setCharData(d.character.character);
             else setCharErr("Personagem não encontrado.");
-          } catch(e) { setCharErr("Erro de conexão."); }
+          } catch(e) { setCharErr("Erro de conexão. Tente novamente."); }
           setCharLoad(false);
         }
 
         async function loadWorlds() {
           setWorldLoad(true);
           try {
-            const r = await fetch(cors(`${API}/v4/worlds`));
-            const d = await r.json();
+            const d = await apiFetch("/v4/worlds");
             setWorldData(d?.worlds?.regular_worlds || []);
           } catch(e) { setWorldData([]); }
           setWorldLoad(false);
         }
 
-        async function loadHighscores() {
-          setHsLoad(true);
+        async function loadHighscores(world) {
+          const w = world || hsWorld;
+          setHsLoad(true); setHsData(null);
           try {
-            const r = await fetch(cors(`${API}/v4/highscores/Antica/experience/all/1`));
-            const d = await r.json();
+            const d = await apiFetch(`/v4/highscores/${encodeURIComponent(w)}/experience/all/1`);
             setHsData(d?.highscores?.highscore_list?.slice(0,15) || []);
           } catch(e) { setHsData([]); }
           setHsLoad(false);
@@ -1106,8 +1172,8 @@ function LeftSidebar({ mob }) {
           if(!guildName.trim()) return;
           setGuildLoad(true); setGuildErr(""); setGuildData(null);
           try {
-            const r = await fetch(cors(`${API}/v4/guild/${encodeURIComponent(guildName.trim())}`));
-            const d = await r.json();
+            const name = guildName.trim();
+            const d = await apiFetch(`/v4/guild/${encodeURIComponent(name)}`);
             if(d?.guild?.name) setGuildData(d.guild);
             else setGuildErr("Guild não encontrada.");
           } catch(e) { setGuildErr("Erro de conexão."); }
@@ -1174,34 +1240,50 @@ function LeftSidebar({ mob }) {
                         </div>
                         {charErr&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.red,marginBottom:4}}>✗ {charErr}</div>}
                         {charData&&(
-                          <div style={{background:C.card,border:`1px solid ${C.border}33`,borderRadius:8,overflow:"hidden"}}>
-                            <div style={{padding:"8px 11px",borderBottom:`1px solid ${C.border}22`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                              <span style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:C.gold}}>{charData.name}</span>
-                              <span style={{fontFamily:"'Fira Code',monospace",fontSize:8,padding:"2px 6px",borderRadius:99,background:charData.status==="online"?"#d4f0e0":C.bg2,color:charData.status==="online"?C.green:C.textFaint,border:`1px solid ${charData.status==="online"?C.green+"44":C.border}`}}>
+                          <div style={{background:C.card,border:`1px solid ${C.border}33`,borderRadius:10,overflow:"hidden"}}>
+                            {/* Header nome + status */}
+                            <div style={{padding:"11px 14px",borderBottom:`1px solid ${C.border}22`,display:"flex",alignItems:"center",justifyContent:"space-between",background:`linear-gradient(90deg,${C.gold}14,transparent)`}}>
+                              <span style={{fontFamily:"'Cinzel',serif",fontSize:16,fontWeight:700,color:C.gold}}>{charData.name}</span>
+                              <span style={{fontFamily:"'Fira Code',monospace",fontSize:11,padding:"3px 9px",borderRadius:99,
+                                background:charData.status==="online"?"#d4f0e0":C.bg2,
+                                color:charData.status==="online"?C.green:C.textFaint,
+                                border:`1px solid ${charData.status==="online"?C.green+"55":C.border}`}}>
                                 {charData.status==="online"?"● Online":"○ Offline"}
                               </span>
                             </div>
-                            <div style={{padding:"6px 11px"}}>
-                              {[["⚔","Nível",charData.level,"#ffcc80"],["◈","Vocação",charData.vocation,"#ff9944"],["◉","Mundo",charData.world,"#f5dfa0"]].map(([ic,lb,val,col])=>(
-                                <div key={lb} style={{display:"flex",justifyContent:"space-between",padding:"3px 0",borderBottom:`1px solid ${C.border}22`}}>
-                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint}}>{ic} {lb}</span>
-                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:col}}>{val||"—"}</span>
+                            {/* Stats */}
+                            <div style={{padding:"8px 14px"}}>
+                              {[
+                                ["⚔","Nível",charData.level,"#ffcc80"],
+                                ["◈","Vocação",charData.vocation,"#ff9944"],
+                                ["◉","Mundo",charData.world,"#f5dfa0"],
+                              ].map(([ic,lb,val,col])=>(
+                                <div key={lb} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"6px 0",borderBottom:`1px solid ${C.border}22`}}>
+                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textFaint,letterSpacing:.3}}>{ic} {lb}</span>
+                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:col}}>{val||"—"}</span>
                                 </div>
                               ))}
                               {charData.guild?.name&&(
-                                <div style={{display:"flex",justifyContent:"space-between",padding:"3px 0"}}>
-                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint}}>⬡ Guild</span>
-                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:"#bb88ff"}}>{charData.guild.name}</span>
+                                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"6px 0"}}>
+                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textFaint}}>⬡ Guild</span>
+                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#bb88ff"}}>{charData.guild?.name}</span>
                                 </div>
                               )}
                             </div>
+                            {/* Link Tibia.com */}
                             <a href={`https://www.tibia.com/community/?subtopic=characters&name=${encodeURIComponent(charData.name)}`} target="_blank" rel="noopener noreferrer"
-                              style={{display:"flex",alignItems:"center",justifyContent:"center",padding:"7px",background:"linear-gradient(90deg,#3a1200,#221000)",borderTop:`1px solid ${C.border}`,color:"#ff9944",textDecoration:"none",fontFamily:"'Cinzel',serif",fontSize:8,letterSpacing:2,fontWeight:700}}>
+                              style={{display:"flex",alignItems:"center",justifyContent:"center",gap:6,padding:"10px",
+                                background:"linear-gradient(90deg,#3a1200,#221000)",borderTop:`1px solid ${C.border}`,
+                                color:"#ff9944",textDecoration:"none",fontFamily:"'Cinzel',serif",fontSize:11,
+                                letterSpacing:2,fontWeight:700}}>
                               ⚔ VER NO TIBIA.COM
                             </a>
                           </div>
                         )}
-                        {!charData&&!charErr&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,textAlign:"center",padding:"8px 0"}}>Digite o nome e pressione Enter</div>}
+                        {!charData&&!charErr&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textFaint,textAlign:"center",padding:"10px 0"}}>
+                          <div style={{fontSize:22,marginBottom:5,opacity:.3}}>⚔</div>
+                          Digite o nome e pressione Enter
+                        </div>}
                       </div>
                     )}
 
@@ -1231,20 +1313,57 @@ function LeftSidebar({ mob }) {
                     {/* HIGHSCORES */}
                     {item.id==="hs"&&(
                       <div>
-                        {hsLoad&&<div style={{textAlign:"center",padding:"12px",fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint}}>Carregando...</div>}
+                        {/* Seletor de servidor */}
+                        <div style={{display:"flex",gap:6,marginBottom:10}}>
+                          <input
+                            value={hsInput}
+                            onChange={e=>setHsInput(e.target.value)}
+                            onKeyDown={e=>{if(e.key==="Enter"){setHsWorld(hsInput);loadHighscores(hsInput);}}}
+                            placeholder="Servidor (ex: Antica)"
+                            style={{...inpS,flex:1,fontSize:12}}
+                          />
+                          <button onClick={()=>{setHsWorld(hsInput);loadHighscores(hsInput);}} disabled={hsLoad}
+                            style={btnS}>{hsLoad?"⏳":"→"}</button>
+                        </div>
+                        {/* Label do mundo atual */}
+                        <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,marginBottom:6,display:"flex",alignItems:"center",gap:4}}>
+                          <span>🌍</span>
+                          <span>Top 15 · <strong style={{color:C.gold}}>{hsWorld}</strong> · Experiência</span>
+                        </div>
+                        {/* Lista */}
+                        {hsLoad&&<div style={{textAlign:"center",padding:"14px",fontFamily:"'Fira Code',monospace",fontSize:11,color:C.textFaint}}>Carregando...</div>}
                         {hsData&&(
-                          <div style={{maxHeight:200,overflowY:"auto"}}>
-                            {hsData.map((p,i)=>(
-                              <div key={p.name} style={{display:"flex",alignItems:"center",gap:7,padding:"5px 2px",borderBottom:`1px solid ${C.border}22`}}>
-                                <span style={{fontFamily:"'Cinzel',serif",fontSize:10,color:i<3?C.gold:C.textFaint,fontWeight:700,width:18,textAlign:"right",flexShrink:0}}>{p.rank}</span>
-                                <span style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:C.text,flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.name}</span>
-                                <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textSub,flexShrink:0}}>Lv {p.level}</span>
+                          <div style={{maxHeight:220,overflowY:"auto"}}>
+                            {hsData.length>0?hsData.map((p,i)=>(
+                              <div key={p.name} style={{display:"flex",alignItems:"center",gap:8,padding:"7px 4px",borderBottom:`1px solid ${C.border}22`}}>
+                                <span style={{
+                                  fontFamily:"'Cinzel',serif",fontSize:12,fontWeight:700,
+                                  color:i===0?"#FFD700":i===1?"#C0C0C0":i===2?"#CD7F32":C.textFaint,
+                                  width:22,textAlign:"right",flexShrink:0
+                                }}>{p.rank}</span>
+                                <span style={{
+                                  fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,
+                                  color:C.text,flex:1,
+                                  overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"
+                                }}>{p.name}</span>
+                                <span style={{
+                                  fontFamily:"'Fira Code',monospace",fontSize:11,
+                                  color:C.textSub,flexShrink:0,fontWeight:500
+                                }}>Lv {p.level}</span>
                               </div>
-                            ))}
-                            {hsData.length===0&&<div style={{textAlign:"center",padding:"12px",fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint}}>Sem dados.</div>}
+                            )):(
+                              <div style={{textAlign:"center",padding:"14px",fontFamily:"'Fira Code',monospace",fontSize:11,color:C.textFaint}}>
+                                Nenhum resultado para <strong>{hsWorld}</strong>
+                              </div>
+                            )}
                           </div>
                         )}
-                        {!hsData&&!hsLoad&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,textAlign:"center",padding:"8px 0"}}>Clique para carregar</div>}
+                        {!hsData&&!hsLoad&&(
+                          <div style={{textAlign:"center",padding:"10px 0",fontFamily:"'Fira Code',monospace",fontSize:11,color:C.textFaint}}>
+                            <div style={{fontSize:18,marginBottom:4,opacity:.3}}>🏆</div>
+                            Digite o servidor e pressione →
+                          </div>
+                        )}
                       </div>
                     )}
 
@@ -2195,7 +2314,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
 
         {/* Legenda */}
         <div style={{display:"flex",gap:16,marginBottom:14,flexWrap:"wrap"}}>
-          {[["#d4f0e0","#1a6a3a","✅ Meta atingida"],["#fde8e8","#cc2200","❌ Abaixo da meta"],["#f5f0e8","#c8a870","— Sem registro"]].map(([bg,col,txt])=>(
+          {[["#d4f0e0","#1a6a3a",t("meta_leg_hit")],["#fde8e8","#cc2200",t("meta_leg_miss")],["#f5f0e8","#c8a870",t("meta_leg_none")]].map(([bg,col,txt])=>(
             <div key={txt} style={{display:"flex",alignItems:"center",gap:6,fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub}}>
               <div style={{width:12,height:12,borderRadius:3,background:bg,border:`1px solid ${col}44`,flexShrink:0}}/>
               {txt}
@@ -2237,12 +2356,12 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
       <div style={cardBase}>
         <div style={secTitle}>
           <div style={gem}/>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>📊 Resumo da Meta</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>{t("meta_summary")}</span>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
           {[
-            {lbl:t("meta_hit_days"),val:`${hitDays} dias`,color:C.green},
-            {lbl:t("meta_miss_days"), val:`${missDays} dias`,color:C.red},
+            {lbl:t("meta_hit_days"),val:`${hitDays} ${t("days")}`,color:C.green},
+            {lbl:t("meta_miss_days"),val:`${missDays} ${t("days")}`,color:C.red},
             {lbl:t("meta_rate"),val:`${successRate}%`,color:C.gold},
           ].map(({lbl,val,color})=>(
             <div key={lbl} style={{background:C.bg2,border:`1px solid ${C.border}22`,borderRadius:10,padding:"12px 14px"}}>
@@ -2458,6 +2577,149 @@ function WelcomePopup({ onClose }) {
   );
 }
 
+
+/* ══ ABOUT ════════════════════════════════════════════════════════════════ */
+function AboutTab({ mob }) {
+  const cardS = {background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:14,overflow:"hidden",boxShadow:"0 2px 12px rgba(100,60,0,.12)",marginBottom:16};
+  const hdrS  = {background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"10px 18px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.15)",display:"flex",alignItems:"center",gap:8};
+  const hdrTxt= {fontFamily:"'Cinzel',serif",fontSize:13,color:"#fff8e0",letterSpacing:2,fontWeight:700,textTransform:"uppercase",textShadow:"0 1px 2px rgba(0,0,0,.5)"};
+  const gem   = {width:6,height:6,background:"#fff8e0",transform:"rotate(45deg)",flexShrink:0,opacity:.7};
+  const bodyS = {padding:"18px 22px"};
+  const txt   = {fontFamily:"'Fira Code',monospace",fontSize:14,color:C.textSub,lineHeight:2};
+  const bold  = {fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:C.gold};
+
+  const features = [
+    ["⚔️","Farm Tracker","Registre suas hunts diárias e acompanhe Gold, TC e valor em moeda real."],
+    ["📅","Histórico","Veja meses anteriores e compare sua evolução ao longo do tempo."],
+    ["🧞","Djinn Calculator","Calcule o valor dos seus loots antes de ir vender com os Djinns."],
+    ["🎯","Meta Diária","Defina uma meta de GP por dia e veja o calendário de conquistas."],
+    ["🧭","Explorer","Busque personagens, mundos, highscores e guildas via TibiaData API."],
+    ["🌍","Multi-idioma","Disponível em PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪"],
+  ];
+
+  return (
+    <div style={{maxWidth:820,margin:"0 auto",padding:mob?"12px":"0 0 20px"}}>
+
+      {/* Logo + intro */}
+      <div style={{...cardS}}>
+        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>📜 Sobre o Projeto</span></div>
+        <div style={{...bodyS,textAlign:"center",padding:"24px 20px"}}>
+          <div style={{width:100,height:80,margin:"0 auto 16px"}}>
+            <svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",height:"100%"}}>
+              <defs>
+                <radialGradient id="aSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#f0c040"/><stop offset="60%" stopColor="#c88a20"/><stop offset="100%" stopColor="#8a5800"/></radialGradient>
+                <radialGradient id="aSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#1a0e00"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
+                <linearGradient id="aSL" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="100%" stopColor="#888"/></linearGradient>
+                <linearGradient id="aGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#c88820"/></linearGradient>
+                <linearGradient id="aBG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#166534"/></linearGradient>
+                <linearGradient id="aBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
+              </defs>
+              <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="url(#aSG)"/>
+              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#fde68a" strokeWidth="1.5" opacity="0.5"/>
+              <path d="M340 100 L470 146 L470 264 Q470 348 340 400 Q210 348 210 264 L210 146 Z" fill="url(#aSI)"/>
+              <line x1="210" y1="226" x2="470" y2="226" stroke="#c88820" strokeWidth="1.2" opacity="0.35"/>
+              <line x1="340" y1="100" x2="340" y2="400" stroke="#c88820" strokeWidth="1.2" opacity="0.35"/>
+              <rect x="255" y="333" width="26" height="42" rx="3" fill="url(#aBG)" opacity="0.85"/>
+              <rect x="291" y="308" width="26" height="67" rx="3" fill="url(#aBG)" opacity="0.85"/>
+              <rect x="327" y="278" width="26" height="97" rx="3" fill="url(#aBO)" opacity="0.95"/>
+              <rect x="363" y="293" width="26" height="82" rx="3" fill="url(#aBG)" opacity="0.85"/>
+              <rect x="399" y="316" width="26" height="59" rx="3" fill="url(#aBG)" opacity="0.85"/>
+              <polyline points="268,330 304,304 340,274 376,289 412,312" fill="none" stroke="#fde68a" strokeWidth="2.2" strokeLinecap="round"/>
+              <circle cx="340" cy="274" r="5" fill="#fde68a"/>
+              <g transform="rotate(-38, 300, 220)">
+                <rect x="293" y="96" width="12" height="168" rx="3" fill="url(#aSL)"/>
+                <rect x="295" y="98" width="3" height="164" rx="1" fill="white" opacity="0.3"/>
+                <polygon points="299,96 293,96 296,78" fill="#e0e0e0"/>
+                <rect x="272" y="258" width="54" height="11" rx="5" fill="url(#aGG)"/>
+                <rect x="292" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <ellipse cx="299" cy="318" rx="9" ry="7" fill="url(#aGG)"/>
+              </g>
+              <g transform="rotate(38, 380, 220)">
+                <rect x="375" y="96" width="12" height="168" rx="3" fill="url(#aSL)"/>
+                <rect x="377" y="98" width="3" height="164" rx="1" fill="white" opacity="0.3"/>
+                <polygon points="381,96 375,96 378,78" fill="#e0e0e0"/>
+                <rect x="354" y="258" width="54" height="11" rx="5" fill="url(#aGG)"/>
+                <rect x="374" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <ellipse cx="381" cy="318" rx="9" ry="7" fill="url(#aGG)"/>
+              </g>
+            </svg>
+          </div>
+          <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:mob?16:20,color:C.gold,letterSpacing:3,marginBottom:8}}>TIBIA FARM TRACKER</div>
+          <div style={txt}>Ferramenta gratuita para jogadores de Tibia acompanharem sua produtividade de farm diário, analisarem ganhos em Gold, Tibia Coins e valor em moeda real.</div>
+        </div>
+      </div>
+
+      {/* Funcionalidades */}
+      <div style={cardS}>
+        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>⚡ Funcionalidades</span></div>
+        <div style={{...bodyS,display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
+          {features.map(([icon,name,desc])=>(
+            <div key={name} style={{background:"#fafaf8",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:8,padding:"10px 13px"}}>
+              <div style={{...bold,fontSize:14,marginBottom:6}}>{icon} {name}</div>
+              <div style={{...txt,fontSize:13}}>{desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Info técnica + aviso */}
+      <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
+        <div style={cardS}>
+          <div style={hdrS}><div style={gem}/><span style={hdrTxt}>💾 Dados & Privacidade</span></div>
+          <div style={bodyS}>
+            <div style={txt}>Todos os seus dados são salvos <strong>localmente</strong> no seu navegador via <code style={{background:"#f0e8d4",padding:"1px 5px",borderRadius:3,fontSize:11}}>localStorage</code>. Nenhuma informação é enviada a servidores externos.</div>
+            <div style={{...txt,marginTop:10,padding:"8px 12px",background:"#fef9ee",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:6}}>Use a função <strong>Backup</strong> nas Configurações para exportar seus dados.</div>
+          </div>
+        </div>
+        <div style={cardS}>
+          <div style={hdrS}><div style={gem}/><span style={hdrTxt}>⚠️ Aviso Legal</span></div>
+          <div style={bodyS}>
+            <div style={txt}>Tibia Farm Tracker é um projeto <strong>independente e não oficial</strong>. Não é afiliado, patrocinado ou endossado pela CipSoft GmbH.</div>
+            <div style={{...txt,marginTop:10}}><strong style={{color:C.gold}}>"Tibia"</strong> é marca registrada da CipSoft GmbH. Os dados de jogo são obtidos via <a href="https://tibiadata.com" target="_blank" rel="noopener noreferrer" style={{color:C.gold}}>TibiaData API</a>.</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contato */}
+      <div style={cardS}>
+        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>📬 Contato</span></div>
+        <div style={bodyS}>
+          <div style={txt}>Encontrou algum bug? Tem uma sugestão? Quer colaborar com o projeto? Entre em contato!</div>
+          <div style={{marginTop:16,display:"flex",alignItems:"center",gap:14,padding:"14px 18px",background:"#fafaf8",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:10}}>
+            <div style={{fontSize:28,flexShrink:0}}>✉️</div>
+            <div>
+              <div style={{...bold,fontSize:13,marginBottom:4}}>E-mail</div>
+              <a href="mailto:maltatibia123@gmail.com"
+                style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:C.gold,textDecoration:"none",fontWeight:600,letterSpacing:.3}}>
+                maltatibia123@gmail.com
+              </a>
+              <div style={{...txt,fontSize:12,marginTop:4,opacity:.8}}>Respondemos o mais rápido possível!</div>
+            </div>
+          </div>
+          <div style={{...txt,marginTop:12,fontSize:13,opacity:.8}}>💬 Toda sugestão é bem-vinda — seja para novas funcionalidades, idiomas ou melhorias no design!</div>
+        </div>
+      </div>
+
+      {/* Versão + créditos */}
+      <div style={{...cardS,marginBottom:0}}>
+        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>🔱 Versão & Créditos</span></div>
+        <div style={{...bodyS,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
+          <div>
+            <div style={{...bold,marginBottom:6}}>v2.1 · Maio 2026</div>
+            <div style={txt}>Desenvolvido com ❤️ para a comunidade Tibia.</div>
+          </div>
+          <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+            <a href="https://tibiadata.com" target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,padding:"8px 16px",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:8,color:C.gold,textDecoration:"none",fontFamily:"'Fira Code',monospace",fontSize:12,fontWeight:600}}>🌐 TibiaData</a>
+            <a href="https://www.tibia.com" target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,padding:"8px 16px",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:8,color:C.gold,textDecoration:"none",fontFamily:"'Fira Code',monospace",fontSize:12,fontWeight:600}}>⚔️ Tibia.com</a>
+            <a href="mailto:maltatibia123@gmail.com" style={{display:"flex",alignItems:"center",gap:6,padding:"8px 16px",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:8,color:C.gold,textDecoration:"none",fontFamily:"'Fira Code',monospace",fontSize:12,fontWeight:600}}>📬 Contato</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
 /* ══ APP ══════════════════════════════════════════════════════════════════════ */
 function App() {
   const [state,setState] = useState(()=>{
@@ -2571,7 +2833,53 @@ function App() {
 
         {/* Ícone + Título */}
         <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:mob?6:10}}>
-          <div style={{fontSize:mob?32:44,lineHeight:1,filter:"drop-shadow(0 0 20px #e8c96a) drop-shadow(0 0 40px #c8a83c66)"}}>⚔️</div>
+          <div style={{width:mob?80:110,height:mob?60:80,marginBottom:mob?2:4}}>
+            <svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",height:"100%"}}>
+              <defs>
+                <radialGradient id="hSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#f0c040"/><stop offset="60%" stopColor="#c88a20"/><stop offset="100%" stopColor="#8a5800"/></radialGradient>
+                <radialGradient id="hSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#1a0e00"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
+                <linearGradient id="hSL" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
+                <linearGradient id="hSR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
+                <linearGradient id="hGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#c88820"/></linearGradient>
+                <linearGradient id="hBG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#166534"/></linearGradient>
+                <linearGradient id="hBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
+              </defs>
+              <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="#1a0800" opacity="0.4" transform="translate(7,9)"/>
+              <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="url(#hSG)"/>
+              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#fde68a" strokeWidth="1.8" opacity="0.55"/>
+              <path d="M340 100 L470 146 L470 264 Q470 348 340 400 Q210 348 210 264 L210 146 Z" fill="url(#hSI)"/>
+              <line x1="210" y1="226" x2="470" y2="226" stroke="#c88820" strokeWidth="1.5" opacity="0.35"/>
+              <line x1="340" y1="100" x2="340" y2="400" stroke="#c88820" strokeWidth="1.5" opacity="0.35"/>
+              <rect x="246" y="333" width="26" height="42" rx="3" fill="url(#hBG)" opacity="0.85"/>
+              <rect x="282" y="308" width="26" height="67" rx="3" fill="url(#hBG)" opacity="0.85"/>
+              <rect x="318" y="278" width="26" height="97" rx="3" fill="url(#hBO)" opacity="0.95"/>
+              <rect x="354" y="293" width="26" height="82" rx="3" fill="url(#hBG)" opacity="0.85"/>
+              <rect x="390" y="316" width="26" height="59" rx="3" fill="url(#hBG)" opacity="0.85"/>
+              <line x1="243" y1="375" x2="420" y2="375" stroke="#c88820" strokeWidth="1.2" opacity="0.5"/>
+              <polyline points="259,330 295,304 331,274 367,289 403,312" fill="none" stroke="#fde68a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="331" cy="274" r="5" fill="#fde68a"/>
+              <g transform="rotate(-38, 300, 220)">
+                <rect x="293" y="96" width="12" height="168" rx="3" fill="url(#hSL)"/>
+                <rect x="295" y="98" width="3.5" height="164" rx="1" fill="white" opacity="0.3"/>
+                <polygon points="299,96 293,96 296,78" fill="#e0e0e0"/>
+                <rect x="272" y="258" width="54" height="11" rx="5" fill="url(#hGG)"/>
+                <circle cx="272" cy="263" r="5" fill="#fde68a"/>
+                <circle cx="326" cy="263" r="5" fill="#fde68a"/>
+                <rect x="292" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <ellipse cx="299" cy="318" rx="10" ry="8" fill="url(#hGG)"/>
+              </g>
+              <g transform="rotate(38, 380, 220)">
+                <rect x="375" y="96" width="12" height="168" rx="3" fill="url(#hSR)"/>
+                <rect x="377" y="98" width="3.5" height="164" rx="1" fill="white" opacity="0.3"/>
+                <polygon points="381,96 375,96 378,78" fill="#e0e0e0"/>
+                <rect x="354" y="258" width="54" height="11" rx="5" fill="url(#hGG)"/>
+                <circle cx="354" cy="263" r="5" fill="#fde68a"/>
+                <circle cx="408" cy="263" r="5" fill="#fde68a"/>
+                <rect x="374" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <ellipse cx="381" cy="318" rx="10" ry="8" fill="url(#hGG)"/>
+              </g>
+            </svg>
+          </div>
           <h1 className="hero-title" style={{fontSize:mob?26:42,letterSpacing:mob?3:6,lineHeight:1,margin:0}}>
             TIBIA FARM TRACKER
           </h1>
@@ -2607,7 +2915,8 @@ function App() {
             {id:"djinn",   icon:"🧞",  label:"Djinn", desc:"Venda de itens",   color:"#3dd68c"},
             {id:"paste",   icon:"📋",  label:"Colar Sessão", desc:"Importar hunt",   color:"#f0a030"},
             {id:"meta",    icon:"🎯",  label:t("meta_tab_lbl"), desc:t("meta_tab_desc"), color:"#e84040"},
-            {id:"config",  icon:"⚙️",  label:"Configurações", desc:"Ajustes do app",  color:"#9b6dff"},
+            {id:"config",  icon:"⚙️",  label:t("t_config"),   desc:t("t_config_d"),   color:"#9b6dff"},
+            {id:"about",   icon:"📜",  label:t("t_about"),    desc:t("t_about_d"),     color:"#c8a030"},
           ].map(({id,icon,label,desc,color})=>{
             const active = tab===id;
             return (
@@ -2874,6 +3183,8 @@ function App() {
         )}
 
         {/* ══ CONFIG ══ */}
+        {tab==="about"&&<AboutTab mob={mob}/>}
+
         {tab==="config"&&(
           <div>
             <CurrencyConfig state={state} setState={setState}/>
