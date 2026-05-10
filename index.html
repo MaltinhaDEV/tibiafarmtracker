@@ -1045,95 +1045,245 @@ function LeftSidebar({ mob }) {
       </div>
 
 
-            {/* ══ EXPLORER ══ */}
-      <div style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",marginTop:4,boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 12px rgba(100,60,0,.15)"}}>
+            {/* ══ EXPLORER — TibiaData API ══ */}
+      {(()=>{
+        const [active, setActive]         = useState(null);
+        const [charName, setCharName]     = useState("");
+        const [charData, setCharData]     = useState(null);
+        const [charErr, setCharErr]       = useState("");
+        const [charLoad, setCharLoad]     = useState(false);
+        const [worldData, setWorldData]   = useState(null);
+        const [worldLoad, setWorldLoad]   = useState(false);
+        const [hsData, setHsData]         = useState(null);
+        const [hsLoad, setHsLoad]         = useState(false);
+        const [guildName, setGuildName]   = useState("");
+        const [guildData, setGuildData]   = useState(null);
+        const [guildErr, setGuildErr]     = useState("");
+        const [guildLoad, setGuildLoad]   = useState(false);
 
-        {/* Header — golden igual Rashid */}
-        <div style={{
-          background:"linear-gradient(180deg,#c8a040,#a87830)",
-          padding:"10px 14px",
-          borderBottom:"2px solid #8a6020",
-          boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",
-          display:"flex",alignItems:"center",justifyContent:"space-between"
-        }}>
-          <div style={{display:"flex",alignItems:"center",gap:8}}>
-            <span style={{fontSize:18,filter:"drop-shadow(0 0 4px rgba(255,200,50,.8))"}}>🧭</span>
-            <div>
-              <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:12,color:"#fff8e0",
-                letterSpacing:2,fontWeight:700,textTransform:"uppercase",lineHeight:1,
-                textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>Explorer</div>
-              <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,
-                color:"rgba(255,240,180,.8)",letterSpacing:1.5,marginTop:3}}>Tibia.com · Community</div>
+        const API = "https://api.tibiadata.com";
+        const cors = u => `https://corsproxy.io/?${encodeURIComponent(u)}`;
+
+        function toggle(id) {
+          setActive(a => a===id ? null : id);
+          if(id==="worlds" && !worldData) loadWorlds();
+          if(id==="hs" && !hsData) loadHighscores();
+        }
+
+        async function searchChar() {
+          if(!charName.trim()) return;
+          setCharLoad(true); setCharErr(""); setCharData(null);
+          try {
+            const r = await fetch(cors(`${API}/v4/character/${encodeURIComponent(charName.trim())}`));
+            const d = await r.json();
+            if(d?.character?.character?.name) setCharData(d.character.character);
+            else setCharErr("Personagem não encontrado.");
+          } catch(e) { setCharErr("Erro de conexão."); }
+          setCharLoad(false);
+        }
+
+        async function loadWorlds() {
+          setWorldLoad(true);
+          try {
+            const r = await fetch(cors(`${API}/v4/worlds`));
+            const d = await r.json();
+            setWorldData(d?.worlds?.regular_worlds || []);
+          } catch(e) { setWorldData([]); }
+          setWorldLoad(false);
+        }
+
+        async function loadHighscores() {
+          setHsLoad(true);
+          try {
+            const r = await fetch(cors(`${API}/v4/highscores/Antica/experience/all/1`));
+            const d = await r.json();
+            setHsData(d?.highscores?.highscore_list?.slice(0,15) || []);
+          } catch(e) { setHsData([]); }
+          setHsLoad(false);
+        }
+
+        async function searchGuild() {
+          if(!guildName.trim()) return;
+          setGuildLoad(true); setGuildErr(""); setGuildData(null);
+          try {
+            const r = await fetch(cors(`${API}/v4/guild/${encodeURIComponent(guildName.trim())}`));
+            const d = await r.json();
+            if(d?.guild?.name) setGuildData(d.guild);
+            else setGuildErr("Guild não encontrada.");
+          } catch(e) { setGuildErr("Erro de conexão."); }
+          setGuildLoad(false);
+        }
+
+        const inpS = {width:"100%",background:C.bg2,border:`1px solid ${C.border}`,borderRadius:7,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Fira Code',monospace"};
+        const btnS = {background:"linear-gradient(135deg,#c8a040,#a87830)",border:"none",borderRadius:7,padding:"8px 11px",color:"#fff8e0",fontFamily:"'Cinzel',serif",fontSize:9,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0};
+
+        const items = [
+          {id:"chars",  icon:"⚔️", label:"Characters", desc:"Buscar personagens",  color:"#ff9944"},
+          {id:"worlds", icon:"🌍", label:"Worlds",      desc:"Servidores online",   color:"#4ab8ff"},
+          {id:"hs",     icon:"🏆", label:"Highscores",  desc:"Top 15 · Antica",    color:"#ffcc44"},
+          {id:"guilds", icon:"🏰", label:"Guilds",      desc:"Buscar guildas",      color:"#bb88ff"},
+        ];
+
+        return (
+          <div style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",marginTop:4,boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 12px rgba(100,60,0,.15)"}}>
+
+            {/* Header dourado */}
+            <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"9px 13px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+              <div style={{display:"flex",alignItems:"center",gap:7}}>
+                <span style={{fontSize:16}}>🧭</span>
+                <div>
+                  <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:11,color:"#fff8e0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>Explorer</div>
+                  <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"rgba(255,240,180,.7)",marginTop:2}}>Tibia.com · Community</div>
+                </div>
+              </div>
+              <div style={{width:5,height:5,background:"#fff8e0",transform:"rotate(45deg)",opacity:.6}}/>
             </div>
+
+            {/* Items list */}
+            {items.map((item, idx) => (
+              <div key={item.id}>
+                {/* Row */}
+                <div onClick={()=>toggle(item.id)}
+                  style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",
+                    borderBottom:`1px solid ${C.border}33`,
+                    cursor:"pointer",transition:"background .15s",
+                    background:active===item.id?`${item.color}0a`:"transparent"}}
+                  onMouseEnter={e=>e.currentTarget.style.background=`${item.color}0d`}
+                  onMouseLeave={e=>e.currentTarget.style.background=active===item.id?`${item.color}0a`:"transparent"}>
+                  {/* Ícone com fundo colorido */}
+                  <div style={{width:36,height:36,borderRadius:8,flexShrink:0,background:`${item.color}15`,border:`1px solid ${item.color}33`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>
+                    {item.icon}
+                  </div>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:C.text,letterSpacing:.5}}>{item.label}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,marginTop:2}}>{item.desc}</div>
+                  </div>
+                  <span style={{fontSize:14,color:active===item.id?item.color:C.textFaint,fontWeight:700,fontFamily:"'Cinzel',serif",transition:"all .2s",transform:active===item.id?"rotate(90deg)":"rotate(0deg)"}}>›</span>
+                </div>
+
+                {/* Expandable panel */}
+                {active===item.id&&(
+                  <div style={{background:C.bg2,borderBottom:`1px solid ${C.border}33`,padding:"10px 13px"}}>
+
+                    {/* CHARACTERS */}
+                    {item.id==="chars"&&(
+                      <div>
+                        <div style={{display:"flex",gap:6,marginBottom:8}}>
+                          <input value={charName} onChange={e=>setCharName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&searchChar()} placeholder="Nome do personagem..." style={inpS}/>
+                          <button onClick={searchChar} disabled={charLoad} style={btnS}>{charLoad?"⏳":"→"}</button>
+                        </div>
+                        {charErr&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.red,marginBottom:4}}>✗ {charErr}</div>}
+                        {charData&&(
+                          <div style={{background:C.card,border:`1px solid ${C.border}33`,borderRadius:8,overflow:"hidden"}}>
+                            <div style={{padding:"8px 11px",borderBottom:`1px solid ${C.border}22`,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                              <span style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:C.gold}}>{charData.name}</span>
+                              <span style={{fontFamily:"'Fira Code',monospace",fontSize:8,padding:"2px 6px",borderRadius:99,background:charData.status==="online"?"#d4f0e0":C.bg2,color:charData.status==="online"?C.green:C.textFaint,border:`1px solid ${charData.status==="online"?C.green+"44":C.border}`}}>
+                                {charData.status==="online"?"● Online":"○ Offline"}
+                              </span>
+                            </div>
+                            <div style={{padding:"6px 11px"}}>
+                              {[["⚔","Nível",charData.level,"#ffcc80"],["◈","Vocação",charData.vocation,"#ff9944"],["◉","Mundo",charData.world,"#f5dfa0"]].map(([ic,lb,val,col])=>(
+                                <div key={lb} style={{display:"flex",justifyContent:"space-between",padding:"3px 0",borderBottom:`1px solid ${C.border}22`}}>
+                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint}}>{ic} {lb}</span>
+                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:col}}>{val||"—"}</span>
+                                </div>
+                              ))}
+                              {charData.guild?.name&&(
+                                <div style={{display:"flex",justifyContent:"space-between",padding:"3px 0"}}>
+                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint}}>⬡ Guild</span>
+                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:"#bb88ff"}}>{charData.guild.name}</span>
+                                </div>
+                              )}
+                            </div>
+                            <a href={`https://www.tibia.com/community/?subtopic=characters&name=${encodeURIComponent(charData.name)}`} target="_blank" rel="noopener noreferrer"
+                              style={{display:"flex",alignItems:"center",justifyContent:"center",padding:"7px",background:"linear-gradient(90deg,#3a1200,#221000)",borderTop:`1px solid ${C.border}`,color:"#ff9944",textDecoration:"none",fontFamily:"'Cinzel',serif",fontSize:8,letterSpacing:2,fontWeight:700}}>
+                              ⚔ VER NO TIBIA.COM
+                            </a>
+                          </div>
+                        )}
+                        {!charData&&!charErr&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,textAlign:"center",padding:"8px 0"}}>Digite o nome e pressione Enter</div>}
+                      </div>
+                    )}
+
+                    {/* WORLDS */}
+                    {item.id==="worlds"&&(
+                      <div>
+                        {worldLoad&&<div style={{textAlign:"center",padding:"12px",fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint}}>Carregando mundos...</div>}
+                        {worldData&&(
+                          <div style={{maxHeight:180,overflowY:"auto"}}>
+                            {worldData.map(w=>(
+                              <div key={w.name} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"5px 2px",borderBottom:`1px solid ${C.border}22`}}>
+                                <div>
+                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,color:C.text}}>{w.name}</span>
+                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginLeft:5}}>{w.location}</span>
+                                </div>
+                                <div style={{display:"flex",alignItems:"center",gap:4}}>
+                                  <span style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.green,fontWeight:600}}>{w.players_online??"-"}</span>
+                                  {w.battleye&&<span style={{fontSize:7,padding:"1px 3px",borderRadius:2,background:"#d4f0e0",color:C.green,fontFamily:"'Fira Code',monospace"}}>BE</span>}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* HIGHSCORES */}
+                    {item.id==="hs"&&(
+                      <div>
+                        {hsLoad&&<div style={{textAlign:"center",padding:"12px",fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint}}>Carregando...</div>}
+                        {hsData&&(
+                          <div style={{maxHeight:200,overflowY:"auto"}}>
+                            {hsData.map((p,i)=>(
+                              <div key={p.name} style={{display:"flex",alignItems:"center",gap:7,padding:"5px 2px",borderBottom:`1px solid ${C.border}22`}}>
+                                <span style={{fontFamily:"'Cinzel',serif",fontSize:10,color:i<3?C.gold:C.textFaint,fontWeight:700,width:18,textAlign:"right",flexShrink:0}}>{p.rank}</span>
+                                <span style={{fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:700,color:C.text,flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.name}</span>
+                                <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textSub,flexShrink:0}}>Lv {p.level}</span>
+                              </div>
+                            ))}
+                            {hsData.length===0&&<div style={{textAlign:"center",padding:"12px",fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint}}>Sem dados.</div>}
+                          </div>
+                        )}
+                        {!hsData&&!hsLoad&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,textAlign:"center",padding:"8px 0"}}>Clique para carregar</div>}
+                      </div>
+                    )}
+
+                    {/* GUILDS */}
+                    {item.id==="guilds"&&(
+                      <div>
+                        <div style={{display:"flex",gap:6,marginBottom:8}}>
+                          <input value={guildName} onChange={e=>setGuildName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&searchGuild()} placeholder="Nome da guild..." style={inpS}/>
+                          <button onClick={searchGuild} disabled={guildLoad} style={btnS}>{guildLoad?"⏳":"→"}</button>
+                        </div>
+                        {guildErr&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.red,marginBottom:4}}>✗ {guildErr}</div>}
+                        {guildData&&(
+                          <div style={{background:C.card,border:`1px solid ${C.border}33`,borderRadius:8,padding:"10px 11px"}}>
+                            <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:C.gold,marginBottom:4}}>{guildData.name}</div>
+                            <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,marginBottom:4}}>🌍 {guildData.world}</div>
+                            {guildData.description&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textSub,marginBottom:5,lineHeight:1.5,maxHeight:40,overflow:"hidden"}}>{guildData.description}</div>}
+                            <div style={{display:"flex",gap:10}}>
+                              <span style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint}}>👥 <span style={{color:C.text,fontWeight:700}}>{guildData.members_total||"—"}</span></span>
+                              <span style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint}}>🟢 <span style={{color:C.green,fontWeight:700}}>{guildData.members_online||0}</span> online</span>
+                            </div>
+                          </div>
+                        )}
+                        {!guildData&&!guildErr&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,textAlign:"center",padding:"8px 0"}}>Digite o nome e pressione Enter</div>}
+                      </div>
+                    )}
+
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Footer */}
+            <div style={{padding:"7px 14px",display:"flex",alignItems:"center",justifyContent:"center",gap:6,background:C.bg2}}>
+              <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,letterSpacing:1}}>🔱 Abre no Tibia.com ↗</span>
+            </div>
+
           </div>
-          <div style={{width:5,height:5,background:"#fff8e0",transform:"rotate(45deg)",opacity:.6}}/>
-        </div>
-
-        {/* Items */}
-        {[
-          {icon:"⚔️", label:"Characters", desc:"Buscar personagens", href:"https://www.tibia.com/community/?subtopic=characters", color:"#ff9944"},
-          {icon:"🌍", label:"Worlds",      desc:"Servidores online",  href:"https://www.tibia.com/community/?subtopic=worlds",     color:"#4ab8ff"},
-          {icon:"🏆", label:"Highscores",  desc:"Rankings globais",   href:"https://www.tibia.com/community/?subtopic=highscores", color:"#ffcc44"},
-          {icon:"🏰", label:"Guilds",      desc:"Buscar guildas",     href:"https://www.tibia.com/community/?subtopic=guilds",     color:"#bb88ff"},
-        ].map((item,i,arr)=>(
-          <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-            style={{
-              display:"flex",alignItems:"center",gap:12,
-              padding:"11px 16px",
-              borderBottom:i<arr.length-1?`1px solid ${C.border}33`:"none",
-              textDecoration:"none",
-              background:"transparent",
-              transition:"all .18s",
-              cursor:"pointer",
-            }}
-            onMouseEnter={e=>{
-              e.currentTarget.style.background=`${item.color}0f`;
-              e.currentTarget.style.paddingLeft="20px";
-              e.currentTarget.querySelector(".exp-arrow").style.color=item.color;
-              e.currentTarget.querySelector(".exp-arrow").style.transform="translateX(3px)";
-            }}
-            onMouseLeave={e=>{
-              e.currentTarget.style.background="transparent";
-              e.currentTarget.style.paddingLeft="16px";
-              e.currentTarget.querySelector(".exp-arrow").style.color=C.textFaint;
-              e.currentTarget.querySelector(".exp-arrow").style.transform="translateX(0)";
-            }}>
-            {/* Ícone com bg colorido */}
-            <div style={{
-              width:38,height:38,borderRadius:8,flexShrink:0,
-              background:`${item.color}15`,
-              border:`1px solid ${item.color}33`,
-              display:"flex",alignItems:"center",justifyContent:"center",
-              fontSize:16,
-            }}>{item.icon}</div>
-            {/* Texto */}
-            <div style={{flex:1,minWidth:0}}>
-              <div style={{
-                fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,
-                color:C.text,letterSpacing:1,lineHeight:1,
-                textShadow:"0 0 8px rgba(255,200,100,.1)"
-              }}>{item.label}</div>
-              <div style={{
-                fontFamily:"'Fira Code',monospace",
-                fontSize:10,color:C.textSub,marginTop:4,letterSpacing:.3
-              }}>{item.desc}</div>
-            </div>
-            {/* Seta animada */}
-            <span className="exp-arrow" style={{fontSize:18,color:C.textFaint,fontWeight:700,transition:"all .18s",fontFamily:"'Cinzel',serif"}}>›</span>
-          </a>
-        ))}
-
-        {/* Footer */}
-        <div style={{padding:"9px 16px",borderTop:`1px solid ${C.gold}22`,background:`linear-gradient(90deg,${C.gold}0a,${C.bg2},${C.gold}0a)`,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-          <div style={{height:1,flex:1,background:`linear-gradient(90deg,transparent,${C.gold}33)`}}/>
-          <span style={{fontSize:13,filter:`drop-shadow(0 0 6px ${C.gold})`,animation:"starPulse 3s ease-in-out infinite"}}>🔱</span>
-          <span style={{
-            fontFamily:"'Fira Code',monospace",fontSize:10,
-            color:C.textSub,letterSpacing:2,
-          }}>Abre no Tibia.com ↗</span>
-          <div style={{height:1,flex:1,background:`linear-gradient(270deg,transparent,${C.gold}33)`}}/>
-        </div>
-      </div>
+        );
+      })()}
     </div>
   );
 }
@@ -2170,7 +2320,7 @@ function WelcomePopup({ onClose }) {
 
       {/* HEADER */}
       <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"18px 20px 15px",borderBottom:"2px solid #8a6020",textAlign:"center",position:"relative"}}>
-        <button onClick={handleClose} style={{position:"absolute",top:12,right:14,background:"rgba(0,0,0,.25)",border:"1px solid rgba(255,255,255,.25)",borderRadius:"50%",width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:15,color:"#fff8e0",fontWeight:700,flexShrink:0}}>✕</button>
+        <button onClick={e=>{e.stopPropagation();handleClose();}} style={{position:"absolute",top:12,right:14,background:"rgba(0,0,0,.25)",border:"1px solid rgba(255,255,255,.25)",borderRadius:"50%",width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:15,color:"#fff8e0",fontWeight:700,flexShrink:0,zIndex:10}}>✕</button>
         <div style={{fontSize:40,marginBottom:8,filter:"drop-shadow(0 0 14px rgba(255,220,80,.6)) drop-shadow(0 2px 8px rgba(0,0,0,.4))"}}>⚔️</div>
         <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:26,color:"#fff8e0",letterSpacing:4,textShadow:"0 0 20px rgba(255,220,80,.5), 0 2px 6px rgba(0,0,0,.5)",marginBottom:6}}>BEM-VINDO</div>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,margin:"0 auto"}}>
@@ -2294,7 +2444,7 @@ function WelcomePopup({ onClose }) {
             }}/>
           ))}
         </div>
-        <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#c8a870"}}>aparece 1× por semana</div>
+        <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#c8a870"}}>aparece 1× por dia</div>
         <div style={{display:"flex",gap:8}}>
           {step>0&&<button onClick={prev} style={{background:"none",border:"1px solid #c8a05055",borderRadius:8,padding:"10px 16px",color:"#9a6630",fontFamily:"'Fira Code',monospace",fontSize:11,cursor:"pointer"}}>← Anterior</button>}
           <button onClick={next} style={{background:"linear-gradient(135deg,#b35a00,#8a4400)",border:"none",borderRadius:8,padding:"10px 22px",color:"#fff",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:1.5,fontWeight:700,cursor:"pointer"}}>
@@ -2326,8 +2476,10 @@ function App() {
   const [showPopup,setShowPopup]=useState(()=>{
     const last = localStorage.getItem("tibia_popup_v1");
     if(!last) return true;
-    const diff = Date.now() - parseInt(last,10);
-    return diff > 7*24*60*60*1000; // 1 semana
+    // Mostra 1× por dia — compara apenas a data, não a hora
+    const lastDate = new Date(parseInt(last,10)).toDateString();
+    const today    = new Date().toDateString();
+    return lastDate !== today;
   });
   const [modal,setModal]=useState(null);
   const w=useW(); const mob=w<600;
