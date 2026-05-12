@@ -13,15 +13,15 @@
 <style>
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
-body { background:#f5f0e8; font-family:'Fira Code',monospace; }
-html { background:#f5f0e8; }
+body { background:#17140f; font-family:'Fira Code',monospace; }
+html { background:#17140f; }
 
 ::-webkit-scrollbar { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:#d4a855; border-radius:99px; opacity:.5; }
+::-webkit-scrollbar-thumb { background:#5a4828; border-radius:99px; opacity:.6; }
 
 input[type=month]::-webkit-calendar-picker-indicator,
-input[type=date]::-webkit-calendar-picker-indicator  { filter:invert(0.4); cursor:pointer; }
+input[type=date]::-webkit-calendar-picker-indicator  { filter:invert(0.7) sepia(0.3) hue-rotate(10deg); cursor:pointer; }
 input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 
 /* ── Animações ── */
@@ -32,106 +32,104 @@ input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 @keyframes torchFlicker { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:.7;transform:scaleY(.9)} 75%{opacity:.9;transform:scaleY(1.05)} }
 @keyframes shimmer  { 0%{background-position:200% center} 100%{background-position:-200% center} }
 @keyframes starPulse{ 0%,100%{opacity:.2} 50%{opacity:.8} }
-@keyframes borderGlow{ 0%,100%{box-shadow:0 0 10px #c8a83c22} 50%{box-shadow:0 0 28px #c8a83c55} }
+@keyframes borderGlow{ 0%,100%{box-shadow:0 0 10px #d4780a22} 50%{box-shadow:0 0 28px #d4780a55} }
 
-.modal-overlay { position:fixed;inset:0;background:rgba(30,10,0,.7);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px;backdrop-filter:blur(8px);animation:fadeIn .15s ease; }
+.modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px;backdrop-filter:blur(8px);animation:fadeIn .15s ease; }
 .slide-up      { animation:slideUp .2s ease; }
 .bar-cell      { display:flex;align-items:center;gap:6px; }
-.bar-track     { flex:1;height:4px;background:#e8dcc8;border-radius:2px;overflow:hidden; }
+.bar-track     { flex:1;height:4px;background:#2a2418;border-radius:2px;overflow:hidden; }
 .bar-fill      { height:100%;border-radius:2px;transition:width .4s ease; }
-.row-hover:hover   { background:rgba(179,90,0,.05)!important; }
+.row-hover:hover   { background:rgba(200,140,20,.08)!important; }
 .card-hover        { transition:border-color .2s,box-shadow .2s; }
-.card-hover:hover  { border-color:#b35a0055!important;box-shadow:0 2px 12px rgba(179,90,0,.12); }
+.card-hover:hover  { border-color:#d4780a55!important;box-shadow:0 2px 12px rgba(200,140,20,.15); }
 .cur-btn           { transition:all .15s; }
-.cur-btn:hover     { border-color:#c8a83c88!important; }
+.cur-btn:hover     { border-color:#d4780a55!important; }
 button:active      { transform:scale(.97); }
 
-/* ── Tibia-style 3D panel effects ── */
-
-/* Background texture on body */
+/* ── Dark panel effects ── */
 body {
-  background-color:#e8dcc8 !important;
+  background-color:#17140f !important;
   background-image:
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(180,140,80,.04) 2px,
-      rgba(180,140,80,.04) 4px
+      rgba(80,60,20,.04) 2px,
+      rgba(80,60,20,.04) 4px
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 24px,
-      rgba(180,140,80,.02) 24px,
-      rgba(180,140,80,.02) 25px
+      rgba(80,60,20,.02) 24px,
+      rgba(80,60,20,.02) 25px
     );
 }
 
-/* Raised panel — main cards */
+/* Raised panel */
 .panel-raised {
-  background: linear-gradient(180deg, #fdfaf4 0%, #faf6ee 60%, #f0e8d8 100%) !important;
-  border: 1px solid #c8a050 !important;
-  border-top: 2px solid #e8c870 !important;
-  border-bottom: 2px solid #9a7030 !important;
+  background: linear-gradient(180deg, #221e17 0%, #1e1b14 60%, #17140f 100%) !important;
+  border: 1px solid #3d3020 !important;
+  border-top: 2px solid #5a4828 !important;
+  border-bottom: 2px solid #2a2018 !important;
   box-shadow:
-    0 1px 0 #f5e8c0 inset,
-    0 -1px 0 #8a6020 inset,
-    2px 0 0 #e0c060 inset,
-    -2px 0 0 #e0c060 inset,
-    0 4px 12px rgba(100,60,0,.18),
-    0 8px 24px rgba(100,60,0,.10),
-    0 2px 4px rgba(0,0,0,.12) !important;
+    0 1px 0 #3a3020 inset,
+    0 -1px 0 #1a1410 inset,
+    2px 0 0 #3a3020 inset,
+    -2px 0 0 #3a3020 inset,
+    0 4px 12px rgba(0,0,0,.40),
+    0 8px 24px rgba(0,0,0,.30),
+    0 2px 4px rgba(0,0,0,.20) !important;
   border-radius:8px !important;
 }
 
-/* Inner bevel on headers */
+/* Panel header — keep gold */
 .panel-header {
   background: linear-gradient(180deg, #d4a850 0%, #c89840 40%, #a87830 100%) !important;
   border-bottom: 1px solid #8a6020 !important;
   border-top: 1px solid #e8c860 !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,.2), 0 1px 0 #f0d870 inset !important;
-  color: #fff8e0 !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,.5) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,.4), 0 1px 0 rgba(255,200,60,.3) inset !important;
+  color: #f0e0c0 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,.7) !important;
 }
 
 /* Ornamental divider */
 .ornament-divider {
   height: 3px;
-  background: linear-gradient(90deg, transparent, #c8a050, #e8c860, #c8a050, transparent);
+  background: linear-gradient(90deg, transparent, #d4780a, #e8960a, #d4780a, transparent);
   margin: 0;
-  box-shadow: 0 1px 3px rgba(150,100,0,.3);
+  box-shadow: 0 1px 6px rgba(200,120,10,.4);
 }
 
-/* Table 3D effect */
+/* Table 3D */
 .table-3d {
   box-shadow:
-    0 4px 16px rgba(100,60,0,.18),
-    0 8px 32px rgba(100,60,0,.10),
-    0 1px 0 #f5e8c0 inset,
-    0 -1px 0 #a07830 inset !important;
+    0 4px 16px rgba(0,0,0,.40),
+    0 8px 32px rgba(0,0,0,.30),
+    0 1px 0 #3a3020 inset,
+    0 -1px 0 #1a1410 inset !important;
 }
 
-/* KPI card 3D */
+/* KPI card */
 .kpi-3d {
-  background: linear-gradient(180deg, #fdfaf4 0%, #f5edd8 100%) !important;
-  border: 1px solid #c8a050 !important;
-  border-top: 2px solid #e8c870 !important;
-  border-bottom: 2px solid #9a7030 !important;
+  background: linear-gradient(180deg, #221e17 0%, #1a1712 100%) !important;
+  border: 1px solid #3d3020 !important;
+  border-top: 2px solid #5a4828 !important;
+  border-bottom: 2px solid #2a2018 !important;
   box-shadow:
-    0 1px 0 rgba(255,240,180,.8) inset,
-    0 4px 10px rgba(100,60,0,.15),
-    0 2px 4px rgba(0,0,0,.10) !important;
+    0 1px 0 rgba(80,60,20,.8) inset,
+    0 4px 10px rgba(0,0,0,.35),
+    0 2px 4px rgba(0,0,0,.20) !important;
 }
 
-/* Stars no hero */
-.star { position:absolute;border-radius:50%;background:#d4a855;animation:starPulse 3s ease-in-out infinite;box-shadow:none; }
+/* Stars */
+.star { position:absolute;border-radius:50%;background:#d4780a;animation:starPulse 3s ease-in-out infinite;box-shadow:none; }
 
-/* ── Título com shimmer ── */
+/* Shimmer title */
 .hero-title {
   font-family:'Cinzel',serif;
   font-weight:700;
-  background:linear-gradient(90deg,#8a4400,#d4780a,#b35a00,#e8a040,#b35a00,#d4780a,#8a4400);
+  background:linear-gradient(90deg,#a05808,#e8960a,#d4780a,#f0b030,#d4780a,#e8960a,#a05808);
   background-size:200% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -139,18 +137,26 @@ body {
   animation:shimmer 4s linear infinite;
 }
 
-/* ── Rashid sprite ── */
+/* Rashid sprite */
 .rashid-sprite { animation:rashidBob 1.6s ease-in-out infinite; image-rendering:pixelated; }
 .rashid-eyes   { animation:rashidBlink 4s ease-in-out infinite; transform-origin:center; }
 
-/* ── Footer ── */
-.footer-link { color:#6b3a10;text-decoration:none;transition:color .2s;font-weight:600; }
-.footer-link:hover { color:#b35a00; }
+/* Footer */
+.footer-link { color:#a09070;text-decoration:none;transition:color .2s;font-weight:600; }
+.footer-link:hover { color:#d4780a; }
+
+/* Dark inputs */
+input, textarea, select {
+  color-scheme: dark;
+}
+
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
+
+
 const { useState, useEffect, useRef, useMemo } = React;
 const SK = "tibia_farm_v3";
 const load = () => { try{return JSON.parse(localStorage.getItem(SK));}catch{return null;} };
@@ -279,14 +285,32 @@ const TR = {
     status:"Status",
     ds:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
     df:["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"],
-    
-    t_about:"About",
-    t_about_d:"Sobre o projeto",
-    meta_leg_hit:"✅ Meta atingida",
-    meta_leg_miss:"❌ Abaixo da meta",
-    meta_leg_none:"— Sem registro",
-    meta_goal_title:"🎯 Definir Meta de Farm",
-    days:"dias",
+    a_title:"Sobre o Projeto",
+    a_intro:"Ferramenta gratuita para jogadores de Tibia acompanharem sua produtividade de farm diário, analisarem ganhos em Gold, Tibia Coins e valor em moeda real.",
+    a_feat:"Funcionalidades",
+    a_priv:"Dados & Privacidade",
+    a_priv_txt:"Todos os seus dados são salvos localmente no seu navegador via localStorage. Nenhuma informação é enviada a servidores externos.",
+    a_priv_tip:"Use a função Backup nas Configurações para exportar seus dados.",
+    a_legal:"Aviso Legal",
+    a_legal1:"Tibia Farm Tracker é um projeto independente e não oficial. Não é afiliado, patrocinado ou endossado pela CipSoft GmbH.",
+    a_legal2:"\"Tibia\" é marca registrada da CipSoft GmbH. Os dados de jogo são obtidos via TibiaData API.",
+    a_contact:"Contato",
+    a_contact_txt:"Encontrou algum bug? Tem uma sugestão? Quer colaborar com o projeto? Entre em contato!",
+    a_reply:"Respondemos o mais rápido possível!",
+    a_suggest:"💬 Toda sugestão é bem-vinda — seja para novas funcionalidades, idiomas ou melhorias no design!",
+    a_f1n:"Farm Tracker",
+    a_f1d:"Registre suas hunts diárias e acompanhe Gold, TC e valor em moeda real.",
+    a_f2n:"Histórico",
+    a_f2d:"Veja meses anteriores e compare sua evolução ao longo do tempo.",
+    a_f3n:"Djinn Calculator",
+    a_f3d:"Calcule o valor dos seus loots antes de ir vender com os Djinns.",
+    a_f4n:"Meta Diária",
+    a_f4d:"Defina uma meta de GP por dia e veja o calendário de conquistas.",
+    a_f5n:"Explorer",
+    a_f5d:"Busque personagens, mundos, highscores e guildas via TibiaData API.",
+    a_f6n:"Multi-idioma",
+    a_f6d:"Disponível em PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
+    hero_tag1:"SEU CONTROLE", hero_tag2:"DE FARM", hero_tag3:"ONLINE",
     footer_dev:"Desenvolvido por", footer_open:"Open Source",
   },
   en:{flag:"🇺🇸",name:"English",
@@ -398,14 +422,32 @@ const TR = {
     status:"Status",
     ds:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
     df:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-    
-    t_about:"About",
-    t_about_d:"About the project",
-    meta_leg_hit:"✅ Goal reached",
-    meta_leg_miss:"❌ Below goal",
-    meta_leg_none:"— No record",
-    meta_goal_title:"🎯 Set Daily Goal",
-    days:"days",
+    a_title:"About the Project",
+    a_intro:"Free tool for Tibia players to track their daily farm productivity, analyzing earnings in Gold, Tibia Coins, and real currency value.",
+    a_feat:"Features",
+    a_priv:"Data & Privacy",
+    a_priv_txt:"All your data is saved locally in your browser via localStorage. No information is sent to external servers.",
+    a_priv_tip:"Use the Backup feature in Settings to export your data.",
+    a_legal:"Legal Notice",
+    a_legal1:"Tibia Farm Tracker is an independent, unofficial project. It is not affiliated with, sponsored by, or endorsed by CipSoft GmbH.",
+    a_legal2:"\"Tibia\" is a registered trademark of CipSoft GmbH. Game data is fetched via TibiaData API.",
+    a_contact:"Contact",
+    a_contact_txt:"Found a bug? Have a suggestion? Want to collaborate? Get in touch!",
+    a_reply:"We reply as quickly as possible!",
+    a_suggest:"💬 All feedback is welcome — new features, languages, or design improvements!",
+    a_f1n:"Farm Tracker",
+    a_f1d:"Log your daily hunts and track Gold, TC, and real currency value.",
+    a_f2n:"History",
+    a_f2d:"View previous months and compare your progress over time.",
+    a_f3n:"Djinn Calculator",
+    a_f3d:"Calculate the value of your loot before selling it to the Djinns.",
+    a_f4n:"Daily Goal",
+    a_f4d:"Set a daily GP goal and track your achievement calendar.",
+    a_f5n:"Explorer",
+    a_f5d:"Search characters, worlds, highscores, and guilds via TibiaData API.",
+    a_f6n:"Multi-language",
+    a_f6d:"Available in PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
+    hero_tag1:"YOUR FARM", hero_tag2:"CONTROL", hero_tag3:"ONLINE",
     footer_dev:"Developed by", footer_open:"Open Source",
   },
   es:{flag:"🇪🇸",name:"Español",
@@ -517,14 +559,32 @@ const TR = {
     world:"Mundo",
     lv:"Nivel",
     status:"Estado",
-    
-    t_about:"About",
-    t_about_d:"Sobre el proyecto",
-    meta_leg_hit:"✅ Meta alcanzada",
-    meta_leg_miss:"❌ Por debajo",
-    meta_leg_none:"— Sin registro",
-    meta_goal_title:"🎯 Definir Meta Diaria",
-    days:"días",
+    a_title:"Sobre el Proyecto",
+    a_intro:"Herramienta gratuita para jugadores de Tibia para seguir su productividad diaria de farm, analizando ganancias en Gold, Tibia Coins y valor en moneda real.",
+    a_feat:"Funcionalidades",
+    a_priv:"Datos & Privacidad",
+    a_priv_txt:"Todos tus datos se guardan localmente en tu navegador via localStorage. No se envía información a servidores externos.",
+    a_priv_tip:"Usa la función Copia de Seguridad en Configuración para exportar tus datos.",
+    a_legal:"Aviso Legal",
+    a_legal1:"Tibia Farm Tracker es un proyecto independiente y no oficial. No está afiliado ni patrocinado por CipSoft GmbH.",
+    a_legal2:"\"Tibia\" es marca registrada de CipSoft GmbH. Los datos del juego se obtienen via TibiaData API.",
+    a_contact:"Contacto",
+    a_contact_txt:"¿Encontraste un bug? ¿Tienes una sugerencia? ¿Quieres colaborar? ¡Escríbenos!",
+    a_reply:"¡Respondemos lo antes posible!",
+    a_suggest:"💬 Toda sugerencia es bienvenida — nuevas funciones, idiomas o mejoras de diseño.",
+    a_f1n:"Farm Tracker",
+    a_f1d:"Registra tus hunts diarias y sigue tu Gold, TC y valor en moneda real.",
+    a_f2n:"Historial",
+    a_f2d:"Consulta meses anteriores y compara tu evolución en el tiempo.",
+    a_f3n:"Djinn Calculator",
+    a_f3d:"Calcula el valor de tu loot antes de vender con los Djinns.",
+    a_f4n:"Meta Diaria",
+    a_f4d:"Define una meta de GP por día y ve el calendario de logros.",
+    a_f5n:"Explorer",
+    a_f5d:"Busca personajes, mundos, highscores y gremios via TibiaData API.",
+    a_f6n:"Multi-idioma",
+    a_f6d:"Disponible en PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
+    hero_tag1:"TU CONTROL", hero_tag2:"DE FARM", hero_tag3:"EN LÍNEA",
     footer_dev:"Desarrollado por", footer_open:"Código Abierto",
   },
   pl:{flag:"🇵🇱",name:"Polski",
@@ -634,15 +694,32 @@ const TR = {
     voc:"Zawód",
     world:"Świat",
     status:"Status",
-    
-    t_about:"About",
-    t_about_d:"O projekcie",
-    meta_leg_hit:"✅ Cel osiągnięty",
-    meta_leg_miss:"❌ Poniżej celu",
-    meta_leg_none:"— Brak wpisu",
-    meta_goal_title:"🎯 Ustaw Dzienny Cel",
-    days:"dni",
-    cfg_restore:"Przywróć kopię",
+    a_title:"O Projekcie",
+    a_intro:"Darmowe narzędzie dla graczy Tibia do śledzenia dziennej produktywności farm, analizowania zysków w Gold, Tibia Coins i wartości w prawdziwej walucie.",
+    a_feat:"Funkcje",
+    a_priv:"Dane & Prywatność",
+    a_priv_txt:"Wszystkie Twoje dane są zapisywane lokalnie w przeglądarce przez localStorage. Żadne informacje nie są wysyłane na zewnętrzne serwery.",
+    a_priv_tip:"Użyj funkcji Kopia Zapasowa w Ustawieniach, aby wyeksportować swoje dane.",
+    a_legal:"Nota Prawna",
+    a_legal1:"Tibia Farm Tracker jest niezależnym, nieoficjalnym projektem. Nie jest powiązany z CipSoft GmbH.",
+    a_legal2:"\"Tibia\" jest zarejestrowanym znakiem towarowym CipSoft GmbH. Dane gry pobierane są przez TibiaData API.",
+    a_contact:"Kontakt",
+    a_contact_txt:"Znalazłeś błąd? Masz sugestię? Chcesz współpracować? Skontaktuj się z nami!",
+    a_reply:"Odpowiadamy jak najszybciej!",
+    a_suggest:"💬 Każda sugestia jest mile widziana — nowe funkcje, języki lub ulepszenia designu!",
+    a_f1n:"Farm Tracker",
+    a_f1d:"Rejestruj dzienne hunty i śledź Gold, TC i wartość w walucie.",
+    a_f2n:"Historia",
+    a_f2d:"Przeglądaj poprzednie miesiące i porównuj swoje postępy.",
+    a_f3n:"Kalkulator Djinn",
+    a_f3d:"Oblicz wartość swojego lootu przed sprzedażą u Djinnów.",
+    a_f4n:"Dzienny Cel",
+    a_f4d:"Ustaw dzienny cel GP i śledź swój kalendarz osiągnięć.",
+    a_f5n:"Explorer",
+    a_f5d:"Szukaj postaci, światów, highscores i gildii przez TibiaData API.",
+    a_f6n:"Multi-język",
+    a_f6d:"Dostępny w PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
+    hero_tag1:"TWOJA KONTROLA", hero_tag2:"FARMA", hero_tag3:"ONLINE",
     footer_dev:"Stworzone przez", footer_open:"Open Source",
   },
   de:{flag:"🇩🇪",name:"Deutsch",
@@ -752,15 +829,32 @@ const TR = {
     status:"Status",
     ds:["So","Mo","Di","Mi","Do","Fr","Sa"],
     df:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
-    
-    t_about:"About",
-    t_about_d:"Über das Projekt",
-    meta_leg_hit:"✅ Ziel erreicht",
-    meta_leg_miss:"❌ Unter Ziel",
-    meta_leg_none:"— Kein Eintrag",
-    meta_goal_title:"🎯 Tagesziel festlegen",
-    days:"Tage",
-    cfg_restore:"Backup wiederherstellen",
+    a_title:"Über das Projekt",
+    a_intro:"Kostenloses Tool für Tibia-Spieler zum Verfolgen der täglichen Farm-Produktivität, Analyse der Gewinne in Gold, Tibia Coins und echtem Währungswert.",
+    a_feat:"Funktionen",
+    a_priv:"Daten & Datenschutz",
+    a_priv_txt:"Alle deine Daten werden lokal im Browser via localStorage gespeichert. Es werden keine Informationen an externe Server gesendet.",
+    a_priv_tip:"Nutze die Sicherungsfunktion in den Einstellungen, um deine Daten zu exportieren.",
+    a_legal:"Rechtlicher Hinweis",
+    a_legal1:"Tibia Farm Tracker ist ein unabhängiges, inoffizielles Projekt. Es ist nicht mit CipSoft GmbH verbunden.",
+    a_legal2:"„Tibia\" ist ein eingetragenes Warenzeichen der CipSoft GmbH. Spieldaten werden über TibiaData API abgerufen.",
+    a_contact:"Kontakt",
+    a_contact_txt:"Einen Fehler gefunden? Hast du einen Vorschlag? Möchtest du mitarbeiten? Schreib uns!",
+    a_reply:"Wir antworten so schnell wie möglich!",
+    a_suggest:"💬 Jeder Vorschlag ist willkommen — neue Funktionen, Sprachen oder Design-Verbesserungen!",
+    a_f1n:"Farm Tracker",
+    a_f1d:"Protokolliere deine täglichen Hunts und verfolge Gold, TC und Währungswert.",
+    a_f2n:"Verlauf",
+    a_f2d:"Sieh dir vergangene Monate an und vergleiche deinen Fortschritt.",
+    a_f3n:"Djinn-Kalkulator",
+    a_f3d:"Berechne den Wert deines Loots, bevor du ihn an die Djinns verkaufst.",
+    a_f4n:"Tagesziel",
+    a_f4d:"Setze ein tägliches GP-Ziel und verfolge deinen Leistungskalender.",
+    a_f5n:"Explorer",
+    a_f5d:"Suche Charaktere, Welten, Highscores und Gilden über TibiaData API.",
+    a_f6n:"Mehrsprachig",
+    a_f6d:"Verfügbar in PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
+    hero_tag1:"DEINE FARM", hero_tag2:"KONTROLLE", hero_tag3:"ONLINE",
     footer_dev:"Entwickelt von", footer_open:"Open Source",
   },
 };
@@ -816,7 +910,7 @@ function LangSelector({ mob }){
     <div style={{
       position:"fixed", top:mob?8:14, right:mob?8:16, zIndex:999,
       display:"flex", alignItems:"center", gap:mob?4:6,
-      background:"rgba(245,240,232,0.95)", backdropFilter:"blur(10px)",
+      background:"rgba(23,20,15,0.97)", backdropFilter:"blur(10px)",
       border:"1px solid #d4a85555", borderRadius:12,
       padding:mob?"5px 8px":"7px 12px",
       boxShadow:"0 4px 20px #000a",
@@ -913,17 +1007,17 @@ function parseClip(text) {
 }
 
 const C = {
-  bg:"#f5f0e8", bg2:"#ede4d0", card:"#fafaf8", cardHi:"#faf5ed",
-  border:"#c8a855", borderHi:"#c8943a",
-  gold:"#b35a00", goldLight:"#d4780a", goldDim:"#8a4400",
-  accent:"#b35a00", accentGlow:"#d4780a",
-  green:"#1a6a3a", greenDim:"#d4f0e0",
-  red:"#cc2200", redDim:"#fde8e8",
-  purple:"#6633aa",
-  text:"#1a0e00",
-  textSub:"#6b3a10",
-  textFaint:"#9a6630",
-  muted:"#e8dcc8",
+  bg:"#17140f", bg2:"#1e1b14", card:"#221e17", cardHi:"#2a2520",
+  border:"#3d3020", borderHi:"#5a4530",
+  gold:"#d4780a", goldLight:"#e8960a", goldDim:"#a05808",
+  accent:"#d4780a", accentGlow:"#f0a020",
+  green:"#2a8a3a", greenDim:"#0a2018",
+  red:"#cc4422", redDim:"#2a0808",
+  purple:"#9966cc",
+  text:"#e8d8c0",
+  textSub:"#a09070",
+  textFaint:"#706050",
+  muted:"#2a2418",
 };
 
 
@@ -1026,13 +1120,13 @@ function LeftSidebar({ mob }) {
       {/* ── RASHID CARD ── */}
       {/* ══ RASHID CARD PREMIUM ══ */}
       <div style={{
-        background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+        background:"linear-gradient(180deg,#221e17,#1a1712)",
         border:"1px solid #c8a050",
         borderTop:"2px solid #e8c870",
         borderBottom:"2px solid #9a7030",
         borderRadius:14,
         overflow:"hidden",
-        boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 6px 20px rgba(100,60,0,.18)",
+        boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 6px 20px rgba(100,60,0,.18)",
         position:"relative",
       }}>
 
@@ -1040,9 +1134,9 @@ function LeftSidebar({ mob }) {
         <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"11px 16px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.2),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div style={{display:"flex",alignItems:"center",gap:8}}>
             <div style={{width:7,height:7,borderRadius:"50%",background:"#ffee88",boxShadow:"0 0 6px #ffee88",flexShrink:0}}/>
-            <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:"#fff8e0",letterSpacing:2,textTransform:"uppercase",fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{t("rashid_today")}</span>
+            <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:"#f0e0c0",letterSpacing:2,textTransform:"uppercase",fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{t("rashid_today")}</span>
           </div>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,background:"rgba(0,0,0,.25)",color:"#fff8e0",padding:"3px 10px",borderRadius:99,border:"1px solid rgba(255,255,255,.2)",letterSpacing:1}}>{diasFull[dow]}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,background:"rgba(0,0,0,.25)",color:"#f0e0c0",padding:"3px 10px",borderRadius:99,border:"1px solid rgba(255,255,255,.2)",letterSpacing:1}}>{diasFull[dow]}</span>
         </div>
 
         {/* Sprite + cidade */}
@@ -1076,7 +1170,7 @@ function LeftSidebar({ mob }) {
                 style={{
                   padding:"7px 3px",
                   borderRadius:8,
-                  background:i===dow?"linear-gradient(180deg,#c8a040,#a87830)":"#fafaf8",
+                  background:i===dow?"linear-gradient(180deg,#c8a040,#a87830)":"#221e17",
                   border:`1px solid ${i===dow?"#c8a040":"#d4a85533"}`,
                   borderTop:i===dow?"2px solid #e8c870":"1px solid #d4a85533",
                   textAlign:"center",
@@ -1084,7 +1178,7 @@ function LeftSidebar({ mob }) {
                   cursor:"default",
                   boxShadow:i===dow?"0 2px 6px rgba(100,60,0,.2)":"none",
                 }}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:10,color:i===dow?"#fff8e0":C.textFaint,fontWeight:700,marginBottom:3,letterSpacing:.5}}>{dias[i]}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:10,color:i===dow?"#f0e0c0":C.textFaint,fontWeight:700,marginBottom:3,letterSpacing:.5}}>{dias[i]}</div>
                 <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:i===dow?"#fde68a":C.textSub,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",lineHeight:1.3,fontWeight:i===dow?700:400}}>{r.city.split(" ")[0]}</div>
               </div>
             ))}
@@ -1181,7 +1275,7 @@ function LeftSidebar({ mob }) {
         }
 
         const inpS = {width:"100%",background:C.bg2,border:`1px solid ${C.border}`,borderRadius:7,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Fira Code',monospace"};
-        const btnS = {background:"linear-gradient(135deg,#c8a040,#a87830)",border:"none",borderRadius:7,padding:"8px 11px",color:"#fff8e0",fontFamily:"'Cinzel',serif",fontSize:9,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0};
+        const btnS = {background:"linear-gradient(135deg,#c8a040,#a87830)",border:"none",borderRadius:7,padding:"8px 11px",color:"#f0e0c0",fontFamily:"'Cinzel',serif",fontSize:9,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0};
 
         const items = [
           {id:"chars",  icon:"⚔️", label:"Characters", desc:"Buscar personagens",  color:"#ff9944"},
@@ -1191,18 +1285,18 @@ function LeftSidebar({ mob }) {
         ];
 
         return (
-          <div style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",marginTop:4,boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 12px rgba(100,60,0,.15)"}}>
+          <div style={{background:"linear-gradient(180deg,#221e17,#1a1712)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",marginTop:4,boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 12px rgba(100,60,0,.15)"}}>
 
             {/* Header dourado */}
             <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"9px 13px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
               <div style={{display:"flex",alignItems:"center",gap:7}}>
                 <span style={{fontSize:16}}>🧭</span>
                 <div>
-                  <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:11,color:"#fff8e0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>Explorer</div>
+                  <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:11,color:"#f0e0c0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>Explorer</div>
                   <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"rgba(255,240,180,.7)",marginTop:2}}>Tibia.com · Community</div>
                 </div>
               </div>
-              <div style={{width:5,height:5,background:"#fff8e0",transform:"rotate(45deg)",opacity:.6}}/>
+              <div style={{width:5,height:5,background:"#f0e0c0",transform:"rotate(45deg)",opacity:.6}}/>
             </div>
 
             {/* Items list */}
@@ -1245,7 +1339,7 @@ function LeftSidebar({ mob }) {
                             <div style={{padding:"11px 14px",borderBottom:`1px solid ${C.border}22`,display:"flex",alignItems:"center",justifyContent:"space-between",background:`linear-gradient(90deg,${C.gold}14,transparent)`}}>
                               <span style={{fontFamily:"'Cinzel',serif",fontSize:16,fontWeight:700,color:C.gold}}>{charData.name}</span>
                               <span style={{fontFamily:"'Fira Code',monospace",fontSize:11,padding:"3px 9px",borderRadius:99,
-                                background:charData.status==="online"?"#d4f0e0":C.bg2,
+                                background:charData.status==="online"?"#0a2018":C.bg2,
                                 color:charData.status==="online"?C.green:C.textFaint,
                                 border:`1px solid ${charData.status==="online"?C.green+"55":C.border}`}}>
                                 {charData.status==="online"?"● Online":"○ Offline"}
@@ -1266,7 +1360,7 @@ function LeftSidebar({ mob }) {
                               {charData.guild?.name&&(
                                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"6px 0"}}>
                                   <span style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textFaint}}>⬡ Guild</span>
-                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#bb88ff"}}>{charData.guild?.name}</span>
+                                  <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#bb88ff"}}>{charData.guild.name}</span>
                                 </div>
                               )}
                             </div>
@@ -1301,7 +1395,7 @@ function LeftSidebar({ mob }) {
                                 </div>
                                 <div style={{display:"flex",alignItems:"center",gap:4}}>
                                   <span style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.green,fontWeight:600}}>{w.players_online??"-"}</span>
-                                  {w.battleye&&<span style={{fontSize:7,padding:"1px 3px",borderRadius:2,background:"#d4f0e0",color:C.green,fontFamily:"'Fira Code',monospace"}}>BE</span>}
+                                  {w.battleye&&<span style={{fontSize:7,padding:"1px 3px",borderRadius:2,background:"#0a2018",color:C.green,fontFamily:"'Fira Code',monospace"}}>BE</span>}
                                 </div>
                               </div>
                             ))}
@@ -1415,17 +1509,17 @@ function RightSidebar({ creature, boss, mob }) {
     const [imgOk, setImgOk] = useState(true);
     const imgSrc = data?.image_url || creatureImgUrl(data?.name, data?.race);
     return (
-      <div style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+      <div style={{background:"linear-gradient(180deg,#221e17,#1a1712)",
         border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",
         borderRadius:10,overflow:"hidden",
-        boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 14px rgba(100,60,0,.15)"}}>
+        boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 14px rgba(100,60,0,.15)"}}>
         {/* Golden header */}
         <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",
           padding:"9px 14px",borderBottom:"2px solid #8a6020",
           boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",
           display:"flex",alignItems:"center",gap:7}}>
           <span style={{fontSize:13}}>{icon}</span>
-          <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#fff8e0",
+          <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#f0e0c0",
             letterSpacing:1.5,textTransform:"uppercase",fontWeight:600,
             textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{label}</span>
         </div>
@@ -1444,7 +1538,7 @@ function RightSidebar({ creature, boss, mob }) {
                     onError={()=>setImgOk(false)}/>
                 : <div style={{width:90,height:90,background:`${border}22`,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:36}}>{icon}</div>
               }
-              <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#fafaf8",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
+              <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#221e17",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
             </div>
             <div style={{textAlign:"center"}}>
               <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:C.text,lineHeight:1.3,wordBreak:"break-word"}}>{data.name}</div>
@@ -1487,7 +1581,7 @@ function InfoPanel({ mob, creature, boss }) {
       <div style={{...cardBase,border:`1px solid ${borderColor}44`,background:`linear-gradient(135deg,${borderColor}10,${C.card})`,display:"flex",alignItems:"center",gap:12,flex:1,minWidth:0}}>
         <div style={{position:"relative",flexShrink:0}}>
           <img src={img} alt={data.name} width={44} height={44} style={{imageRendering:"pixelated",objectFit:"contain",display:"block"}} onError={e=>e.target.style.display="none"}/>
-          <div style={{position:"absolute",top:-5,right:-5,background:borderColor,borderRadius:99,width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#fafaf8",fontWeight:700}}>{icon}</div>
+          <div style={{position:"absolute",top:-5,right:-5,background:borderColor,borderRadius:99,width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#221e17",fontWeight:700}}>{icon}</div>
         </div>
         <div style={{minWidth:0}}>
           <div style={{fontSize:9,color,letterSpacing:.8,textTransform:"uppercase",marginBottom:2}}>{label}</div>
@@ -1569,7 +1663,7 @@ function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSe
           placeholder="Nome do char..."
           style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Cinzel',serif"}}/>
         <button onClick={onSearch} disabled={charLoad}
-          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#fafaf8",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
+          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#221e17",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
           {charLoad?t("searching"):t("search_btn")}
         </button>
       </div>
@@ -1642,7 +1736,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
         <div style={{display:"flex",gap:10,marginBottom:manuals.length>0?20:0}}>
           <button disabled={bal===""} onClick={handleSave}
             style={{flex:1,padding:12,borderRadius:10,border:"none",cursor:bal===""?"not-allowed":"pointer",fontWeight:700,fontSize:14,opacity:bal===""?.4:1,
-              background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:editIdx!==null?"#fafaf8":"#0a0804"}}>
+              background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:editIdx!==null?"#221e17":"#17140f"}}>
             {editIdx!==null?t("manual_upd"):t("manual_save")}
           </button>
           {editIdx!==null&&<button onClick={clear} style={{padding:"12px 16px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13}}>Cancelar</button>}
@@ -1680,11 +1774,11 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
 }
 
 /* ══ HUNT ROW ═══════════════════════════════════════════════════════════════ */
-function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, isMobile, onRemove, onEdit }) {
+function HuntRow({ d, gp, tc, cur, hunts, hasData, maxGP, curSym, isMobile, onRemove, onEdit }) {
   const [open,setOpen]=useState(false);
   return (
     <>
-      <tr className="row-hover" style={{background:open?"#0d0d22":"transparent",transition:"background .15s"}}>
+      <tr className="row-hover" style={{background:open?"#100e18":"transparent",transition:"background .15s"}}>
         <td style={{padding:isMobile?"9px 8px":"9px 14px",borderBottom:`1px solid ${C.border}09`,color:hasData?C.text:C.textFaint,fontWeight:hasData?700:400,fontSize:14,cursor:hunts.length>0?"pointer":"default",whiteSpace:"nowrap"}} onClick={()=>hunts.length>0&&setOpen(v=>!v)}>
           <span style={{color:C.textFaint,marginRight:5,fontSize:11}}>{hunts.length>0?(open?"▾":"▸"):" "}</span>
           {isMobile?d:`${t("day")} ${String(d).padStart(2," ")}`}
@@ -1694,13 +1788,12 @@ function HuntRow({ d, gp, tc, cur, cumulative, hunts, hasData, maxGP, curSym, is
         </td>
         {!isMobile&&<td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}09`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?C.goldLight:C.textFaint,cursor:"pointer"}}>{hasData?Math.round(tc).toLocaleString():"—"}</td>}
         <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}09`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:hasData?(cur>=0?C.green:C.red):C.textFaint,cursor:"pointer",textShadow:hasData?(cur>=0?`0 0 10px ${C.green}55`:`0 0 10px ${C.red}55`):"none"}}>{hasData?fmtMoney(cur,curSym):"—"}</td>
-        <td onClick={()=>hunts.length>0&&setOpen(v=>!v)} style={{padding:isMobile?"9px 6px":"9px 14px",textAlign:"right",borderBottom:`1px solid ${C.border}09`,fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:hasData?C.accentGlow:C.textFaint,cursor:"pointer"}}>{hasData?fmtMoney(cumulative,curSym):"—"}</td>
         <td style={{padding:"6px 8px",textAlign:"center",borderBottom:`1px solid ${C.border}09`}}>
           <button title="Editar manualmente" onClick={()=>onEdit()} style={{background:"none",border:"none",color:C.gold,cursor:"pointer",fontSize:13,opacity:.6,padding:"3px 5px",borderRadius:6}} onMouseEnter={e=>e.target.style.opacity=1} onMouseLeave={e=>e.target.style.opacity=.6}>✏️</button>
         </td>
       </tr>
       {open&&hunts.map((h,i)=>(
-        <tr key={i} style={{background:"#0a0a1e"}}>
+        <tr key={i} style={{background:"#0d0b14"}}>
           <td colSpan={isMobile?4:5} style={{padding:"7px 14px 7px 28px",borderBottom:`1px solid ${C.border}09`,fontSize:11}}>
             {h.manual?<span style={{color:C.accent,fontWeight:600}}>✏️ Manual{h.note&&` · ${h.note}`}</span>:<span style={{color:C.textSub}}>Hunt {i+1} · {h.session}</span>}
             <span style={{marginLeft:10,fontFamily:"'Cinzel',serif",fontWeight:700,color:h.balance>=0?C.green:C.red}}>{h.balance>=0?"+":""}{fmt(h.balance)} gp</span>
@@ -1794,47 +1887,139 @@ function CurrencyConfig({ state, setState }) {
 function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer style={{marginTop:48,borderTop:`1px solid ${C.border}`,background:"#09090f",padding:"28px 24px 20px"}}>
-      <div style={{maxWidth:960,margin:"0 auto"}}>
-        {/* Logo + descrição */}
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,marginBottom:24,textAlign:"center"}}>
-          <div style={{fontSize:26}}>⚔️</div>
-          <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,color:C.gold,letterSpacing:2}}>TIBIA FARM TRACKER</div>
-          <div style={{fontSize:12,color:C.textFaint,maxWidth:380,lineHeight:1.6}}>
+    <footer style={{marginTop:32,position:"relative",overflow:"hidden",
+      background:"linear-gradient(180deg,#0c0a16 0%,#0a0712 50%,#080610 100%)",
+      borderTop:"1px solid #3a2a50",
+      padding:"24px 22px 16px"}}>
+
+      {/* Particulas decorativas */}
+      {[
+        {x:"8%",y:"15%",s:1.5,d:0,dur:2.4},{x:"22%",y:"40%",s:1.5,d:1.2,dur:2.8},
+        {x:"35%",y:"20%",s:2,d:.5,dur:2.2},{x:"55%",y:"60%",s:1.5,d:2,dur:3},
+        {x:"68%",y:"25%",s:2,d:.8,dur:2.6},{x:"82%",y:"50%",s:1.5,d:1.5,dur:2.4},
+        {x:"92%",y:"20%",s:1.5,d:.3,dur:2.8},{x:"15%",y:"75%",s:1.5,d:1.8,dur:2.6},
+      ].map((s,i)=>(
+        <div key={i} style={{position:"absolute",left:s.x,top:s.y,width:s.s,height:s.s,
+          borderRadius:"50%",background:"#a080ff",opacity:.4,
+          animation:`starPulse ${s.dur}s ease-in-out infinite`,animationDelay:`${s.d}s`}}/>
+      ))}
+
+      {/* Grade decorativa */}
+      <div style={{position:"absolute",inset:0,pointerEvents:"none",opacity:.05,
+        backgroundImage:"linear-gradient(#8060ff 1px,transparent 1px),linear-gradient(90deg,#8060ff 1px,transparent 1px)",
+        backgroundSize:"60px 60px"}}/>
+
+      {/* Glow superior */}
+      <div style={{position:"absolute",top:0,left:0,right:0,height:120,pointerEvents:"none",
+        background:"radial-gradient(ellipse 80% 100% at 50% 0%,#2a1850aa,transparent 70%)"}}/>
+
+      <div style={{maxWidth:1000,margin:"0 auto",position:"relative"}}>
+
+        {/* ── HERO do footer ── */}
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,marginBottom:18,textAlign:"center"}}>
+
+          {/* Linha decorativa superior */}
+          <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:4}}>
+            <div style={{height:1,width:44,background:"linear-gradient(90deg,transparent,#7060c8)"}}/>
+            <span style={{fontSize:9,color:"#8070b8",letterSpacing:4,textTransform:"uppercase",fontFamily:"'Fira Code',monospace",fontWeight:600}}>Powered by Players</span>
+            <div style={{height:1,width:44,background:"linear-gradient(270deg,transparent,#7060c8)"}}/>
+          </div>
+
+          {/* Ícone espadas com glow */}
+          <div style={{fontSize:24,filter:"drop-shadow(0 0 14px #8050ee88) drop-shadow(0 0 6px #d4780a66)"}}>⚔️</div>
+
+          {/* Título com gradiente animado */}
+          <div style={{position:"relative"}}>
+            <div style={{position:"absolute",inset:0,filter:"blur(14px)",opacity:.40,
+              background:"linear-gradient(90deg,#8040ff,#d4780a,#8040ff)",
+              backgroundSize:"200% auto",animation:"shimmer 4s linear infinite"}}/>
+            <div style={{position:"relative",fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,letterSpacing:4,
+              background:"linear-gradient(90deg,#7040cc,#d4780a,#e8960a,#f0b030,#d4780a,#9060e0,#7040cc)",
+              backgroundSize:"200% auto",
+              WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",
+              animation:"shimmer 5s linear infinite"}}>
+              TIBIA FARM TRACKER
+            </div>
+          </div>
+
+          <div style={{fontSize:11,color:"#8878b8",maxWidth:380,lineHeight:1.5,fontFamily:"'Fira Code',monospace"}}>
             {t("footer_desc")}
           </div>
+
         </div>
 
-        {/* Divider */}
-        <div style={{borderTop:`1px solid ${C.border}`,marginBottom:20}}/>
-
-        {/* Links */}
-        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:"8px 24px",marginBottom:20}}>
-          {[["⚔️ Tibia Oficial","https://www.tibia.com"],["🏰 CipSoft","https://www.cipsoft.com"]].map(([label,href])=>(
-            <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="footer-link" style={{fontSize:12}}>
-              {label}
+        {/* ── Cards de links ── */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))",gap:10,marginBottom:16}}>
+          {[
+            ["⚔️","Tibia Oficial","tibia.com","https://www.tibia.com","#d4780a"],
+            ["🏰","CipSoft GmbH","cipsoft.com","https://www.cipsoft.com","#7060c8"],
+            ["📊","TibiaData API","tibiadata.com","https://tibiadata.com","#4a90e2"],
+            ["✉️","Contato","maltatibia123@gmail.com","mailto:maltatibia123@gmail.com","#3dd68c"],
+          ].map(([icon,label,sub,href,color])=>(
+            <a key={href} href={href} target={href.startsWith("mailto")?undefined:"_blank"} rel="noopener noreferrer"
+              style={{
+                display:"flex",alignItems:"center",gap:12,
+                padding:"9px 12px",borderRadius:10,textDecoration:"none",
+                background:"linear-gradient(160deg,#1a1428 0%,#120e1c 100%)",
+                border:`1px solid ${color}44`,
+                borderTop:`2px solid ${color}88`,
+                boxShadow:`0 0 14px ${color}22,0 4px 12px rgba(0,0,0,.4)`,
+                transition:"all .2s",
+              }}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor=`${color}aa`;e.currentTarget.style.boxShadow=`0 0 24px ${color}55,0 4px 16px rgba(0,0,0,.5)`;e.currentTarget.style.transform="translateY(-2px)";}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor=`${color}44`;e.currentTarget.style.boxShadow=`0 0 14px ${color}22,0 4px 12px rgba(0,0,0,.4)`;e.currentTarget.style.transform="translateY(0)";}}>
+              <span style={{fontSize:17,filter:`drop-shadow(0 0 6px ${color}66)`}}>{icon}</span>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,color,letterSpacing:.8,marginBottom:1,textShadow:`0 0 6px ${color}66`}}>{label}</div>
+                <div style={{fontSize:9,color:"#7868a8",fontFamily:"'Fira Code',monospace",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{sub}</div>
+              </div>
             </a>
           ))}
         </div>
 
-        {/* Aviso legal */}
-        <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:10,padding:"10px 16px",marginBottom:20,fontSize:11,color:C.textFaint,textAlign:"center",lineHeight:1.6}}>
+        {/* ── Aviso legal ── */}
+        <div style={{position:"relative",
+          background:"linear-gradient(135deg,#1a0e22 0%,#120816 50%,#1a0e22 100%)",
+          border:"1px solid #5040a055",borderTop:"1px solid #6050c099",borderRadius:12,
+          padding:"8px 14px",marginBottom:14,fontSize:10,color:"#9888c8",
+          textAlign:"center",lineHeight:1.7,fontFamily:"'Fira Code',monospace",
+          boxShadow:"0 0 16px rgba(80,60,160,.18),inset 0 1px 0 rgba(140,100,220,.15)"}}>
+          <span style={{marginRight:6,fontSize:11}}>⚠️</span>
           {t("footer_disc")}
         </div>
 
-        {/* Copyright */}
-        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:8}}>
-          <div style={{fontSize:11,color:C.textFaint}}>
-            © {year} <span style={{color:C.textSub,fontWeight:600}}>Tibia Farm Tracker</span> · {t("footer_dev")} <span style={{color:C.gold,fontWeight:600}}>MaltinhaDEV</span>
+        {/* ── Divider ornamental ── */}
+        <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
+          <div style={{height:1,flex:1,background:"linear-gradient(90deg,transparent,#4030a0)"}}/>
+          <div style={{display:"flex",gap:6,alignItems:"center"}}>
+            <div style={{width:4,height:4,background:"#7040cc",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 6px #8050ee"}}/>
+            <div style={{width:6,height:6,background:"#d4780a",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 8px #d4780a"}}/>
+            <div style={{width:4,height:4,background:"#7040cc",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 6px #8050ee"}}/>
           </div>
-          <div style={{fontSize:11,color:C.textFaint,display:"flex",gap:12,alignItems:"center"}}>
-            <span>Versão 2.1</span>
-            <span style={{color:C.muted}}>·</span>
-            <span>{t("footer_open")}</span>
-            <span style={{color:C.muted}}>·</span>
-            <span style={{color:C.green}}>● Online</span>
+          <div style={{height:1,flex:1,background:"linear-gradient(270deg,transparent,#4030a0)"}}/>
+        </div>
+
+        {/* ── Copyright ── */}
+        <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:12,fontFamily:"'Fira Code',monospace"}}>
+          <div style={{fontSize:10,color:"#7868a8"}}>
+            © {year} <span style={{color:"#c0b0e8",fontWeight:700}}>Tibia Farm Tracker</span>
+            <span style={{margin:"0 8px",opacity:.5}}>·</span>
+            {t("footer_dev")} <span style={{color:"#d4780a",fontWeight:700,textShadow:"0 0 8px #d4780a55"}}>MaltinhaDEV</span>
+          </div>
+          <div style={{fontSize:10,color:"#7868a8",display:"flex",gap:10,alignItems:"center"}}>
+            <span style={{display:"flex",alignItems:"center",gap:6}}>
+              <span style={{color:"#9080d8",fontWeight:700}}>v2.1</span>
+            </span>
+            <span style={{opacity:.4}}>·</span>
+            <span style={{color:"#a080d8"}}>{t("footer_open")}</span>
+            <span style={{opacity:.4}}>·</span>
+            <span style={{display:"flex",alignItems:"center",gap:5}}>
+              <span style={{width:7,height:7,borderRadius:"50%",background:"#3dd68c",boxShadow:"0 0 10px #3dd68caa",animation:"starPulse 1.6s ease-in-out infinite"}}/>
+              <span style={{color:"#3dd68c",fontWeight:700,textShadow:"0 0 8px #3dd68c66"}}>Online</span>
+            </span>
           </div>
         </div>
+
       </div>
     </footer>
   );
@@ -2040,7 +2225,7 @@ function DjinnTab({ mob }) {
           {key:"grand", d:{name:"Total Geral",color:C.goldLight,icon:"💰"}, val:grand},
         ].map(({key,d,val})=>(
           <div key={key} onClick={()=>key!=="grand"&&setDjinnType(key)}
-            style={{background:C.card,border:`1px solid ${key===djinnType||key==="grand"?d.color+"44":C.border}`,borderRadius:14,padding:"14px 18px",
+            style={{background:C.card,border:`1px solid ${key===djinnType||key==="grand"?d.color+"44":C.border}`,borderRadius:14,padding:"20px 22px",
               cursor:key!=="grand"?"pointer":"default",transition:"all .2s",boxShadow:key===djinnType||key==="grand"?`0 0 20px ${d.color}22`:"none"}}>
             <div style={{fontSize:10,color:d.color,letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{d.icon} {d.name}</div>
             <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:mob?20:26,color:val>0?d.color:C.textFaint}}>{fmt(val)} gp</div>
@@ -2213,7 +2398,6 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
   const entries = Object.entries(days).filter(([k])=>k.startsWith(prefix));
   const total = new Date(+viewMonth.split("-")[0], +viewMonth.split("-")[1], 0).getDate();
 
-  // build day map
   const dayMap = {};
   entries.forEach(([k,v])=>{ const d=+k.split("-")[2]; dayMap[d]=v.totalBalance; });
 
@@ -2229,76 +2413,86 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
   const missDays = farmDays.filter(v=>v>0&&v<meta.goal).length;
   const successRate = farmDays.length>0 ? Math.round((hitDays/farmDays.length)*100) : 0;
 
-  const cardBase = {background:C.card,border:`1px solid ${C.border}44`,borderRadius:14,padding:"18px 20px",marginBottom:14,boxShadow:"0 2px 8px rgba(179,90,0,.07)"};
-  const secTitle = {display:"flex",alignItems:"center",gap:8,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${C.border}33`};
-  const gem = {width:5,height:5,background:C.gold,transform:"rotate(45deg)",flexShrink:0};
-  const lbl = {fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,letterSpacing:1,textTransform:"uppercase",marginBottom:6,display:"block"};
+  const cardBase = {
+    background:"linear-gradient(160deg,#1e1b18 0%,#17140f 100%)",
+    border:"1px solid #3d3020",
+    borderTop:"2px solid #5a4828",
+    borderRadius:16,padding:"22px 24px",marginBottom:16,
+    boxShadow:"0 4px 24px rgba(0,0,0,.45),0 1px 0 #3a3020 inset"
+  };
+  const secTitle = {display:"flex",alignItems:"center",gap:10,marginBottom:16,paddingBottom:14,borderBottom:"1px solid #3d302044"};
+  const gem = {width:7,height:7,background:C.gold,transform:"rotate(45deg)",flexShrink:0,boxShadow:`0 0 8px ${C.gold}88`};
+  const lbl = {fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,letterSpacing:1.5,textTransform:"uppercase",marginBottom:6,display:"block",fontWeight:600};
 
   return (
-    <div style={{maxWidth:860,margin:"0 auto"}}>
+    <div style={{maxWidth:880,margin:"0 auto"}}>
 
       {/* DEFINIR META */}
       <div style={cardBase}>
         <div style={secTitle}>
           <div style={gem}/>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>{t("meta_goal_lbl")}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:13,color:C.gold,letterSpacing:3,fontWeight:700,textTransform:"uppercase",textShadow:`0 0 10px ${C.gold}66`}}>{t("meta_goal_lbl")}</span>
         </div>
 
-        <div style={{display:"flex",gap:12,alignItems:"flex-end",marginBottom:16,flexWrap:"wrap"}}>
+        <div style={{display:"flex",gap:14,alignItems:"flex-end",marginBottom:18,flexWrap:"wrap"}}>
           <div style={{flex:1,minWidth:160}}>
             <label style={lbl}>{t("meta_goal_lbl")}</label>
             <input value={inputGoal} onChange={e=>setInputGoal(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: 5000000" type="number"
-              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:15,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",fontWeight:700}}/>
+              style={{background:"#221e17",border:"1px solid #5a4828",borderRadius:10,padding:"11px 14px",color:C.text,fontSize:16,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",fontWeight:700,boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}/>
           </div>
           <div style={{flex:1,minWidth:140}}>
             <label style={lbl}>{t("meta_name_lbl")}</label>
             <input value={inputName} onChange={e=>setInputName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: Meta Rashid"
-              style={{background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace"}}/>
+              style={{background:"#221e17",border:"1px solid #5a4828",borderRadius:10,padding:"11px 14px",color:C.text,fontSize:14,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}/>
           </div>
           <button onClick={saveGoal}
-            style={{padding:"11px 20px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:10,letterSpacing:1.5,whiteSpace:"nowrap",flexShrink:0,color:"#fafaf8",
-              background:saved?"linear-gradient(135deg,#1a6a3a,#0d4a27)":"linear-gradient(135deg,#b35a00,#8a4400)"}}>
+            style={{padding:"13px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:2,whiteSpace:"nowrap",flexShrink:0,
+              color:saved?"#e8f8ee":"#221e17",fontFamily:"'Cinzel',serif",
+              background:saved?"linear-gradient(135deg,#1a6a3a,#0d4a27)":"linear-gradient(135deg,#d4780a,#a05808)",
+              boxShadow:saved?"0 0 16px #1a6a3a66":"0 0 16px #d4780a66,0 4px 12px rgba(0,0,0,.4)"}}>
             {saved?t("meta_saved"):t("meta_save")}
           </button>
         </div>
 
-        {/* Progresso hoje */}
         {isCurrentMonth&&(
           <>
             <label style={lbl}>{t("meta_progress")} — Dia {todayDay}</label>
-            <div style={{background:C.bg2,borderRadius:10,padding:"14px 16px",marginBottom:14,border:`1px solid ${C.border}22`}}>
-              <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
-                <span style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:todayHit?C.green:todayGP>0?C.red:C.textFaint}}>{fmt(todayGP)} gp</span>
-                <span style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:C.textFaint}}>Meta: {fmt(meta.goal)} gp</span>
+            <div style={{background:"#1a1712",borderRadius:12,padding:"16px 18px",marginBottom:16,border:"1px solid #3d302033",boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}>
+              <div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}>
+                <span style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:todayHit?C.green:todayGP>0?C.red:C.textFaint,textShadow:todayHit?"0 0 12px #2a8a3a88":todayGP>0?"0 0 12px #cc442288":"none"}}>{fmt(todayGP)} gp</span>
+                <span style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,alignSelf:"flex-end"}}>Meta: {fmt(meta.goal)} gp</span>
               </div>
-              <div style={{height:10,background:C.muted,borderRadius:99,overflow:"hidden",marginBottom:6}}>
+              <div style={{height:12,background:"#2a2418",borderRadius:99,overflow:"hidden",marginBottom:8,boxShadow:"0 1px 4px rgba(0,0,0,.4) inset"}}>
                 <div style={{height:"100%",width:`${Math.min(100,todayPct)}%`,borderRadius:99,
-                  background:todayHit?"linear-gradient(90deg,#1a6a3a,#3dbb6a)":"linear-gradient(90deg,#cc2200,#ff4422)",
+                  background:todayHit?"linear-gradient(90deg,#1a6a3a,#4ade80)":"linear-gradient(90deg,#cc2200,#ff6644)",
+                  boxShadow:todayHit?"0 0 8px #2a8a3a":"0 0 8px #cc4422",
                   transition:"width .4s ease"}}/>
               </div>
-              <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,textAlign:"right"}}>{todayPct}% {todayPct>=100?"✅":"da meta"}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:todayHit?C.green:C.textFaint,textAlign:"right",fontWeight:600}}>{todayPct}% {todayPct>=100?"✅ Meta atingida!":"da meta"}</div>
             </div>
 
-            {/* Badge status */}
-            <div style={{display:"flex",gap:10}}>
-              <div style={{flex:1,background:todayHit?"#d4f0e0":"#fde8e8",
-                border:`1px solid ${todayHit?"#1a6a3a":"#cc2200"}44`,borderRadius:10,
-                padding:"12px 16px",display:"flex",alignItems:"center",gap:10}}>
-                <span style={{fontSize:22}}>{todayHit?"🟢":"🔴"}</span>
+            <div style={{display:"flex",gap:12}}>
+              <div style={{flex:1,
+                background:todayHit?"linear-gradient(160deg,#0d2a18,#0a1e12)":"linear-gradient(160deg,#2a0e0e,#1a0808)",
+                border:`1px solid ${todayHit?"#2a8a3a66":"#cc442266"}`,borderRadius:12,
+                padding:"16px 20px",display:"flex",alignItems:"center",gap:14,
+                boxShadow:todayHit?"0 0 20px rgba(42,138,58,.2)":"0 0 20px rgba(204,68,34,.2)"}}>
+                <span style={{fontSize:28}}>{todayHit?"🟢":"🔴"}</span>
                 <div>
-                  <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:todayHit?C.green:C.red}}>
+                  <div style={{fontFamily:"'Cinzel',serif",fontSize:16,fontWeight:700,color:todayHit?C.green:C.red,textShadow:todayHit?"0 0 10px #2a8a3a88":"0 0 10px #cc442288"}}>
                     {todayHit?t("meta_hit"):todayGP>0?t("meta_miss"):t("meta_no_data")}
                   </div>
-                  {todayGP>0&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:todayHit?"#1a6a3a":"#cc2200",marginTop:2,opacity:.8}}>
+                  {todayGP>0&&<div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:todayHit?"#4ab85a":"#e05535",marginTop:4}}>
                     {todayHit?`+${fmt(todayGP-meta.goal)} ${t("meta_above")}`:`${t("meta_left")} ${fmt(meta.goal-todayGP)} gp`}
                   </div>}
                 </div>
               </div>
-              <div style={{background:C.bg2,border:`1px solid ${C.border}33`,borderRadius:10,padding:"12px 16px",textAlign:"center",minWidth:90}}>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:4}}>{t("meta_days_hit")}</div>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:20,fontWeight:700,color:C.green}}>{hitDays}/{farmDays.length}</div>
+              <div style={{background:"#1a1712",border:"1px solid #3d302044",borderRadius:12,padding:"16px 20px",textAlign:"center",minWidth:100,
+                boxShadow:"0 2px 8px rgba(0,0,0,.3)"}}>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,marginBottom:6,letterSpacing:1,textTransform:"uppercase"}}>{t("meta_days_hit")}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:26,fontWeight:700,color:C.green,textShadow:"0 0 12px #2a8a3a88"}}>{hitDays}/{farmDays.length}</div>
               </div>
             </div>
           </>
@@ -2309,21 +2503,23 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
       <div style={cardBase}>
         <div style={secTitle}>
           <div style={gem}/>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>📅 {mmLabel(viewMonth)} — Visão Geral</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:13,color:C.gold,letterSpacing:3,fontWeight:700,textTransform:"uppercase",textShadow:`0 0 10px ${C.gold}66`}}>📅 {mmLabel(viewMonth)} — Visão Geral</span>
         </div>
 
         {/* Legenda */}
-        <div style={{display:"flex",gap:16,marginBottom:14,flexWrap:"wrap"}}>
-          {[["#d4f0e0","#1a6a3a",t("meta_leg_hit")],["#fde8e8","#cc2200",t("meta_leg_miss")],["#f5f0e8","#c8a870",t("meta_leg_none")]].map(([bg,col,txt])=>(
-            <div key={txt} style={{display:"flex",alignItems:"center",gap:6,fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textSub}}>
-              <div style={{width:12,height:12,borderRadius:3,background:bg,border:`1px solid ${col}44`,flexShrink:0}}/>
+        <div style={{display:"flex",gap:18,marginBottom:16,flexWrap:"wrap"}}>
+          {[["linear-gradient(160deg,#0d2a18,#0a1e12)","#2a8a3a","✅ Meta atingida"],
+            ["linear-gradient(160deg,#2a0e0e,#1a0808)","#cc4422","❌ Abaixo da meta"],
+            ["#17140f","#5a4828","— Sem registro"]].map(([bg,col,txt])=>(
+            <div key={txt} style={{display:"flex",alignItems:"center",gap:8,fontFamily:"'Fira Code',monospace",fontSize:11,color:C.textSub,fontWeight:600}}>
+              <div style={{width:14,height:14,borderRadius:4,background:bg,border:`1px solid ${col}66`,flexShrink:0,boxShadow:`0 0 6px ${col}44`}}/>
               {txt}
             </div>
           ))}
         </div>
 
-        {/* Grid */}
-        <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:6}}>
+        {/* Grid calendário */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:8}}>
           {Array.from({length:total},(_,i)=>{
             const d = i+1;
             const gp = dayMap[d]||0;
@@ -2333,19 +2529,21 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
             const isToday = todayDay===d && isCurrentMonth;
             return (
               <div key={d} style={{
-                borderRadius:8,padding:"8px 4px",textAlign:"center",
-                background:hit?"#d4f0e0":miss?"#fde8e8":"#f5f0e8",
-                border:`1px solid ${hit?"#1a6a3a44":miss?"#cc220044":"#e8dcc8"}`,
-                boxShadow:isToday?`0 0 0 2px ${C.gold}`:"none",
+                borderRadius:10,padding:"10px 4px",textAlign:"center",
+                background:hit?"linear-gradient(160deg,#0d2a18,#0a1e12)":miss?"linear-gradient(160deg,#2a0e0e,#1a0808)":"#1a1712",
+                border:`1px solid ${hit?"#2a8a3a66":miss?"#cc442244":"#2a2418"}`,
+                borderTop:`2px solid ${hit?"#2a8a3a99":miss?"#cc442266":"#2a2418"}`,
+                boxShadow:isToday?`0 0 0 2px ${C.gold},0 0 12px ${C.gold}88`:hit?"0 0 10px rgba(42,138,58,.2)":miss?"0 0 8px rgba(204,68,34,.12)":"none",
                 transition:"all .2s",
               }}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,
-                  color:hit?C.green:miss?C.red:C.textFaint,marginBottom:2}}>{d}</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:7,
-                  color:hit?"#1a6a3a":miss?"#cc2200":C.muted,overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,
+                  color:hit?"#4ab85a":miss?"#e05535":C.textFaint,marginBottom:3,
+                  textShadow:hit?"0 0 8px #2a8a3a88":miss?"0 0 8px #cc442266":"none"}}>{d}</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,
+                  color:hit?"#2a8a3a":miss?"#cc4422":"#3a3020",overflow:"hidden",whiteSpace:"nowrap",textOverflow:"ellipsis",fontWeight:600}}>
                   {hasData?`${(gp/1000000).toFixed(1)}M`:"—"}
                 </div>
-                {hasData&&<div style={{fontSize:9,marginTop:1}}>{hit?"✅":"❌"}</div>}
+                {hasData&&<div style={{fontSize:10,marginTop:2}}>{hit?"✅":"❌"}</div>}
               </div>
             );
           })}
@@ -2356,17 +2554,20 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
       <div style={cardBase}>
         <div style={secTitle}>
           <div style={gem}/>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,fontWeight:700,textTransform:"uppercase"}}>{t("meta_summary")}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:13,color:C.gold,letterSpacing:3,fontWeight:700,textTransform:"uppercase",textShadow:`0 0 10px ${C.gold}66`}}>📊 Resumo da Meta</span>
         </div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:14}}>
           {[
-            {lbl:t("meta_hit_days"),val:`${hitDays} ${t("days")}`,color:C.green},
-            {lbl:t("meta_miss_days"),val:`${missDays} ${t("days")}`,color:C.red},
-            {lbl:t("meta_rate"),val:`${successRate}%`,color:C.gold},
-          ].map(({lbl,val,color})=>(
-            <div key={lbl} style={{background:C.bg2,border:`1px solid ${C.border}22`,borderRadius:10,padding:"12px 14px"}}>
-              <div style={{fontFamily:"'Fira Code',monospace",fontSize:8,color:C.textFaint,marginBottom:5,letterSpacing:.5}}>{lbl}</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color}}>{val}</div>
+            {icon:"✅",lbl:t("meta_hit_days"),  val:`${hitDays} dias`,  color:"#4ab85a", glow:"#2a8a3a", bg:"linear-gradient(160deg,#0d2a18,#0a1e12)", border:"#2a8a3a55"},
+            {icon:"❌",lbl:t("meta_miss_days"), val:`${missDays} dias`, color:"#e05535", glow:"#cc4422", bg:"linear-gradient(160deg,#2a0e0e,#1a0808)", border:"#cc442244"},
+            {icon:"🎯",lbl:t("meta_rate"),      val:`${successRate}%`,  color:"#f0a020", glow:"#d4780a", bg:"linear-gradient(160deg,#201808,#17120a)", border:"#d4780a55"},
+          ].map(({icon,lbl,val,color,glow,bg,border})=>(
+            <div key={lbl} style={{background:bg,border:`1px solid ${border}`,borderTop:`2px solid ${border}`,
+              borderRadius:14,padding:"20px 18px",textAlign:"center",
+              boxShadow:`0 0 18px ${glow}22,0 4px 16px rgba(0,0,0,.4)`}}>
+              <div style={{fontSize:20,marginBottom:8}}>{icon}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color,letterSpacing:1.5,textTransform:"uppercase",marginBottom:8,fontWeight:700,opacity:.8}}>{lbl}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:28,fontWeight:700,color,textShadow:`0 0 14px ${glow}aa`,lineHeight:1}}>{val}</div>
             </div>
           ))}
         </div>
@@ -2374,6 +2575,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
     </div>
   );
 }
+
 
 
 /* ══ WELCOME POPUP ══════════════════════════════════════════════════════════ */
@@ -2405,14 +2607,14 @@ function WelcomePopup({ onClose }) {
     zIndex:9000,padding:16,
   };
   const popup = {
-    background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+    background:"linear-gradient(180deg,#221e17,#1a1712)",
     border:"1px solid #c8a050",
     borderTop:"3px solid #e8c870",
     borderBottom:"3px solid #9a7030",
     borderRadius:14,
     width:"100%",maxWidth:560,
     overflow:"hidden",
-    boxShadow:"0 8px 48px rgba(100,60,0,.45),0 1px 0 rgba(255,240,180,.8) inset",
+    boxShadow:"0 8px 48px rgba(100,60,0,.45),0 1px 0 rgba(80,60,20,.8) inset",
   };
 
   const langs = [
@@ -2439,26 +2641,26 @@ function WelcomePopup({ onClose }) {
 
       {/* HEADER */}
       <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"18px 20px 15px",borderBottom:"2px solid #8a6020",textAlign:"center",position:"relative"}}>
-        <button onClick={e=>{e.stopPropagation();handleClose();}} style={{position:"absolute",top:12,right:14,background:"rgba(0,0,0,.25)",border:"1px solid rgba(255,255,255,.25)",borderRadius:"50%",width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:15,color:"#fff8e0",fontWeight:700,flexShrink:0,zIndex:10}}>✕</button>
+        <button onClick={e=>{e.stopPropagation();handleClose();}} style={{position:"absolute",top:12,right:14,background:"rgba(0,0,0,.25)",border:"1px solid rgba(255,255,255,.25)",borderRadius:"50%",width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:15,color:"#f0e0c0",fontWeight:700,flexShrink:0,zIndex:10}}>✕</button>
         <div style={{fontSize:40,marginBottom:8,filter:"drop-shadow(0 0 14px rgba(255,220,80,.6)) drop-shadow(0 2px 8px rgba(0,0,0,.4))"}}>⚔️</div>
-        <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:26,color:"#fff8e0",letterSpacing:4,textShadow:"0 0 20px rgba(255,220,80,.5), 0 2px 6px rgba(0,0,0,.5)",marginBottom:6}}>BEM-VINDO</div>
+        <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:26,color:"#f0e0c0",letterSpacing:4,textShadow:"0 0 20px rgba(255,220,80,.5), 0 2px 6px rgba(0,0,0,.5)",marginBottom:6}}>BEM-VINDO</div>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,margin:"0 auto"}}>
           <div style={{height:1,width:40,background:"linear-gradient(90deg,transparent,rgba(255,240,180,.5))"}}/>
-          <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#fff8e0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 4px rgba(0,0,0,.4)"}}>TIBIA FARM TRACKER</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#f0e0c0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 4px rgba(0,0,0,.4)"}}>TIBIA FARM TRACKER</div>
           <div style={{height:1,width:40,background:"linear-gradient(270deg,transparent,rgba(255,240,180,.5))"}}/>
         </div>
         <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"rgba(255,240,180,.6)",marginTop:5,letterSpacing:1}}>v2.1</div>
       </div>
 
       {/* TABS */}
-      <div style={{display:"flex",background:"#ede4d0",borderBottom:"1px solid #c8a05033"}}>
+      <div style={{display:"flex",background:"#1e1b14",borderBottom:"1px solid #c8a05033"}}>
         {[["📖","Tutorial"],["🌍","Idioma"],["ℹ️","Aviso"],["💡","Dica do Dia"]].map(([icon,lbl],i)=>(
           <div key={i} onClick={()=>goStep(i)}
             style={{flex:1,padding:"11px 4px 9px",textAlign:"center",cursor:"pointer",
-              borderBottom:`3px solid ${step===i?"#b35a00":"transparent"}`,
-              background:step===i?"rgba(179,90,0,.06)":"transparent",
+              borderBottom:`3px solid ${step===i?"#d4780a":"transparent"}`,
+              background:step===i?"rgba(200,140,20,.10)":"transparent",
               fontFamily:"'Fira Code',monospace",fontSize:10,
-              color:step===i?"#b35a00":"#9a6630",transition:"all .2s"}}>
+              color:step===i?"#d4780a":"#706050",transition:"all .2s"}}>
             <div style={{fontSize:19,marginBottom:4}}>{icon}</div>
             {lbl}
           </div>
@@ -2476,11 +2678,11 @@ function WelcomePopup({ onClose }) {
               ["2","Acompanhe seu progresso","Na aba Tracker veja seu Gold, Tibia Coins e valor em moeda real atualizado automaticamente."],
               ["3","Defina sua Meta Diária","Na aba Meta Diária defina quantos GP quer farmar por dia e veja o calendário ficando verde! 🟢"],
             ].map(([num,title,desc])=>(
-              <div key={num} style={{display:"flex",alignItems:"flex-start",gap:13,marginBottom:13,padding:"12px 14px",background:"#fafaf8",borderRadius:10,border:"1px solid #c8a05033",borderLeft:"3px solid #c8a040"}}>
-                <div style={{width:30,height:30,background:"linear-gradient(135deg,#c8a040,#a87830)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#fff8e0",flexShrink:0,boxShadow:"0 2px 6px rgba(0,0,0,.15)"}}>{num}</div>
+              <div key={num} style={{display:"flex",alignItems:"flex-start",gap:13,marginBottom:13,padding:"12px 14px",background:"#221e17",borderRadius:10,border:"1px solid #c8a05033",borderLeft:"3px solid #c8a040"}}>
+                <div style={{width:30,height:30,background:"linear-gradient(135deg,#c8a040,#a87830)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#f0e0c0",flexShrink:0,boxShadow:"0 2px 6px rgba(0,0,0,.15)"}}>{num}</div>
                 <div>
-                  <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#1a0e00",marginBottom:4}}>{title}</div>
-                  <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#6b3a10",lineHeight:1.6}}>{desc}</div>
+                  <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#e8d8c0",marginBottom:4}}>{title}</div>
+                  <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#a09070",lineHeight:1.6}}>{desc}</div>
                 </div>
               </div>
             ))}
@@ -2490,20 +2692,20 @@ function WelcomePopup({ onClose }) {
         {/* IDIOMA */}
         {step===1&&(
           <div>
-            <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#9a6630",marginBottom:14,letterSpacing:.3}}>Selecione o idioma do site:</div>
+            <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#706050",marginBottom:14,letterSpacing:.3}}>Selecione o idioma do site:</div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
               {langs.map(l=>(
                 <div key={l.code} onClick={()=>handleLangSelect(l.code)}
                   style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",
-                    background:selectedLang===l.code?"linear-gradient(135deg,#f0e8d4,#ede0c0)":"#fafaf8",
+                    background:selectedLang===l.code?"linear-gradient(135deg,#f0e8d4,#ede0c0)":"#221e17",
                     border:selectedLang===l.code?"1.5px solid #c8a050":"1.5px solid #c8a05044",
                     borderLeft:selectedLang===l.code?"3px solid #c8a040":"1.5px solid #c8a05044",
                     borderRadius:10,cursor:"pointer",transition:"all .18s",
                     gridColumn:l.code==="de"?"span 2":"auto"}}>
                   <span style={{fontSize:28,flexShrink:0}}>{l.flag}</span>
                   <div style={{flex:1}}>
-                    <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#1a0e00"}}>{l.name}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",marginTop:2}}>{l.native}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#e8d8c0"}}>{l.name}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",marginTop:2}}>{l.native}</div>
                   </div>
                   <span style={{fontSize:17,color:"#1a6a3a",opacity:selectedLang===l.code?1:0,transition:"opacity .2s"}}>✓</span>
                 </div>
@@ -2520,9 +2722,9 @@ function WelcomePopup({ onClose }) {
               ["orange","#cc8800","⚠️ Cuidado ao limpar o navegador","Se limpar os dados do navegador ou usar modo privado, seus registros serão perdidos. Use a função Backup nas Configurações para salvar seus dados."],
               ["green","#1a6a3a","✅ Projeto independente e gratuito","Tibia Farm Tracker não é afiliado à CipSoft GmbH. Projeto gratuito e open source. 'Tibia' é marca registrada da CipSoft."],
             ].map(([,color,title,text])=>(
-              <div key={title} style={{background:"#fafaf8",border:"1px solid #c8a05033",borderLeft:`3px solid ${color}`,borderRadius:10,padding:"13px 15px",marginBottom:10}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,fontWeight:700,color:"#1a0e00",marginBottom:5}}>{title}</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#6b3a10",lineHeight:1.6}}>{text}</div>
+              <div key={title} style={{background:"#221e17",border:"1px solid #c8a05033",borderLeft:`3px solid ${color}`,borderRadius:10,padding:"13px 15px",marginBottom:10}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,fontWeight:700,color:"#e8d8c0",marginBottom:5}}>{title}</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#a09070",lineHeight:1.6}}>{text}</div>
               </div>
             ))}
           </div>
@@ -2531,21 +2733,21 @@ function WelcomePopup({ onClose }) {
         {/* DICA DO DIA */}
         {step===3&&(
           <div>
-            <div style={{background:"linear-gradient(135deg,#fff8e8,#faf0d8)",border:"1px solid #c8a050",borderRadius:11,padding:"16px 18px",marginBottom:12,position:"relative",overflow:"hidden"}}>
+            <div style={{background:"linear-gradient(135deg,#221e17,#1a1712)",border:"1px solid #c8a050",borderRadius:11,padding:"16px 18px",marginBottom:12,position:"relative",overflow:"hidden"}}>
               <div style={{position:"absolute",right:14,top:12,fontSize:34,opacity:.12}}>💡</div>
-              <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",letterSpacing:1.5,marginBottom:8,textTransform:"uppercase"}}>💡 Dica do dia · {today}</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#1a0e00",lineHeight:1.5,marginBottom:8}}>{tip.text}</div>
-              <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#6b3a10",lineHeight:1.6}}>{tip.detail}</div>
-              <div style={{display:"inline-block",fontFamily:"'Fira Code',monospace",fontSize:9,color:"#b35a00",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:4,padding:"2px 8px",marginTop:8}}>{tip.tag}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",letterSpacing:1.5,marginBottom:8,textTransform:"uppercase"}}>💡 Dica do dia · {today}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#e8d8c0",lineHeight:1.5,marginBottom:8}}>{tip.text}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#a09070",lineHeight:1.6}}>{tip.detail}</div>
+              <div style={{display:"inline-block",fontFamily:"'Fira Code',monospace",fontSize:9,color:"#d4780a",background:"#221e17",border:"1px solid #c8a05055",borderRadius:4,padding:"2px 8px",marginTop:8}}>{tip.tag}</div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
-              <div style={{background:"#fafaf8",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#b35a00",marginBottom:5,fontWeight:700}}>🧙 Rashid hoje</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",lineHeight:1.6}}>Está em <strong>{rashid?.city||"—"}</strong>. Não esqueça de vender seus loots!</div>
+              <div style={{background:"#221e17",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#d4780a",marginBottom:5,fontWeight:700}}>🧙 Rashid hoje</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",lineHeight:1.6}}>Está em <strong>{rashid?.city||"—"}</strong>. Não esqueça de vender seus loots!</div>
               </div>
-              <div style={{background:"#fafaf8",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#b35a00",marginBottom:5,fontWeight:700}}>🎯 Meta Diária</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#9a6630",lineHeight:1.6}}>Defina seu objetivo de GP na aba Meta Diária e acompanhe o calendário!</div>
+              <div style={{background:"#221e17",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#d4780a",marginBottom:5,fontWeight:700}}>🎯 Meta Diária</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",lineHeight:1.6}}>Defina seu objetivo de GP na aba Meta Diária e acompanhe o calendário!</div>
               </div>
             </div>
           </div>
@@ -2553,19 +2755,19 @@ function WelcomePopup({ onClose }) {
       </div>
 
       {/* FOOTER */}
-      <div style={{padding:"13px 22px",background:"#f0e8d4",borderTop:"1px solid #c8a05033",display:"flex",alignItems:"center",justifyContent:"space-between",gap:10}}>
+      <div style={{padding:"13px 22px",background:"#221e17",borderTop:"1px solid #c8a05033",display:"flex",alignItems:"center",justifyContent:"space-between",gap:10}}>
         <div style={{display:"flex",gap:6,alignItems:"center"}}>
           {[0,1,2,3].map(i=>(
             <div key={i} onClick={()=>goStep(i)} style={{
               height:7,borderRadius:99,cursor:"pointer",transition:"all .2s",
-              background:step===i?"#b35a00":"#c8a05055",
+              background:step===i?"#d4780a":"#d4780a44",
               width:step===i?20:7,
             }}/>
           ))}
         </div>
         <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#c8a870"}}>aparece 1× por dia</div>
         <div style={{display:"flex",gap:8}}>
-          {step>0&&<button onClick={prev} style={{background:"none",border:"1px solid #c8a05055",borderRadius:8,padding:"10px 16px",color:"#9a6630",fontFamily:"'Fira Code',monospace",fontSize:11,cursor:"pointer"}}>← Anterior</button>}
+          {step>0&&<button onClick={prev} style={{background:"none",border:"1px solid #c8a05055",borderRadius:8,padding:"10px 16px",color:"#706050",fontFamily:"'Fira Code',monospace",fontSize:11,cursor:"pointer"}}>← Anterior</button>}
           <button onClick={next} style={{background:"linear-gradient(135deg,#b35a00,#8a4400)",border:"none",borderRadius:8,padding:"10px 22px",color:"#fff",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:1.5,fontWeight:700,cursor:"pointer"}}>
             {step===total-1?"✅ Entrar no site":"Próximo →"}
           </button>
@@ -2580,21 +2782,21 @@ function WelcomePopup({ onClose }) {
 
 /* ══ ABOUT ════════════════════════════════════════════════════════════════ */
 function AboutTab({ mob }) {
-  const cardS = {background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:14,overflow:"hidden",boxShadow:"0 2px 12px rgba(100,60,0,.12)",marginBottom:16};
-  const hdrS  = {background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"10px 18px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.15)",display:"flex",alignItems:"center",gap:8};
-  const hdrTxt= {fontFamily:"'Cinzel',serif",fontSize:13,color:"#fff8e0",letterSpacing:2,fontWeight:700,textTransform:"uppercase",textShadow:"0 1px 2px rgba(0,0,0,.5)"};
-  const gem   = {width:6,height:6,background:"#fff8e0",transform:"rotate(45deg)",flexShrink:0,opacity:.7};
-  const bodyS = {padding:"18px 22px"};
+  const cardS = {background:"linear-gradient(160deg,#1e1b18 0%,#17140f 100%)",border:"1px solid #3d3020",borderTop:"2px solid #5a4828",borderRadius:16,overflow:"hidden",boxShadow:"0 4px 24px rgba(0,0,0,.45)",marginBottom:16};
+  const hdrS  = {background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"12px 20px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.3)",display:"flex",alignItems:"center",gap:10};
+  const hdrTxt= {fontFamily:"'Cinzel',serif",fontSize:13,color:"#f0e0c0",letterSpacing:2,fontWeight:700,textTransform:"uppercase",textShadow:"0 1px 2px rgba(0,0,0,.5)"};
+  const gem   = {width:7,height:7,background:"#f0e0c0",transform:"rotate(45deg)",flexShrink:0,opacity:.8,boxShadow:"0 0 6px #f0e0c088"};
+  const bodyS = {padding:"20px 24px"};
   const txt   = {fontFamily:"'Fira Code',monospace",fontSize:14,color:C.textSub,lineHeight:2};
   const bold  = {fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:C.gold};
 
   const features = [
-    ["⚔️","Farm Tracker","Registre suas hunts diárias e acompanhe Gold, TC e valor em moeda real."],
-    ["📅","Histórico","Veja meses anteriores e compare sua evolução ao longo do tempo."],
-    ["🧞","Djinn Calculator","Calcule o valor dos seus loots antes de ir vender com os Djinns."],
-    ["🎯","Meta Diária","Defina uma meta de GP por dia e veja o calendário de conquistas."],
-    ["🧭","Explorer","Busque personagens, mundos, highscores e guildas via TibiaData API."],
-    ["🌍","Multi-idioma","Disponível em PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪"],
+    ["⚔️", t("a_f1n"), t("a_f1d")],
+    ["📅", t("a_f2n"), t("a_f2d")],
+    ["🧞", t("a_f3n"), t("a_f3d")],
+    ["🎯", t("a_f4n"), t("a_f4d")],
+    ["🧭", t("a_f5n"), t("a_f5d")],
+    ["🌍", t("a_f6n"), t("a_f6d")],
   ];
 
   return (
@@ -2602,13 +2804,13 @@ function AboutTab({ mob }) {
 
       {/* Logo + intro */}
       <div style={{...cardS}}>
-        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>📜 Sobre o Projeto</span></div>
+        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>📜 {t("a_title")}</span></div>
         <div style={{...bodyS,textAlign:"center",padding:"24px 20px"}}>
           <div style={{width:100,height:80,margin:"0 auto 16px"}}>
             <svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",height:"100%"}}>
               <defs>
                 <radialGradient id="aSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#f0c040"/><stop offset="60%" stopColor="#c88a20"/><stop offset="100%" stopColor="#8a5800"/></radialGradient>
-                <radialGradient id="aSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#1a0e00"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
+                <radialGradient id="aSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#e8d8c0"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
                 <linearGradient id="aSL" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="100%" stopColor="#888"/></linearGradient>
                 <linearGradient id="aGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#c88820"/></linearGradient>
                 <linearGradient id="aBG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#166534"/></linearGradient>
@@ -2645,16 +2847,16 @@ function AboutTab({ mob }) {
             </svg>
           </div>
           <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:mob?16:20,color:C.gold,letterSpacing:3,marginBottom:8}}>TIBIA FARM TRACKER</div>
-          <div style={txt}>Ferramenta gratuita para jogadores de Tibia acompanharem sua produtividade de farm diário, analisarem ganhos em Gold, Tibia Coins e valor em moeda real.</div>
+          <div style={txt}>{t("a_intro")}</div>
         </div>
       </div>
 
       {/* Funcionalidades */}
       <div style={cardS}>
-        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>⚡ Funcionalidades</span></div>
+        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>⚡ {t("a_feat")}</span></div>
         <div style={{...bodyS,display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
           {features.map(([icon,name,desc])=>(
-            <div key={name} style={{background:"#fafaf8",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:8,padding:"10px 13px"}}>
+            <div key={name} style={{background:"#221e17",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:8,padding:"10px 13px"}}>
               <div style={{...bold,fontSize:14,marginBottom:6}}>{icon} {name}</div>
               <div style={{...txt,fontSize:13}}>{desc}</div>
             </div>
@@ -2665,27 +2867,27 @@ function AboutTab({ mob }) {
       {/* Info técnica + aviso */}
       <div style={{display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:16}}>
         <div style={cardS}>
-          <div style={hdrS}><div style={gem}/><span style={hdrTxt}>💾 Dados & Privacidade</span></div>
+          <div style={hdrS}><div style={gem}/><span style={hdrTxt}>💾 {t("a_priv")}</span></div>
           <div style={bodyS}>
-            <div style={txt}>Todos os seus dados são salvos <strong>localmente</strong> no seu navegador via <code style={{background:"#f0e8d4",padding:"1px 5px",borderRadius:3,fontSize:11}}>localStorage</code>. Nenhuma informação é enviada a servidores externos.</div>
-            <div style={{...txt,marginTop:10,padding:"8px 12px",background:"#fef9ee",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:6}}>Use a função <strong>Backup</strong> nas Configurações para exportar seus dados.</div>
+            <div style={txt}>{t("a_priv_txt")}</div>
+            <div style={{...txt,marginTop:10,padding:"8px 12px",background:"#221e17",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:6}}>{t("a_priv_tip")}</div>
           </div>
         </div>
         <div style={cardS}>
-          <div style={hdrS}><div style={gem}/><span style={hdrTxt}>⚠️ Aviso Legal</span></div>
+          <div style={hdrS}><div style={gem}/><span style={hdrTxt}>⚠️ {t("a_legal")}</span></div>
           <div style={bodyS}>
-            <div style={txt}>Tibia Farm Tracker é um projeto <strong>independente e não oficial</strong>. Não é afiliado, patrocinado ou endossado pela CipSoft GmbH.</div>
-            <div style={{...txt,marginTop:10}}><strong style={{color:C.gold}}>"Tibia"</strong> é marca registrada da CipSoft GmbH. Os dados de jogo são obtidos via <a href="https://tibiadata.com" target="_blank" rel="noopener noreferrer" style={{color:C.gold}}>TibiaData API</a>.</div>
+            <div style={txt}>{t("a_legal1")}</div>
+            <div style={{...txt,marginTop:10}}>{t("a_legal2")}</div>
           </div>
         </div>
       </div>
 
       {/* Contato */}
       <div style={cardS}>
-        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>📬 Contato</span></div>
+        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>📬 {t("a_contact")}</span></div>
         <div style={bodyS}>
-          <div style={txt}>Encontrou algum bug? Tem uma sugestão? Quer colaborar com o projeto? Entre em contato!</div>
-          <div style={{marginTop:16,display:"flex",alignItems:"center",gap:14,padding:"14px 18px",background:"#fafaf8",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:10}}>
+          <div style={txt}>{t("a_contact_txt")}</div>
+          <div style={{marginTop:16,display:"flex",alignItems:"center",gap:14,padding:"14px 18px",background:"#221e17",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:10}}>
             <div style={{fontSize:28,flexShrink:0}}>✉️</div>
             <div>
               <div style={{...bold,fontSize:13,marginBottom:4}}>E-mail</div>
@@ -2693,32 +2895,17 @@ function AboutTab({ mob }) {
                 style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:C.gold,textDecoration:"none",fontWeight:600,letterSpacing:.3}}>
                 maltatibia123@gmail.com
               </a>
-              <div style={{...txt,fontSize:12,marginTop:4,opacity:.8}}>Respondemos o mais rápido possível!</div>
+              <div style={{...txt,fontSize:12,marginTop:4,opacity:.8}}>{t("a_reply")}</div>
             </div>
           </div>
-          <div style={{...txt,marginTop:12,fontSize:13,opacity:.8}}>💬 Toda sugestão é bem-vinda — seja para novas funcionalidades, idiomas ou melhorias no design!</div>
-        </div>
-      </div>
-
-      {/* Versão + créditos */}
-      <div style={{...cardS,marginBottom:0}}>
-        <div style={hdrS}><div style={gem}/><span style={hdrTxt}>🔱 Versão & Créditos</span></div>
-        <div style={{...bodyS,display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
-          <div>
-            <div style={{...bold,marginBottom:6}}>v2.1 · Maio 2026</div>
-            <div style={txt}>Desenvolvido com ❤️ para a comunidade Tibia.</div>
-          </div>
-          <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
-            <a href="https://tibiadata.com" target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,padding:"8px 16px",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:8,color:C.gold,textDecoration:"none",fontFamily:"'Fira Code',monospace",fontSize:12,fontWeight:600}}>🌐 TibiaData</a>
-            <a href="https://www.tibia.com" target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,padding:"8px 16px",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:8,color:C.gold,textDecoration:"none",fontFamily:"'Fira Code',monospace",fontSize:12,fontWeight:600}}>⚔️ Tibia.com</a>
-            <a href="mailto:maltatibia123@gmail.com" style={{display:"flex",alignItems:"center",gap:6,padding:"8px 16px",background:"#f0e8d4",border:"1px solid #c8a05055",borderRadius:8,color:C.gold,textDecoration:"none",fontFamily:"'Fira Code',monospace",fontSize:12,fontWeight:600}}>📬 Contato</a>
-          </div>
+          <div style={{...txt,marginTop:12,fontSize:13,opacity:.8}}>{t("a_suggest")}</div>
         </div>
       </div>
 
     </div>
   );
 }
+
 
 /* ══ APP ══════════════════════════════════════════════════════════════════════ */
 function App() {
@@ -2778,12 +2965,10 @@ function App() {
   const allMonths=useMemo(()=>{ const s=new Set(Object.keys(days).map(k=>k.slice(0,7))); s.add(nowYM()); return Array.from(s).sort().reverse(); },[days]);
 
   const total=daysInMonth(viewMonth);
-  let cum=0;
   const rows=Array.from({length:total},(_,i)=>{
     const d=i+1,key=`${viewMonth}-${String(d).padStart(2,"0")}`,day=days[key];
     const gp=day?day.totalBalance:0,tc=toTC(gp,gpPerTc),cur=toCur(tc,curRate);
-    cum+=day?cur:0;
-    return {d,key,gp,tc,cur,cumulative:cum,hunts:day?.hunts||[],hasData:!!day};
+    return {d,key,gp,tc,cur,hunts:day?.hunts||[],hasData:!!day};
   });
 
   const maxGP=Math.max(...rows.map(r=>Math.abs(r.gp)),1);
@@ -2794,11 +2979,11 @@ function App() {
 
   const px=mob?12:24;
   const S={
-    th:  {background:"linear-gradient(180deg,#c8a040,#a87830)",color:"#fff8e0",textShadow:"0 1px 2px rgba(0,0,0,.4)",padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:14,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`,fontWeight:700},
+    th:  {background:"linear-gradient(180deg,#c8a040,#a87830)",color:"#f0e0c0",textShadow:"0 1px 2px rgba(0,0,0,.4)",padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:14,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`,fontWeight:700},
     inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Cinzel',serif"},
     lbl: {fontSize:11,color:C.textSub,marginBottom:5,display:"block",letterSpacing:.5,textTransform:"uppercase"},
   };
-  const btnPrimary={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:13,background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:"#0a0804",letterSpacing:.5};
+  const btnPrimary={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:13,background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:"#17140f",letterSpacing:.5};
   const btnGhost={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13};
   const btnDanger={padding:mob?"8px 12px":"9px 16px",borderRadius:8,border:`1px solid ${C.red}44`,cursor:"pointer",fontWeight:700,background:"transparent",color:C.red,fontSize:12};
 
@@ -2812,102 +2997,154 @@ function App() {
       <LangSelector mob={mob}/>
 
       {/* Flash */}
-      {flash&&<div style={{position:"fixed",bottom:28,left:"50%",transform:"translateX(-50%)",background:"#d4f0e0",border:`1px solid ${C.green}88`,color:C.green,padding:"12px 22px",borderRadius:12,fontWeight:700,zIndex:999,fontSize:14,boxShadow:"0 8px 32px #000c",whiteSpace:"nowrap",maxWidth:"90vw",textAlign:"center",animation:"slideUp .2s ease"}}>{flash}</div>}
+      {flash&&<div style={{position:"fixed",bottom:28,left:"50%",transform:"translateX(-50%)",background:"#0a2018",border:`1px solid ${C.green}88`,color:C.green,padding:"12px 22px",borderRadius:12,fontWeight:700,zIndex:999,fontSize:14,boxShadow:"0 8px 32px #000c",whiteSpace:"nowrap",maxWidth:"90vw",textAlign:"center",animation:"slideUp .2s ease"}}>{flash}</div>}
 
       {/* Modal */}
       {modal&&<ManualModal dateKey={modal.dateKey} dayNum={modal.dayNum} existingHunts={days[modal.dateKey]?.hunts||[]} gpPerTc={gpPerTc} curSym={curSym} curRate={curRate} onSave={saveManual} onRemove={removeHunt} onClose={()=>setModal(null)}/>}
 
-      {/* ══ HERO HEADER ══ */}
-      <div style={{position:"relative",overflow:"hidden",background:"linear-gradient(180deg,#07071a 0%,#0a0a20 50%,#08080f 100%)",borderBottom:"1px solid #2a2a48",padding:mob?"24px 16px 20px":"44px 28px 32px",textAlign:"center",position:"sticky",top:0,zIndex:100,backdropFilter:"blur(16px)"}}>
-        {/* Decoração: estrelas */}
-        {[{x:"8%",y:"20%",s:2,d:0},{x:"92%",y:"30%",s:3,d:1},{x:"15%",y:"70%",s:2,d:2},{x:"85%",y:"65%",s:2,d:.5},{x:"50%",y:"10%",s:2,d:1.5},{x:"30%",y:"15%",s:3,d:2.5},{x:"70%",y:"20%",s:2,d:.8}].map((s,i)=>(
-          <div key={i} className="star" style={{left:s.x,top:s.y,width:s.s,height:s.s,animationDelay:`${s.d}s`,animationDuration:`${2+i*.3}s`}}/>
+      {/* ══ HERO HEADER — EMBLEMA À ESQUERDA ══ */}
+      <div style={{position:"sticky",top:0,zIndex:100,overflow:"hidden",
+        background:"linear-gradient(180deg,#080612 0%,#0d0a1a 50%,#0f0c10 100%)",
+        borderBottom:"1px solid #3a2a50",
+        padding:mob?"18px 16px 20px":"32px 36px 30px",
+        backdropFilter:"blur(20px)"}}>
+
+        {/* Partículas */}
+        {[
+          {x:"8%", y:"30%",s:1.5,d:0,dur:2.4},{x:"22%",y:"60%",s:1.5,d:1.2,dur:2.8},
+          {x:"38%",y:"15%",s:2,  d:1.6,dur:2.5},{x:"55%",y:"75%",s:1.5,d:.3,dur:2},
+          {x:"68%",y:"25%",s:1.5,d:2,  dur:3.2},{x:"82%",y:"60%",s:2,  d:.5,dur:2.8},
+          {x:"92%",y:"35%",s:1.5,d:1.8,dur:2.6},
+        ].map((s,i)=>(
+          <div key={i} style={{position:"absolute",left:s.x,top:s.y,width:s.s,height:s.s,
+            borderRadius:"50%",background:"#a080ff",opacity:.45,
+            animation:`starPulse ${s.dur}s ease-in-out infinite`,animationDelay:`${s.d}s`}}/>
         ))}
 
-        {/* Linha decorativa superior */}
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginBottom:mob?8:12}}>
-          <div style={{height:1,width:mob?30:60,background:"linear-gradient(90deg,transparent,#c8a83c)"}}/>
-          <span style={{fontSize:mob?10:11,color:"#8a7028",letterSpacing:4,textTransform:"uppercase",fontFamily:"'Fira Code',monospace"}}>Farm Tracker</span>
-          <div style={{height:1,width:mob?30:60,background:"linear-gradient(270deg,transparent,#c8a83c)"}}/>
-        </div>
+        {/* Grade */}
+        <div style={{position:"absolute",inset:0,pointerEvents:"none",opacity:.05,
+          backgroundImage:"linear-gradient(#8060ff 1px,transparent 1px),linear-gradient(90deg,#8060ff 1px,transparent 1px)",
+          backgroundSize:"50px 50px"}}/>
 
-        {/* Ícone + Título */}
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:mob?6:10}}>
-          <div style={{width:mob?80:110,height:mob?60:80,marginBottom:mob?2:4}}>
+        {/* Glow central */}
+        <div style={{position:"absolute",inset:0,pointerEvents:"none",
+          background:"radial-gradient(ellipse 60% 120% at 50% 110%,#1a0a4066,transparent 70%)"}}/>
+
+        {/* ── Layout: EMBLEMA ABSOLUTO À ESQUERDA · BLOCO CENTRALIZADO ── */}
+        <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minHeight:mob?70:120}}>
+
+          {/* EMBLEMA GRANDE - ABSOLUTO À ESQUERDA */}
+          <div style={{position:mob?"static":"absolute",left:mob?undefined:0,top:mob?undefined:"50%",transform:mob?undefined:"translateY(-50%)",width:mob?80:150,height:mob?62:116,flexShrink:0,marginRight:mob?14:0,marginBottom:mob?8:0,
+            filter:"drop-shadow(0 0 28px #9060ffbb) drop-shadow(0 0 14px #d4780a66) drop-shadow(0 4px 8px rgba(0,0,0,.7))"}}>
             <svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",height:"100%"}}>
               <defs>
-                <radialGradient id="hSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#f0c040"/><stop offset="60%" stopColor="#c88a20"/><stop offset="100%" stopColor="#8a5800"/></radialGradient>
-                <radialGradient id="hSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#1a0e00"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
-                <linearGradient id="hSL" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
-                <linearGradient id="hSR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
-                <linearGradient id="hGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#c88820"/></linearGradient>
-                <linearGradient id="hBG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#166534"/></linearGradient>
-                <linearGradient id="hBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
+                <radialGradient id="hxSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#f0c040"/><stop offset="60%" stopColor="#c88a20"/><stop offset="100%" stopColor="#8a5800"/></radialGradient>
+                <radialGradient id="hxSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#e8d8c0"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
+                <linearGradient id="hxSL" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
+                <linearGradient id="hxSR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
+                <linearGradient id="hxGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#c88820"/></linearGradient>
+                <linearGradient id="hxBG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#166534"/></linearGradient>
+                <linearGradient id="hxBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
               </defs>
-              <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="#1a0800" opacity="0.4" transform="translate(7,9)"/>
-              <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="url(#hSG)"/>
-              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#fde68a" strokeWidth="1.8" opacity="0.55"/>
-              <path d="M340 100 L470 146 L470 264 Q470 348 340 400 Q210 348 210 264 L210 146 Z" fill="url(#hSI)"/>
+              <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="#1a0800" opacity="0.5" transform="translate(8,10)"/>
+              <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="url(#hxSG)"/>
+              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#fde68a" strokeWidth="2" opacity="0.6"/>
+              <path d="M340 100 L470 146 L470 264 Q470 348 340 400 Q210 348 210 264 L210 146 Z" fill="url(#hxSI)"/>
               <line x1="210" y1="226" x2="470" y2="226" stroke="#c88820" strokeWidth="1.5" opacity="0.35"/>
               <line x1="340" y1="100" x2="340" y2="400" stroke="#c88820" strokeWidth="1.5" opacity="0.35"/>
-              <rect x="246" y="333" width="26" height="42" rx="3" fill="url(#hBG)" opacity="0.85"/>
-              <rect x="282" y="308" width="26" height="67" rx="3" fill="url(#hBG)" opacity="0.85"/>
-              <rect x="318" y="278" width="26" height="97" rx="3" fill="url(#hBO)" opacity="0.95"/>
-              <rect x="354" y="293" width="26" height="82" rx="3" fill="url(#hBG)" opacity="0.85"/>
-              <rect x="390" y="316" width="26" height="59" rx="3" fill="url(#hBG)" opacity="0.85"/>
+              <rect x="246" y="333" width="26" height="42" rx="3" fill="url(#hxBG)" opacity="0.9"/>
+              <rect x="282" y="308" width="26" height="67" rx="3" fill="url(#hxBG)" opacity="0.9"/>
+              <rect x="318" y="278" width="26" height="97" rx="3" fill="url(#hxBO)"/>
+              <rect x="354" y="293" width="26" height="82" rx="3" fill="url(#hxBG)" opacity="0.9"/>
+              <rect x="390" y="316" width="26" height="59" rx="3" fill="url(#hxBG)" opacity="0.9"/>
               <line x1="243" y1="375" x2="420" y2="375" stroke="#c88820" strokeWidth="1.2" opacity="0.5"/>
-              <polyline points="259,330 295,304 331,274 367,289 403,312" fill="none" stroke="#fde68a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="331" cy="274" r="5" fill="#fde68a"/>
+              <polyline points="259,330 295,304 331,274 367,289 403,312" fill="none" stroke="#fde68a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="331" cy="274" r="6" fill="#fde68a"/>
               <g transform="rotate(-38, 300, 220)">
-                <rect x="293" y="96" width="12" height="168" rx="3" fill="url(#hSL)"/>
+                <rect x="293" y="96" width="12" height="168" rx="3" fill="url(#hxSL)"/>
                 <rect x="295" y="98" width="3.5" height="164" rx="1" fill="white" opacity="0.3"/>
                 <polygon points="299,96 293,96 296,78" fill="#e0e0e0"/>
-                <rect x="272" y="258" width="54" height="11" rx="5" fill="url(#hGG)"/>
+                <rect x="272" y="258" width="54" height="11" rx="5" fill="url(#hxGG)"/>
                 <circle cx="272" cy="263" r="5" fill="#fde68a"/>
                 <circle cx="326" cy="263" r="5" fill="#fde68a"/>
                 <rect x="292" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
-                <ellipse cx="299" cy="318" rx="10" ry="8" fill="url(#hGG)"/>
+                <ellipse cx="299" cy="318" rx="10" ry="8" fill="url(#hxGG)"/>
               </g>
               <g transform="rotate(38, 380, 220)">
-                <rect x="375" y="96" width="12" height="168" rx="3" fill="url(#hSR)"/>
+                <rect x="375" y="96" width="12" height="168" rx="3" fill="url(#hxSR)"/>
                 <rect x="377" y="98" width="3.5" height="164" rx="1" fill="white" opacity="0.3"/>
                 <polygon points="381,96 375,96 378,78" fill="#e0e0e0"/>
-                <rect x="354" y="258" width="54" height="11" rx="5" fill="url(#hGG)"/>
+                <rect x="354" y="258" width="54" height="11" rx="5" fill="url(#hxGG)"/>
                 <circle cx="354" cy="263" r="5" fill="#fde68a"/>
                 <circle cx="408" cy="263" r="5" fill="#fde68a"/>
                 <rect x="374" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
-                <ellipse cx="381" cy="318" rx="10" ry="8" fill="url(#hGG)"/>
+                <ellipse cx="381" cy="318" rx="10" ry="8" fill="url(#hxGG)"/>
               </g>
             </svg>
           </div>
-          <h1 className="hero-title" style={{fontSize:mob?26:42,letterSpacing:mob?3:6,lineHeight:1,margin:0}}>
-            TIBIA FARM TRACKER
-          </h1>
-          <div style={{fontSize:mob?11:13,color:"#9090b8",letterSpacing:1}}>
-            {playerName?<><span style={{color:"#c8c8e0",fontWeight:600}}>{playerName}</span> · </>:""}
-            <span style={{textTransform:"capitalize"}}>{mmLabel(viewMonth)}</span>
-            {" · "}<span style={{color:"#3dd68c",fontWeight:600}}>{daysOk}</span> {t("days_farmed")}
-            {" · "}<span style={{color:"#c8a83c"}}>{curObj.flag} {curObj.code}</span>
+
+          {/* BLOCO CENTRAL: título + subtítulo + botão (verdadeiramente centralizado) */}
+          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:mob?8:10,textAlign:"center"}}>
+
+            {/* Título */}
+            <div style={{position:"relative"}}>
+              <div style={{position:"absolute",inset:0,filter:"blur(22px)",opacity:.5,
+                background:"linear-gradient(90deg,#8040ff,#d4780a,#8040ff)",
+                backgroundSize:"200% auto",animation:"shimmer 4s linear infinite"}}/>
+              <h1 className="hero-title" style={{
+                fontSize:mob?22:46,letterSpacing:mob?3:8,lineHeight:1,margin:0,
+                position:"relative",
+                background:"linear-gradient(90deg,#7040cc,#d4780a,#e8960a,#f0b030,#d4780a,#9060e0,#7040cc)",
+                backgroundSize:"200% auto",
+                WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
+                backgroundClip:"text",animation:"shimmer 5s linear infinite",
+                fontFamily:"'Cinzel',serif",fontWeight:700}}>
+                TIBIA FARM TRACKER
+              </h1>
+            </div>
+
+            {/* Tagline */}
+            <div style={{fontSize:mob?11:14,letterSpacing:mob?1.5:2.5,
+              display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",justifyContent:"center",
+              fontFamily:"'Cinzel',serif",fontWeight:600}}>
+              <span style={{color:"#c0b0e8"}}>{t("hero_tag1")}</span>
+              <span style={{opacity:.5,color:"#7060c8"}}>·</span>
+              <span style={{color:"#d4780a",textShadow:"0 0 10px #d4780a66"}}>{t("hero_tag2")}</span>
+              <span style={{opacity:.5,color:"#7060c8"}}>·</span>
+              <span style={{display:"inline-flex",alignItems:"center",gap:5}}>
+                <span style={{width:7,height:7,borderRadius:"50%",background:"#3dd68c",boxShadow:"0 0 10px #3dd68caa",animation:"starPulse 1.6s ease-in-out infinite"}}/>
+                <span style={{color:"#3dd68c",textShadow:"0 0 8px #3dd68c66"}}>{t("hero_tag3")}</span>
+              </span>
+            </div>
+
+            {/* Botão */}
+            <div style={{position:"relative",marginTop:4}}>
+              <div style={{position:"absolute",inset:-3,borderRadius:10,
+                background:"linear-gradient(135deg,#7040cc,#d4780a,#7040cc)",
+                backgroundSize:"200% auto",animation:"shimmer 3s linear infinite",
+                filter:"blur(6px)",opacity:.55}}/>
+              <button style={{
+                position:"relative",
+                background:"linear-gradient(135deg,#1a1030 0%,#2a1848 50%,#1a1030 100%)",
+                color:"#f0c060",border:"1px solid #7040cc88",borderRadius:8,cursor:"pointer",
+                fontWeight:700,fontSize:mob?11:13,
+                padding:mob?"7px 18px":"9px 26px",
+                letterSpacing:1.8,
+                fontFamily:"'Cinzel',serif",
+                boxShadow:"0 0 18px #7040cc44,0 3px 10px rgba(0,0,0,.5),inset 0 1px 0 rgba(180,120,255,.2)",
+                transition:"all .2s",
+              }} onClick={()=>setTab("paste")}
+                onMouseEnter={e=>{e.currentTarget.style.boxShadow="0 0 28px #8050ee66,0 3px 14px rgba(0,0,0,.6),inset 0 1px 0 rgba(200,140,255,.3)";e.currentTarget.style.borderColor="#9060ee";}}
+                onMouseLeave={e=>{e.currentTarget.style.boxShadow="0 0 18px #7040cc44,0 3px 10px rgba(0,0,0,.5),inset 0 1px 0 rgba(180,120,255,.2)";e.currentTarget.style.borderColor="#7040cc88";}}>
+                {t("new_hunt")}
+              </button>
+            </div>
           </div>
-        </div>
-
-        {/* Botão + Hunt */}
-        <div style={{marginTop:mob?12:16}}>
-          <button style={{background:"linear-gradient(135deg,#c8a83c,#8a7028)",color:"#0a0804",border:"none",borderRadius:10,cursor:"pointer",fontWeight:700,fontSize:13,padding:mob?"9px 16px":"10px 24px",letterSpacing:1,boxShadow:"0 4px 24px rgba(200,168,60,.5),inset 0 1px 0 rgba(255,240,150,.4)"}} onClick={()=>setTab("paste")}>
-            {t("new_hunt")}
-          </button>
-        </div>
-
-        {/* Linha decorativa inferior */}
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginTop:mob?12:16}}>
-          <div style={{height:1,flex:1,background:"linear-gradient(90deg,transparent,#2a2a48)"}}/>
-          <div style={{width:6,height:6,background:"#c8a83c",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 8px #c8a83c88",opacity:.8}}/>
-          <div style={{height:1,flex:1,background:"linear-gradient(270deg,transparent,#2a2a48)"}}/>
         </div>
       </div>
 
       {/* ══ TABS PREMIUM ══ */}
-      <div style={{background:"linear-gradient(180deg,#0a0a1a,#0d0d20)",borderBottom:"1px solid #1e1e3a",overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
+      <div style={{background:"linear-gradient(180deg,#0e0c10,#0c0a0e)",borderBottom:"1px solid #1e1e3a",overflowX:"auto",WebkitOverflowScrolling:"touch",boxShadow:"0 4px 20px #00000044"}}>
         <div style={{maxWidth:1400,margin:"0 auto",display:"flex",justifyContent:"center",padding:`0 ${px}px`,gap:2}}>
           {[
             {id:"tracker", icon:"⚔️",  label:t("t_tracker"), desc:t("t_tracker_d"), color:C.gold   },
@@ -2915,8 +3152,8 @@ function App() {
             {id:"djinn",   icon:"🧞",  label:"Djinn", desc:"Venda de itens",   color:"#3dd68c"},
             {id:"paste",   icon:"📋",  label:"Colar Sessão", desc:"Importar hunt",   color:"#f0a030"},
             {id:"meta",    icon:"🎯",  label:t("meta_tab_lbl"), desc:t("meta_tab_desc"), color:"#e84040"},
-            {id:"config",  icon:"⚙️",  label:t("t_config"),   desc:t("t_config_d"),   color:"#9b6dff"},
-            {id:"about",   icon:"📜",  label:t("t_about"),    desc:t("t_about_d"),     color:"#c8a030"},
+            {id:"config",  icon:"⚙️",  label:"Configurações", desc:"Ajustes do app",  color:"#9b6dff"},
+            {id:"about",   icon:"📜",  label:"About",         desc:"Sobre o projeto",  color:"#c8a030"},
           ].map(({id,icon,label,desc,color})=>{
             const active = tab===id;
             return (
@@ -2949,7 +3186,7 @@ function App() {
                     fontSize:13,
                     letterSpacing:1.5,
                     textTransform:"uppercase",
-                    color: active?color:"#f5e8c8",
+                    color: active?color:"#e8d0a8",
                     transition:"color .2s",
                     lineHeight:1,
                     textShadow: active?`0 0 12px ${color}88`:"none",
@@ -2996,7 +3233,7 @@ function App() {
           {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
             {[[t("gold_total"),fmt(totalGP)+" gp",C.goldLight],[t("tibia_coins"),Math.round(totalTC).toLocaleString()+" TC",C.goldLight],[t("value")+" "+curObj.code,fmtMoney(totalCur,curSym),C.green],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
-              <div key={label} style={{background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,padding:mob?"12px":"16px 18px",boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 10px rgba(100,60,0,.15),0 2px 4px rgba(0,0,0,.10)"}}>
+              <div key={label} style={{background:"linear-gradient(180deg,#221e17,#1a1712)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,padding:mob?"12px":"16px 18px",boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 10px rgba(100,60,0,.15),0 2px 4px rgba(0,0,0,.10)"}}>
                 <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:mob?16:22,color,lineHeight:1.1}}>{val}</div>
                 <div style={{fontSize:mob?10:11,color:C.textFaint,marginTop:4,textTransform:"uppercase",letterSpacing:.7}}>{label}</div>
               </div>
@@ -3015,7 +3252,7 @@ function App() {
           </div>
 
           {/* Tabela com scroll fixo */}
-          <div style={{background:"linear-gradient(180deg,#fdfaf4,#faf6ee)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 16px rgba(100,60,0,.18),0 8px 32px rgba(100,60,0,.08)"}}>
+          <div style={{background:"linear-gradient(180deg,#fdfaf4,#faf6ee)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 16px rgba(100,60,0,.18),0 8px 32px rgba(100,60,0,.08)"}}>
 
             {/* Cabeçalho fixo */}
             <div style={{overflowX:"auto"}}>
@@ -3026,7 +3263,7 @@ function App() {
                     <th style={{...S.th,textAlign:"left",paddingLeft:0}}>{t("gold_bal")}</th>
                     {!mob&&<th style={S.th}>TC</th>}
                     <th style={S.th}>{curSym} {t("value")}</th>
-                    <th style={S.th}>{t("accum")}</th>
+
                     <th style={{...S.th,width:36,padding:"10px 8px"}}></th>
                   </tr>
                 </thead>
@@ -3057,60 +3294,72 @@ function App() {
             },0);
             return (
               <div style={{
-                background:"linear-gradient(180deg,#fdfaf4,#f5edd8)",
+                background:"linear-gradient(180deg,#221e17,#1a1712)",
                 border:"1px solid #c8a050",
                 borderTop:"2px solid #e8c870",
                 borderBottom:"2px solid #9a7030",
                 borderRadius:12,
                 padding:"14px 18px",
-                boxShadow:"0 1px 0 rgba(255,240,180,.8) inset,0 4px 14px rgba(100,60,0,.15)",
+                boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 14px rgba(100,60,0,.15)",
                 marginTop:10
               }}>
                 {/* Header dourado */}
                 <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:14,paddingBottom:10,borderBottom:"1px solid #c8a05044"}}>
                   <div style={{width:6,height:6,background:C.gold,transform:"rotate(45deg)",flexShrink:0,boxShadow:`0 0 6px ${C.gold}88`}}/>
-                  <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:C.gold,letterSpacing:2,textTransform:"uppercase",fontWeight:700}}>{t("analysis")} · {mmLabel(viewMonth)}</span>
+                  <span style={{fontFamily:"'Cinzel',serif",fontSize:13,color:C.gold,letterSpacing:3,textTransform:"uppercase",fontWeight:700,textShadow:`0 0 10px ${C.gold}88`}}>{t("analysis")} · {mmLabel(viewMonth)}</span>
                 </div>
-                <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"repeat(4,1fr)",gap:10}}>
+                <div style={{display:"grid",gridTemplateColumns:mob?"1fr 1fr":"repeat(4,1fr)",gap:14}}>
 
                   {/* Melhor Dia */}
-                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
-                    border:"1px solid #c8a05033",
-                    borderTop:"2px solid #1a6a3a44",
-                    boxShadow:"0 2px 6px rgba(26,106,58,.08)"}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#1a6a3a",marginBottom:6,fontWeight:600}}>{t("best_day")}</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:"#1a6a3a",lineHeight:1.1}}>Dia {bestDay.d}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:"#1a6a3a",marginTop:5,fontWeight:500}}>{fmt(bestDay.gp)} gp</div>
+                  <div style={{
+                    background:"linear-gradient(160deg,#1a2a1a 0%,#0f1a0f 100%)",
+                    borderRadius:12,padding:"20px 18px",
+                    border:"1px solid #2a8a3a55",
+                    borderTop:"2px solid #2a8a3a99",
+                    borderLeft:"1px solid #2a8a3a33",
+                    boxShadow:"0 0 18px rgba(42,138,58,.18),0 4px 16px rgba(0,0,0,.40),0 1px 0 #2a8a3a22 inset"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#4ab85a",marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:"0 0 8px #2a8a3a88"}}>{t("best_day")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:"#4ab85a",lineHeight:1,textShadow:"0 0 12px #2a8a3aaa",marginBottom:8}}>Dia {bestDay.d}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:"#2a8a3a",fontWeight:600,textShadow:"0 0 6px #2a8a3a66"}}>{fmt(bestDay.gp)} gp</div>
                   </div>
 
                   {/* Pior Dia */}
-                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
-                    border:"1px solid #c8a05033",
-                    borderTop:`2px solid ${worstDay.gp<0?"#cc220044":"#9a703044"}`,
-                    boxShadow:"0 2px 6px rgba(100,60,0,.08)"}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:worstDay.gp<0?C.red:C.textSub,marginBottom:6,fontWeight:600}}>{t("worst_day")}</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:worstDay.gp<0?C.red:"#6b3a10",lineHeight:1.1}}>Dia {worstDay.d}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:worstDay.gp<0?C.red:C.textSub,marginTop:5,fontWeight:500}}>{fmt(worstDay.gp)} gp</div>
+                  <div style={{
+                    background:worstDay.gp<0?"linear-gradient(160deg,#2a1010 0%,#1a0808 100%)":"linear-gradient(160deg,#1e1a14 0%,#17140f 100%)",
+                    borderRadius:12,padding:"20px 18px",
+                    border:`1px solid ${worstDay.gp<0?"#cc442255":"#5a483022"}`,
+                    borderTop:`2px solid ${worstDay.gp<0?"#cc442299":"#5a483055"}`,
+                    borderLeft:`1px solid ${worstDay.gp<0?"#cc442233":"#5a483018"}`,
+                    boxShadow:`0 0 18px ${worstDay.gp<0?"rgba(204,68,34,.18)":"rgba(0,0,0,.2)"},0 4px 16px rgba(0,0,0,.40)`}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:worstDay.gp<0?"#e05535":C.textSub,marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:worstDay.gp<0?"0 0 8px #cc442288":"none"}}>{t("worst_day")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:worstDay.gp<0?"#e05535":"#c0a878",lineHeight:1,textShadow:worstDay.gp<0?"0 0 12px #cc4422aa":"none",marginBottom:8}}>Dia {worstDay.d}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:worstDay.gp<0?"#cc4422":"#a09070",fontWeight:600}}>{fmt(worstDay.gp)} gp</div>
                   </div>
 
                   {/* Dias Acima da Média */}
-                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
-                    border:"1px solid #c8a05033",
-                    borderTop:"2px solid #b35a0044",
-                    boxShadow:"0 2px 6px rgba(179,90,0,.08)"}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.gold,marginBottom:6,fontWeight:600}}>{t("above_avg")}</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:C.gold,lineHeight:1.1}}>{daysAbove} de {daysOk}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,marginTop:5,fontWeight:500}}>{fmt(Math.round(avgGP))} gp/dia</div>
+                  <div style={{
+                    background:"linear-gradient(160deg,#201808 0%,#17120a 100%)",
+                    borderRadius:12,padding:"20px 18px",
+                    border:"1px solid #d4780a55",
+                    borderTop:"2px solid #d4780a99",
+                    borderLeft:"1px solid #d4780a33",
+                    boxShadow:"0 0 18px rgba(212,120,10,.20),0 4px 16px rgba(0,0,0,.40),0 1px 0 #d4780a22 inset"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#e8960a",marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:"0 0 8px #d4780a88"}}>{t("above_avg")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:"#f0a020",lineHeight:1,textShadow:"0 0 12px #d4780aaa",marginBottom:8}}>{daysAbove} de {daysOk}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:"#a07828",fontWeight:600}}>{fmt(Math.round(avgGP))} gp/dia</div>
                   </div>
 
                   {/* Maior Sequência */}
-                  <div style={{background:"#fafaf8",borderRadius:10,padding:"14px 14px",
-                    border:"1px solid #c8a05033",
-                    borderTop:"2px solid #b35a0044",
-                    boxShadow:"0 2px 6px rgba(179,90,0,.08)"}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:C.accent,marginBottom:6,fontWeight:600}}>{t("streak")}</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:18,color:C.accent,lineHeight:1.1}}>{streak} {streak===1?"dia":"dias"}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,marginTop:5,fontWeight:500}}>{t("days_streak")}</div>
+                  <div style={{
+                    background:"linear-gradient(160deg,#201a08 0%,#17140a 100%)",
+                    borderRadius:12,padding:"20px 18px",
+                    border:"1px solid #d4780a44",
+                    borderTop:"2px solid #e8960a88",
+                    borderLeft:"1px solid #d4780a22",
+                    boxShadow:"0 0 14px rgba(212,120,10,.15),0 4px 16px rgba(0,0,0,.40)"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#d4780a",marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:"0 0 8px #d4780a66"}}>{t("streak")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:"#e8960a",lineHeight:1,textShadow:"0 0 10px #d4780a88",marginBottom:8}}>{streak} {streak===1?"dia":"dias"}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:"#a07828",fontWeight:600}}>{t("days_streak")}</div>
                   </div>
 
                 </div>
@@ -3154,11 +3403,11 @@ function App() {
               value={clip} onChange={e=>handlePaste(e.target.value)}/>
             {parseErr&&<div style={{color:C.red,background:C.redDim,border:`1px solid ${C.red}33`,borderRadius:8,padding:"10px 14px",fontSize:13,marginTop:10}}>⚠️ {parseErr}</div>}
             {parsed&&(
-              <div style={{background:"#0b1a0b",border:"1px solid #d4a85566",borderRadius:14,padding:mob?14:20,marginTop:14}}>
+              <div style={{background:"#0a1808",border:"1px solid #d4a85566",borderRadius:14,padding:mob?14:20,marginTop:14}}>
                 <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:C.green,fontSize:15,marginBottom:14}}>{t("sess_ok")}</div>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,marginBottom:14}}>
                   {[[t("s_date"),parsed.date],[t("s_dur"),parsed.session],[t("s_loot"),fmt(parsed.loot)+" gp"],[t("s_supp"),fmt(parsed.supplies)+" gp"],[t("s_bal"),fmt(parsed.balance)+" gp"],[t("s_tc"),`~${Math.round(toTC(parsed.balance,gpPerTc)).toLocaleString()} TC`]].map(([k,v])=>(
-                    <div key={k} style={{background:"#0a160a",borderRadius:8,padding:"9px 12px"}}>
+                    <div key={k} style={{background:"#0a1808",borderRadius:8,padding:"9px 12px"}}>
                       <div style={{fontSize:10,color:C.textFaint}}>{k}</div>
                       <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:mob?13:15,color:k.includes("Balance")?(parsed.balance>=0?C.green:C.red):C.text}}>{v}</div>
                     </div>
@@ -3167,7 +3416,7 @@ function App() {
                 {parsed.players.length>0&&(<div style={{marginBottom:14}}>
                   <div style={{fontSize:11,color:C.textFaint,marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>{t("s_players")}</div>
                   {parsed.players.map(p=>(
-                    <div key={p.name} style={{display:"flex",justifyContent:"space-between",background:"#0a160a",borderRadius:8,padding:"7px 12px",fontSize:13,marginBottom:4}}>
+                    <div key={p.name} style={{display:"flex",justifyContent:"space-between",background:"#0a1808",borderRadius:8,padding:"7px 12px",fontSize:13,marginBottom:4}}>
                       <span style={{color:C.text,fontWeight:600}}>{p.name}</span>
                       <span style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:p.balance>=0?C.green:C.red}}>{p.balance>=0?"+":""}{fmt(p.balance)} gp</span>
                     </div>
@@ -3229,6 +3478,7 @@ function App() {
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+
 </script>
 </body>
 </html>
