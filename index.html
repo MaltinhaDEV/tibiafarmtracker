@@ -312,6 +312,13 @@ const TR = {
     a_f6d:"Disponível em PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
     hero_tag1:"SEU CONTROLE", hero_tag2:"DE FARM", hero_tag3:"ONLINE",
     footer_dev:"Desenvolvido por", footer_open:"Open Source",
+    rashid_tip_0:"Próximo ao depot da cidade",
+    rashid_tip_1:"Dentro do depot de Svargrond",
+    rashid_tip_2:"No depot de Liberty Bay",
+    rashid_tip_3:"No depot de Port Hope",
+    rashid_tip_4:"No depot de Ankrahmun",
+    rashid_tip_5:"No depot de Darashia",
+    rashid_tip_6:"No depot de Edron",
   },
   en:{flag:"🇺🇸",name:"English",
     days_farmed:"days farmed", new_hunt:"⚔️ + NEW HUNT",
@@ -449,6 +456,13 @@ const TR = {
     a_f6d:"Available in PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
     hero_tag1:"YOUR FARM", hero_tag2:"CONTROL", hero_tag3:"ONLINE",
     footer_dev:"Developed by", footer_open:"Open Source",
+    rashid_tip_0:"Near the city depot",
+    rashid_tip_1:"Inside Svargrond depot",
+    rashid_tip_2:"At Liberty Bay depot",
+    rashid_tip_3:"At Port Hope depot",
+    rashid_tip_4:"At Ankrahmun depot",
+    rashid_tip_5:"At Darashia depot",
+    rashid_tip_6:"At Edron depot",
   },
   es:{flag:"🇪🇸",name:"Español",
     days_farmed:"días farmeados", new_hunt:"⚔️ + NUEVA HUNT",
@@ -586,6 +600,13 @@ const TR = {
     a_f6d:"Disponible en PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
     hero_tag1:"TU CONTROL", hero_tag2:"DE FARM", hero_tag3:"EN LÍNEA",
     footer_dev:"Desarrollado por", footer_open:"Código Abierto",
+    rashid_tip_0:"Cerca del depot de la ciudad",
+    rashid_tip_1:"Dentro del depot de Svargrond",
+    rashid_tip_2:"En el depot de Liberty Bay",
+    rashid_tip_3:"En el depot de Port Hope",
+    rashid_tip_4:"En el depot de Ankrahmun",
+    rashid_tip_5:"En el depot de Darashia",
+    rashid_tip_6:"En el depot de Edron",
   },
   pl:{flag:"🇵🇱",name:"Polski",
     days_farmed:"dni farmienia", new_hunt:"⚔️ + NOWY HUNT",
@@ -721,6 +742,13 @@ const TR = {
     a_f6d:"Dostępny w PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
     hero_tag1:"TWOJA KONTROLA", hero_tag2:"FARMA", hero_tag3:"ONLINE",
     footer_dev:"Stworzone przez", footer_open:"Open Source",
+    rashid_tip_0:"Przy depocie w mieście",
+    rashid_tip_1:"W depocie Svargrond",
+    rashid_tip_2:"W depocie Liberty Bay",
+    rashid_tip_3:"W depocie Port Hope",
+    rashid_tip_4:"W depocie Ankrahmun",
+    rashid_tip_5:"W depocie Darashia",
+    rashid_tip_6:"W depocie Edron",
   },
   de:{flag:"🇩🇪",name:"Deutsch",
     days_farmed:"Tage gefarmt", new_hunt:"⚔️ + NEUER HUNT",
@@ -856,6 +884,13 @@ const TR = {
     a_f6d:"Verfügbar in PT 🇧🇷 · EN 🇺🇸 · ES 🇪🇸 · PL 🇵🇱 · DE 🇩🇪",
     hero_tag1:"DEINE FARM", hero_tag2:"KONTROLLE", hero_tag3:"ONLINE",
     footer_dev:"Entwickelt von", footer_open:"Open Source",
+    rashid_tip_0:"Beim Depot der Stadt",
+    rashid_tip_1:"Im Depot von Svargrond",
+    rashid_tip_2:"Im Depot von Liberty Bay",
+    rashid_tip_3:"Im Depot von Port Hope",
+    rashid_tip_4:"Im Depot von Ankrahmun",
+    rashid_tip_5:"Im Depot von Darashia",
+    rashid_tip_6:"Im Depot von Edron",
   },
 };
 
@@ -1153,7 +1188,7 @@ function LeftSidebar({ mob }) {
             <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:34,color:C.green,lineHeight:1,letterSpacing:2}}>{rashid.city}</div>
             <div style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,marginTop:6,display:"flex",alignItems:"center",justifyContent:"center",gap:5,letterSpacing:.5}}>
               <span style={{color:C.green,fontSize:14}}>📍</span>
-              <span>{rashid.tip}</span>
+              <span>{t("rashid_tip_"+dow)}</span>
             </div>
           </div>
         </div>
@@ -1597,9 +1632,9 @@ function InfoPanel({ mob, creature, boss }) {
       <div style={{...cardBase,border:"1px solid #3a1a0044",background:"linear-gradient(135deg,#0d1a0d,#0a120a)",display:"flex",alignItems:"center",gap:12}}>
         <RashidSprite size={48}/>
         <div style={{flex:1}}>
-          <div style={{fontSize:9,color:C.gold,letterSpacing:1,textTransform:"uppercase",marginBottom:2}}>Rashid Hoje · {diasFull[dow]}</div>
+          <div style={{fontSize:9,color:C.gold,letterSpacing:1,textTransform:"uppercase",marginBottom:2}}>{t("rashid_today")} · {diasFull[dow]}</div>
           <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:20,color:C.green}}>{rashid.city}</div>
-          <div style={{fontSize:10,color:C.textFaint}}>📍 {rashid.tip}</div>
+          <div style={{fontSize:10,color:C.textFaint}}>📍 {t("rashid_tip_"+dow)}</div>
         </div>
       </div>
       {/* Boosted mobile */}
@@ -1623,7 +1658,7 @@ function InfoPanel({ mob, creature, boss }) {
             <div>
               <div style={{fontSize:9,color:C.gold,letterSpacing:1,textTransform:"uppercase"}}>{t("rashid_today")}</div>
               <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:22,color:C.green,lineHeight:1.1}}>{rashid.city}</div>
-              <div style={{fontSize:10,color:C.textFaint,marginTop:1}}>📍 {rashid.tip}</div>
+              <div style={{fontSize:10,color:C.textFaint,marginTop:1}}>📍 {t("rashid_tip_"+dow)}</div>
             </div>
           </div>
           {/* Calendário semanal */}
