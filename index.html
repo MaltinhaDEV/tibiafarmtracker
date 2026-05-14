@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
@@ -13,12 +13,12 @@
 <style>
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
-body { background:#17140f; font-family:'Fira Code',monospace; }
-html { background:#17140f; }
+body { background:#0b0c10; font-family:'Fira Code',monospace; }
+html { background:#0b0c10; }
 
 ::-webkit-scrollbar { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:#5a4828; border-radius:99px; opacity:.6; }
+::-webkit-scrollbar-thumb { background:#3b4358; border-radius:99px; opacity:.6; }
 
 input[type=month]::-webkit-calendar-picker-indicator,
 input[type=date]::-webkit-calendar-picker-indicator  { filter:invert(0.7) sepia(0.3) hue-rotate(10deg); cursor:pointer; }
@@ -32,7 +32,7 @@ input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 @keyframes torchFlicker { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:.7;transform:scaleY(.9)} 75%{opacity:.9;transform:scaleY(1.05)} }
 @keyframes shimmer  { 0%{background-position:200% center} 100%{background-position:-200% center} }
 @keyframes starPulse{ 0%,100%{opacity:.2} 50%{opacity:.8} }
-@keyframes borderGlow{ 0%,100%{box-shadow:0 0 10px #d4780a22} 50%{box-shadow:0 0 28px #d4780a55} }
+@keyframes borderGlow{ 0%,100%{box-shadow:0 0 10px #00d4ff22} 50%{box-shadow:0 0 28px #00d4ff55} }
 
 .modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px;backdrop-filter:blur(8px);animation:fadeIn .15s ease; }
 .slide-up      { animation:slideUp .2s ease; }
@@ -41,14 +41,14 @@ input[type=number]::-webkit-inner-spin-button        { opacity:0.3; }
 .bar-fill      { height:100%;border-radius:2px;transition:width .4s ease; }
 .row-hover:hover   { background:rgba(200,140,20,.08)!important; }
 .card-hover        { transition:border-color .2s,box-shadow .2s; }
-.card-hover:hover  { border-color:#d4780a55!important;box-shadow:0 2px 12px rgba(200,140,20,.15); }
+.card-hover:hover  { border-color:#00d4ff55!important;box-shadow:0 2px 12px rgba(200,140,20,.15); }
 .cur-btn           { transition:all .15s; }
-.cur-btn:hover     { border-color:#d4780a55!important; }
+.cur-btn:hover     { border-color:#00d4ff55!important; }
 button:active      { transform:scale(.97); }
 
 /* ── Dark panel effects ── */
 body {
-  background-color:#17140f !important;
+  background-color:#0b0c10 !important;
   background-image:
     repeating-linear-gradient(
       0deg,
@@ -68,9 +68,9 @@ body {
 
 /* Raised panel */
 .panel-raised {
-  background: linear-gradient(180deg, #221e17 0%, #1e1b14 60%, #17140f 100%) !important;
-  border: 1px solid #3d3020 !important;
-  border-top: 2px solid #5a4828 !important;
+  background: linear-gradient(180deg, #161922 0%, #12141a 60%, #0b0c10 100%) !important;
+  border: 1px solid #2a3040 !important;
+  border-top: 2px solid #3b4358 !important;
   border-bottom: 2px solid #2a2018 !important;
   box-shadow:
     0 1px 0 #3a3020 inset,
@@ -85,18 +85,18 @@ body {
 
 /* Panel header — keep gold */
 .panel-header {
-  background: linear-gradient(180deg, #d4a850 0%, #c89840 40%, #a87830 100%) !important;
+  background: linear-gradient(180deg, #00aacc 0%, #0088aa 40%, #0077cc 100%) !important;
   border-bottom: 1px solid #8a6020 !important;
   border-top: 1px solid #e8c860 !important;
   box-shadow: 0 2px 4px rgba(0,0,0,.4), 0 1px 0 rgba(255,200,60,.3) inset !important;
-  color: #f0e0c0 !important;
+  color: #e0ffff !important;
   text-shadow: 0 1px 2px rgba(0,0,0,.7) !important;
 }
 
 /* Ornamental divider */
 .ornament-divider {
   height: 3px;
-  background: linear-gradient(90deg, transparent, #d4780a, #e8960a, #d4780a, transparent);
+  background: linear-gradient(90deg, transparent, #00d4ff, #33e8ff, #00d4ff, transparent);
   margin: 0;
   box-shadow: 0 1px 6px rgba(200,120,10,.4);
 }
@@ -112,9 +112,9 @@ body {
 
 /* KPI card */
 .kpi-3d {
-  background: linear-gradient(180deg, #221e17 0%, #1a1712 100%) !important;
-  border: 1px solid #3d3020 !important;
-  border-top: 2px solid #5a4828 !important;
+  background: linear-gradient(180deg, #161922 0%, #1a1712 100%) !important;
+  border: 1px solid #2a3040 !important;
+  border-top: 2px solid #3b4358 !important;
   border-bottom: 2px solid #2a2018 !important;
   box-shadow:
     0 1px 0 rgba(80,60,20,.8) inset,
@@ -123,13 +123,13 @@ body {
 }
 
 /* Stars */
-.star { position:absolute;border-radius:50%;background:#d4780a;animation:starPulse 3s ease-in-out infinite;box-shadow:none; }
+.star { position:absolute;border-radius:50%;background:#00d4ff;animation:starPulse 3s ease-in-out infinite;box-shadow:none; }
 
 /* Shimmer title */
 .hero-title {
   font-family:'Cinzel',serif;
   font-weight:700;
-  background:linear-gradient(90deg,#a05808,#e8960a,#d4780a,#f0b030,#d4780a,#e8960a,#a05808);
+  background:linear-gradient(90deg,#0077aa,#33e8ff,#00d4ff,#f0b030,#00d4ff,#33e8ff,#0077aa);
   background-size:200% auto;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -142,8 +142,8 @@ body {
 .rashid-eyes   { animation:rashidBlink 4s ease-in-out infinite; transform-origin:center; }
 
 /* Footer */
-.footer-link { color:#a09070;text-decoration:none;transition:color .2s;font-weight:600; }
-.footer-link:hover { color:#d4780a; }
+.footer-link { color:#88aacc;text-decoration:none;transition:color .2s;font-weight:600; }
+.footer-link:hover { color:#00d4ff; }
 
 /* Dark inputs */
 input, textarea, select {
@@ -946,7 +946,7 @@ function LangSelector({ mob }){
       position:"fixed", top:mob?8:14, right:mob?8:16, zIndex:999,
       display:"flex", alignItems:"center", gap:mob?4:6,
       background:"rgba(23,20,15,0.97)", backdropFilter:"blur(10px)",
-      border:"1px solid #d4a85555", borderRadius:12,
+      border:"1px solid #44ccee55", borderRadius:12,
       padding:mob?"5px 8px":"7px 12px",
       boxShadow:"0 4px 20px #000a",
     }}>
@@ -1042,16 +1042,16 @@ function parseClip(text) {
 }
 
 const C = {
-  bg:"#17140f", bg2:"#1e1b14", card:"#221e17", cardHi:"#2a2520",
-  border:"#3d3020", borderHi:"#5a4530",
-  gold:"#d4780a", goldLight:"#e8960a", goldDim:"#a05808",
-  accent:"#d4780a", accentGlow:"#f0a020",
+  bg:"#0b0c10", bg2:"#12141a", card:"#161922", cardHi:"#1d212b",
+  border:"#2a3040", borderHi:"#3b4358",
+  gold:"#00d4ff", goldLight:"#33e8ff", goldDim:"#0077aa",
+  accent:"#00d4ff", accentGlow:"#f0a020",
   green:"#2a8a3a", greenDim:"#0a2018",
   red:"#cc4422", redDim:"#2a0808",
   purple:"#9966cc",
-  text:"#e8d8c0",
-  textSub:"#a09070",
-  textFaint:"#706050",
+  text:"#e0f0ff",
+  textSub:"#88aacc",
+  textFaint:"#557799",
   muted:"#2a2418",
 };
 
@@ -1155,10 +1155,10 @@ function LeftSidebar({ mob }) {
       {/* ── RASHID CARD ── */}
       {/* ══ RASHID CARD PREMIUM ══ */}
       <div style={{
-        background:"linear-gradient(180deg,#221e17,#1a1712)",
-        border:"1px solid #c8a050",
-        borderTop:"2px solid #e8c870",
-        borderBottom:"2px solid #9a7030",
+        background:"linear-gradient(180deg,#161922,#1a1712)",
+        border:"1px solid #00ccff",
+        borderTop:"2px solid #66ddff",
+        borderBottom:"2px solid #006699",
         borderRadius:14,
         overflow:"hidden",
         boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 6px 20px rgba(100,60,0,.18)",
@@ -1166,12 +1166,12 @@ function LeftSidebar({ mob }) {
       }}>
 
         {/* Header dourado premium */}
-        <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"11px 16px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.2),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+        <div style={{background:"linear-gradient(180deg,#00aaff,#0077cc)",padding:"11px 16px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.2),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div style={{display:"flex",alignItems:"center",gap:8}}>
             <div style={{width:7,height:7,borderRadius:"50%",background:"#ffee88",boxShadow:"0 0 6px #ffee88",flexShrink:0}}/>
-            <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:"#f0e0c0",letterSpacing:2,textTransform:"uppercase",fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{t("rashid_today")}</span>
+            <span style={{fontFamily:"'Cinzel',serif",fontSize:11,color:"#e0ffff",letterSpacing:2,textTransform:"uppercase",fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{t("rashid_today")}</span>
           </div>
-          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,background:"rgba(0,0,0,.25)",color:"#f0e0c0",padding:"3px 10px",borderRadius:99,border:"1px solid rgba(255,255,255,.2)",letterSpacing:1}}>{diasFull[dow]}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:11,fontWeight:700,background:"rgba(0,0,0,.25)",color:"#e0ffff",padding:"3px 10px",borderRadius:99,border:"1px solid rgba(255,255,255,.2)",letterSpacing:1}}>{diasFull[dow]}</span>
         </div>
 
         {/* Sprite + cidade */}
@@ -1179,7 +1179,7 @@ function LeftSidebar({ mob }) {
 
           {/* Sprite maior com anel decorativo */}
           <div style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <div style={{position:"absolute",width:136,height:136,borderRadius:"50%",border:"1.5px solid #c8a05033",background:"radial-gradient(circle,rgba(200,168,64,.06),transparent 70%)"}}/>
+            <div style={{position:"absolute",width:136,height:136,borderRadius:"50%",border:"1.5px solid #00ccff33",background:"radial-gradient(circle,rgba(200,168,64,.06),transparent 70%)"}}/>
             <RashidSprite size={128}/>
           </div>
 
@@ -1194,7 +1194,7 @@ function LeftSidebar({ mob }) {
         </div>
 
         {/* Divider dourada */}
-        <div style={{height:1,background:"linear-gradient(90deg,transparent,#c8a05066,transparent)",margin:"0 16px"}}/>
+        <div style={{height:1,background:"linear-gradient(90deg,transparent,#00ccff66,transparent)",margin:"0 16px"}}/>
 
         {/* Calendário semanal premium */}
         <div style={{padding:"12px 14px 16px"}}>
@@ -1205,16 +1205,16 @@ function LeftSidebar({ mob }) {
                 style={{
                   padding:"7px 3px",
                   borderRadius:8,
-                  background:i===dow?"linear-gradient(180deg,#c8a040,#a87830)":"#221e17",
-                  border:`1px solid ${i===dow?"#c8a040":"#d4a85533"}`,
-                  borderTop:i===dow?"2px solid #e8c870":"1px solid #d4a85533",
+                  background:i===dow?"linear-gradient(180deg,#00aaff,#0077cc)":"#161922",
+                  border:`1px solid ${i===dow?"#00aaff":"#44ccee33"}`,
+                  borderTop:i===dow?"2px solid #66ddff":"1px solid #44ccee33",
                   textAlign:"center",
                   transition:"all .2s",
                   cursor:"default",
                   boxShadow:i===dow?"0 2px 6px rgba(100,60,0,.2)":"none",
                 }}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:10,color:i===dow?"#f0e0c0":C.textFaint,fontWeight:700,marginBottom:3,letterSpacing:.5}}>{dias[i]}</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:i===dow?"#fde68a":C.textSub,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",lineHeight:1.3,fontWeight:i===dow?700:400}}>{r.city.split(" ")[0]}</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:10,color:i===dow?"#e0ffff":C.textFaint,fontWeight:700,marginBottom:3,letterSpacing:.5}}>{dias[i]}</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:i===dow?"#aaffff":C.textSub,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",lineHeight:1.3,fontWeight:i===dow?700:400}}>{r.city.split(" ")[0]}</div>
               </div>
             ))}
           </div>
@@ -1310,7 +1310,7 @@ function LeftSidebar({ mob }) {
         }
 
         const inpS = {width:"100%",background:C.bg2,border:`1px solid ${C.border}`,borderRadius:7,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Fira Code',monospace"};
-        const btnS = {background:"linear-gradient(135deg,#c8a040,#a87830)",border:"none",borderRadius:7,padding:"8px 11px",color:"#f0e0c0",fontFamily:"'Cinzel',serif",fontSize:9,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0};
+        const btnS = {background:"linear-gradient(135deg,#00aaff,#0077cc)",border:"none",borderRadius:7,padding:"8px 11px",color:"#e0ffff",fontFamily:"'Cinzel',serif",fontSize:9,fontWeight:700,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0};
 
         const items = [
           {id:"chars",  icon:"⚔️", label:"Characters", desc:"Buscar personagens",  color:"#ff9944"},
@@ -1320,18 +1320,18 @@ function LeftSidebar({ mob }) {
         ];
 
         return (
-          <div style={{background:"linear-gradient(180deg,#221e17,#1a1712)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",marginTop:4,boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 12px rgba(100,60,0,.15)"}}>
+          <div style={{background:"linear-gradient(180deg,#161922,#1a1712)",border:"1px solid #00ccff",borderTop:"2px solid #66ddff",borderBottom:"2px solid #006699",borderRadius:10,overflow:"hidden",marginTop:4,boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 12px rgba(100,60,0,.15)"}}>
 
             {/* Header dourado */}
-            <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"9px 13px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+            <div style={{background:"linear-gradient(180deg,#00aaff,#0077cc)",padding:"9px 13px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
               <div style={{display:"flex",alignItems:"center",gap:7}}>
                 <span style={{fontSize:16}}>🧭</span>
                 <div>
-                  <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:11,color:"#f0e0c0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>Explorer</div>
+                  <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:11,color:"#e0ffff",letterSpacing:2,fontWeight:700,textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>Explorer</div>
                   <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"rgba(255,240,180,.7)",marginTop:2}}>Tibia.com · Community</div>
                 </div>
               </div>
-              <div style={{width:5,height:5,background:"#f0e0c0",transform:"rotate(45deg)",opacity:.6}}/>
+              <div style={{width:5,height:5,background:"#e0ffff",transform:"rotate(45deg)",opacity:.6}}/>
             </div>
 
             {/* Items list */}
@@ -1544,17 +1544,17 @@ function RightSidebar({ creature, boss, mob }) {
     const [imgOk, setImgOk] = useState(true);
     const imgSrc = data?.image_url || creatureImgUrl(data?.name, data?.race);
     return (
-      <div style={{background:"linear-gradient(180deg,#221e17,#1a1712)",
-        border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",
+      <div style={{background:"linear-gradient(180deg,#161922,#1a1712)",
+        border:"1px solid #00ccff",borderTop:"2px solid #66ddff",borderBottom:"2px solid #006699",
         borderRadius:10,overflow:"hidden",
         boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 14px rgba(100,60,0,.15)"}}>
         {/* Golden header */}
-        <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",
+        <div style={{background:"linear-gradient(180deg,#00aaff,#0077cc)",
           padding:"9px 14px",borderBottom:"2px solid #8a6020",
           boxShadow:"0 2px 4px rgba(0,0,0,.15),0 1px 0 rgba(255,220,80,.4) inset",
           display:"flex",alignItems:"center",gap:7}}>
           <span style={{fontSize:13}}>{icon}</span>
-          <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#f0e0c0",
+          <span style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#e0ffff",
             letterSpacing:1.5,textTransform:"uppercase",fontWeight:600,
             textShadow:"0 1px 2px rgba(0,0,0,.5)"}}>{label}</span>
         </div>
@@ -1573,7 +1573,7 @@ function RightSidebar({ creature, boss, mob }) {
                     onError={()=>setImgOk(false)}/>
                 : <div style={{width:90,height:90,background:`${border}22`,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:36}}>{icon}</div>
               }
-              <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#221e17",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
+              <div style={{position:"absolute",top:-6,right:-6,background:border,borderRadius:99,width:20,height:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"#161922",fontWeight:700,boxShadow:`0 0 8px ${border}`}}>{icon}</div>
             </div>
             <div style={{textAlign:"center"}}>
               <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:15,color:C.text,lineHeight:1.3,wordBreak:"break-word"}}>{data.name}</div>
@@ -1616,7 +1616,7 @@ function InfoPanel({ mob, creature, boss }) {
       <div style={{...cardBase,border:`1px solid ${borderColor}44`,background:`linear-gradient(135deg,${borderColor}10,${C.card})`,display:"flex",alignItems:"center",gap:12,flex:1,minWidth:0}}>
         <div style={{position:"relative",flexShrink:0}}>
           <img src={img} alt={data.name} width={44} height={44} style={{imageRendering:"pixelated",objectFit:"contain",display:"block"}} onError={e=>e.target.style.display="none"}/>
-          <div style={{position:"absolute",top:-5,right:-5,background:borderColor,borderRadius:99,width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#221e17",fontWeight:700}}>{icon}</div>
+          <div style={{position:"absolute",top:-5,right:-5,background:borderColor,borderRadius:99,width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,color:"#161922",fontWeight:700}}>{icon}</div>
         </div>
         <div style={{minWidth:0}}>
           <div style={{fontSize:9,color,letterSpacing:.8,textTransform:"uppercase",marginBottom:2}}>{label}</div>
@@ -1698,7 +1698,7 @@ function CharSearch({ charName, setCharName, charResult, charLoad, charErr, onSe
           placeholder="Nome do char..."
           style={{flex:1,background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 10px",color:C.text,fontSize:12,outline:"none",fontFamily:"'Cinzel',serif"}}/>
         <button onClick={onSearch} disabled={charLoad}
-          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#221e17",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
+          style={{background:`linear-gradient(135deg,${C.accent},#3a5aaa)`,border:"none",borderRadius:8,padding:"8px 12px",cursor:"pointer",color:"#161922",fontSize:12,fontWeight:700,whiteSpace:"nowrap",opacity:charLoad?.6:1}}>
           {charLoad?t("searching"):t("search_btn")}
         </button>
       </div>
@@ -1771,7 +1771,7 @@ function ManualModal({ dateKey, dayNum, existingHunts, gpPerTc, curSym, curRate,
         <div style={{display:"flex",gap:10,marginBottom:manuals.length>0?20:0}}>
           <button disabled={bal===""} onClick={handleSave}
             style={{flex:1,padding:12,borderRadius:10,border:"none",cursor:bal===""?"not-allowed":"pointer",fontWeight:700,fontSize:14,opacity:bal===""?.4:1,
-              background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:editIdx!==null?"#221e17":"#17140f"}}>
+              background:editIdx!==null?`linear-gradient(135deg,${C.accent},#3a5aaa)`:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:editIdx!==null?"#161922":"#0b0c10"}}>
             {editIdx!==null?t("manual_upd"):t("manual_save")}
           </button>
           {editIdx!==null&&<button onClick={clear} style={{padding:"12px 16px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13}}>Cancelar</button>}
@@ -1924,7 +1924,7 @@ function Footer() {
   return (
     <footer style={{marginTop:32,position:"relative",overflow:"hidden",
       background:"linear-gradient(180deg,#0c0a16 0%,#0a0712 50%,#080610 100%)",
-      borderTop:"1px solid #3a2a50",
+      borderTop:"1px solid #202b40",
       padding:"24px 22px 16px"}}>
 
       {/* Particulas decorativas */}
@@ -1961,15 +1961,15 @@ function Footer() {
           </div>
 
           {/* Ícone espadas com glow */}
-          <div style={{fontSize:24,filter:"drop-shadow(0 0 14px #8050ee88) drop-shadow(0 0 6px #d4780a66)"}}>⚔️</div>
+          <div style={{fontSize:24,filter:"drop-shadow(0 0 14px #8050ee88) drop-shadow(0 0 6px #00d4ff66)"}}>⚔️</div>
 
           {/* Título com gradiente animado */}
           <div style={{position:"relative"}}>
             <div style={{position:"absolute",inset:0,filter:"blur(14px)",opacity:.40,
-              background:"linear-gradient(90deg,#8040ff,#d4780a,#8040ff)",
+              background:"linear-gradient(90deg,#8040ff,#00d4ff,#8040ff)",
               backgroundSize:"200% auto",animation:"shimmer 4s linear infinite"}}/>
             <div style={{position:"relative",fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:16,letterSpacing:4,
-              background:"linear-gradient(90deg,#7040cc,#d4780a,#e8960a,#f0b030,#d4780a,#9060e0,#7040cc)",
+              background:"linear-gradient(90deg,#7040cc,#00d4ff,#33e8ff,#f0b030,#00d4ff,#9060e0,#7040cc)",
               backgroundSize:"200% auto",
               WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",
               animation:"shimmer 5s linear infinite"}}>
@@ -1986,7 +1986,7 @@ function Footer() {
         {/* ── Cards de links ── */}
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))",gap:10,marginBottom:16}}>
           {[
-            ["⚔️","Tibia Oficial","tibia.com","https://www.tibia.com","#d4780a"],
+            ["⚔️","Tibia Oficial","tibia.com","https://www.tibia.com","#00d4ff"],
             ["🏰","CipSoft GmbH","cipsoft.com","https://www.cipsoft.com","#7060c8"],
             ["📊","TibiaData API","tibiadata.com","https://tibiadata.com","#4a90e2"],
             ["✉️","Contato","maltatibia123@gmail.com","mailto:maltatibia123@gmail.com","#3dd68c"],
@@ -2028,7 +2028,7 @@ function Footer() {
           <div style={{height:1,flex:1,background:"linear-gradient(90deg,transparent,#4030a0)"}}/>
           <div style={{display:"flex",gap:6,alignItems:"center"}}>
             <div style={{width:4,height:4,background:"#7040cc",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 6px #8050ee"}}/>
-            <div style={{width:6,height:6,background:"#d4780a",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 8px #d4780a"}}/>
+            <div style={{width:6,height:6,background:"#00d4ff",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 8px #00d4ff"}}/>
             <div style={{width:4,height:4,background:"#7040cc",borderRadius:1,transform:"rotate(45deg)",boxShadow:"0 0 6px #8050ee"}}/>
           </div>
           <div style={{height:1,flex:1,background:"linear-gradient(270deg,transparent,#4030a0)"}}/>
@@ -2037,9 +2037,9 @@ function Footer() {
         {/* ── Copyright ── */}
         <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:12,fontFamily:"'Fira Code',monospace"}}>
           <div style={{fontSize:10,color:"#7868a8"}}>
-            © {year} <span style={{color:"#c0b0e8",fontWeight:700}}>Tibia Farm Tracker</span>
+            © {year} <span style={{color:"#aaccff",fontWeight:700}}>Tibia Farm Tracker</span>
             <span style={{margin:"0 8px",opacity:.5}}>·</span>
-            {t("footer_dev")} <span style={{color:"#d4780a",fontWeight:700,textShadow:"0 0 8px #d4780a55"}}>MaltinhaDEV</span>
+            {t("footer_dev")} <span style={{color:"#00d4ff",fontWeight:700,textShadow:"0 0 8px #00d4ff55"}}>MaltinhaDEV</span>
           </div>
           <div style={{fontSize:10,color:"#7868a8",display:"flex",gap:10,alignItems:"center"}}>
             <span style={{display:"flex",alignItems:"center",gap:6}}>
@@ -2449,13 +2449,13 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
   const successRate = farmDays.length>0 ? Math.round((hitDays/farmDays.length)*100) : 0;
 
   const cardBase = {
-    background:"linear-gradient(160deg,#1e1b18 0%,#17140f 100%)",
-    border:"1px solid #3d3020",
-    borderTop:"2px solid #5a4828",
+    background:"linear-gradient(160deg,#121418 0%,#0b0c10 100%)",
+    border:"1px solid #2a3040",
+    borderTop:"2px solid #3b4358",
     borderRadius:16,padding:"22px 24px",marginBottom:16,
     boxShadow:"0 4px 24px rgba(0,0,0,.45),0 1px 0 #3a3020 inset"
   };
-  const secTitle = {display:"flex",alignItems:"center",gap:10,marginBottom:16,paddingBottom:14,borderBottom:"1px solid #3d302044"};
+  const secTitle = {display:"flex",alignItems:"center",gap:10,marginBottom:16,paddingBottom:14,borderBottom:"1px solid #2a304044"};
   const gem = {width:7,height:7,background:C.gold,transform:"rotate(45deg)",flexShrink:0,boxShadow:`0 0 8px ${C.gold}88`};
   const lbl = {fontFamily:"'Fira Code',monospace",fontSize:10,color:C.textFaint,letterSpacing:1.5,textTransform:"uppercase",marginBottom:6,display:"block",fontWeight:600};
 
@@ -2474,19 +2474,19 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
             <label style={lbl}>{t("meta_goal_lbl")}</label>
             <input value={inputGoal} onChange={e=>setInputGoal(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: 5000000" type="number"
-              style={{background:"#221e17",border:"1px solid #5a4828",borderRadius:10,padding:"11px 14px",color:C.text,fontSize:16,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",fontWeight:700,boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}/>
+              style={{background:"#161922",border:"1px solid #3b4358",borderRadius:10,padding:"11px 14px",color:C.text,fontSize:16,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",fontWeight:700,boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}/>
           </div>
           <div style={{flex:1,minWidth:140}}>
             <label style={lbl}>{t("meta_name_lbl")}</label>
             <input value={inputName} onChange={e=>setInputName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveGoal()}
               placeholder="Ex: Meta Rashid"
-              style={{background:"#221e17",border:"1px solid #5a4828",borderRadius:10,padding:"11px 14px",color:C.text,fontSize:14,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}/>
+              style={{background:"#161922",border:"1px solid #3b4358",borderRadius:10,padding:"11px 14px",color:C.text,fontSize:14,width:"100%",outline:"none",fontFamily:"'Fira Code',monospace",boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}/>
           </div>
           <button onClick={saveGoal}
             style={{padding:"13px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:11,letterSpacing:2,whiteSpace:"nowrap",flexShrink:0,
-              color:saved?"#e8f8ee":"#221e17",fontFamily:"'Cinzel',serif",
-              background:saved?"linear-gradient(135deg,#1a6a3a,#0d4a27)":"linear-gradient(135deg,#d4780a,#a05808)",
-              boxShadow:saved?"0 0 16px #1a6a3a66":"0 0 16px #d4780a66,0 4px 12px rgba(0,0,0,.4)"}}>
+              color:saved?"#e8f8ee":"#161922",fontFamily:"'Cinzel',serif",
+              background:saved?"linear-gradient(135deg,#1a6a3a,#0d4a27)":"linear-gradient(135deg,#00d4ff,#0077aa)",
+              boxShadow:saved?"0 0 16px #1a6a3a66":"0 0 16px #00d4ff66,0 4px 12px rgba(0,0,0,.4)"}}>
             {saved?t("meta_saved"):t("meta_save")}
           </button>
         </div>
@@ -2494,7 +2494,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
         {isCurrentMonth&&(
           <>
             <label style={lbl}>{t("meta_progress")} — Dia {todayDay}</label>
-            <div style={{background:"#1a1712",borderRadius:12,padding:"16px 18px",marginBottom:16,border:"1px solid #3d302033",boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}>
+            <div style={{background:"#1a1712",borderRadius:12,padding:"16px 18px",marginBottom:16,border:"1px solid #2a304033",boxShadow:"0 2px 8px rgba(0,0,0,.3) inset"}}>
               <div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}>
                 <span style={{fontFamily:"'Cinzel',serif",fontSize:18,fontWeight:700,color:todayHit?C.green:todayGP>0?C.red:C.textFaint,textShadow:todayHit?"0 0 12px #2a8a3a88":todayGP>0?"0 0 12px #cc442288":"none"}}>{fmt(todayGP)} gp</span>
                 <span style={{fontFamily:"'Fira Code',monospace",fontSize:12,color:C.textSub,alignSelf:"flex-end"}}>Meta: {fmt(meta.goal)} gp</span>
@@ -2524,7 +2524,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
                   </div>}
                 </div>
               </div>
-              <div style={{background:"#1a1712",border:"1px solid #3d302044",borderRadius:12,padding:"16px 20px",textAlign:"center",minWidth:100,
+              <div style={{background:"#1a1712",border:"1px solid #2a304044",borderRadius:12,padding:"16px 20px",textAlign:"center",minWidth:100,
                 boxShadow:"0 2px 8px rgba(0,0,0,.3)"}}>
                 <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:C.textFaint,marginBottom:6,letterSpacing:1,textTransform:"uppercase"}}>{t("meta_days_hit")}</div>
                 <div style={{fontFamily:"'Cinzel',serif",fontSize:26,fontWeight:700,color:C.green,textShadow:"0 0 12px #2a8a3a88"}}>{hitDays}/{farmDays.length}</div>
@@ -2545,7 +2545,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
         <div style={{display:"flex",gap:18,marginBottom:16,flexWrap:"wrap"}}>
           {[["linear-gradient(160deg,#0d2a18,#0a1e12)","#2a8a3a","✅ Meta atingida"],
             ["linear-gradient(160deg,#2a0e0e,#1a0808)","#cc4422","❌ Abaixo da meta"],
-            ["#17140f","#5a4828","— Sem registro"]].map(([bg,col,txt])=>(
+            ["#0b0c10","#3b4358","— Sem registro"]].map(([bg,col,txt])=>(
             <div key={txt} style={{display:"flex",alignItems:"center",gap:8,fontFamily:"'Fira Code',monospace",fontSize:11,color:C.textSub,fontWeight:600}}>
               <div style={{width:14,height:14,borderRadius:4,background:bg,border:`1px solid ${col}66`,flexShrink:0,boxShadow:`0 0 6px ${col}44`}}/>
               {txt}
@@ -2595,7 +2595,7 @@ function MetaTab({ days, gpPerTc, viewMonth }) {
           {[
             {icon:"✅",lbl:t("meta_hit_days"),  val:`${hitDays} dias`,  color:"#4ab85a", glow:"#2a8a3a", bg:"linear-gradient(160deg,#0d2a18,#0a1e12)", border:"#2a8a3a55"},
             {icon:"❌",lbl:t("meta_miss_days"), val:`${missDays} dias`, color:"#e05535", glow:"#cc4422", bg:"linear-gradient(160deg,#2a0e0e,#1a0808)", border:"#cc442244"},
-            {icon:"🎯",lbl:t("meta_rate"),      val:`${successRate}%`,  color:"#f0a020", glow:"#d4780a", bg:"linear-gradient(160deg,#201808,#17120a)", border:"#d4780a55"},
+            {icon:"🎯",lbl:t("meta_rate"),      val:`${successRate}%`,  color:"#f0a020", glow:"#00d4ff", bg:"linear-gradient(160deg,#201808,#17120a)", border:"#00d4ff55"},
           ].map(({icon,lbl,val,color,glow,bg,border})=>(
             <div key={lbl} style={{background:bg,border:`1px solid ${border}`,borderTop:`2px solid ${border}`,
               borderRadius:14,padding:"20px 18px",textAlign:"center",
@@ -2642,10 +2642,10 @@ function WelcomePopup({ onClose }) {
     zIndex:9000,padding:16,
   };
   const popup = {
-    background:"linear-gradient(180deg,#221e17,#1a1712)",
-    border:"1px solid #c8a050",
-    borderTop:"3px solid #e8c870",
-    borderBottom:"3px solid #9a7030",
+    background:"linear-gradient(180deg,#161922,#1a1712)",
+    border:"1px solid #00ccff",
+    borderTop:"3px solid #66ddff",
+    borderBottom:"3px solid #006699",
     borderRadius:14,
     width:"100%",maxWidth:560,
     overflow:"hidden",
@@ -2675,27 +2675,27 @@ function WelcomePopup({ onClose }) {
     <div style={popup} onClick={e=>e.stopPropagation()}>
 
       {/* HEADER */}
-      <div style={{background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"18px 20px 15px",borderBottom:"2px solid #8a6020",textAlign:"center",position:"relative"}}>
-        <button onClick={e=>{e.stopPropagation();handleClose();}} style={{position:"absolute",top:12,right:14,background:"rgba(0,0,0,.25)",border:"1px solid rgba(255,255,255,.25)",borderRadius:"50%",width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:15,color:"#f0e0c0",fontWeight:700,flexShrink:0,zIndex:10}}>✕</button>
+      <div style={{background:"linear-gradient(180deg,#00aaff,#0077cc)",padding:"18px 20px 15px",borderBottom:"2px solid #8a6020",textAlign:"center",position:"relative"}}>
+        <button onClick={e=>{e.stopPropagation();handleClose();}} style={{position:"absolute",top:12,right:14,background:"rgba(0,0,0,.25)",border:"1px solid rgba(255,255,255,.25)",borderRadius:"50%",width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:15,color:"#e0ffff",fontWeight:700,flexShrink:0,zIndex:10}}>✕</button>
         <div style={{fontSize:40,marginBottom:8,filter:"drop-shadow(0 0 14px rgba(255,220,80,.6)) drop-shadow(0 2px 8px rgba(0,0,0,.4))"}}>⚔️</div>
-        <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:26,color:"#f0e0c0",letterSpacing:4,textShadow:"0 0 20px rgba(255,220,80,.5), 0 2px 6px rgba(0,0,0,.5)",marginBottom:6}}>BEM-VINDO</div>
+        <div style={{fontFamily:"'Cinzel Decorative',serif",fontSize:26,color:"#e0ffff",letterSpacing:4,textShadow:"0 0 20px rgba(255,220,80,.5), 0 2px 6px rgba(0,0,0,.5)",marginBottom:6}}>BEM-VINDO</div>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8,margin:"0 auto"}}>
           <div style={{height:1,width:40,background:"linear-gradient(90deg,transparent,rgba(255,240,180,.5))"}}/>
-          <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#f0e0c0",letterSpacing:2,fontWeight:700,textShadow:"0 1px 4px rgba(0,0,0,.4)"}}>TIBIA FARM TRACKER</div>
+          <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#e0ffff",letterSpacing:2,fontWeight:700,textShadow:"0 1px 4px rgba(0,0,0,.4)"}}>TIBIA FARM TRACKER</div>
           <div style={{height:1,width:40,background:"linear-gradient(270deg,transparent,rgba(255,240,180,.5))"}}/>
         </div>
         <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"rgba(255,240,180,.6)",marginTop:5,letterSpacing:1}}>v2.1</div>
       </div>
 
       {/* TABS */}
-      <div style={{display:"flex",background:"#1e1b14",borderBottom:"1px solid #c8a05033"}}>
+      <div style={{display:"flex",background:"#12141a",borderBottom:"1px solid #00ccff33"}}>
         {[["📖","Tutorial"],["🌍","Idioma"],["ℹ️","Aviso"],["💡","Dica do Dia"]].map(([icon,lbl],i)=>(
           <div key={i} onClick={()=>goStep(i)}
             style={{flex:1,padding:"11px 4px 9px",textAlign:"center",cursor:"pointer",
-              borderBottom:`3px solid ${step===i?"#d4780a":"transparent"}`,
+              borderBottom:`3px solid ${step===i?"#00d4ff":"transparent"}`,
               background:step===i?"rgba(200,140,20,.10)":"transparent",
               fontFamily:"'Fira Code',monospace",fontSize:10,
-              color:step===i?"#d4780a":"#706050",transition:"all .2s"}}>
+              color:step===i?"#00d4ff":"#557799",transition:"all .2s"}}>
             <div style={{fontSize:19,marginBottom:4}}>{icon}</div>
             {lbl}
           </div>
@@ -2713,11 +2713,11 @@ function WelcomePopup({ onClose }) {
               ["2","Acompanhe seu progresso","Na aba Tracker veja seu Gold, Tibia Coins e valor em moeda real atualizado automaticamente."],
               ["3","Defina sua Meta Diária","Na aba Meta Diária defina quantos GP quer farmar por dia e veja o calendário ficando verde! 🟢"],
             ].map(([num,title,desc])=>(
-              <div key={num} style={{display:"flex",alignItems:"flex-start",gap:13,marginBottom:13,padding:"12px 14px",background:"#221e17",borderRadius:10,border:"1px solid #c8a05033",borderLeft:"3px solid #c8a040"}}>
-                <div style={{width:30,height:30,background:"linear-gradient(135deg,#c8a040,#a87830)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#f0e0c0",flexShrink:0,boxShadow:"0 2px 6px rgba(0,0,0,.15)"}}>{num}</div>
+              <div key={num} style={{display:"flex",alignItems:"flex-start",gap:13,marginBottom:13,padding:"12px 14px",background:"#161922",borderRadius:10,border:"1px solid #00ccff33",borderLeft:"3px solid #00aaff"}}>
+                <div style={{width:30,height:30,background:"linear-gradient(135deg,#00aaff,#0077cc)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#e0ffff",flexShrink:0,boxShadow:"0 2px 6px rgba(0,0,0,.15)"}}>{num}</div>
                 <div>
-                  <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#e8d8c0",marginBottom:4}}>{title}</div>
-                  <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#a09070",lineHeight:1.6}}>{desc}</div>
+                  <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#e0f0ff",marginBottom:4}}>{title}</div>
+                  <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#88aacc",lineHeight:1.6}}>{desc}</div>
                 </div>
               </div>
             ))}
@@ -2727,20 +2727,20 @@ function WelcomePopup({ onClose }) {
         {/* IDIOMA */}
         {step===1&&(
           <div>
-            <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#706050",marginBottom:14,letterSpacing:.3}}>Selecione o idioma do site:</div>
+            <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#557799",marginBottom:14,letterSpacing:.3}}>Selecione o idioma do site:</div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
               {langs.map(l=>(
                 <div key={l.code} onClick={()=>handleLangSelect(l.code)}
                   style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",
-                    background:selectedLang===l.code?"linear-gradient(135deg,#f0e8d4,#ede0c0)":"#221e17",
-                    border:selectedLang===l.code?"1.5px solid #c8a050":"1.5px solid #c8a05044",
-                    borderLeft:selectedLang===l.code?"3px solid #c8a040":"1.5px solid #c8a05044",
+                    background:selectedLang===l.code?"linear-gradient(135deg,#f0e8d4,#ede0c0)":"#161922",
+                    border:selectedLang===l.code?"1.5px solid #00ccff":"1.5px solid #00ccff44",
+                    borderLeft:selectedLang===l.code?"3px solid #00aaff":"1.5px solid #00ccff44",
                     borderRadius:10,cursor:"pointer",transition:"all .18s",
                     gridColumn:l.code==="de"?"span 2":"auto"}}>
                   <span style={{fontSize:28,flexShrink:0}}>{l.flag}</span>
                   <div style={{flex:1}}>
-                    <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#e8d8c0"}}>{l.name}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",marginTop:2}}>{l.native}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontSize:13,fontWeight:700,color:"#e0f0ff"}}>{l.name}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#557799",marginTop:2}}>{l.native}</div>
                   </div>
                   <span style={{fontSize:17,color:"#1a6a3a",opacity:selectedLang===l.code?1:0,transition:"opacity .2s"}}>✓</span>
                 </div>
@@ -2757,9 +2757,9 @@ function WelcomePopup({ onClose }) {
               ["orange","#cc8800","⚠️ Cuidado ao limpar o navegador","Se limpar os dados do navegador ou usar modo privado, seus registros serão perdidos. Use a função Backup nas Configurações para salvar seus dados."],
               ["green","#1a6a3a","✅ Projeto independente e gratuito","Tibia Farm Tracker não é afiliado à CipSoft GmbH. Projeto gratuito e open source. 'Tibia' é marca registrada da CipSoft."],
             ].map(([,color,title,text])=>(
-              <div key={title} style={{background:"#221e17",border:"1px solid #c8a05033",borderLeft:`3px solid ${color}`,borderRadius:10,padding:"13px 15px",marginBottom:10}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,fontWeight:700,color:"#e8d8c0",marginBottom:5}}>{title}</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#a09070",lineHeight:1.6}}>{text}</div>
+              <div key={title} style={{background:"#161922",border:"1px solid #00ccff33",borderLeft:`3px solid ${color}`,borderRadius:10,padding:"13px 15px",marginBottom:10}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,fontWeight:700,color:"#e0f0ff",marginBottom:5}}>{title}</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#88aacc",lineHeight:1.6}}>{text}</div>
               </div>
             ))}
           </div>
@@ -2768,21 +2768,21 @@ function WelcomePopup({ onClose }) {
         {/* DICA DO DIA */}
         {step===3&&(
           <div>
-            <div style={{background:"linear-gradient(135deg,#221e17,#1a1712)",border:"1px solid #c8a050",borderRadius:11,padding:"16px 18px",marginBottom:12,position:"relative",overflow:"hidden"}}>
+            <div style={{background:"linear-gradient(135deg,#161922,#1a1712)",border:"1px solid #00ccff",borderRadius:11,padding:"16px 18px",marginBottom:12,position:"relative",overflow:"hidden"}}>
               <div style={{position:"absolute",right:14,top:12,fontSize:34,opacity:.12}}>💡</div>
-              <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",letterSpacing:1.5,marginBottom:8,textTransform:"uppercase"}}>💡 Dica do dia · {today}</div>
-              <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#e8d8c0",lineHeight:1.5,marginBottom:8}}>{tip.text}</div>
-              <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#a09070",lineHeight:1.6}}>{tip.detail}</div>
-              <div style={{display:"inline-block",fontFamily:"'Fira Code',monospace",fontSize:9,color:"#d4780a",background:"#221e17",border:"1px solid #c8a05055",borderRadius:4,padding:"2px 8px",marginTop:8}}>{tip.tag}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#557799",letterSpacing:1.5,marginBottom:8,textTransform:"uppercase"}}>💡 Dica do dia · {today}</div>
+              <div style={{fontFamily:"'Cinzel',serif",fontSize:14,fontWeight:700,color:"#e0f0ff",lineHeight:1.5,marginBottom:8}}>{tip.text}</div>
+              <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#88aacc",lineHeight:1.6}}>{tip.detail}</div>
+              <div style={{display:"inline-block",fontFamily:"'Fira Code',monospace",fontSize:9,color:"#00d4ff",background:"#161922",border:"1px solid #00ccff55",borderRadius:4,padding:"2px 8px",marginTop:8}}>{tip.tag}</div>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9}}>
-              <div style={{background:"#221e17",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#d4780a",marginBottom:5,fontWeight:700}}>🧙 Rashid hoje</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",lineHeight:1.6}}>Está em <strong>{rashid?.city||"—"}</strong>. Não esqueça de vender seus loots!</div>
+              <div style={{background:"#161922",border:"1px solid #00ccff33",borderRadius:9,padding:"12px 13px"}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#00d4ff",marginBottom:5,fontWeight:700}}>🧙 Rashid hoje</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#557799",lineHeight:1.6}}>Está em <strong>{rashid?.city||"—"}</strong>. Não esqueça de vender seus loots!</div>
               </div>
-              <div style={{background:"#221e17",border:"1px solid #c8a05033",borderRadius:9,padding:"12px 13px"}}>
-                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#d4780a",marginBottom:5,fontWeight:700}}>🎯 Meta Diária</div>
-                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#706050",lineHeight:1.6}}>Defina seu objetivo de GP na aba Meta Diária e acompanhe o calendário!</div>
+              <div style={{background:"#161922",border:"1px solid #00ccff33",borderRadius:9,padding:"12px 13px"}}>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:12,color:"#00d4ff",marginBottom:5,fontWeight:700}}>🎯 Meta Diária</div>
+                <div style={{fontFamily:"'Fira Code',monospace",fontSize:10,color:"#557799",lineHeight:1.6}}>Defina seu objetivo de GP na aba Meta Diária e acompanhe o calendário!</div>
               </div>
             </div>
           </div>
@@ -2790,20 +2790,20 @@ function WelcomePopup({ onClose }) {
       </div>
 
       {/* FOOTER */}
-      <div style={{padding:"13px 22px",background:"#221e17",borderTop:"1px solid #c8a05033",display:"flex",alignItems:"center",justifyContent:"space-between",gap:10}}>
+      <div style={{padding:"13px 22px",background:"#161922",borderTop:"1px solid #00ccff33",display:"flex",alignItems:"center",justifyContent:"space-between",gap:10}}>
         <div style={{display:"flex",gap:6,alignItems:"center"}}>
           {[0,1,2,3].map(i=>(
             <div key={i} onClick={()=>goStep(i)} style={{
               height:7,borderRadius:99,cursor:"pointer",transition:"all .2s",
-              background:step===i?"#d4780a":"#d4780a44",
+              background:step===i?"#00d4ff":"#00d4ff44",
               width:step===i?20:7,
             }}/>
           ))}
         </div>
-        <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#c8a870"}}>aparece 1× por dia</div>
+        <div style={{fontFamily:"'Fira Code',monospace",fontSize:9,color:"#66bbdd"}}>aparece 1× por dia</div>
         <div style={{display:"flex",gap:8}}>
-          {step>0&&<button onClick={prev} style={{background:"none",border:"1px solid #c8a05055",borderRadius:8,padding:"10px 16px",color:"#706050",fontFamily:"'Fira Code',monospace",fontSize:11,cursor:"pointer"}}>← Anterior</button>}
-          <button onClick={next} style={{background:"linear-gradient(135deg,#b35a00,#8a4400)",border:"none",borderRadius:8,padding:"10px 22px",color:"#fff",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:1.5,fontWeight:700,cursor:"pointer"}}>
+          {step>0&&<button onClick={prev} style={{background:"none",border:"1px solid #00ccff55",borderRadius:8,padding:"10px 16px",color:"#557799",fontFamily:"'Fira Code',monospace",fontSize:11,cursor:"pointer"}}>← Anterior</button>}
+          <button onClick={next} style={{background:"linear-gradient(135deg,#0066cc,#004488)",border:"none",borderRadius:8,padding:"10px 22px",color:"#fff",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:1.5,fontWeight:700,cursor:"pointer"}}>
             {step===total-1?"✅ Entrar no site":"Próximo →"}
           </button>
         </div>
@@ -2817,10 +2817,10 @@ function WelcomePopup({ onClose }) {
 
 /* ══ ABOUT ════════════════════════════════════════════════════════════════ */
 function AboutTab({ mob }) {
-  const cardS = {background:"linear-gradient(160deg,#1e1b18 0%,#17140f 100%)",border:"1px solid #3d3020",borderTop:"2px solid #5a4828",borderRadius:16,overflow:"hidden",boxShadow:"0 4px 24px rgba(0,0,0,.45)",marginBottom:16};
-  const hdrS  = {background:"linear-gradient(180deg,#c8a040,#a87830)",padding:"12px 20px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.3)",display:"flex",alignItems:"center",gap:10};
-  const hdrTxt= {fontFamily:"'Cinzel',serif",fontSize:13,color:"#f0e0c0",letterSpacing:2,fontWeight:700,textTransform:"uppercase",textShadow:"0 1px 2px rgba(0,0,0,.5)"};
-  const gem   = {width:7,height:7,background:"#f0e0c0",transform:"rotate(45deg)",flexShrink:0,opacity:.8,boxShadow:"0 0 6px #f0e0c088"};
+  const cardS = {background:"linear-gradient(160deg,#121418 0%,#0b0c10 100%)",border:"1px solid #2a3040",borderTop:"2px solid #3b4358",borderRadius:16,overflow:"hidden",boxShadow:"0 4px 24px rgba(0,0,0,.45)",marginBottom:16};
+  const hdrS  = {background:"linear-gradient(180deg,#00aaff,#0077cc)",padding:"12px 20px",borderBottom:"2px solid #8a6020",boxShadow:"0 2px 4px rgba(0,0,0,.3)",display:"flex",alignItems:"center",gap:10};
+  const hdrTxt= {fontFamily:"'Cinzel',serif",fontSize:13,color:"#e0ffff",letterSpacing:2,fontWeight:700,textTransform:"uppercase",textShadow:"0 1px 2px rgba(0,0,0,.5)"};
+  const gem   = {width:7,height:7,background:"#e0ffff",transform:"rotate(45deg)",flexShrink:0,opacity:.8,boxShadow:"0 0 6px #e0ffff88"};
   const bodyS = {padding:"20px 24px"};
   const txt   = {fontFamily:"'Fira Code',monospace",fontSize:14,color:C.textSub,lineHeight:2};
   const bold  = {fontFamily:"'Cinzel',serif",fontSize:15,fontWeight:700,color:C.gold};
@@ -2844,31 +2844,31 @@ function AboutTab({ mob }) {
           <div style={{width:100,height:80,margin:"0 auto 16px"}}>
             <svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",height:"100%"}}>
               <defs>
-                <radialGradient id="aSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#f0c040"/><stop offset="60%" stopColor="#c88a20"/><stop offset="100%" stopColor="#8a5800"/></radialGradient>
-                <radialGradient id="aSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#e8d8c0"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
+                <radialGradient id="aSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#44ddff"/><stop offset="60%" stopColor="#0099dd"/><stop offset="100%" stopColor="#0055aa"/></radialGradient>
+                <radialGradient id="aSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#e0f0ff"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
                 <linearGradient id="aSL" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="100%" stopColor="#888"/></linearGradient>
-                <linearGradient id="aGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#c88820"/></linearGradient>
+                <linearGradient id="aGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#aaffff"/><stop offset="100%" stopColor="#0077bb"/></linearGradient>
                 <linearGradient id="aBG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#166534"/></linearGradient>
-                <linearGradient id="aBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
+                <linearGradient id="aBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#aaffff"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
               </defs>
               <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="url(#aSG)"/>
-              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#fde68a" strokeWidth="1.5" opacity="0.5"/>
+              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#aaffff" strokeWidth="1.5" opacity="0.5"/>
               <path d="M340 100 L470 146 L470 264 Q470 348 340 400 Q210 348 210 264 L210 146 Z" fill="url(#aSI)"/>
-              <line x1="210" y1="226" x2="470" y2="226" stroke="#c88820" strokeWidth="1.2" opacity="0.35"/>
-              <line x1="340" y1="100" x2="340" y2="400" stroke="#c88820" strokeWidth="1.2" opacity="0.35"/>
+              <line x1="210" y1="226" x2="470" y2="226" stroke="#0077bb" strokeWidth="1.2" opacity="0.35"/>
+              <line x1="340" y1="100" x2="340" y2="400" stroke="#0077bb" strokeWidth="1.2" opacity="0.35"/>
               <rect x="255" y="333" width="26" height="42" rx="3" fill="url(#aBG)" opacity="0.85"/>
               <rect x="291" y="308" width="26" height="67" rx="3" fill="url(#aBG)" opacity="0.85"/>
               <rect x="327" y="278" width="26" height="97" rx="3" fill="url(#aBO)" opacity="0.95"/>
               <rect x="363" y="293" width="26" height="82" rx="3" fill="url(#aBG)" opacity="0.85"/>
               <rect x="399" y="316" width="26" height="59" rx="3" fill="url(#aBG)" opacity="0.85"/>
-              <polyline points="268,330 304,304 340,274 376,289 412,312" fill="none" stroke="#fde68a" strokeWidth="2.2" strokeLinecap="round"/>
-              <circle cx="340" cy="274" r="5" fill="#fde68a"/>
+              <polyline points="268,330 304,304 340,274 376,289 412,312" fill="none" stroke="#aaffff" strokeWidth="2.2" strokeLinecap="round"/>
+              <circle cx="340" cy="274" r="5" fill="#aaffff"/>
               <g transform="rotate(-38, 300, 220)">
                 <rect x="293" y="96" width="12" height="168" rx="3" fill="url(#aSL)"/>
                 <rect x="295" y="98" width="3" height="164" rx="1" fill="white" opacity="0.3"/>
                 <polygon points="299,96 293,96 296,78" fill="#e0e0e0"/>
                 <rect x="272" y="258" width="54" height="11" rx="5" fill="url(#aGG)"/>
-                <rect x="292" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <rect x="292" y="269" width="14" height="44" rx="4" fill="#002244"/>
                 <ellipse cx="299" cy="318" rx="9" ry="7" fill="url(#aGG)"/>
               </g>
               <g transform="rotate(38, 380, 220)">
@@ -2876,7 +2876,7 @@ function AboutTab({ mob }) {
                 <rect x="377" y="98" width="3" height="164" rx="1" fill="white" opacity="0.3"/>
                 <polygon points="381,96 375,96 378,78" fill="#e0e0e0"/>
                 <rect x="354" y="258" width="54" height="11" rx="5" fill="url(#aGG)"/>
-                <rect x="374" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <rect x="374" y="269" width="14" height="44" rx="4" fill="#002244"/>
                 <ellipse cx="381" cy="318" rx="9" ry="7" fill="url(#aGG)"/>
               </g>
             </svg>
@@ -2891,7 +2891,7 @@ function AboutTab({ mob }) {
         <div style={hdrS}><div style={gem}/><span style={hdrTxt}>⚡ {t("a_feat")}</span></div>
         <div style={{...bodyS,display:"grid",gridTemplateColumns:mob?"1fr":"1fr 1fr",gap:10}}>
           {features.map(([icon,name,desc])=>(
-            <div key={name} style={{background:"#221e17",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:8,padding:"10px 13px"}}>
+            <div key={name} style={{background:"#161922",border:"1px solid #44ccee33",borderLeft:"3px solid #00aaff",borderRadius:8,padding:"10px 13px"}}>
               <div style={{...bold,fontSize:14,marginBottom:6}}>{icon} {name}</div>
               <div style={{...txt,fontSize:13}}>{desc}</div>
             </div>
@@ -2905,7 +2905,7 @@ function AboutTab({ mob }) {
           <div style={hdrS}><div style={gem}/><span style={hdrTxt}>💾 {t("a_priv")}</span></div>
           <div style={bodyS}>
             <div style={txt}>{t("a_priv_txt")}</div>
-            <div style={{...txt,marginTop:10,padding:"8px 12px",background:"#221e17",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:6}}>{t("a_priv_tip")}</div>
+            <div style={{...txt,marginTop:10,padding:"8px 12px",background:"#161922",border:"1px solid #44ccee33",borderLeft:"3px solid #00aaff",borderRadius:6}}>{t("a_priv_tip")}</div>
           </div>
         </div>
         <div style={cardS}>
@@ -2922,7 +2922,7 @@ function AboutTab({ mob }) {
         <div style={hdrS}><div style={gem}/><span style={hdrTxt}>📬 {t("a_contact")}</span></div>
         <div style={bodyS}>
           <div style={txt}>{t("a_contact_txt")}</div>
-          <div style={{marginTop:16,display:"flex",alignItems:"center",gap:14,padding:"14px 18px",background:"#221e17",border:"1px solid #d4a85533",borderLeft:"3px solid #c8a040",borderRadius:10}}>
+          <div style={{marginTop:16,display:"flex",alignItems:"center",gap:14,padding:"14px 18px",background:"#161922",border:"1px solid #44ccee33",borderLeft:"3px solid #00aaff",borderRadius:10}}>
             <div style={{fontSize:28,flexShrink:0}}>✉️</div>
             <div>
               <div style={{...bold,fontSize:13,marginBottom:4}}>E-mail</div>
@@ -3014,11 +3014,11 @@ function App() {
 
   const px=mob?12:24;
   const S={
-    th:  {background:"linear-gradient(180deg,#c8a040,#a87830)",color:"#f0e0c0",textShadow:"0 1px 2px rgba(0,0,0,.4)",padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:14,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`,fontWeight:700},
+    th:  {background:"linear-gradient(180deg,#00aaff,#0077cc)",color:"#e0ffff",textShadow:"0 1px 2px rgba(0,0,0,.4)",padding:mob?"8px 8px":"11px 14px",textAlign:"right",fontFamily:"'Cinzel',serif",fontSize:mob?11:14,letterSpacing:1.2,textTransform:"uppercase",borderBottom:`1px solid ${C.border}`,fontWeight:700},
     inp: {background:C.bg2,border:`1px solid ${C.border}`,borderRadius:8,padding:"9px 12px",color:C.text,fontSize:13,width:"100%",outline:"none",fontFamily:"'Cinzel',serif"},
     lbl: {fontSize:11,color:C.textSub,marginBottom:5,display:"block",letterSpacing:.5,textTransform:"uppercase"},
   };
-  const btnPrimary={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:13,background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:"#17140f",letterSpacing:.5};
+  const btnPrimary={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:"none",cursor:"pointer",fontWeight:700,fontSize:13,background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,color:"#0b0c10",letterSpacing:.5};
   const btnGhost={padding:mob?"10px 18px":"11px 24px",borderRadius:10,border:`1px solid ${C.border}`,cursor:"pointer",fontWeight:600,background:"transparent",color:C.textSub,fontSize:13};
   const btnDanger={padding:mob?"8px 12px":"9px 16px",borderRadius:8,border:`1px solid ${C.red}44`,cursor:"pointer",fontWeight:700,background:"transparent",color:C.red,fontSize:12};
 
@@ -3040,7 +3040,7 @@ function App() {
       {/* ══ HERO HEADER — EMBLEMA À ESQUERDA ══ */}
       <div style={{position:"sticky",top:0,zIndex:100,overflow:"hidden",
         background:"linear-gradient(180deg,#080612 0%,#0d0a1a 50%,#0f0c10 100%)",
-        borderBottom:"1px solid #3a2a50",
+        borderBottom:"1px solid #202b40",
         padding:mob?"18px 16px 20px":"32px 36px 30px",
         backdropFilter:"blur(20px)"}}>
 
@@ -3070,39 +3070,39 @@ function App() {
 
           {/* EMBLEMA GRANDE - ABSOLUTO À ESQUERDA */}
           <div style={{position:mob?"static":"absolute",left:mob?undefined:0,top:mob?undefined:"50%",transform:mob?undefined:"translateY(-50%)",width:mob?90:180,height:mob?70:140,flexShrink:0,marginRight:mob?14:0,marginBottom:mob?8:0,
-            filter:"drop-shadow(0 0 28px #9060ffbb) drop-shadow(0 0 14px #d4780a66) drop-shadow(0 4px 8px rgba(0,0,0,.7))"}}>
+            filter:"drop-shadow(0 0 28px #9060ffbb) drop-shadow(0 0 14px #00d4ff66) drop-shadow(0 4px 8px rgba(0,0,0,.7))"}}>
             <svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",height:"100%"}}>
               <defs>
-                <radialGradient id="hxSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#f0c040"/><stop offset="60%" stopColor="#c88a20"/><stop offset="100%" stopColor="#8a5800"/></radialGradient>
-                <radialGradient id="hxSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#e8d8c0"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
+                <radialGradient id="hxSG" cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor="#44ddff"/><stop offset="60%" stopColor="#0099dd"/><stop offset="100%" stopColor="#0055aa"/></radialGradient>
+                <radialGradient id="hxSI" cx="50%" cy="40%" r="60%"><stop offset="0%" stopColor="#e0f0ff"/><stop offset="100%" stopColor="#0a0600"/></radialGradient>
                 <linearGradient id="hxSL" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
                 <linearGradient id="hxSR" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#f0f0f0"/><stop offset="40%" stopColor="#c8c8c8"/><stop offset="100%" stopColor="#888"/></linearGradient>
-                <linearGradient id="hxGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#c88820"/></linearGradient>
+                <linearGradient id="hxGG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#aaffff"/><stop offset="100%" stopColor="#0077bb"/></linearGradient>
                 <linearGradient id="hxBG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#166534"/></linearGradient>
-                <linearGradient id="hxBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#fde68a"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
+                <linearGradient id="hxBO" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#aaffff"/><stop offset="100%" stopColor="#d97706"/></linearGradient>
               </defs>
               <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="#1a0800" opacity="0.5" transform="translate(8,10)"/>
               <path d="M340 72 L498 126 L498 268 Q498 372 340 432 Q182 372 182 268 L182 126 Z" fill="url(#hxSG)"/>
-              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#fde68a" strokeWidth="2" opacity="0.6"/>
+              <path d="M340 86 L484 136 L484 266 Q484 360 340 415 Q196 360 196 266 L196 136 Z" fill="none" stroke="#aaffff" strokeWidth="2" opacity="0.6"/>
               <path d="M340 100 L470 146 L470 264 Q470 348 340 400 Q210 348 210 264 L210 146 Z" fill="url(#hxSI)"/>
-              <line x1="210" y1="226" x2="470" y2="226" stroke="#c88820" strokeWidth="1.5" opacity="0.35"/>
-              <line x1="340" y1="100" x2="340" y2="400" stroke="#c88820" strokeWidth="1.5" opacity="0.35"/>
+              <line x1="210" y1="226" x2="470" y2="226" stroke="#0077bb" strokeWidth="1.5" opacity="0.35"/>
+              <line x1="340" y1="100" x2="340" y2="400" stroke="#0077bb" strokeWidth="1.5" opacity="0.35"/>
               <rect x="246" y="333" width="26" height="42" rx="3" fill="url(#hxBG)" opacity="0.9"/>
               <rect x="282" y="308" width="26" height="67" rx="3" fill="url(#hxBG)" opacity="0.9"/>
               <rect x="318" y="278" width="26" height="97" rx="3" fill="url(#hxBO)"/>
               <rect x="354" y="293" width="26" height="82" rx="3" fill="url(#hxBG)" opacity="0.9"/>
               <rect x="390" y="316" width="26" height="59" rx="3" fill="url(#hxBG)" opacity="0.9"/>
-              <line x1="243" y1="375" x2="420" y2="375" stroke="#c88820" strokeWidth="1.2" opacity="0.5"/>
-              <polyline points="259,330 295,304 331,274 367,289 403,312" fill="none" stroke="#fde68a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="331" cy="274" r="6" fill="#fde68a"/>
+              <line x1="243" y1="375" x2="420" y2="375" stroke="#0077bb" strokeWidth="1.2" opacity="0.5"/>
+              <polyline points="259,330 295,304 331,274 367,289 403,312" fill="none" stroke="#aaffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="331" cy="274" r="6" fill="#aaffff"/>
               <g transform="rotate(-38, 300, 220)">
                 <rect x="293" y="96" width="12" height="168" rx="3" fill="url(#hxSL)"/>
                 <rect x="295" y="98" width="3.5" height="164" rx="1" fill="white" opacity="0.3"/>
                 <polygon points="299,96 293,96 296,78" fill="#e0e0e0"/>
                 <rect x="272" y="258" width="54" height="11" rx="5" fill="url(#hxGG)"/>
-                <circle cx="272" cy="263" r="5" fill="#fde68a"/>
-                <circle cx="326" cy="263" r="5" fill="#fde68a"/>
-                <rect x="292" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <circle cx="272" cy="263" r="5" fill="#aaffff"/>
+                <circle cx="326" cy="263" r="5" fill="#aaffff"/>
+                <rect x="292" y="269" width="14" height="44" rx="4" fill="#002244"/>
                 <ellipse cx="299" cy="318" rx="10" ry="8" fill="url(#hxGG)"/>
               </g>
               <g transform="rotate(38, 380, 220)">
@@ -3110,9 +3110,9 @@ function App() {
                 <rect x="377" y="98" width="3.5" height="164" rx="1" fill="white" opacity="0.3"/>
                 <polygon points="381,96 375,96 378,78" fill="#e0e0e0"/>
                 <rect x="354" y="258" width="54" height="11" rx="5" fill="url(#hxGG)"/>
-                <circle cx="354" cy="263" r="5" fill="#fde68a"/>
-                <circle cx="408" cy="263" r="5" fill="#fde68a"/>
-                <rect x="374" y="269" width="14" height="44" rx="4" fill="#5a2a08"/>
+                <circle cx="354" cy="263" r="5" fill="#aaffff"/>
+                <circle cx="408" cy="263" r="5" fill="#aaffff"/>
+                <rect x="374" y="269" width="14" height="44" rx="4" fill="#002244"/>
                 <ellipse cx="381" cy="318" rx="10" ry="8" fill="url(#hxGG)"/>
               </g>
             </svg>
@@ -3124,12 +3124,12 @@ function App() {
             {/* Título */}
             <div style={{position:"relative"}}>
               <div style={{position:"absolute",inset:0,filter:"blur(22px)",opacity:.5,
-                background:"linear-gradient(90deg,#8040ff,#d4780a,#8040ff)",
+                background:"linear-gradient(90deg,#8040ff,#00d4ff,#8040ff)",
                 backgroundSize:"200% auto",animation:"shimmer 4s linear infinite"}}/>
               <h1 className="hero-title" style={{
                 fontSize:mob?22:46,letterSpacing:mob?3:8,lineHeight:1,margin:0,
                 position:"relative",
-                background:"linear-gradient(90deg,#7040cc,#d4780a,#e8960a,#f0b030,#d4780a,#9060e0,#7040cc)",
+                background:"linear-gradient(90deg,#7040cc,#00d4ff,#33e8ff,#f0b030,#00d4ff,#9060e0,#7040cc)",
                 backgroundSize:"200% auto",
                 WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",
                 backgroundClip:"text",animation:"shimmer 5s linear infinite",
@@ -3142,9 +3142,9 @@ function App() {
             <div style={{fontSize:mob?11:14,letterSpacing:mob?1.5:2.5,
               display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",justifyContent:"center",
               fontFamily:"'Cinzel',serif",fontWeight:600}}>
-              <span style={{color:"#c0b0e8"}}>{t("hero_tag1")}</span>
+              <span style={{color:"#aaccff"}}>{t("hero_tag1")}</span>
               <span style={{opacity:.5,color:"#7060c8"}}>·</span>
-              <span style={{color:"#d4780a",textShadow:"0 0 10px #d4780a66"}}>{t("hero_tag2")}</span>
+              <span style={{color:"#00d4ff",textShadow:"0 0 10px #00d4ff66"}}>{t("hero_tag2")}</span>
               <span style={{opacity:.5,color:"#7060c8"}}>·</span>
               <span style={{display:"inline-flex",alignItems:"center",gap:5}}>
                 <span style={{width:7,height:7,borderRadius:"50%",background:"#3dd68c",boxShadow:"0 0 10px #3dd68caa",animation:"starPulse 1.6s ease-in-out infinite"}}/>
@@ -3155,13 +3155,13 @@ function App() {
             {/* Botão */}
             <div style={{position:"relative",marginTop:4}}>
               <div style={{position:"absolute",inset:-3,borderRadius:10,
-                background:"linear-gradient(135deg,#7040cc,#d4780a,#7040cc)",
+                background:"linear-gradient(135deg,#7040cc,#00d4ff,#7040cc)",
                 backgroundSize:"200% auto",animation:"shimmer 3s linear infinite",
                 filter:"blur(6px)",opacity:.55}}/>
               <button style={{
                 position:"relative",
                 background:"linear-gradient(135deg,#1a1030 0%,#2a1848 50%,#1a1030 100%)",
-                color:"#f0c060",border:"1px solid #7040cc88",borderRadius:8,cursor:"pointer",
+                color:"#88eeff",border:"1px solid #7040cc88",borderRadius:8,cursor:"pointer",
                 fontWeight:700,fontSize:mob?11:13,
                 padding:mob?"7px 18px":"9px 26px",
                 letterSpacing:1.8,
@@ -3221,7 +3221,7 @@ function App() {
                     fontSize:13,
                     letterSpacing:1.5,
                     textTransform:"uppercase",
-                    color: active?color:"#e8d0a8",
+                    color: active?color:"#bbeeff",
                     transition:"color .2s",
                     lineHeight:1,
                     textShadow: active?`0 0 12px ${color}88`:"none",
@@ -3234,7 +3234,7 @@ function App() {
                   <div style={{
                     fontFamily:"'Fira Code',monospace",
                     fontSize:10,
-                    color: active?color+"cc":"#c8a870",
+                    color: active?color+"cc":"#66bbdd",
                     letterSpacing:.3,
                     transition:"all .2s",
                     lineHeight:1,
@@ -3268,7 +3268,7 @@ function App() {
           {/* KPIs */}
           <div style={{display:"grid",gridTemplateColumns:mob?"repeat(2,1fr)":"repeat(4,1fr)",gap:mob?8:12,marginBottom:16}}>
             {[[t("gold_total"),fmt(totalGP)+" gp",C.goldLight],[t("tibia_coins"),Math.round(totalTC).toLocaleString()+" TC",C.goldLight],[t("value")+" "+curObj.code,fmtMoney(totalCur,curSym),C.green],[t("daily_avg"),daysOk>0?fmtMoney(totalCur/daysOk,curSym):"—",C.goldLight]].map(([label,val,color])=>(
-              <div key={label} style={{background:"linear-gradient(180deg,#221e17,#1a1712)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,padding:mob?"12px":"16px 18px",boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 10px rgba(100,60,0,.15),0 2px 4px rgba(0,0,0,.10)"}}>
+              <div key={label} style={{background:"linear-gradient(180deg,#161922,#1a1712)",border:"1px solid #00ccff",borderTop:"2px solid #66ddff",borderBottom:"2px solid #006699",borderRadius:10,padding:mob?"12px":"16px 18px",boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 10px rgba(100,60,0,.15),0 2px 4px rgba(0,0,0,.10)"}}>
                 <div style={{fontFamily:"'Cinzel',serif",fontWeight:600,fontSize:mob?16:22,color,lineHeight:1.1}}>{val}</div>
                 <div style={{fontSize:mob?10:11,color:C.textFaint,marginTop:4,textTransform:"uppercase",letterSpacing:.7}}>{label}</div>
               </div>
@@ -3287,7 +3287,7 @@ function App() {
           </div>
 
           {/* Tabela com scroll fixo */}
-          <div style={{background:"linear-gradient(180deg,#fdfaf4,#faf6ee)",border:"1px solid #c8a050",borderTop:"2px solid #e8c870",borderBottom:"2px solid #9a7030",borderRadius:10,overflow:"hidden",boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 16px rgba(100,60,0,.18),0 8px 32px rgba(100,60,0,.08)"}}>
+          <div style={{background:"linear-gradient(180deg,#fdfaf4,#faf6ee)",border:"1px solid #00ccff",borderTop:"2px solid #66ddff",borderBottom:"2px solid #006699",borderRadius:10,overflow:"hidden",boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 16px rgba(100,60,0,.18),0 8px 32px rgba(100,60,0,.08)"}}>
 
             {/* Cabeçalho fixo */}
             <div style={{overflowX:"auto"}}>
@@ -3329,17 +3329,17 @@ function App() {
             },0);
             return (
               <div style={{
-                background:"linear-gradient(180deg,#221e17,#1a1712)",
-                border:"1px solid #c8a050",
-                borderTop:"2px solid #e8c870",
-                borderBottom:"2px solid #9a7030",
+                background:"linear-gradient(180deg,#161922,#1a1712)",
+                border:"1px solid #00ccff",
+                borderTop:"2px solid #66ddff",
+                borderBottom:"2px solid #006699",
                 borderRadius:12,
                 padding:"14px 18px",
                 boxShadow:"0 1px 0 rgba(80,60,20,.8) inset,0 4px 14px rgba(100,60,0,.15)",
                 marginTop:10
               }}>
                 {/* Header dourado */}
-                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:14,paddingBottom:10,borderBottom:"1px solid #c8a05044"}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:14,paddingBottom:10,borderBottom:"1px solid #00ccff44"}}>
                   <div style={{width:6,height:6,background:C.gold,transform:"rotate(45deg)",flexShrink:0,boxShadow:`0 0 6px ${C.gold}88`}}/>
                   <span style={{fontFamily:"'Cinzel',serif",fontSize:13,color:C.gold,letterSpacing:3,textTransform:"uppercase",fontWeight:700,textShadow:`0 0 10px ${C.gold}88`}}>{t("analysis")} · {mmLabel(viewMonth)}</span>
                 </div>
@@ -3360,7 +3360,7 @@ function App() {
 
                   {/* Pior Dia */}
                   <div style={{
-                    background:worstDay.gp<0?"linear-gradient(160deg,#2a1010 0%,#1a0808 100%)":"linear-gradient(160deg,#1e1a14 0%,#17140f 100%)",
+                    background:worstDay.gp<0?"linear-gradient(160deg,#2a1010 0%,#1a0808 100%)":"linear-gradient(160deg,#1e1a14 0%,#0b0c10 100%)",
                     borderRadius:12,padding:"20px 18px",
                     border:`1px solid ${worstDay.gp<0?"#cc442255":"#5a483022"}`,
                     borderTop:`2px solid ${worstDay.gp<0?"#cc442299":"#5a483055"}`,
@@ -3368,19 +3368,19 @@ function App() {
                     boxShadow:`0 0 18px ${worstDay.gp<0?"rgba(204,68,34,.18)":"rgba(0,0,0,.2)"},0 4px 16px rgba(0,0,0,.40)`}}>
                     <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:worstDay.gp<0?"#e05535":C.textSub,marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:worstDay.gp<0?"0 0 8px #cc442288":"none"}}>{t("worst_day")}</div>
                     <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:worstDay.gp<0?"#e05535":"#c0a878",lineHeight:1,textShadow:worstDay.gp<0?"0 0 12px #cc4422aa":"none",marginBottom:8}}>Dia {worstDay.d}</div>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:worstDay.gp<0?"#cc4422":"#a09070",fontWeight:600}}>{fmt(worstDay.gp)} gp</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:worstDay.gp<0?"#cc4422":"#88aacc",fontWeight:600}}>{fmt(worstDay.gp)} gp</div>
                   </div>
 
                   {/* Dias Acima da Média */}
                   <div style={{
                     background:"linear-gradient(160deg,#201808 0%,#17120a 100%)",
                     borderRadius:12,padding:"20px 18px",
-                    border:"1px solid #d4780a55",
-                    borderTop:"2px solid #d4780a99",
-                    borderLeft:"1px solid #d4780a33",
-                    boxShadow:"0 0 18px rgba(212,120,10,.20),0 4px 16px rgba(0,0,0,.40),0 1px 0 #d4780a22 inset"}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#e8960a",marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:"0 0 8px #d4780a88"}}>{t("above_avg")}</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:"#f0a020",lineHeight:1,textShadow:"0 0 12px #d4780aaa",marginBottom:8}}>{daysAbove} de {daysOk}</div>
+                    border:"1px solid #00d4ff55",
+                    borderTop:"2px solid #00d4ff99",
+                    borderLeft:"1px solid #00d4ff33",
+                    boxShadow:"0 0 18px rgba(212,120,10,.20),0 4px 16px rgba(0,0,0,.40),0 1px 0 #00d4ff22 inset"}}>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#33e8ff",marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:"0 0 8px #00d4ff88"}}>{t("above_avg")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:"#f0a020",lineHeight:1,textShadow:"0 0 12px #00d4ffaa",marginBottom:8}}>{daysAbove} de {daysOk}</div>
                     <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:"#a07828",fontWeight:600}}>{fmt(Math.round(avgGP))} gp/dia</div>
                   </div>
 
@@ -3388,12 +3388,12 @@ function App() {
                   <div style={{
                     background:"linear-gradient(160deg,#201a08 0%,#17140a 100%)",
                     borderRadius:12,padding:"20px 18px",
-                    border:"1px solid #d4780a44",
-                    borderTop:"2px solid #e8960a88",
-                    borderLeft:"1px solid #d4780a22",
+                    border:"1px solid #00d4ff44",
+                    borderTop:"2px solid #33e8ff88",
+                    borderLeft:"1px solid #00d4ff22",
                     boxShadow:"0 0 14px rgba(212,120,10,.15),0 4px 16px rgba(0,0,0,.40)"}}>
-                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#d4780a",marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:"0 0 8px #d4780a66"}}>{t("streak")}</div>
-                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:"#e8960a",lineHeight:1,textShadow:"0 0 10px #d4780a88",marginBottom:8}}>{streak} {streak===1?"dia":"dias"}</div>
+                    <div style={{fontFamily:"'Fira Code',monospace",fontSize:11,color:"#00d4ff",marginBottom:8,fontWeight:700,letterSpacing:1,textTransform:"uppercase",textShadow:"0 0 8px #00d4ff66"}}>{t("streak")}</div>
+                    <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,fontSize:26,color:"#33e8ff",lineHeight:1,textShadow:"0 0 10px #00d4ff88",marginBottom:8}}>{streak} {streak===1?"dia":"dias"}</div>
                     <div style={{fontFamily:"'Fira Code',monospace",fontSize:14,color:"#a07828",fontWeight:600}}>{t("days_streak")}</div>
                   </div>
 
@@ -3438,7 +3438,7 @@ function App() {
               value={clip} onChange={e=>handlePaste(e.target.value)}/>
             {parseErr&&<div style={{color:C.red,background:C.redDim,border:`1px solid ${C.red}33`,borderRadius:8,padding:"10px 14px",fontSize:13,marginTop:10}}>⚠️ {parseErr}</div>}
             {parsed&&(
-              <div style={{background:"#0a1808",border:"1px solid #d4a85566",borderRadius:14,padding:mob?14:20,marginTop:14}}>
+              <div style={{background:"#0a1808",border:"1px solid #44ccee66",borderRadius:14,padding:mob?14:20,marginTop:14}}>
                 <div style={{fontFamily:"'Cinzel',serif",fontWeight:700,color:C.green,fontSize:15,marginBottom:14}}>{t("sess_ok")}</div>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,marginBottom:14}}>
                   {[[t("s_date"),parsed.date],[t("s_dur"),parsed.session],[t("s_loot"),fmt(parsed.loot)+" gp"],[t("s_supp"),fmt(parsed.supplies)+" gp"],[t("s_bal"),fmt(parsed.balance)+" gp"],[t("s_tc"),`~${Math.round(toTC(parsed.balance,gpPerTc)).toLocaleString()} TC`]].map(([k,v])=>(
